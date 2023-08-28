@@ -1,17 +1,15 @@
 <script>
-import { def } from '@vue/shared';
-import TheWelcome from '../components/TheWelcome.vue';
+import HeaderNavbar from '../components/HeaderNavbar.vue';
 
 export default {
   comments: {
-    TheWelcome,
-    def
+    HeaderNavbar,
   },
 };
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="about">
+    <h1>首頁內容</h1>
+  </div>
 </template>
