@@ -1,0 +1,14 @@
+.btn {
+  box-shadow: 0 10px 20px 0 rgba(192, 192, 192, 0.35);
+  &.btn-primary {
+    --bs-btn-hover-bg: #3F4A4D;
+  }
+  &.btn-secondary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-hover-bg: #CFD8D5;
+  }
+  &.btn-white {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-hover-bg: #F6F6F6;
+  }
+}

@@ -24,12 +24,6 @@ import FooterNavbar from './components/FooterNavbar.vue';
 </template>
 
 <style>
-#app {
-  display: flex;
-  flex-direction: column;
-}
-.mx-3 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
+/* 要在 App.vue 載入 all.scss (參考葉子助教 : https://tzuhui.io/2019/06/20/Bootstrap/vue-cli-use-bootstrap/) */
+@import "./assets/all.scss";
 </style>
