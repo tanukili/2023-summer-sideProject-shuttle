@@ -335,6 +335,7 @@ $theme-colors: (
   "pale":       $pale, // custom
   "mellow":     $mellow, // custom
   "deep":       $black-100, // custom
+  "gray-200":   $gray-200, // custom
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -471,7 +472,8 @@ $body-emphasis-color:       $black !default;
 // Style anchor elements.
 
 $link-color:                              $primary !default;
-$link-decoration:                         underline !default;
+// $link-decoration:                         underline !default;
+$link-decoration:                         none !default; // custom
 $link-shade-percentage:                   20% !default;
 $link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
 $link-hover-decoration:                   null !default;
@@ -492,7 +494,8 @@ $icon-link-icon-transform:    translate3d(.25em, 0, 0) !default;
 //
 // Style p element.
 
-$paragraph-margin-bottom:   1rem !default;
+// $paragraph-margin-bottom:   1rem !default;
+$paragraph-margin-bottom:   0 !default; // costom
 
 
 // Grid breakpoints
@@ -525,7 +528,8 @@ $container-max-widths: (
   md: 720px,
   lg: 960px,
   xl: 1140px,
-  xxl: 1296px
+  // xxl: 1296px
+  xxl: 1320px // custom
 ) !default;
 // scss-docs-end container-max-widths
 
@@ -634,7 +638,8 @@ $font-family-code:            var(--#{$prefix}font-monospace) !default;
 // $font-size-base affects the font size of the body text
 $font-size-root:              null !default;
 $font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
-$font-size-sm:                $font-size-base * .875 !default;
+// $font-size-sm:                $font-size-base * .875 !default;
+$font-size-sm:                $font-size-base * .75 !default; // custom
 $font-size-lg:                $font-size-base * 1.25 !default;
 
 $font-weight-lighter:         lighter !default;

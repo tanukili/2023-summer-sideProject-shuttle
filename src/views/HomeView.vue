@@ -69,7 +69,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="card" style="width: 400px">
+    <div class="card" style="max-width: 400px">
       <img
         src="../assets/images/product01.jpg"
         class="card-img-top"

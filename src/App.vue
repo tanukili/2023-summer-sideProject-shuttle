@@ -8,8 +8,9 @@ import FooterNavbar from './components/FooterNavbar.vue';
   <header>
     <HeaderNavbar/>
   </header>
-
-  <RouterView />
+  <div class="bg-primary">
+    <RouterView />
+  </div>
   <FooterNavbar/>
 </template>
 
