@@ -2,16 +2,16 @@
 import HeaderNavbar from '../components/HeaderNavbar.vue';
 
 export default {
-  data() {
-    return {
-      data: {},
-    };
-  },
-  mounted() {
-    this.$http.get('https://randomuser.me/api/').then((response) => {
-      console.log(response.data);
-    });
-  },
+  // data() {
+  //   return {
+  //     data: {},
+  //   };
+  // },
+  // mounted() {
+  //   this.$http.get('https://randomuser.me/api/').then((response) => {
+  //     console.log(response.data);
+  //   });
+  // },
   comments: {
     HeaderNavbar,
   },

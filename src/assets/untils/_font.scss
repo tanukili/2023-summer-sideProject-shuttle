@@ -1,0 +1,14 @@
+@include pad {
+  @each $number, $size in $font-sizes {
+    .fs-md-#{$number} {
+      font-size: $size !important;
+    }
+  }
+}
+@include wed {
+  @each $number, $size in $font-sizes {
+    .fs-lg-#{$number} {
+      font-size: $size !important;
+    }
+  }
+}

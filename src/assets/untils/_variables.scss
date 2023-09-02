@@ -19,11 +19,12 @@ $gray-400: #8B8B8B !default; // custom
 $gray-500: #797979 !default; // custom
 // $gray-600: #6c757d !default;
 $gray-600: #595455 !default; // custom
-$gray-700: #495057 !default;
+// $gray-700: #495057 !default;
+$gray-700: #0E0F0C !default; // custom
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
-// $black:    #000 !default;
-$black:    #222222 !default; // custom
+$black:    #000 !default;
+$black-100:    #222222 !default; // custom
 // scss-docs-end gray-color-variables
 
 // fusv-disable
@@ -333,6 +334,7 @@ $theme-colors: (
   "white":      $white, // custom
   "pale":       $pale, // custom
   "mellow":     $mellow, // custom
+  "deep":       $black-100, // custom
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -430,6 +432,7 @@ $spacers: (
   3: $spacer,
   4: $spacer * 1.5,
   5: $spacer * 3,
+  6: $spacer * .75, // custom
 ) !default;
 // scss-docs-end spacer-variables-maps
 
@@ -522,7 +525,7 @@ $container-max-widths: (
   md: 720px,
   lg: 960px,
   xl: 1140px,
-  xxl: 1320px
+  xxl: 1296px
 ) !default;
 // scss-docs-end container-max-widths
 
@@ -671,7 +674,8 @@ $font-sizes: (
   3: $h3-font-size,
   4: $h4-font-size,
   5: $h5-font-size,
-  6: $h6-font-size
+  6: $h6-font-size,
+  7: $font-size-base, // custom
 ) !default;
 // scss-docs-end font-sizes
 
@@ -1189,10 +1193,12 @@ $zindex-levels: (
 // Navs
 
 // scss-docs-start nav-variables
-$nav-link-padding-y:                .5rem !default;
-$nav-link-padding-x:                1rem !default;
+// $nav-link-padding-y:                .5rem !default;
+$nav-link-padding-y:                1rem !default; // custom
+$nav-link-padding-x:                1.25rem !default;
 $nav-link-font-size:                null !default;
-$nav-link-font-weight:              null !default;
+// $nav-link-font-weight:              null !default;
+$nav-link-font-weight:              $font-weight-bold !default; // custom
 $nav-link-color:                    var(--#{$prefix}link-color) !default;
 $nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 $nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
@@ -1236,11 +1242,14 @@ $navbar-toggler-padding-y:          .25rem !default;
 $navbar-toggler-padding-x:          .75rem !default;
 $navbar-toggler-font-size:          $font-size-lg !default;
 $navbar-toggler-border-radius:      $btn-border-radius !default;
-$navbar-toggler-focus-width:        $btn-focus-width !default;
+// $navbar-toggler-focus-width:        $btn-focus-width !default;
+$navbar-toggler-focus-width:        0 !default; // custom
 $navbar-toggler-transition:         box-shadow .15s ease-in-out !default;
 
-$navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
-$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+// $navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65) !default;
+$navbar-light-color:                $gray-700 !default; // custom
+// $navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8) !default;
+$navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .6) !default; // custom
 $navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1) !default;
 $navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3) !default;
 $navbar-light-icon-color:           rgba($body-color, .75) !default;
@@ -1737,12 +1746,15 @@ $spinner-border-width-sm: .2em !default;
 // Close
 
 // scss-docs-start close-variables
-$btn-close-width:            1em !default;
+// $btn-close-width:            1em !default;
+$btn-close-width:            1.5rem !default; // custom
 $btn-close-height:           $btn-close-width !default;
-$btn-close-padding-x:        .25em !default;
+// $btn-close-padding-x:        .25em !default;
+$btn-close-padding-x:        .5em !default; // custom
 $btn-close-padding-y:        $btn-close-padding-x !default;
 $btn-close-color:            $black !default;
-$btn-close-bg:               url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>") !default;
+// $btn-close-bg:               url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$btn-close-color}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>") !default;
+$btn-close-bg:               none !default; // custom
 $btn-close-focus-shadow:     $focus-ring-box-shadow !default;
 $btn-close-opacity:          .5 !default;
 $btn-close-hover-opacity:    .75 !default;
@@ -1755,15 +1767,18 @@ $btn-close-white-filter:     invert(1) grayscale(100%) brightness(200%) !default
 // Offcanvas
 
 // scss-docs-start offcanvas-variables
-$offcanvas-padding-y:               $modal-inner-padding !default;
-$offcanvas-padding-x:               $modal-inner-padding !default;
+// $offcanvas-padding-y:               $modal-inner-padding !default;
+$offcanvas-padding-y:               .75rem !default;
+// $offcanvas-padding-x:               $modal-inner-padding !default;
+$offcanvas-padding-x:               .75rem !default;
 $offcanvas-horizontal-width:        400px !default;
 $offcanvas-vertical-height:         30vh !default;
 $offcanvas-transition-duration:     .3s !default;
 $offcanvas-border-color:            $modal-content-border-color !default;
 $offcanvas-border-width:            $modal-content-border-width !default;
 $offcanvas-title-line-height:       $modal-title-line-height !default;
-$offcanvas-bg-color:                var(--#{$prefix}body-bg) !default;
+// $offcanvas-bg-color:                var(--#{$prefix}body-bg) !default;
+$offcanvas-bg-color:                $secondary !default; //custom
 $offcanvas-color:                   var(--#{$prefix}body-color) !default;
 $offcanvas-box-shadow:              $modal-content-box-shadow-xs !default;
 $offcanvas-backdrop-bg:             $modal-backdrop-bg !default;
