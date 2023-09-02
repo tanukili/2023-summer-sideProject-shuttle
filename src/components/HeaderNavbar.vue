@@ -105,27 +105,4 @@
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
-#headerNavbar {
-  .nav-item {
-    @include mobile {
-      &:first-child {
-        margin-top: -4px;
-      }
-    }
-    @include wed {
-      &:first-child {
-        .nav-link {
-          padding-right: 14.5px !important;
-          padding-left: 14.5px !important;
-        }
-      }
-      &:last-child {
-        .nav-link {
-          padding-right: 14px !important;
-          padding-left: 14px !important;
-        }
-      }
-    }
-  }
-}
 </style>
