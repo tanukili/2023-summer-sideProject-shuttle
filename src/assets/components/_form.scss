@@ -1,0 +1,12 @@
+.select-icon {
+  position: relative;
+  &::after {
+    content: '';
+    border-left: 5px solid transparent; // 左邊透明邊框
+    border-right: 5px solid transparent; // 右邊透明邊框
+    border-top: 5px solid $primary; 
+    position: absolute;
+    bottom: 20.5px;
+    right: 20.5px;
+  }
+}
