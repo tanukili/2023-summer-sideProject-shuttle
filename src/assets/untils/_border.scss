@@ -2,3 +2,29 @@
 .border-dashed {
   --bs-border-style: dashed;
 }
+
+// rounded
+.rounded-6 {
+  border-radius: 28px;
+}
+.rounded-7 {
+  border-radius: 40px;
+}
+
+// RWD
+@include pad {
+  .rounded-md-6 {
+    border-radius: 28px !important;
+  }
+  .rounded-md-7 {
+    border-radius: 40px !important;
+  }
+}
+@include wed {
+  .rounded-lg-6 {
+    border-radius: 28px !important;
+  }
+  .rounded-lg-7 {
+    border-radius: 40px !important;
+  }
+}

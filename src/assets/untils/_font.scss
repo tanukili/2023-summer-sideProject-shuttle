@@ -1,6 +1,12 @@
 small, .small {
   font-size: $font-size-sm;
 }
+big, .big {
+  font-size: $h1-font-size !important;
+  @include wed {
+    font-size: 64px !important;
+  }
+}
 
 // style
 .title-style {
@@ -9,7 +15,9 @@ small, .small {
   span {
     display: inline-block;
     padding-bottom: 16px;
-    border-bottom: 2px dashed $gray-600;
+    border-bottom-width: 2px;
+    border-bottom-style: dashed;
+    border-color: $gray-600;
   }
   @include pad {
     font-size: 48px;

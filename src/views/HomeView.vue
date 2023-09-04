@@ -30,16 +30,10 @@
       </div>
     </div>
   </div>
-  <!-- sale -->
+  <!-- promotions -->
   <div class="bg-cricle">
-    <!-- sale-background -->
-    <div
-      class="bg-cricle-design bg-white border border-2
-      border-dashed border-gray-500 d-none d-md-block"
-      style="bottom: 2022px;"
-    ></div>
     <!-- content -->
-    <div class="block-spacing container position-md-absolute">
+    <div class="block-spacing container">
       <h2 class="title-style"><span>現正優惠</span></h2>
       <div class="row mt-5 pt-md-3">
         <div class="col-md-6">
@@ -56,7 +50,10 @@
                 <h5 class="fs-3 mb-2">2023 夏季織心好友揪團趣</h5>
                 <p class="card-text fs-4 lh-sm">兩人同行，現打 85 折</p>
               </div>
-              <button class="btn btn-lg btn-white align-self-md-end" type="button">
+              <button
+                class="btn btn-lg btn-white align-self-md-end"
+                type="button"
+              >
                 瞭解更多
               </button>
             </div>
@@ -76,7 +73,10 @@
                 <h5 class="fs-3 mb-2">秋季新色 課程預購中</h5>
                 <p class="card-text fs-4 lh-sm">秋季課程改版，早鳥預購享優惠</p>
               </div>
-              <button class="btn btn-lg btn-white align-self-md-end" type="button">
+              <button
+                class="btn btn-lg btn-white align-self-md-end"
+                type="button"
+              >
                 瞭解更多
               </button>
             </div>
@@ -94,7 +94,10 @@
                 <h5 class="fs-3 mb-2">新註冊會員 贈 50 元折價券</h5>
                 <p class="card-text fs-4 lh-sm">新會員招募中，填寫推薦再加碼</p>
               </div>
-              <button class="btn btn-lg btn-white align-self-md-end" type="button">
+              <button
+                class="btn btn-lg btn-white align-self-md-end"
+                type="button"
+              >
                 瞭解更多
               </button>
             </div>
@@ -102,6 +105,81 @@
         </div>
       </div>
     </div>
+    <!-- promotions-background -->
+    <div class="bg-position">
+      <div class="bg-design">
+        <div
+          class="bg-white border border-2 border-dashed border-gray-500 d-none d-md-block"
+          style="bottom: 2022px"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <!-- feature -->
+  <div class="bg-primary">
+    <!-- content -->
+    <div class="block-spacing container">
+      <h2 class="title-style text-white"><span class="border-white">課程亮點</span></h2>
+      <div class=" mt-5 pt-md-3 mx-lg-5 px-lg-3">
+        <div class="card rounded-5 rounded-lg-7 p-md-4 mb-4">
+          <div class="d-md-flex m-lg-6">
+            <img
+              src="../assets/images/feature01.jpg"
+              class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
+              alt="feature01"
+            />
+            <div class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5">
+              <div class="pt-2 pb-3 px-3 p-md-0">
+                <small class="big fw-bold lh-sm text-secondary">01</small>
+                <h5 class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4">從入門到應用</h5>
+                <p class="card-text fw-medium">
+                  完全沒接觸過織補的初學者，我們推薦一日課程，體驗從縣道面的樂趣；想要挑戰大型創作的學生，則可以參考落地織布機課程，獲得更全面、密集的學習。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-5 rounded-lg-7 p-md-4 mb-4">
+          <div class="d-md-flex flex-md-row-reverse m-lg-6">
+            <img
+              src="../assets/images/feature02.jpg"
+              class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
+              alt="feature02"
+            />
+            <div class="d-flex flex-column justify-content-center me-md-4 me-xl-5">
+              <div class="pt-2 pb-3 px-3 p-md-0">
+                <small class="big fw-bold lh-sm text-secondary">02</small>
+                <h5 class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4">免裝備報到</h5>
+                <p class="card-text fw-medium">
+                  基本器材及耗材由我們提供，不用擔心有沒有織布機，您只需要準備紙筆等文既即可，輕鬆無負擔。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card rounded-5 rounded-lg-7 p-md-4">
+          <div class="d-md-flex m-lg-6">
+            <img
+              src="../assets/images/feature03.jpg"
+              class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
+              alt="feature03"
+            />
+            <div class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5">
+              <div class="pt-2 pb-3 px-3 p-md-0">
+                <small class="big fw-bold lh-sm text-secondary">03</small>
+                <h5 class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4">多樣化輔助課程</h5>
+                <p class="card-text fw-medium">
+                  用膩了現成素材？我們另有準備輔助課程，包含異材質、進階織紋、染色、布料加工等主題。您可以依照需求選購，增添創作靈感。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- feature-background -->
+    <div></div>
+    <div></div>
   </div>
 </template>
 
@@ -123,15 +201,34 @@
     margin: 0 auto;
   }
 }
+/* promotions 圖片 */
 .promotions {
   height: 300px !important;
-  @media (min-width: 768px) {
-    &.right {
-      height: 288px !important;
-    }
-    &.left {
-      height: 600px !important;
-    }
+}
+@media (min-width: 768px) {
+  .promotions.right {
+    height: 288px !important;
+  }
+  .promotions.left {
+    height: 600px !important;
+  }
+}
+/* feature 圖片 */
+.feature-img {
+  width: 100%;
+  height: 220px;
+}
+@media (min-width: 768px) {
+  .feature-img {
+    width: 50%;
+    height: 240px;
+    border: 2px dashed var(--bs-border-color) !important;
+  }
+}
+@media (min-width: 1200px) {
+  .feature-img {
+    width: 43.8%;
+    height: 360px;
   }
 }
 </style>
