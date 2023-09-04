@@ -336,6 +336,7 @@ $theme-colors: (
   "mellow":     $mellow, // custom
   "deep":       $black-100, // custom
   "gray-200":   $gray-200, // custom
+  "gray-500":   $gray-500, // custom
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -689,7 +690,8 @@ $font-sizes: (
 $headings-margin-bottom:      $spacer * 0 !default; // custom
 $headings-font-family:        null !default;
 $headings-font-style:         null !default;
-$headings-font-weight:        500 !default;
+// $headings-font-weight:        500 !default;
+$headings-font-weight:        700 !default; // custom
 $headings-line-height:        1.2 !default;
 $headings-color:              inherit !default;
 // scss-docs-end headings-variables
@@ -1415,7 +1417,8 @@ $card-cap-color:                    null !default;
 $card-height:                       null !default;
 $card-color:                        null !default;
 $card-bg:                           var(--#{$prefix}body-bg) !default;
-$card-img-overlay-padding:          $spacer !default;
+// $card-img-overlay-padding:          $spacer !default;
+$card-img-overlay-padding:          $spacer * 1.5 !default; // custom
 $card-group-margin:                 $grid-gutter-width * .5 !default;
 // scss-docs-end card-variables
 

@@ -1,0 +1,12 @@
+.bg-cricle {
+  overflow: hidden;
+  display: flex;
+  justify-content: center; // 讓 design 部分置中
+  .bg-cricle-design {
+    border-radius: 50%;
+    flex-shrink: 0; // 取消 flex 自動縮小
+    position: relative;
+    height: 2800px;
+    width: 2800px;
+  }
+}

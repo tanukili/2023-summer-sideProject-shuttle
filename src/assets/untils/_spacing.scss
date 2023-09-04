@@ -1,0 +1,8 @@
+.block-spacing {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  @include pad {
+    margin-top: 120px;
+    margin-bottom: 120px;
+  }
+}

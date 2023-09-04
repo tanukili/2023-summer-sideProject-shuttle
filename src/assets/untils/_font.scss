@@ -2,6 +2,20 @@ small, .small {
   font-size: $font-size-sm;
 }
 
+// style
+.title-style {
+  text-align: center;
+  font-size: 40px;
+  span {
+    display: inline-block;
+    padding-bottom: 16px;
+    border-bottom: 2px dashed $gray-600;
+  }
+  @include pad {
+    font-size: 48px;
+  }
+}
+
 // RWD
 @include pad {
   @each $number, $size in $font-sizes {
