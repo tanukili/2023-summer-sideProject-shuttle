@@ -56,7 +56,7 @@
                 <h5 class="fs-3 mb-2">2023 夏季織心好友揪團趣</h5>
                 <p class="card-text fs-4 lh-sm">兩人同行，現打 85 折</p>
               </div>
-              <button class="btn btn-white align-self-md-end" type="button">
+              <button class="btn btn-lg btn-white align-self-md-end" type="button">
                 瞭解更多
               </button>
             </div>
@@ -76,7 +76,7 @@
                 <h5 class="fs-3 mb-2">秋季新色 課程預購中</h5>
                 <p class="card-text fs-4 lh-sm">秋季課程改版，早鳥預購享優惠</p>
               </div>
-              <button class="btn btn-white align-self-md-end" type="button">
+              <button class="btn btn-lg btn-white align-self-md-end" type="button">
                 瞭解更多
               </button>
             </div>
@@ -94,7 +94,7 @@
                 <h5 class="fs-3 mb-2">新註冊會員 贈 50 元折價券</h5>
                 <p class="card-text fs-4 lh-sm">新會員招募中，填寫推薦再加碼</p>
               </div>
-              <button class="btn btn-white align-self-md-end" type="button">
+              <button class="btn btn-lg btn-white align-self-md-end" type="button">
                 瞭解更多
               </button>
             </div>
