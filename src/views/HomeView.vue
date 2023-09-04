@@ -118,9 +118,11 @@
   <!-- feature -->
   <div class="bg-primary">
     <!-- content -->
-    <div class="block-spacing container">
-      <h2 class="title-style text-white"><span class="border-white">課程亮點</span></h2>
-      <div class=" mt-5 pt-md-3 mx-lg-5 px-lg-3">
+    <div class="block-spacing container d-flex flex-column align-items-center">
+      <h2 class="title-style text-white">
+        <span class="border-white">課程亮點</span>
+      </h2>
+      <div class="mt-5 pt-md-3 mx-lg-5 px-lg-3">
         <div class="card rounded-5 rounded-lg-7 p-md-4 mb-4">
           <div class="d-md-flex m-lg-6">
             <img
@@ -128,10 +130,16 @@
               class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
               alt="feature01"
             />
-            <div class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5">
+            <div
+              class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5"
+            >
               <div class="pt-2 pb-3 px-3 p-md-0">
                 <small class="big fw-bold lh-sm text-secondary">01</small>
-                <h5 class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4">從入門到應用</h5>
+                <h5
+                  class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4"
+                >
+                  從入門到應用
+                </h5>
                 <p class="card-text fw-medium">
                   完全沒接觸過織補的初學者，我們推薦一日課程，體驗從縣道面的樂趣；想要挑戰大型創作的學生，則可以參考落地織布機課程，獲得更全面、密集的學習。
                 </p>
@@ -146,10 +154,16 @@
               class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
               alt="feature02"
             />
-            <div class="d-flex flex-column justify-content-center me-md-4 me-xl-5">
+            <div
+              class="d-flex flex-column justify-content-center me-md-4 me-xl-5"
+            >
               <div class="pt-2 pb-3 px-3 p-md-0">
                 <small class="big fw-bold lh-sm text-secondary">02</small>
-                <h5 class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4">免裝備報到</h5>
+                <h5
+                  class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4"
+                >
+                  免裝備報到
+                </h5>
                 <p class="card-text fw-medium">
                   基本器材及耗材由我們提供，不用擔心有沒有織布機，您只需要準備紙筆等文既即可，輕鬆無負擔。
                 </p>
@@ -164,10 +178,16 @@
               class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
               alt="feature03"
             />
-            <div class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5">
+            <div
+              class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5"
+            >
               <div class="pt-2 pb-3 px-3 p-md-0">
                 <small class="big fw-bold lh-sm text-secondary">03</small>
-                <h5 class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4">多樣化輔助課程</h5>
+                <h5
+                  class="card-title fs-3 fs-lg-2 text-deep mt-2 mt-xl-3 mb-xl-4"
+                >
+                  多樣化輔助課程
+                </h5>
                 <p class="card-text fw-medium">
                   用膩了現成素材？我們另有準備輔助課程，包含異材質、進階織紋、染色、布料加工等主題。您可以依照需求選購，增添創作靈感。
                 </p>
@@ -176,11 +196,18 @@
           </div>
         </div>
       </div>
+      <button
+        class="btn btn-white fs-6 mt-5"
+        type="button"
+        style="width: 280px;"
+      >
+        開始上課
+        <span class="material-symbols-outlined align-top fs-5 ms-1">east</span>
+      </button>
     </div>
     <!-- feature-background -->
-    <div></div>
-    <div></div>
   </div>
+  <!--  -->
 </template>
 
 <style>
