@@ -1,1 +1,0 @@
-import{_ as t,r as o,o as s,c as a,a as c,w as n,b as r,d as _}from"./index-a08c9ff9.js";const d={},i={class:"about"},l=r("h1",null,"空購物車",-1);function u(p,f){const e=o("RouterLink");return s(),a("div",i,[l,c(e,{to:"/products"},{default:n(()=>[_("返回購物")]),_:1})])}const h=t(d,[["render",u]]);export{h as default};
