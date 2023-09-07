@@ -234,242 +234,254 @@ export default {
     <!-- feature-background -->
   </div>
   <!-- reviews -->
-  <div class="block-spacing container">
-    <h2 class="title-style">
-      <span>織友推薦</span>
-    </h2>
-    <swiper
-      class="reviews-swiper mt-5 pt-3"
-      :slides-per-view="1"
-      :spaceBetween="24"
-      :pagination="{ clickable: true }"
-      :breakpoints="{
-      '768': {
-        slidesPerView: 2,
-        // spaceBetween: 24,
-      },
-      '992': {
-        slidesPerView: 3,
-        // spaceBetween: 24,
-      },
-      '1200': {
-        slidesPerView: 3,
-        spaceBetween: 36,
-      },
-      '1400': {
-        slidesPerView: 4,
-        spaceBetween: 24,
-      },
-    }"
-      :modules="modules"
-      @slideChange="onSlideChange"
-      @swiper="onSwiper"
-    >
-      <swiper-slide>
-        <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-          <div
-            class="d-flex align-items-center pb-3 mx-4"
-          >
-            <img
-              src="../assets/images/avatar01.png"
-              alt="avatar01"
-              class="rounded-circle me-3"
-              style="max-width: 64px; max-height: 64px"
-            />
-            <div>
-              <small class="fs-7"
-                >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
-              >
+  <div class="bg-cricle">
+    <!-- content -->
+    <div class="block-spacing container">
+      <h2 class="title-style">
+        <span>織友推薦</span>
+      </h2>
+      <swiper
+        class="reviews-swiper mt-5 pt-3"
+        :slides-per-view="1"
+        :spaceBetween="24"
+        :pagination="{ clickable: true }"
+        :breakpoints="{
+        '768': {
+          slidesPerView: 2,
+          // spaceBetween: 24,
+        },
+        '992': {
+          slidesPerView: 3,
+          // spaceBetween: 24,
+        },
+        '1200': {
+          slidesPerView: 3,
+          spaceBetween: 36,
+        },
+        '1400': {
+          slidesPerView: 4,
+          spaceBetween: 24,
+        },
+      }"
+        :modules="modules"
+        @slideChange="onSlideChange"
+        @swiper="onSwiper"
+      >
+        <swiper-slide>
+          <div class="card bg-white fs-6 fw-medium position-relative pt-4">
+            <div
+              class="d-flex pb-3 mx-4"
+            >
+              <img
+                src="../assets/images/avatar01.png"
+                alt="avatar01"
+                class="rounded-circle me-3"
+                style="max-width: 64px; max-height: 64px"
+              />
+              <div>
+                <small class="fs-7"
+                  >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
+                >
+              </div>
+            </div>
+            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+              <p class="card-text">
+                原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
+              </p>
+            </div>
+            <div class="card-footer py-4">
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div class="border-top border-2 border-dashed border-secondary py-4 mx-4">
-            <p class="card-text">
-              原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
-            </p>
-          </div>
-          <div class="card-footer py-4">
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-          </div>
-        </div>
-        <div
-          class="reviews-card bg-secondary rounded-5 position-absolute"
-        ></div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="card bg-white fs-6 fw-medium position-relative pt-4">
           <div
-            class="d-flex align-items-center pb-3 mx-4"
-          >
-            <img
-              src="../assets/images/avatar01.png"
-              alt="avatar01"
-              class="rounded-circle me-3"
-              style="max-width: 64px; max-height: 64px"
-            />
-            <div>
-              <small class="fs-7"
-                >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
-              >
+            class="reviews-card bg-pale rounded-5 position-absolute"
+          ></div>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="card bg-white fs-6 fw-medium position-relative pt-4">
+            <div
+              class="d-flex pb-3 mx-4"
+            >
+              <img
+                src="../assets/images/avatar02.png"
+                alt="avatar02"
+                class="rounded-circle me-3"
+                style="max-width: 64px; max-height: 64px"
+              />
+              <div>
+                <small class="fs-7"
+                  >Miyako Kajiro<br /><span class="fs-6">一日綴織體驗</span></small
+                >
+              </div>
+            </div>
+            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+              <p class="card-text">
+                第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下次想挑戰進階課程。
+              </p>
+            </div>
+            <div class="card-footer py-4">
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div class="border-top border-2 border-dashed border-secondary py-4 mx-4">
-            <p class="card-text">
-              原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
-            </p>
-          </div>
-          <div class="card-footer py-4">
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-          </div>
-        </div>
-        <div
-          class="reviews-card bg-secondary rounded-5 position-absolute"
-        ></div>
-      </swiper-slide>
-      <swiper-slide>
-        <div class="card bg-white fs-6 fw-medium position-relative pt-4">
           <div
-            class="d-flex align-items-center pb-3 mx-4"
-          >
-            <img
-              src="../assets/images/avatar01.png"
-              alt="avatar01"
-              class="rounded-circle me-3"
-              style="max-width: 64px; max-height: 64px"
-            />
-            <div>
-              <small class="fs-7"
-                >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
-              >
+            class="reviews-card bg-pale rounded-5 position-absolute"
+          ></div>
+        </swiper-slide>
+        <swiper-slide>
+          <div class="card bg-white fs-6 fw-medium position-relative pt-4">
+            <div
+              class="d-flex pb-3 mx-4"
+            >
+              <img
+                src="../assets/images/avatar03.png"
+                alt="avatar03"
+                class="rounded-circle me-3"
+                style="max-width: 64px; max-height: 64px"
+              />
+              <div>
+                <small class="fs-7"
+                  >Li-Fang Gong<br /><span class="fs-6">織帶機</span></small
+                >
+              </div>
+            </div>
+            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+              <p class="card-text">
+                跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。
+              </p>
+            </div>
+            <div class="card-footer py-4">
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div class="border-top border-2 border-dashed border-secondary py-4 mx-4">
-            <p class="card-text">
-              原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
-            </p>
-          </div>
-          <div class="card-footer py-4">
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-          </div>
-        </div>
-        <div
-          class="reviews-card bg-secondary rounded-5 position-absolute"
-        ></div>
-      </swiper-slide>
-      <swiper-slide class="d-none d-md-block">
-        <div class="card bg-white fs-6 fw-medium position-relative pt-4">
           <div
-            class="d-flex align-items-center pb-3 mx-4"
-          >
-            <img
-              src="../assets/images/avatar01.png"
-              alt="avatar01"
-              class="rounded-circle me-3"
-              style="max-width: 64px; max-height: 64px"
-            />
-            <div>
-              <small class="fs-7"
-                >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
-              >
+            class="reviews-card bg-pale rounded-5 position-absolute"
+          ></div>
+        </swiper-slide>
+        <swiper-slide class="d-none d-md-block">
+          <div class="card bg-white fs-6 fw-medium position-relative pt-4">
+            <div
+              class="d-flex pb-3 mx-4"
+            >
+              <img
+                src="../assets/images/avatar04.png"
+                alt="avatar04"
+                class="rounded-circle me-3"
+                style="max-width: 64px; max-height: 64px"
+              />
+              <div>
+                <small class="fs-7"
+                  >Guertena<br /><span class="fs-6">織紋設計</span></small
+                >
+              </div>
+            </div>
+            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+              <p class="card-text">
+                以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。
+              </p>
+            </div>
+            <div class="card-footer py-4">
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div class="border-top border-2 border-dashed border-secondary py-4 mx-4">
-            <p class="card-text">
-              原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
-            </p>
-          </div>
-          <div class="card-footer py-4">
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-          </div>
-        </div>
-        <div
-          class="reviews-card bg-secondary rounded-5 position-absolute"
-        ></div>
-      </swiper-slide>
-      <swiper-slide class="d-none d-md-block">
-        <div class="card bg-white fs-6 fw-medium position-relative pt-4">
           <div
-            class="d-flex align-items-center pb-3 mx-4"
-          >
-            <img
-              src="../assets/images/avatar01.png"
-              alt="avatar01"
-              class="rounded-circle me-3"
-              style="max-width: 64px; max-height: 64px"
-            />
-            <div>
-              <small class="fs-7"
-                >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
-              >
+            class="reviews-card bg-pale rounded-5 position-absolute"
+          ></div>
+        </swiper-slide>
+        <swiper-slide class="d-none d-md-block">
+          <div class="card bg-white fs-6 fw-medium position-relative pt-4">
+            <div
+              class="d-flex pb-3 mx-4"
+            >
+              <img
+                src="../assets/images/avatar01.png"
+                alt="avatar01"
+                class="rounded-circle me-3"
+                style="max-width: 64px; max-height: 64px"
+              />
+              <div>
+                <small class="fs-7"
+                  >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
+                >
+              </div>
+            </div>
+            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+              <p class="card-text">
+                原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
+              </p>
+            </div>
+            <div class="card-footer py-4">
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div class="border-top border-2 border-dashed border-secondary py-4 mx-4">
-            <p class="card-text">
-              原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
-            </p>
-          </div>
-          <div class="card-footer py-4">
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-          </div>
-        </div>
-        <div
-          class="reviews-card bg-secondary rounded-5 position-absolute"
-        ></div>
-      </swiper-slide>
-      <swiper-slide class="d-none d-xl-block">
-        <div class="card bg-white fs-6 fw-medium position-relative pt-4">
           <div
-            class="d-flex align-items-center pb-3 mx-4"
-          >
-            <img
-              src="../assets/images/avatar01.png"
-              alt="avatar01"
-              class="rounded-circle me-3"
-              style="max-width: 64px; max-height: 64px"
-            />
-            <div>
-              <small class="fs-7"
-                >Ada Wang<br /><span class="fs-6">桌上型織布機</span></small
-              >
+            class="reviews-card bg-pale rounded-5 position-absolute"
+          ></div>
+        </swiper-slide>
+        <swiper-slide class="d-none d-xl-block">
+          <div class="card bg-white fs-6 fw-medium position-relative pt-4">
+            <div
+              class="d-flex pb-3 mx-4"
+            >
+              <img
+                src="../assets/images/avatar02.png"
+                alt="avatar02"
+                class="rounded-circle me-3"
+                style="max-width: 64px; max-height: 64px"
+              />
+              <div>
+                <small class="fs-7"
+                  >Miyako Kajiro<br /><span class="fs-6">一日綴織體驗</span></small
+                >
+              </div>
+            </div>
+            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+              <p class="card-text">
+                第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下次想挑戰進階課程。
+              </p>
+            </div>
+            <div class="card-footer py-4">
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
+              <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div class="border-top border-2 border-dashed border-secondary py-4 mx-4">
-            <p class="card-text">
-              原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
-            </p>
-          </div>
-          <div class="card-footer py-4">
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-            <span class="material-symbols-outlined icon-fill">star</span>
-          </div>
-        </div>
+          <div
+            class="reviews-card bg-pale rounded-5 position-absolute"
+          ></div>
+        </swiper-slide>
+      </swiper>
+    </div>
+    <!-- promotions-background -->
+    <div class="bg-position">
+      <div class="bg-design">
         <div
-          class="reviews-card bg-secondary rounded-5 position-absolute"
+          class="bg-secondary d-none d-md-block"
+          style="top: 40px"
         ></div>
-      </swiper-slide>
-    </swiper>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -525,14 +537,15 @@ export default {
 .reviews-card {
   width: 275px;
   height: 360px;
-  transform: translate(-1%, -100%) rotate(5deg);
+  transform: translate(1%, -100%) rotate(5deg);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
   z-index: -1;
 }
 .reviews-swiper { /* 顯示溢出容器的內容 */
   padding-left: 16px;
-  /* padding-top: 4px; */
+  padding-right: 16px;
   margin-left: -16px;
-  /* margin-top: -4px; */
+  margin-right: -16px;
   padding-bottom: 64px;
 }
 </style>

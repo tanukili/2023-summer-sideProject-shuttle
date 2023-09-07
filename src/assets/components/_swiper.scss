@@ -1,7 +1,5 @@
 .swiper {
-  // overflow: visible;
   &-slide {
-    // visibility: hidden;
     & > * {
       min-height: 360px;
       max-width: 319px;
@@ -23,7 +21,11 @@
   .swiper-pagination-bullet {
     width: 16px;
     height: 16px;
+    opacity: 1;
     background: $secondary;
+    @include pad {
+      background: $white;
+    }
     &.swiper-pagination-bullet-active {
       background: $primary;
     }
