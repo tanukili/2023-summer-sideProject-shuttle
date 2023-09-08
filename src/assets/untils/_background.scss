@@ -19,3 +19,21 @@
     }
   }
 }
+.bg-img {
+  background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(images/backplance.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  @media (min-width: 1200px) {
+    background: none;
+  }
+  .bg-oval {
+    z-index: -1;
+    background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(images/backplance.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 2200px;
+    height: 850px;
+    border-radius: 425px;
+  }
+}

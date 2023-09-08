@@ -140,7 +140,7 @@ export default {
     </div>
   </div>
   <!-- feature -->
-  <div class="bg-primary">
+  <div class="bg-img position-relative overflow-hidden">
     <!-- content -->
     <div class="block-spacing container d-flex flex-column align-items-center">
       <h2 class="title-style text-white">
@@ -230,6 +230,8 @@ export default {
       </button>
     </div>
     <!-- feature-background -->
+    <div class="bg-oval d-none d-xl-block" style="top: 40px;left: 8.3%;"></div>
+    <div class="bg-oval sec d-none d-xl-block" style="top: 890px;right: 8.3%;"></div>
   </div>
   <!-- reviews -->
   <div class="bg-cricle overflow-hidden">
@@ -783,6 +785,7 @@ export default {
     height: 360px;
   }
 }
+
 /* reviews 卡片 */
 .reviews-card {
   width: 275px;
