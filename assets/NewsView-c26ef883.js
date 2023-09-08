@@ -1,0 +1,1 @@
+import{_ as o,r as a,o as s,c as n,a as r,w as c,F as _,b as e,d as l}from"./index-c10e5818.js";const d={},i=e("div",{class:"about"},[e("h1",null,"消息列表")],-1);function u(f,m){const t=a("router-link");return s(),n(_,null,[i,r(t,{to:"/new"},{default:c(()=>[l("了解更多")]),_:1})],64)}const w=o(d,[["render",u]]);export{w as default};

@@ -1,1 +1,0 @@
-import{_ as e,o,c as t,b as c}from"./index-bfd8113e.js";const s={},_={class:"about"},n=c("h1",null,"單頁產品",-1),a=[n];function r(d,i){return o(),t("div",_,a)}const f=e(s,[["render",r]]);export{f as default};
