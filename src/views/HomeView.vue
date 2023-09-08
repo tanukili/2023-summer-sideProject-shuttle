@@ -1,10 +1,10 @@
 <script>
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 export default {
   components: {
@@ -230,8 +230,11 @@ export default {
       </button>
     </div>
     <!-- feature-background -->
-    <div class="bg-oval d-none d-xl-block" style="top: 40px;left: 8.3%;"></div>
-    <div class="bg-oval sec d-none d-xl-block" style="top: 890px;right: 8.3%;"></div>
+    <div class="bg-oval d-none d-xl-block" style="top: 40px; left: 8.3%"></div>
+    <div
+      class="bg-oval sec d-none d-xl-block"
+      style="top: 890px; right: 8.3%"
+    ></div>
   </div>
   <!-- reviews -->
   <div class="bg-cricle overflow-hidden">
@@ -470,7 +473,8 @@ export default {
     </div>
   </div>
   <!-- popular -->
-  <div class="bg-secondary">
+  <div class="bg-secondary position-relative overflow-hidden">
+    <!-- content -->
     <div class="block-spacing container d-flex flex-column">
       <h2 class="title-style">
         <span>本季熱門</span>
@@ -722,11 +726,11 @@ export default {
             </div>
           </swiper-slide>
         </swiper>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev d-none d-lg-flex"></div>
+        <div class="swiper-button-next d-none d-lg-flex"></div>
       </div>
       <button
-        class="btn btn-white fs-6 mx-auto"
+        class="btn btn-white fs-6 z-1 mx-auto"
         type="button"
         style="width: 280px"
       >
@@ -734,6 +738,13 @@ export default {
         <span class="material-symbols-outlined align-top fs-5 ms-1">east</span>
       </button>
     </div>
+    <!-- popular-packground -->
+    <div
+      class="bg-dash border-2 border-primary border-dashed d-none d-md-block"
+    ></div>
+    <div
+      class="bg-dash sec border-2 border-dashed d-none d-md-block"
+    ></div>
   </div>
 </template>
 
@@ -803,5 +814,4 @@ export default {
     }
   }
 }
-
 </style>
