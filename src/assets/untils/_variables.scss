@@ -336,6 +336,7 @@ $theme-colors: (
   "mellow":     $mellow, // custom
   "deep":       $black-100, // custom
   "gray-200":   $gray-200, // custom
+  "gray-400":   $gray-400, // custom
   "gray-500":   $gray-500, // custom
   "gray-600":   $gray-600, // custom
 ) !default;
@@ -1553,11 +1554,16 @@ $toast-header-border-color:         $toast-border-color !default;
 
 // scss-docs-start badge-variables
 $badge-font-size:                   .75em !default;
-$badge-font-weight:                 $font-weight-bold !default;
-$badge-color:                       $white !default;
-$badge-padding-y:                   .35em !default;
-$badge-padding-x:                   .65em !default;
-$badge-border-radius:               var(--#{$prefix}border-radius) !default;
+// $badge-font-weight:                 $font-weight-bold !default;
+$badge-font-weight:                 $font-weight-medium !default; // custom
+// $badge-color:                       $white !default;
+$badge-color:                       $primary !default; // custom
+// $badge-padding-y:                   .35em !default;
+$badge-padding-y:                   .25rem !default; // custom
+// $badge-padding-x:                   .65em !default;
+$badge-padding-x:                   .5rem !default; // custom
+// $badge-border-radius:               var(--#{$prefix}border-radius) !default;
+$badge-border-radius:               0 !default; // custom
 // scss-docs-end badge-variables
 
 

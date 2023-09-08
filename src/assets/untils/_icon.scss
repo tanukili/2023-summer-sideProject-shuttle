@@ -3,4 +3,12 @@
   &.icon-fill {
     font-variation-settings: "FILL" 1,;
   }
+  &.icon-favorite {
+    font-size: 40px;
+    color: $white;
+    &:hover {
+      font-variation-settings: "FILL" 1,;
+      color: $danger;
+    }
+  }
 }

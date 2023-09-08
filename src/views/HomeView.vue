@@ -1,9 +1,10 @@
 <script>
-import { Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default {
   components: {
@@ -11,16 +12,13 @@ export default {
     SwiperSlide,
   },
   methods: {
-    onSlideChange() {
-      console.log('slide change');
-    },
     onSwiper(swiper) {
       this.swiper = swiper;
     },
   },
   setup() {
     return {
-      modules: [Navigation, Pagination],
+      modules: [Autoplay, Navigation, Pagination],
     };
   },
 };
@@ -57,7 +55,7 @@ export default {
     </div>
   </div>
   <!-- promotions -->
-  <div class="bg-cricle">
+  <div class="bg-cricle overflow-hidden">
     <!-- content -->
     <div class="block-spacing container">
       <h2 class="title-style"><span>現正優惠</span></h2>
@@ -234,7 +232,7 @@ export default {
     <!-- feature-background -->
   </div>
   <!-- reviews -->
-  <div class="bg-cricle">
+  <div class="bg-cricle overflow-hidden">
     <!-- content -->
     <div class="block-spacing container">
       <h2 class="title-style">
@@ -246,32 +244,27 @@ export default {
         :spaceBetween="24"
         :pagination="{ clickable: true }"
         :breakpoints="{
-        '768': {
-          slidesPerView: 2,
-          // spaceBetween: 24,
-        },
-        '992': {
-          slidesPerView: 3,
-          // spaceBetween: 24,
-        },
-        '1200': {
-          slidesPerView: 3,
-          spaceBetween: 36,
-        },
-        '1400': {
-          slidesPerView: 4,
-          spaceBetween: 24,
-        },
-      }"
+          '768': {
+            slidesPerView: 2,
+          },
+          '992': {
+            slidesPerView: 3,
+          },
+          '1200': {
+            slidesPerView: 3,
+            spaceBetween: 36,
+          },
+          '1400': {
+            slidesPerView: 4,
+            spaceBetween: 24,
+          },
+        }"
         :modules="modules"
-        @slideChange="onSlideChange"
         @swiper="onSwiper"
       >
         <swiper-slide>
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-            <div
-              class="d-flex pb-3 mx-4"
-            >
+            <div class="d-flex pb-3 mx-4">
               <img
                 src="../assets/images/avatar01.png"
                 alt="avatar01"
@@ -284,7 +277,9 @@ export default {
                 >
               </div>
             </div>
-            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+            <div
+              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+            >
               <p class="card-text">
                 原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
               </p>
@@ -297,15 +292,11 @@ export default {
               <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div
-            class="reviews-card bg-pale rounded-5 position-absolute"
-          ></div>
+          <div class="reviews-card bg-pale rounded-5 position-absolute"></div>
         </swiper-slide>
         <swiper-slide>
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-            <div
-              class="d-flex pb-3 mx-4"
-            >
+            <div class="d-flex pb-3 mx-4">
               <img
                 src="../assets/images/avatar02.png"
                 alt="avatar02"
@@ -314,11 +305,15 @@ export default {
               />
               <div>
                 <small class="fs-7"
-                  >Miyako Kajiro<br /><span class="fs-6">一日綴織體驗</span></small
+                  >Miyako Kajiro<br /><span class="fs-6"
+                    >一日綴織體驗</span
+                  ></small
                 >
               </div>
             </div>
-            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+            <div
+              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+            >
               <p class="card-text">
                 第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下次想挑戰進階課程。
               </p>
@@ -331,15 +326,11 @@ export default {
               <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div
-            class="reviews-card bg-pale rounded-5 position-absolute"
-          ></div>
+          <div class="reviews-card bg-pale rounded-5 position-absolute"></div>
         </swiper-slide>
         <swiper-slide>
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-            <div
-              class="d-flex pb-3 mx-4"
-            >
+            <div class="d-flex pb-3 mx-4">
               <img
                 src="../assets/images/avatar03.png"
                 alt="avatar03"
@@ -352,7 +343,9 @@ export default {
                 >
               </div>
             </div>
-            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+            <div
+              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+            >
               <p class="card-text">
                 跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。
               </p>
@@ -365,15 +358,11 @@ export default {
               <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div
-            class="reviews-card bg-pale rounded-5 position-absolute"
-          ></div>
+          <div class="reviews-card bg-pale rounded-5 position-absolute"></div>
         </swiper-slide>
         <swiper-slide class="d-none d-md-block">
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-            <div
-              class="d-flex pb-3 mx-4"
-            >
+            <div class="d-flex pb-3 mx-4">
               <img
                 src="../assets/images/avatar04.png"
                 alt="avatar04"
@@ -386,7 +375,9 @@ export default {
                 >
               </div>
             </div>
-            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+            <div
+              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+            >
               <p class="card-text">
                 以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。
               </p>
@@ -399,15 +390,11 @@ export default {
               <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div
-            class="reviews-card bg-pale rounded-5 position-absolute"
-          ></div>
+          <div class="reviews-card bg-pale rounded-5 position-absolute"></div>
         </swiper-slide>
         <swiper-slide class="d-none d-md-block">
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-            <div
-              class="d-flex pb-3 mx-4"
-            >
+            <div class="d-flex pb-3 mx-4">
               <img
                 src="../assets/images/avatar01.png"
                 alt="avatar01"
@@ -420,7 +407,9 @@ export default {
                 >
               </div>
             </div>
-            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+            <div
+              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+            >
               <p class="card-text">
                 原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
               </p>
@@ -433,15 +422,11 @@ export default {
               <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div
-            class="reviews-card bg-pale rounded-5 position-absolute"
-          ></div>
+          <div class="reviews-card bg-pale rounded-5 position-absolute"></div>
         </swiper-slide>
         <swiper-slide class="d-none d-xl-block">
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
-            <div
-              class="d-flex pb-3 mx-4"
-            >
+            <div class="d-flex pb-3 mx-4">
               <img
                 src="../assets/images/avatar02.png"
                 alt="avatar02"
@@ -450,11 +435,15 @@ export default {
               />
               <div>
                 <small class="fs-7"
-                  >Miyako Kajiro<br /><span class="fs-6">一日綴織體驗</span></small
+                  >Miyako Kajiro<br /><span class="fs-6"
+                    >一日綴織體驗</span
+                  ></small
                 >
               </div>
             </div>
-            <div class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1">
+            <div
+              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+            >
               <p class="card-text">
                 第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下次想挑戰進階課程。
               </p>
@@ -467,20 +456,281 @@ export default {
               <span class="material-symbols-outlined icon-fill">star</span>
             </div>
           </div>
-          <div
-            class="reviews-card bg-pale rounded-5 position-absolute"
-          ></div>
+          <div class="reviews-card bg-pale rounded-5 position-absolute"></div>
         </swiper-slide>
       </swiper>
     </div>
-    <!-- promotions-background -->
+    <!-- reviews-background -->
     <div class="bg-position">
       <div class="bg-design">
-        <div
-          class="bg-secondary d-none d-md-block"
-          style="top: 40px"
-        ></div>
+        <div class="bg-secondary d-none d-md-block" style="top: 40px"></div>
       </div>
+    </div>
+  </div>
+  <!-- popular -->
+  <div class="bg-secondary">
+    <div class="block-spacing container d-flex flex-column">
+      <h2 class="title-style">
+        <span>本季熱門</span>
+      </h2>
+      <div class="swiper-box position-relative">
+        <swiper
+          class="mt-5 mobile-style popular-swiper"
+          :spaceBetween="0"
+          :noSwiping="true"
+          :breakpoints="{
+            '768': {
+              slidesPerView: 2,
+              spaceBetween: 20,
+              noSwiping: false,
+            },
+            '992': {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            '1200': {
+              slidesPerView: 3,
+              spaceBetween: 16,
+            },
+            '1400': {
+              slidesPerView: 3,
+              spaceBetween: 48,
+            },
+          }"
+          :modules="modules"
+          @swiper="onSwiper"
+        >
+          <swiper-slide>
+            <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
+              <div class="img-mask position-relative">
+                <img
+                  src="../assets/images/product01.jpg"
+                  alt="product01"
+                  class="rounded-top-4"
+                  style="height: 240px"
+                />
+                <a href="#">
+                  <span
+                    class="icon-favorite material-symbols-outlined position-absolute"
+                    style="top: 24px; right: 24px"
+                    >favorite</span
+                  >
+                </a>
+              </div>
+              <div class="card-body flex-grow-1">
+                <h3 class="card-title fs-5">一日綴織體驗</h3>
+                <span class="badge bg-light">入門</span>
+                <span class="badge bg-light">綴織</span>
+                <span class="badge bg-light">一日</span>
+                <span class="badge bg-light">入門</span>
+              </div>
+              <div
+                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pb-3"
+              >
+                <small class="d-inline-block fs-4 text-deep mb-3 mb-lg-0"
+                  >$850</small
+                >
+                <button
+                  class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto"
+                  style="button"
+                >
+                  立即購買
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
+              <div class="img-mask position-relative">
+                <img
+                  src="../assets/images/product02.jpg"
+                  alt="product02"
+                  class="rounded-top-4"
+                  style="height: 240px"
+                />
+                <span
+                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
+                  style="top: 24px"
+                  >早鳥優惠</span
+                >
+                <a href="#">
+                  <span
+                    class="icon-favorite material-symbols-outlined position-absolute"
+                    style="top: 24px; right: 24px"
+                    >favorite</span
+                  >
+                </a>
+              </div>
+              <div class="card-body flex-grow-1">
+                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
+                <span class="badge bg-light">簡易織布機</span>
+                <span class="badge bg-light">兩日</span>
+                <span class="badge bg-light">秋冬</span>
+                <span class="badge bg-light">Top 3</span>
+              </div>
+              <div
+                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pb-3"
+              >
+                <small
+                  class="d-flex align-items-center fs-4 text-danger mb-3 mb-lg-0"
+                >
+                  $1,800
+                  <span
+                    class="fs-6 text-gray-400 text-decoration-line-through ms-2"
+                  >
+                    $2,000</span
+                  >
+                </small>
+                <button
+                  class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto"
+                  style="button"
+                >
+                  立即購買
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
+              <div class="img-mask position-relative">
+                <img
+                  src="../assets/images/product03.jpg"
+                  alt="product03"
+                  class="rounded-top-4"
+                  style="height: 240px"
+                />
+                <a href="#">
+                  <span
+                    class="icon-favorite material-symbols-outlined position-absolute"
+                    style="top: 24px; right: 24px"
+                    >favorite</span
+                  >
+                </a>
+              </div>
+              <div class="card-body flex-grow-1">
+                <h3 class="card-title fs-5">段染實驗營</h3>
+                <span class="badge bg-light">進階</span>
+                <span class="badge bg-light">輔助</span>
+                <span class="badge bg-light">四日</span>
+                <span class="badge bg-light">Top 3</span>
+              </div>
+              <div
+                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pb-3"
+              >
+                <small class="d-inline-block fs-4 text-deep mb-3 mb-lg-0"
+                  >$850</small
+                >
+                <button
+                  class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto"
+                  style="button"
+                >
+                  立即購買
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide class="d-none d-md-flex">
+            <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
+              <div class="img-mask position-relative">
+                <img
+                  src="../assets/images/product01.jpg"
+                  alt="product01"
+                  class="rounded-top-4"
+                  style="height: 240px"
+                />
+                <a href="#">
+                  <span
+                    class="icon-favorite material-symbols-outlined position-absolute"
+                    style="top: 24px; right: 24px"
+                    >favorite</span
+                  >
+                </a>
+              </div>
+              <div class="card-body flex-grow-1">
+                <h3 class="card-title fs-5">一日綴織體驗</h3>
+                <span class="badge bg-light">入門</span>
+                <span class="badge bg-light">綴織</span>
+                <span class="badge bg-light">一日</span>
+                <span class="badge bg-light">入門</span>
+              </div>
+              <div
+                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pb-3"
+              >
+                <small class="d-inline-block fs-4 text-deep mb-3 mb-lg-0"
+                  >$850</small
+                >
+                <button
+                  class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto"
+                  style="button"
+                >
+                  立即購買
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide class="d-none d-md-flex">
+            <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
+              <div class="img-mask position-relative">
+                <img
+                  src="../assets/images/product02.jpg"
+                  alt="product02"
+                  class="rounded-top-4"
+                  style="height: 240px"
+                />
+                <span
+                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
+                  style="top: 24px"
+                  >早鳥優惠</span
+                >
+                <a href="#">
+                  <span
+                    class="icon-favorite material-symbols-outlined position-absolute"
+                    style="top: 24px; right: 24px"
+                    >favorite</span
+                  >
+                </a>
+              </div>
+              <div class="card-body flex-grow-1">
+                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
+                <span class="badge bg-light">簡易織布機</span>
+                <span class="badge bg-light">兩日</span>
+                <span class="badge bg-light">秋冬</span>
+                <span class="badge bg-light">Top 3</span>
+              </div>
+              <div
+                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pb-3"
+              >
+                <small
+                  class="d-flex align-items-center fs-4 text-danger mb-3 mb-lg-0"
+                >
+                  $1,800
+                  <span
+                    class="fs-6 text-gray-400 text-decoration-line-through ms-2"
+                  >
+                    $2,000</span
+                  >
+                </small>
+                <button
+                  class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto"
+                  style="button"
+                >
+                  立即購買
+                </button>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+      <button
+        class="btn btn-white fs-6 mx-auto"
+        type="button"
+        style="width: 280px"
+      >
+        了解更多課程
+        <span class="material-symbols-outlined align-top fs-5 ms-1">east</span>
+      </button>
     </div>
   </div>
 </template>
@@ -541,11 +791,14 @@ export default {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
   z-index: -1;
 }
-.reviews-swiper { /* 顯示溢出容器的內容 */
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-left: -16px;
-  margin-right: -16px;
-  padding-bottom: 64px;
+/* popular swiper */
+.popular-swiper {
+  .card-body {
+    margin-bottom: 0;
+    @media (min-width: 768px) {
+      margin-bottom: 49px;
+    }
+  }
 }
+
 </style>
