@@ -26,7 +26,7 @@ export default {
 
 <template>
   <!-- banner -->
-  <div class="bg-banner">
+  <div class="bg-banner d-flex flex-column justify-content-center" style="height: 680px;">
     <div class="container">
       <div class="banner-content">
         <h1 class="fs-2 fw-bold text-white pb-3">
@@ -753,7 +753,7 @@ export default {
   /* 加上半透明遮罩 */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(../assets/images/banner.jpg);
-  padding: 235px 0 240px 0;
+  /* padding: 235px 0 240px 0; */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
