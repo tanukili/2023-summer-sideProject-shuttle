@@ -130,7 +130,7 @@ export default {
       </div>
     </div>
     <!-- promotions-background -->
-    <div class="bg-position">
+    <div class="w-100 position-absolute top-0 z-n1">
       <div class="bg-design">
         <div
           class="bg-white border border-2 border-dashed border-gray-500 d-none d-md-block"
@@ -466,7 +466,7 @@ export default {
       </swiper>
     </div>
     <!-- reviews-background -->
-    <div class="bg-position">
+    <div class="w-100 position-absolute top-0 z-n1">
       <div class="bg-design">
         <div class="bg-secondary d-none d-md-block" style="top: 40px"></div>
       </div>
@@ -740,10 +740,12 @@ export default {
     </div>
     <!-- popular-packground -->
     <div
-      class="bg-dash border-2 border-primary border-dashed d-none d-md-block"
+      class="bg-position bg-dashed-left border-primary d-none d-md-block start-0 z-0"
+      style="width: 30%;height: 340px;top: 120px;"
     ></div>
     <div
-      class="bg-dash sec border-2 border-dashed d-none d-md-block"
+      class="bg-position bg-dashed-right border-primary d-none d-md-block end-0 z-0"
+      style="width: 70%;height: 340px;top: 460px;"
     ></div>
   </div>
 </template>

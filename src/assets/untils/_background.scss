@@ -1,11 +1,5 @@
 .bg-cricle {
   position: relative;
-  .bg-position {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    z-index: -1;
-  }
   .bg-design {
     overflow: hidden;
     display: flex;
@@ -38,25 +32,22 @@
     border-radius: 425px;
   }
 }
-// 首頁 dash 背景
-.bg-dash {
-  z-index: 0;
+// 首頁 dash 定位
+.bg-position {
+  z-index: -1;
   position: absolute;
-  top: 120px;
-  left: 0px;
-  width: 30%;
-  height: 340px;
+}
+.bg-dashed-left {
+  --bs-border-width: 2px; 
+  --bs-border-style: dashed;
   border-top-right-radius: 680px;
   border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
   border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
 }
-.bg-dash.sec {
-  width: 70%;
-  top: 460px;
-  left: 30%;
-  border-top-right-radius: 0px;
+.bg-dashed-right {
+  --bs-border-width: 2px; 
+  --bs-border-style: dashed;
   border-bottom-left-radius: 680px;
-  border: none;
   border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
   border-left: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
 }

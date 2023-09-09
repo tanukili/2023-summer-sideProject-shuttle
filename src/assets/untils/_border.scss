@@ -2,6 +2,12 @@
 .border-dashed {
   --bs-border-style: dashed;
 }
+.border-base {
+  --bs-border-width: 2px; 
+  --bs-border-style: dashed;
+  --bs-border-color: var(--bs-primary);
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
 
 // rounded
 .rounded-6 {
