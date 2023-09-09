@@ -6,3 +6,11 @@
     padding-bottom: 120px;
   }
 }
+.block-spacing-sm {
+  padding-top: 52px;
+  padding-bottom: 52px;
+  @include pad {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}

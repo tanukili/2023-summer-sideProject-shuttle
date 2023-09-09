@@ -29,8 +29,7 @@
 .nav-style {
   .nav-link {
     border-bottom: 2px dashed var(--bs-secondary);
-    &.active,
-    &:hover {
+    &.active, &:hover {
       border-bottom: 2px dashed var(--bs-primary);
     }
   }
