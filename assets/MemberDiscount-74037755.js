@@ -1,1 +1,0 @@
-import{_ as e,o as s,c,b as o}from"./index-c10e5818.js";const t={},n={class:"bg-primary py-3"},r=o("h1",null,"優惠活動資訊",-1),_=[r];function a(i,d){return s(),c("div",n,_)}const f=e(t,[["render",a]]);export{f as default};

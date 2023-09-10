@@ -1,1 +1,0 @@
-import{_ as o,r,o as t,c as s,a,w as c,b as n,d as _}from"./index-c10e5818.js";const d={},l={class:"bg-primary py-3"},i=n("h1",null,"訂單列表",-1);function m(p,f){const e=r("router-link");return t(),s("div",l,[i,a(e,{to:"/member/order"},{default:c(()=>[_("檢視訂單")]),_:1})])}const h=o(d,[["render",m]]);export{h as default};

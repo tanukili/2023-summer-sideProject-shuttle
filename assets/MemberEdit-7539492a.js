@@ -1,0 +1,1 @@
+import{_ as e,o as s,c as t,d as c}from"./index-e7393668.js";const o={},r={class:"bg-primary py-3"},_=c("h1",null,"編輯會員資料",-1),n=[_];function a(d,i){return s(),t("div",r,n)}const f=e(o,[["render",a]]);export{f as default};

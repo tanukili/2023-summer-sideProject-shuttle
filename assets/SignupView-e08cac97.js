@@ -1,1 +1,0 @@
-import{_ as e,o,c as s,b as t}from"./index-c10e5818.js";const c={},n={class:"about"},_=t("h1",null,"註冊頁面",-1),a=[_];function r(i,d){return o(),s("div",n,a)}const f=e(c,[["render",r]]);export{f as default};

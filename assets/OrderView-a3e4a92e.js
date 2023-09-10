@@ -1,0 +1,1 @@
+import{_ as t,r as o,o as s,c as r,b as a,w as c,d as n,e as _}from"./index-e7393668.js";const d={},i={class:"about"},l=n("h1",null,"訂單頁面",-1);function u(f,h){const e=o("RouterLink");return s(),r("div",i,[l,a(e,{to:"/order-established"},{default:c(()=>[_("填寫訂單")]),_:1})])}const p=t(d,[["render",u]]);export{p as default};
