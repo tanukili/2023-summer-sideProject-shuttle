@@ -1,0 +1,13 @@
+.w-33 {
+  width: 33.33%;
+}
+
+// RWD
+@include pad {
+  .w-md-25 {
+    width: 25%;
+  }
+  .w-md-auto {
+    width: auto;
+  }
+}

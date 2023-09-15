@@ -39,3 +39,10 @@ big, .big {
     }
   }
 }
+@include wed-xl {
+  @each $number, $size in $font-sizes {
+    .fs-xl-#{$number} {
+      font-size: $size !important;
+    }
+  }
+}

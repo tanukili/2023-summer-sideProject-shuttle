@@ -1,4 +1,9 @@
 // RWD
+@mixin wed-xl {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
 @mixin wed {
   @media (min-width: 992px) {
     @content;

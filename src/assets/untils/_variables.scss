@@ -880,7 +880,7 @@ $btn-padding-x-lg:            $input-btn-padding-x-lg !default;
 $btn-font-size-lg:            $input-btn-font-size-lg !default;
 
 // $btn-border-width:            $input-btn-border-width !default;
-$btn-border-width:            0 !default; // custom
+$btn-border-width:            1px !default; // custom
 
 // $btn-font-weight:             $font-weight-normal !default;
 $btn-font-weight:             $font-weight-bold !default; // custom
@@ -1228,11 +1228,13 @@ $nav-link-disabled-color:           var(--#{$prefix}secondary-color) !default;
 $nav-link-focus-box-shadow:         $focus-ring-box-shadow !default;
 
 $nav-tabs-border-color:             var(--#{$prefix}border-color) !default;
-$nav-tabs-border-width:             var(--#{$prefix}border-width) !default;
+// $nav-tabs-border-width:             var(--#{$prefix}border-width) !default;
+$nav-tabs-border-width:             2px !default; // custom
 $nav-tabs-border-radius:            var(--#{$prefix}border-radius) !default;
 $nav-tabs-link-hover-border-color:  var(--#{$prefix}secondary-bg) var(--#{$prefix}secondary-bg) $nav-tabs-border-color !default;
 $nav-tabs-link-active-color:        var(--#{$prefix}emphasis-color) !default;
-$nav-tabs-link-active-bg:           var(--#{$prefix}body-bg) !default;
+// $nav-tabs-link-active-bg:           var(--#{$prefix}body-bg) !default;
+$nav-tabs-link-active-bg:           $secondary !default; // custom
 $nav-tabs-link-active-border-color: var(--#{$prefix}border-color) var(--#{$prefix}border-color) $nav-tabs-link-active-bg !default;
 
 $nav-pills-border-radius:           var(--#{$prefix}border-radius) !default;

@@ -3,6 +3,7 @@
 $utilities: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $utilities: map-merge(
+  $utilities,
   (
     "font-size": (
       // rfs: true,
@@ -12,5 +13,4 @@ $utilities: map-merge(
       values: $font-sizes
     ),
   ),
-  $utilities
 );

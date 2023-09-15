@@ -1,4 +1,5 @@
 .select-icon {
+  --bs-body-bg: var(--bs-white);
   position: relative;
   &::after {
     content: '';
@@ -6,7 +7,8 @@
     border-right: 5px solid transparent; // 右邊透明邊框
     border-top: 5px solid $primary; 
     position: absolute;
-    bottom: 20.5px;
-    right: 20.5px;
+    bottom: 30%;
+    right: 5%;
+    transform: translate(-50%, -50%);
   }
 }
