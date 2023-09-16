@@ -477,7 +477,7 @@ export default {
           <ul
             class="pagination justify-content-center align-items-center fw-medium lh-sm"
           >
-            <li class="page-item border-dashed me-1">
+            <li class="page-item me-1">
               <a
                 class="page-link rounded-circle p-1"
                 href="#/products"
