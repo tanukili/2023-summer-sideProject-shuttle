@@ -1,0 +1,12 @@
+.animation-rotate {
+	animation-name: rotate;
+	animation-duration: 350s;
+  animation-timing-function: linear;
+	animation-iteration-count: infinite; 
+	animation-fill-mode: both; 
+}
+
+@keyframes rotate{
+	0% {rotate: 0;}
+	100% {rotate: 360deg;}
+}

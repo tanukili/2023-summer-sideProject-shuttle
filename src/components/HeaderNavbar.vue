@@ -1,7 +1,7 @@
 <script></script>
 
 <template>
-  <nav class="navbar navbar-expand-md navbar-light py-md-3">
+  <nav class="navbar navbar-expand-md navbar-light py-md-3" data-aos="fade-down">
     <div class="container">
       <RouterLink to="/" class="d-md-none">
         <img src="../assets/images/logo.png" alt="logo" style="width: 96px" />

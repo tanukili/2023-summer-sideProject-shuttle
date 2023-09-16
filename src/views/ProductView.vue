@@ -16,7 +16,7 @@
         </ol>
       </nav>
       <!-- 課程內容 -->
-      <div class="card bg-white rounded-5 mb-5">
+      <div class="card bg-white rounded-5 mb-5"  data-aos="zoom-out-down" data-aos-duration="1000">
         <div class="row g-0">
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
@@ -254,12 +254,15 @@
     </div>
     <!-- background-style -->
     <div
-      class="bg-position bg-white border-base rounded-circle"
+      class="bg-position bg-white border-base rounded-circle animation-rotate"
       style="width: 1400px; height: 1400px; top: -1000px; left: -27%"
     ></div>
     <div
       class="bg-position bg-secondary rounded-circle"
       style="width: 1400px; height: 1400px; bottom: -1000px; right: -27%;z-index: -1"
+      data-aos="fade-up"
+      data-aos-duration="1500"
+      data-aos-delay="500"
     ></div>
   </div>
 </template>

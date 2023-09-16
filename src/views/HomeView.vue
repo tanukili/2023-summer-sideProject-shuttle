@@ -26,10 +26,15 @@ export default {
 
 <template>
   <!-- banner -->
-  <div class="bg-banner d-flex flex-column justify-content-center" style="height: 680px;">
+  <div
+    class="bg-banner d-flex flex-column justify-content-center"
+    style="height: 680px"
+  >
     <div class="container">
       <div class="banner-content">
-        <h1 class="fs-2 fw-bold text-white pb-3">
+        <h1
+          class="fs-2 fw-bold text-white pb-3 animate__animated animate__fadeInDown"
+        >
           一封真摯的邀請函<br />
           <span class="py-3 d-inline-block">
             給予手織
@@ -60,7 +65,7 @@ export default {
     <div class="block-spacing container">
       <h2 class="title-style"><span>現正優惠</span></h2>
       <div class="row mt-5 pt-md-3">
-        <div class="col-md-6">
+        <div class="col-md-6" data-aos="zoom-in-up">
           <div class="promotions left img-mask card text-white mb-3 mb-md-0">
             <img
               src="../assets/images/promotions01.jpg"
@@ -84,7 +89,11 @@ export default {
           </div>
         </div>
         <div class="col-md-6">
-          <div class="promotions right img-mask card text-white mb-3 mb-md-4">
+          <div
+            class="promotions right img-mask card text-white mb-3 mb-md-4"
+            data-aos="zoom-in-up"
+            data-aos-delay="500"
+          >
             <img
               src="../assets/images/promotions02.jpg"
               class="card-img h-100"
@@ -105,7 +114,10 @@ export default {
               </button>
             </div>
           </div>
-          <div class="promotions right img-mask card text-white">
+          <div
+            class="promotions right img-mask card text-white"
+            data-aos="zoom-in-up"
+          >
             <img
               src="../assets/images/promotions03.jpg"
               class="card-img h-100"
@@ -133,7 +145,8 @@ export default {
     <div class="w-100 position-absolute top-0 z-n1">
       <div class="bg-design">
         <div
-          class="bg-white border border-2 border-dashed border-gray-500 d-none d-md-block"
+          class="bg-white border border-2 border-dashed border-gray-500
+          d-none d-md-block animation-rotate"
           style="bottom: 2022px"
         ></div>
       </div>
@@ -147,7 +160,12 @@ export default {
         <span class="border-white">課程亮點</span>
       </h2>
       <div class="mt-5 pt-md-3 mx-lg-5 px-lg-3">
-        <div class="card rounded-5 rounded-lg-7 p-md-4 mb-4">
+        <div
+          class="card rounded-5 rounded-lg-7 p-md-4 mb-4"
+          data-aos="flip-up"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+        >
           <div class="d-md-flex m-lg-6">
             <img
               src="../assets/images/feature01.jpg"
@@ -171,7 +189,12 @@ export default {
             </div>
           </div>
         </div>
-        <div class="card rounded-5 rounded-lg-7 p-md-4 mb-4">
+        <div
+          class="card rounded-5 rounded-lg-7 p-md-4 mb-4"
+          data-aos="flip-up"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+        >
           <div class="d-md-flex flex-md-row-reverse m-lg-6">
             <img
               src="../assets/images/feature02.jpg"
@@ -195,7 +218,12 @@ export default {
             </div>
           </div>
         </div>
-        <div class="card rounded-5 rounded-lg-7 p-md-4">
+        <div
+          class="card rounded-5 rounded-lg-7 p-md-4"
+          data-aos="flip-up"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+        >
           <div class="d-md-flex m-lg-6">
             <img
               src="../assets/images/feature03.jpg"
@@ -230,10 +258,16 @@ export default {
       </button>
     </div>
     <!-- feature-background -->
-    <div class="bg-oval d-none d-xl-block" style="top: 40px; left: 8.3%"></div>
+    <div
+      class="bg-oval d-none d-xl-block"
+      style="top: 40px; left: 8.3%"
+      data-aos="fade-left"
+    ></div>
     <div
       class="bg-oval sec d-none d-xl-block"
       style="top: 890px; right: 8.3%"
+      data-aos="fade-right"
+      data-aos-delay="300"
     ></div>
   </div>
   <!-- reviews -->
@@ -245,6 +279,8 @@ export default {
       </h2>
       <swiper
         class="reviews-swiper mt-5 pt-3"
+        data-aos="fade-left"
+        data-aos-duration="1000"
         :slides-per-view="1"
         :spaceBetween="24"
         :pagination="{ clickable: true }"
@@ -282,9 +318,7 @@ export default {
                 >
               </div>
             </div>
-            <div
-              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
-            >
+            <div class="border-top-base border-secondary py-4 mx-4 flex-grow-1">
               <p class="card-text">
                 原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
               </p>
@@ -316,9 +350,7 @@ export default {
                 >
               </div>
             </div>
-            <div
-              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
-            >
+            <div class="border-top-base border-secondary py-4 mx-4 flex-grow-1">
               <p class="card-text">
                 第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下次想挑戰進階課程。
               </p>
@@ -348,9 +380,7 @@ export default {
                 >
               </div>
             </div>
-            <div
-              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
-            >
+            <div class="border-top-base border-secondary py-4 mx-4 flex-grow-1">
               <p class="card-text">
                 跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。
               </p>
@@ -380,9 +410,7 @@ export default {
                 >
               </div>
             </div>
-            <div
-              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
-            >
+            <div class="border-top-base border-secondary py-4 mx-4 flex-grow-1">
               <p class="card-text">
                 以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。
               </p>
@@ -412,9 +440,7 @@ export default {
                 >
               </div>
             </div>
-            <div
-              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
-            >
+            <div class="border-top-base border-secondary py-4 mx-4 flex-grow-1">
               <p class="card-text">
                 原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
               </p>
@@ -467,7 +493,7 @@ export default {
     </div>
     <!-- reviews-background -->
     <div class="w-100 position-absolute top-0 z-n1">
-      <div class="bg-design">
+      <div class="bg-design" data-aos="fade-up" data-aos-duration="2000">
         <div class="bg-secondary d-none d-md-block" style="top: 40px"></div>
       </div>
     </div>
@@ -741,11 +767,11 @@ export default {
     <!-- popular-packground -->
     <div
       class="bg-position bg-dashed-left border-primary d-none d-md-block start-0 z-0"
-      style="width: 30%;height: 340px;top: 120px;"
+      style="width: 30%; height: 340px; top: 120px"
     ></div>
     <div
       class="bg-position bg-dashed-right border-primary d-none d-md-block end-0 z-0"
-      style="width: 70%;height: 340px;top: 460px;"
+      style="width: 70%; height: 340px; top: 460px"
     ></div>
   </div>
 </template>

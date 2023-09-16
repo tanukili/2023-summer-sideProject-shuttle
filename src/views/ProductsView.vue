@@ -47,7 +47,7 @@ export default {
           </div>
         </div>
         <!-- list -->
-        <div class="row g-4">
+        <div class="row g-4" data-aos="zoom-out-up" data-aos-duration="1000" data-aos-delay="1000">
           <div class="col-md-6 col-lg-4">
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
@@ -99,6 +99,9 @@ export default {
                 <span
                   class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
                   style="top: 24px"
+                  data-aos="zoom-out-right"
+                  data-aos-duration="500"
+                  data-aos-delay="300"
                   >早鳥優惠</span
                 >
                 <a href="#">
@@ -228,6 +231,9 @@ export default {
                 <span
                   class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
                   style="top: 24px"
+                  data-aos="zoom-out-right"
+                  data-aos-duration="500"
+                  data-aos-delay="300"
                   >早鳥優惠</span
                 >
                 <a href="#">
@@ -279,6 +285,9 @@ export default {
                 <span
                   class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
                   style="top: 24px"
+                  data-aos="zoom-out-right"
+                  data-aos-duration="500"
+                  data-aos-delay="300"
                   >早鳥優惠</span
                 >
                 <a href="#">
@@ -330,6 +339,9 @@ export default {
                 <span
                   class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
                   style="top: 24px"
+                  data-aos="zoom-out-right"
+                  data-aos-duration="500"
+                  data-aos-delay="300"
                   >早鳥優惠</span
                 >
                 <a href="#">
@@ -381,6 +393,9 @@ export default {
                 <span
                   class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
                   style="top: 24px"
+                  data-aos="zoom-out-right"
+                  data-aos-duration="500"
+                  data-aos-delay="300"
                   >早鳥優惠</span
                 >
                 <a href="#">
@@ -432,6 +447,9 @@ export default {
                 <span
                   class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
                   style="top: 24px"
+                  data-aos="zoom-out-right"
+                  data-aos-duration="500"
+                  data-aos-delay="300"
                   >早鳥優惠</span
                 >
                 <a href="#">
@@ -512,12 +530,15 @@ export default {
     </div>
     <!-- background-style -->
     <div
-      class="bg-position bg-white border-base rounded-circle d-none d-md-block"
-      style="width: 1400px;height: 1400px; top: -900px; left: -20%"
+      class="bg-position bg-white border-base rounded-circle d-none d-md-block animation-rotate"
+      style="width: 1400px; height: 1400px; top: -900px; left: -20%"
     ></div>
     <div
       class="bg-position bg-secondary rounded-circle"
-      style="width: 1400px;height: 1400px;bottom: -900px; right: -20%;"
+      style="width: 1400px; height: 1400px; bottom: -900px; right: -20%"
+      data-aos="fade-up"
+      data-aos-duration="2000"
+      data-aos-delay="1000"
     ></div>
   </div>
 </template>
