@@ -7,6 +7,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 export default {
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   components: {
     Swiper,
     SwiperSlide,
@@ -21,10 +26,26 @@ export default {
       modules: [Autoplay, Navigation, Pagination],
     };
   },
+  mounted() {
+    // 進入時觸發
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1200);
+  },
 };
 </script>
 
 <template>
+    <LoadingOverlay v-model:active="isLoading">
+    <div class="loadingio-spinner-pulse-1iwbsd99pb">
+      <div class="ldio-dcvhkke5k">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </LoadingOverlay>
   <!-- banner -->
   <div
     class="bg-banner d-flex flex-column justify-content-center"

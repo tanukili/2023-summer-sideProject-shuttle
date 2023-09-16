@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 
 // 注意 import 順序
 import axios from 'axios';
@@ -14,5 +16,7 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(VueAxios, axios);
+
+app.component('LoadingOverlay', Loading); // 全域註冊
 
 app.mount('#app');
