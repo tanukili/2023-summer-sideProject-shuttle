@@ -12,3 +12,8 @@
     transform: translate(-50%, -50%);
   }
 }
+
+.form-control {
+  --bs-border-radius: 0;
+  --bs-border-color: var(--bs-secondary)
+}

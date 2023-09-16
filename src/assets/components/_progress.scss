@@ -1,0 +1,11 @@
+.progress {
+  position: relative;
+  overflow: visible !important;
+  &-bar {
+    position: absolute;
+    height: calc(var(--bs-progress-height) + 1px);
+    border: 2px solid var(--bs-progress-bar-bg);
+    top: -2px;
+    left: -2px;
+  }
+}
