@@ -1,0 +1,1 @@
+import{_ as e,o as s,c as o,d as t}from"./index-5c2a8abf.js";const c={},n={class:"about"},_=t("h1",null,"後台文章列表",-1),a=[_];function r(d,i){return s(),o("div",n,a)}const f=e(c,[["render",r]]);export{f as default};
