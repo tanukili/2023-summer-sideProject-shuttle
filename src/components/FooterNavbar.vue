@@ -1,7 +1,7 @@
 <script></script>
 
 <template>
-  <div class="border-dashed border-bottom border-gray-200">
+  <div class="border-bottom-base border-gray-200">
     <div class="container">
       <ul class="nav justify-content-around fs-6 lh-sm">
         <li class="nav-item">
@@ -94,7 +94,7 @@
       </ul>
     </div>
   </div>
-  <p class="py-3 lh-sm text-primary text-center border-dashed border-top border-gray-200">
+  <p class="py-3 lh-sm text-primary text-center border-top-base border-gray-200">
     <small>Copyright © 2023 Shuttle All Rights Reserved.</small>
   </p>
 </template>

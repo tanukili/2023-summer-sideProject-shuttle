@@ -283,7 +283,7 @@ export default {
               </div>
             </div>
             <div
-              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
             >
               <p class="card-text">
                 原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！
@@ -317,7 +317,7 @@ export default {
               </div>
             </div>
             <div
-              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
             >
               <p class="card-text">
                 第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下次想挑戰進階課程。
@@ -349,7 +349,7 @@ export default {
               </div>
             </div>
             <div
-              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
             >
               <p class="card-text">
                 跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。
@@ -381,7 +381,7 @@ export default {
               </div>
             </div>
             <div
-              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
             >
               <p class="card-text">
                 以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。
@@ -413,7 +413,7 @@ export default {
               </div>
             </div>
             <div
-              class="border-top border-2 border-dashed border-secondary py-4 mx-4 flex-grow-1"
+              class="border-top-base border-secondary py-4 mx-4 flex-grow-1"
             >
               <p class="card-text">
                 原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！

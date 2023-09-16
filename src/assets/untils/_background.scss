@@ -1,3 +1,4 @@
+// 背景樣式
 .bg-cricle {
   position: relative;
   .bg-design {
@@ -50,4 +51,11 @@
   border-bottom-left-radius: 680px;
   border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
   border-left: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+
+// RWD
+@include mobile {
+  .bg-sm-white {
+    background: $white;
+  }
 }
