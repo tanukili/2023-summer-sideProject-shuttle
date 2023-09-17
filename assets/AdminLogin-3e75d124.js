@@ -1,0 +1,1 @@
+import{_ as o,r as t,o as n,c as s,b as a,w as c,d as r,e as _}from"./index-d208d7dc.js";const d={},i={class:"about"},l=r("h1",null,"後台登入",-1);function m(u,f){const e=t("RouterLink");return n(),s("div",i,[l,a(e,{to:"/admin"},{default:c(()=>[_("進入後台頁面")]),_:1})])}const h=o(d,[["render",m]]);export{h as default};
