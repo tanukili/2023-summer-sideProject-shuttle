@@ -68,7 +68,7 @@ export default {
           </div>
         </div>
         <!-- list -->
-        <div class="row g-4" data-aos="zoom-out-up" data-aos-duration="1000" data-aos-delay="1000">
+        <div class="row g-4" data-aos="zoom-out-up" data-aos-duration="1000" data-aos-delay="200">
           <div class="col-md-6 col-lg-4">
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
@@ -86,7 +86,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">一日綴織體驗</h3>
                 <span class="badge bg-light">入門</span>
                 <span class="badge bg-light">綴織</span>
@@ -100,10 +100,10 @@ export default {
                   >$850</small
                 >
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -112,7 +112,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
+                  src="../assets/images/product/product02.jpg"
                   alt="product02"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -133,7 +133,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
                 <span class="badge bg-light">簡易織布機</span>
                 <span class="badge bg-light">兩日</span>
@@ -154,10 +154,10 @@ export default {
                   >
                 </small>
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -166,7 +166,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product03.jpg"
+                  src="../assets/images/product/product03.jpg"
                   alt="product03"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -179,7 +179,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">段染實驗營</h3>
                 <span class="badge bg-light">進階</span>
                 <span class="badge bg-light">輔助</span>
@@ -193,10 +193,10 @@ export default {
                   >$850</small
                 >
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -205,7 +205,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product01.jpg"
+                  src="../assets/images/product/product01.jpg"
                   alt="product01"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -218,7 +218,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">一日綴織體驗</h3>
                 <span class="badge bg-light">入門</span>
                 <span class="badge bg-light">綴織</span>
@@ -232,10 +232,10 @@ export default {
                   >$850</small
                 >
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -244,8 +244,8 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
-                  alt="product02"
+                  src="../assets/images/product/product04.jpg"
+                  alt="product04"
                   class="rounded-top-4"
                   style="height: 240px"
                 />
@@ -265,7 +265,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
                 <span class="badge bg-light">簡易織布機</span>
                 <span class="badge bg-light">兩日</span>
@@ -286,10 +286,10 @@ export default {
                   >
                 </small>
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -298,8 +298,8 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
-                  alt="product02"
+                  src="../assets/images/product/product06.jpg"
+                  alt="product06"
                   class="rounded-top-4"
                   style="height: 240px"
                 />
@@ -319,7 +319,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
                 <span class="badge bg-light">簡易織布機</span>
                 <span class="badge bg-light">兩日</span>
@@ -340,10 +340,10 @@ export default {
                   >
                 </small>
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -352,8 +352,8 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
-                  alt="product02"
+                  src="../assets/images/product/product07.jpg"
+                  alt="product07"
                   class="rounded-top-4"
                   style="height: 240px"
                 />
@@ -373,7 +373,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
                 <span class="badge bg-light">簡易織布機</span>
                 <span class="badge bg-light">兩日</span>
@@ -394,10 +394,10 @@ export default {
                   >
                 </small>
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -406,19 +406,11 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
-                  alt="product02"
+                  src="../assets/images/product/product08.jpg"
+                  alt="product08"
                   class="rounded-top-4"
                   style="height: 240px"
                 />
-                <span
-                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
-                  style="top: 24px"
-                  data-aos="zoom-out-right"
-                  data-aos-duration="500"
-                  data-aos-delay="300"
-                  >早鳥優惠</span
-                >
                 <a href="#">
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
@@ -427,7 +419,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
                 <span class="badge bg-light">簡易織布機</span>
                 <span class="badge bg-light">兩日</span>
@@ -437,21 +429,14 @@ export default {
               <div
                 class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
               >
-                <small
-                  class="d-flex align-items-end fs-5 text-danger mb-3 mb-xl-0"
+              <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
+                  >$850</small
                 >
-                  $1,800
-                  <span
-                    class="fs-6 text-gray-400 text-decoration-line-through ms-2"
-                  >
-                    $2,000</span
-                  >
-                </small>
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -460,19 +445,11 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
+                  src="../assets/images/product/product02.jpg"
                   alt="product02"
                   class="rounded-top-4"
                   style="height: 240px"
                 />
-                <span
-                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
-                  style="top: 24px"
-                  data-aos="zoom-out-right"
-                  data-aos-duration="500"
-                  data-aos-delay="300"
-                  >早鳥優惠</span
-                >
                 <a href="#">
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
@@ -481,7 +458,7 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1">
+              <div class="card-body flex-grow-1 mb-md-3">
                 <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
                 <span class="badge bg-light">簡易織布機</span>
                 <span class="badge bg-light">兩日</span>
@@ -491,21 +468,14 @@ export default {
               <div
                 class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
               >
-                <small
-                  class="d-flex align-items-end fs-5 text-danger mb-3 mb-xl-0"
+              <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
+                  >$850</small
                 >
-                  $1,800
-                  <span
-                    class="fs-6 text-gray-400 text-decoration-line-through ms-2"
-                  >
-                    $2,000</span
-                  >
-                </small>
                 <RouterLink
-                  class="btn btn-primary fs-md-7 fs-xl-6 ms-xl-auto"
+                  class="btn btn-primary fs-md-7 ms-xl-auto"
                   to="/product"
                 >
-                  立即購買
+                  購買課程
                 </RouterLink>
               </div>
             </div>
@@ -536,7 +506,7 @@ export default {
             <li class="page-item mx-1">
               <a class="page-link fs-6 rounded-circle" href="#/products">3</a>
             </li>
-            <li class="page-item">
+            <li class="page-item ms-1">
               <a
                 class="page-link rounded-circle p-1"
                 href="#/products"

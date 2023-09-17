@@ -1,5 +1,4 @@
 <script>
-
 export default {
   data() {
     return {
@@ -17,7 +16,7 @@ export default {
 </script>
 
 <template>
-    <LoadingOverlay v-model:active="isLoading">
+  <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -43,7 +42,11 @@ export default {
         </ol>
       </nav>
       <!-- 課程內容 -->
-      <div class="card bg-white rounded-5 mb-5"  data-aos="zoom-out-down" data-aos-duration="1000">
+      <div
+        class="card bg-white rounded-5 mb-5"
+        data-aos="zoom-out-down"
+        data-aos-duration="1000"
+      >
         <div class="row g-0">
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
@@ -112,12 +115,14 @@ export default {
               </div>
               <div class="row gx-2">
                 <div class="col-lg-6 mb-2">
-                  <RouterLink
+                  <button
                     class="btn btn-outline-primary rounded-1 fs-7 w-100"
-                    to="/carts"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addcarts-success"
                   >
                     加入購物車
-                  </RouterLink>
+                  </button>
                 </div>
                 <div class="col-lg-6">
                   <RouterLink
@@ -277,8 +282,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="" >
-    </div>
+    <div class=""></div>
     <!-- background-style -->
     <div
       class="bg-position bg-white border-base rounded-circle animation-rotate"
@@ -286,10 +290,65 @@ export default {
     ></div>
     <div
       class="bg-position bg-secondary rounded-circle"
-      style="width: 1400px; height: 1400px; bottom: -1000px; right: -27%;z-index: -1"
+      style="
+        width: 1400px;
+        height: 1400px;
+        bottom: -1000px;
+        right: -27%;
+        z-index: -1;
+      "
       data-aos="fade-up"
       data-aos-duration="1500"
       data-aos-delay="500"
     ></div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="addcarts-success"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content rounded-4 border-base border-light">
+        <div class="modal-header py-2 border-0">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <span class="material-symbols-outlined"> close </span>
+          </button>
+        </div>
+        <div class="modal-body text-center fs-4 fs-md-3">
+          <span
+            class="material-symbols-outlined icon-semibold fs-3 align-middle lh-lg me-2 text-success"
+          >
+            task_alt </span
+          >已成功加入購物車
+        </div>
+        <div
+          class="modal-footer p-3 justify-content-center border-0"
+        >
+          <RouterLink
+            type="button"
+            class="btn py-2 btn-outline-mellow text-primary fs-7 mx-2"
+            data-bs-dismiss="modal"
+            to="/products"
+          >
+            繼續購物
+          </RouterLink>
+          <RouterLink
+            type="button"
+            class="btn py-2 btn-primary fs-7 mx-2"
+            to="/carts"
+            target="_blank"
+            >立即結帳</RouterLink
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>

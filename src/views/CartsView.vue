@@ -79,7 +79,7 @@ export default {
       </div>
       <div class="table-responsive-sm">
         <table
-          class="table align-middle table-white text-center fs-9 fs-md-8 fs-lg-7"
+          class="table align-middle table-white text-center fs-8 fs-lg-7"
         >
           <thead>
             <tr class="table-light bg-light">
@@ -248,11 +248,11 @@ export default {
       </div>
       <!-- 訂單底部 -->
       <div class="row mb-4 pb-md-3">
-        <div class="col-md-5">
+        <div class="col-10 col-md-5">
           <div class="input-group pt-2 mb-3 mb-lg-4">
             <input
               type="text"
-              class="form-control form-control-sm fs-7"
+              class="form-control form-control-sm fs-8"
               placeholder="請輸入折扣碼"
               aria-label="coupon number"
               aria-describedby="coupon-btn"
@@ -276,7 +276,7 @@ export default {
             <li
               class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"
             >
-              <span class="fw-bold">優惠券折扣</span><span class="text-danger">NT$ 50</span>
+              <span class="fw-bold">優惠券折扣</span><span class="text-danger">NT$ -50</span>
             </li>
             <li
               class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"

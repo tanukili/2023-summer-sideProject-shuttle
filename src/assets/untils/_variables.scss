@@ -1659,8 +1659,7 @@ $progress-bg:                       inherit !default; // custom
 $progress-border-radius:            0 !default; // custom
 $progress-box-shadow:               var(--#{$prefix}box-shadow-inset) !default;
 $progress-bar-color:                $white !default;
-// $progress-bar-bg:                   $primary !default;
-$progress-bar-bg:                   $secondary !default; // custom
+$progress-bar-bg:                   $primary !default;
 $progress-bar-animation-timing:     1s linear infinite !default;
 $progress-bar-transition:           width .6s ease !default;
 // scss-docs-end progress-variables
