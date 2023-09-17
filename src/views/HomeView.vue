@@ -1,10 +1,10 @@
 <script>
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 export default {
   data() {
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <LoadingOverlay v-model:active="isLoading">
+  <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -166,8 +166,7 @@ export default {
     <div class="w-100 position-absolute top-0 z-n1">
       <div class="bg-design">
         <div
-          class="bg-white border border-2 border-dashed border-gray-500
-          d-none d-md-block animation-rotate"
+          class="bg-white border border-2 border-dashed border-gray-500 d-none d-md-block animation-rotate"
           style="bottom: 2022px"
         ></div>
       </div>
@@ -531,6 +530,10 @@ export default {
           class="mt-5 mobile-style popular-swiper"
           :spaceBetween="0"
           :noSwiping="true"
+          :autoplay="{
+            delay: 3000,
+            disableOnInteraction: false,
+          }"
           :breakpoints="{
             '768': {
               slidesPerView: 2,
