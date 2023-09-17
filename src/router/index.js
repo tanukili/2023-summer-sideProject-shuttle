@@ -149,6 +149,11 @@ const router = createRouter({
       ],
     },
   ],
+  scrollBehavior() {
+    return {
+      top: 0, // 切換後將固定在最上方
+    };
+  },
 });
 
 export default router;
