@@ -1,15 +1,15 @@
 <script>
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/vue";
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default {
   data() {
     return {
-      isLoading: false,
+      // isLoading: false,
     };
   },
   components: {
@@ -27,17 +27,17 @@ export default {
     };
   },
   mounted() {
-    // 進入時觸發
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1200);
+    // // 進入時觸發
+    // this.isLoading = true;
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 1200);
   },
 };
 </script>
 
 <template>
-  <LoadingOverlay v-model:active="isLoading">
+  <!-- <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -45,7 +45,7 @@ export default {
         <div></div>
       </div>
     </div>
-  </LoadingOverlay>
+  </LoadingOverlay> -->
   <!-- banner -->
   <div
     class="bg-banner d-flex flex-column justify-content-center"
@@ -54,12 +54,12 @@ export default {
     <div class="container">
       <div class="banner-content">
         <h1
-          class="fs-2 fw-bold text-white pb-3 animate__animated animate__fadeInDown"
+          class="fs-2 fw-bold text-white pb-3"
         >
           一封真摯的邀請函<br />
           <span class="py-3 d-inline-block">
             給予手織
-            <span class="select-icon align-bottom">
+            <!-- <span class="select-icon align-bottom">
               <select
                 class="form-select fs-5 fw-bold d-inline-block w-auto text-primary py-2"
                 aria-label="Default select example"
@@ -69,7 +69,7 @@ export default {
                 <option value="amateur">愛好者</option>
                 <option value="artist">創作者</option>
               </select>
-            </span>
+            </span> -->
           </span>
           的你
         </h1>
