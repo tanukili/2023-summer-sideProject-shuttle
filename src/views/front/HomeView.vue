@@ -59,7 +59,7 @@ export default {
           一封真摯的邀請函<br />
           <span class="py-3 d-inline-block">
             給予手織
-            <!-- <span class="select-icon align-bottom">
+            <span class="select-icon align-bottom">
               <select
                 class="form-select fs-5 fw-bold d-inline-block w-auto text-primary py-2"
                 aria-label="Default select example"
@@ -69,7 +69,7 @@ export default {
                 <option value="amateur">愛好者</option>
                 <option value="artist">創作者</option>
               </select>
-            </span> -->
+            </span>
           </span>
           的你
         </h1>
@@ -89,7 +89,7 @@ export default {
         <div class="col-md-6" data-aos="zoom-in-up">
           <div class="promotions left img-mask card text-white mb-3 mb-md-0">
             <img
-              src="../assets/images/promotions01.jpg"
+              src="../../assets/images/promotions01.jpg"
               class="card-img h-100"
               alt="promotions01"
             />
@@ -116,7 +116,7 @@ export default {
             data-aos-delay="500"
           >
             <img
-              src="../assets/images/promotions02.jpg"
+              src="../../assets/images/promotions02.jpg"
               class="card-img h-100"
               alt="promotions02"
             />
@@ -140,7 +140,7 @@ export default {
             data-aos="zoom-in-up"
           >
             <img
-              src="../assets/images/promotions03.jpg"
+              src="../../assets/images/promotions03.jpg"
               class="card-img h-100"
               alt="promotions03"
             />
@@ -188,7 +188,7 @@ export default {
         >
           <div class="d-md-flex m-lg-6">
             <img
-              src="../assets/images/feature01.jpg"
+              src="../../assets/images/feature01.jpg"
               class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
               alt="feature01"
             />
@@ -217,7 +217,7 @@ export default {
         >
           <div class="d-md-flex flex-md-row-reverse m-lg-6">
             <img
-              src="../assets/images/feature02.jpg"
+              src="../../assets/images/feature02.jpg"
               class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
               alt="feature02"
             />
@@ -246,7 +246,7 @@ export default {
         >
           <div class="d-md-flex m-lg-6">
             <img
-              src="../assets/images/feature03.jpg"
+              src="../../assets/images/feature03.jpg"
               class="rounded-top-5 rounded-md-6 border-gray-500 feature-img"
               alt="feature03"
             />
@@ -327,7 +327,7 @@ export default {
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
             <div class="d-flex pb-3 mx-4">
               <img
-                src="../assets/images/avatar01.png"
+                src="../../assets/images/avatar01.png"
                 alt="avatar01"
                 class="rounded-circle me-3"
                 style="max-width: 64px; max-height: 64px"
@@ -357,7 +357,7 @@ export default {
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
             <div class="d-flex pb-3 mx-4">
               <img
-                src="../assets/images/avatar02.png"
+                src="../../assets/images/avatar02.png"
                 alt="avatar02"
                 class="rounded-circle me-3"
                 style="max-width: 64px; max-height: 64px"
@@ -389,7 +389,7 @@ export default {
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
             <div class="d-flex pb-3 mx-4">
               <img
-                src="../assets/images/avatar03.png"
+                src="../../assets/images/avatar03.png"
                 alt="avatar03"
                 class="rounded-circle me-3"
                 style="max-width: 64px; max-height: 64px"
@@ -419,7 +419,7 @@ export default {
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
             <div class="d-flex pb-3 mx-4">
               <img
-                src="../assets/images/avatar04.png"
+                src="../../assets/images/avatar04.png"
                 alt="avatar04"
                 class="rounded-circle me-3"
                 style="max-width: 64px; max-height: 64px"
@@ -449,7 +449,7 @@ export default {
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
             <div class="d-flex pb-3 mx-4">
               <img
-                src="../assets/images/avatar01.png"
+                src="../../assets/images/avatar01.png"
                 alt="avatar01"
                 class="rounded-circle me-3"
                 style="max-width: 64px; max-height: 64px"
@@ -479,7 +479,7 @@ export default {
           <div class="card bg-white fs-6 fw-medium position-relative pt-4">
             <div class="d-flex pb-3 mx-4">
               <img
-                src="../assets/images/avatar02.png"
+                src="../../assets/images/avatar02.png"
                 alt="avatar02"
                 class="rounded-circle me-3"
                 style="max-width: 64px; max-height: 64px"
@@ -560,7 +560,7 @@ export default {
             <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product01.jpg"
+                  src="../../assets/images/product01.jpg"
                   alt="product01"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -599,7 +599,7 @@ export default {
             <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
+                  src="../../assets/images/product02.jpg"
                   alt="product02"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -650,7 +650,7 @@ export default {
             <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product03.jpg"
+                  src="../../assets/images/product03.jpg"
                   alt="product03"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -689,7 +689,7 @@ export default {
             <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product01.jpg"
+                  src="../../assets/images/product01.jpg"
                   alt="product01"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -728,7 +728,7 @@ export default {
             <div class="card w-100 rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product02.jpg"
+                  src="../../assets/images/product02.jpg"
                   alt="product02"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -804,7 +804,7 @@ export default {
 .bg-banner {
   /* 加上半透明遮罩 */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(../assets/images/banner.jpg);
+    url(../../assets/images/banner.jpg);
   /* padding: 235px 0 240px 0; */
   background-size: cover;
   background-repeat: no-repeat;

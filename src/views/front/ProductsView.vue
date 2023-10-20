@@ -1,5 +1,5 @@
 <script>
-import ProductsNavs from '../components/ProductsNavs.vue';
+import ProductsNavs from '../../components/ProductsNavs.vue';
 
 export default {
   data() {
@@ -73,7 +73,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product05.jpg"
+                  src="../../assets/images/product/product05.jpg"
                   alt="product05"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -112,7 +112,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product02.jpg"
+                  src="../../assets/images/product/product02.jpg"
                   alt="product02"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -166,7 +166,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product03.jpg"
+                  src="../../assets/images/product/product03.jpg"
                   alt="product03"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -205,7 +205,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product01.jpg"
+                  src="../../assets/images/product/product01.jpg"
                   alt="product01"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -244,7 +244,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product04.jpg"
+                  src="../../assets/images/product/product04.jpg"
                   alt="product04"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -298,7 +298,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product06.jpg"
+                  src="../../assets/images/product/product06.jpg"
                   alt="product06"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -352,7 +352,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product07.jpg"
+                  src="../../assets/images/product/product07.jpg"
                   alt="product07"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -406,7 +406,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product08.jpg"
+                  src="../../assets/images/product/product08.jpg"
                   alt="product08"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -445,7 +445,7 @@ export default {
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
                 <img
-                  src="../assets/images/product/product02.jpg"
+                  src="../../assets/images/product/product02.jpg"
                   alt="product02"
                   class="rounded-top-4"
                   style="height: 240px"
@@ -537,8 +537,11 @@ export default {
 <style>
 .product-banner {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)),
-    url(../assets/images/banner/banner-products.jpg);
+    url(../../assets/images/banner/banner-products.jpg);
   height: 180px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   @media (min-width: 768px) {
     height: 240px;
   }

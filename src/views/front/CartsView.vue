@@ -110,7 +110,7 @@ export default {
               <td>
                 <div class="d-none d-md-flex flex-column align-items-center">
                   <img
-                    src="../assets/images/product/product05.jpg"
+                    src="../../assets/images/product/product05.jpg"
                     alt="product05"
                     class="img-fluid"
                     style="max-width: 150px"
@@ -159,7 +159,7 @@ export default {
               <td>
                 <div class="d-none d-md-flex flex-column align-items-center">
                   <img
-                    src="../assets/images/product/product02.jpg"
+                    src="../../assets/images/product/product02.jpg"
                     alt="product02"
                     class="img-fluid"
                     style="max-width: 150px"
@@ -208,7 +208,7 @@ export default {
               <td>
                 <div class="d-none d-md-flex flex-column align-items-center">
                   <img
-                    src="../assets/images/product/product03.jpg"
+                    src="../../assets/images/product/product03.jpg"
                     alt="product03"
                     class="img-fluid"
                     style="max-width: 150px"
