@@ -1,15 +1,15 @@
 <script>
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/vue";
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export default {
   data() {
     return {
-      isLoading: false,
+      // isLoading: false,
     };
   },
   components: {
@@ -27,17 +27,17 @@ export default {
     };
   },
   mounted() {
-    // 進入時觸發
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1200);
+    // // 進入時觸發
+    // this.isLoading = true;
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 1200);
   },
 };
 </script>
 
 <template>
-  <LoadingOverlay v-model:active="isLoading">
+  <!-- <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -45,7 +45,7 @@ export default {
         <div></div>
       </div>
     </div>
-  </LoadingOverlay>
+  </LoadingOverlay> -->
   <!-- banner -->
   <div
     class="bg-banner d-flex flex-column justify-content-center"
