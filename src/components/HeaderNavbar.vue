@@ -1,10 +1,12 @@
-<script></script>
-
 <template>
+<<<<<<< HEAD
   <nav
     class="navbar navbar-expand-md navbar-light py-md-3"
     data-aos="fade-down"
   >
+=======
+  <nav class="navbar navbar-expand-md navbar-light py-md-3">
+>>>>>>> 765a418a6495fe076882a9d31720b9b54fb99377
     <div class="container">
       <RouterLink to="/" class="d-md-none">
         <img src="../assets/images/logo.png" alt="logo" style="width: 96px" />
@@ -103,9 +105,12 @@
     </div>
   </nav>
 </template>
+<<<<<<< HEAD
 
 <style>
 .offcanvas-body {
   overflow: unset;
 }
 </style>
+=======
+>>>>>>> 765a418a6495fe076882a9d31720b9b54fb99377

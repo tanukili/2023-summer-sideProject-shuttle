@@ -1,3 +1,5 @@
+import './assets/all.scss';
+
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import Loading from 'vue-loading-overlay';

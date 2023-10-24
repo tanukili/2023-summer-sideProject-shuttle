@@ -50,7 +50,7 @@ export default {
         <div class="row g-0">
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
-              src="../assets/images/product/product05.jpg"
+              src="../../assets/images/product/product05.jpg"
               class="img-fluid rounded-top-5 rounded-start-md-5 h-100"
               alt="prodcut05"
             />
