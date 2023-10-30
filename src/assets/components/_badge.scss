@@ -1,4 +1,12 @@
 .badge {
   line-height: 1.2 !important;
-  margin-right: 8px;
+
+  &.badge-sale {
+    --bs-badge-padding-x: 0.75rem;
+    --bs-badge-padding-y: 0.5rem;
+    --bs-badge-font-size: 1.25rem;
+    --bs-badge-font-weight: 700;
+    --bs-badge-color: var(--bs-white);
+    background: $danger;
+  }
 }

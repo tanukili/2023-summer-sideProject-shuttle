@@ -1,18 +1,3 @@
-.select-icon {
-  --bs-body-bg: var(--bs-white);
-  position: relative;
-  &::after {
-    content: '';
-    border-left: 5px solid transparent; // 左邊透明邊框
-    border-right: 5px solid transparent; // 右邊透明邊框
-    border-top: 5px solid $primary; 
-    position: absolute;
-    bottom: 30%;
-    right: 5%;
-    transform: translate(-50%, -50%);
-  }
-}
-
 .form-control {
   --bs-border-radius: 0;
   --bs-border-color: var(--bs-secondary)

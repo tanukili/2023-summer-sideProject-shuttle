@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-    <LoadingOverlay v-model:active="isLoading">
+  <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -49,7 +49,7 @@ export default {
             </ol>
           </nav>
           <div class="d-flex">
-            <label for="filter-select" class="fs-8 fw-medium flex-shrink-0 me-2"
+            <label for="filter-select" class="fs-8 flex-shrink-0 me-2"
               >排序</label
             >
             <div class="select-icon">
@@ -68,7 +68,12 @@ export default {
           </div>
         </div>
         <!-- list -->
-        <div class="row g-4" data-aos="zoom-out-up" data-aos-duration="1000" data-aos-delay="200">
+        <div
+          class="row g-4"
+          data-aos="zoom-out-up"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+        >
           <div class="col-md-6 col-lg-4">
             <div class="card rounded-4 bg-white fw-bold lh-sm">
               <div class="img-mask position-relative">
@@ -429,7 +434,7 @@ export default {
               <div
                 class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
               >
-              <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
+                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
                   >$850</small
                 >
                 <RouterLink
@@ -468,7 +473,7 @@ export default {
               <div
                 class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
               >
-              <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
+                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
                   >$850</small
                 >
                 <RouterLink
@@ -484,7 +489,7 @@ export default {
         <!-- pagination -->
         <nav class="mt-5">
           <ul
-            class="pagination justify-content-center align-items-center fw-medium lh-sm"
+            class="pagination justify-content-center align-items-center lh-sm"
           >
             <li class="page-item me-1">
               <a
@@ -521,7 +526,7 @@ export default {
     </div>
     <!-- background-style -->
     <div
-      class="bg-position bg-white border-base rounded-circle d-none d-md-block animation-rotate"
+      class="bg-position bg-white border-dashed rounded-circle d-none d-md-block animation-rotate"
       style="width: 1400px; height: 1400px; top: -900px; left: -20%"
     ></div>
     <div

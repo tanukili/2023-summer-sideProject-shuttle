@@ -45,7 +45,7 @@ export default {
           <li>填寫資料</li>
           <li>訂單完成</li>
         </ol>
-        <div class="progress border-base border-secondary">
+        <div class="progress border-dashed border-secondary">
           <div
             class="progress-bar"
             role="progressbar"
@@ -61,7 +61,7 @@ export default {
         <div class="col-lg-6">
           <div class="d-flex flex-column h-100">
             <h4 class="text-center pt-4 pb-5">
-              <span class="border-bottom-base pb-2">確認訂單內容</span>
+              <span class="border-dashed-b pb-2">確認訂單內容</span>
             </h4>
             <div class="table-responsive-sm">
               <table
@@ -151,7 +151,7 @@ export default {
         <div class="col-lg-6 mt-5 mt-lg-0">
           <div class="bg-secondary px-5 py-4">
             <h4 class="text-center pb-5">
-              <span class="border-bottom-base border-light pb-2"
+              <span class="border-dashed-b border-light pb-2"
                 >填寫訂單資料</span
               >
             </h4>

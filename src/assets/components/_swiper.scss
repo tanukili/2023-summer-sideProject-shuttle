@@ -1,35 +1,42 @@
 .swiper {
-  // 顯示溢出容器的內容
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-left: -16px;
-  margin-right: -16px;
-  padding-bottom: 64px;
+  // 顯示溢出swiper容器的css樣式(陰影)
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  margin-left: -16px !important;
+  margin-right: -16px !important;
+  padding-bottom: 16px !important;
+
   // mobile
   @include mobile {
     &.mobile-style {
       padding-bottom: 48px;
+
       .swiper-wrapper {
         flex-direction: column;
         justify-content: center;
         transform: translate3d(0px, 0px, 0px) !important; // 保持原位
       }
+
       .swiper-slide {
         margin-bottom: 24px;
+
         &:last-of-type {
           margin-bottom: 0;
         }
       }
     }
   }
+
   // 單一視窗非滿版時
   &.reviews-swiper {
-    .swiper-slide > * {
+    .swiper-slide>* {
       min-height: 360px;
       max-width: 319px;
+
       @include mobile {
         margin-left: calc(50% - 159.5px);
       }
+
       @include pad {
         margin-left: 8px; // 可優化
         margin-right: 8px;
@@ -37,41 +44,59 @@
     }
   }
 }
-// pagination
+
+// swiper-pagination
 .swiper-horizontal {
   .swiper-pagination-bullet {
     width: 16px;
     height: 16px;
     opacity: 1;
     background: $secondary;
+
     @include pad {
       background: $white;
     }
+
     &.swiper-pagination-bullet-active {
       background: $primary;
     }
   }
+
   .swiper-pagination-bullets.swiper-pagination-horizontal {
     bottom: var(--swiper-scrollbar-bottom, 0px);
   }
 }
+
 // swiper-button
 .swiper-button {
-  &-prev, &-next {
-    top: 50%;
+
+  &-prev,
+  &-next {
+    // top: 50%;
+
     &::after {
+      --swiper-navigation-size: 48px;
       color: $primary;
       background: $white;
-      font-size: 20px;
-      font-weight: 900;
-      padding: 16px 22px;
+      padding: 8px;
       border-radius: 50%;
+      font-family: 'Material Symbols Rounded' !important;
     }
   }
+
   &-prev {
-    left: var(--swiper-navigation-sides-offset, -5%);
+    left: var(--swiper-navigation-sides-offset, -5%) !important;
+
+    &::after {
+      content: '\e5cb' !important;
+    }
   }
+
   &-next {
-    right: var(--swiper-navigation-sides-offset, -5%);
+    right: var(--swiper-navigation-sides-offset, -5%) !important;
+
+    &::after {
+      content: '\e5cc' !important;
+    }
   }
 }

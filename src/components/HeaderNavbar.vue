@@ -1,12 +1,5 @@
 <template>
-<<<<<<< HEAD
-  <nav
-    class="navbar navbar-expand-md navbar-light py-md-3"
-    data-aos="fade-down"
-  >
-=======
-  <nav class="navbar navbar-expand-md navbar-light py-md-3">
->>>>>>> 765a418a6495fe076882a9d31720b9b54fb99377
+  <nav class="navbar navbar-expand-md py-md-3">
     <div class="container">
       <RouterLink to="/" class="d-md-none">
         <img src="../assets/images/logo.png" alt="logo" style="width: 96px" />
@@ -47,23 +40,17 @@
               class="navbar-nav justify-content-end align-items-md-end flex-grow-1 lh-sm"
             >
               <li class="nav-item me-2">
-                <RouterLink
-                  to="/howto"
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link px-4 px-md-6 py-md-2"
+                <RouterLink to="/howto" class="fs-lg-6 fs-md-7 fs-5 nav-link"
                   >認識手織</RouterLink
                 >
               </li>
               <li class="nav-item me-2">
-                <RouterLink
-                  to="/products"
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link px-4 px-md-6 py-md-2"
+                <RouterLink to="/products" class="fs-lg-6 fs-md-7 fs-5 nav-link"
                   >購買課程</RouterLink
                 >
               </li>
               <li class="nav-item">
-                <RouterLink
-                  to="/news"
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link px-4 px-md-6 py-md-2"
+                <RouterLink to="/news" class="fs-lg-6 fs-md-7 fs-5 nav-link"
                   >最新消息</RouterLink
                 >
               </li>
@@ -77,25 +64,20 @@
                 </RouterLink>
               </li>
               <li class="nav-item me-2">
-                <RouterLink
-                  to="/contact"
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link px-4 px-md-6 py-md-2"
+                <RouterLink to="/contact" class="fs-lg-6 fs-md-7 fs-5 nav-link"
                   >聯絡我們</RouterLink
                 >
               </li>
               <li class="nav-item me-2">
-                <RouterLink
-                  to="/login"
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link px-4 px-md-6 py-md-2"
+                <RouterLink to="/login" class="fs-lg-6 fs-md-7 fs-5 nav-link"
                   >登入/註冊</RouterLink
                 >
               </li>
               <li class="nav-item">
-                <RouterLink
-                  to="/carts"
-                  class="nav-link px-4 px-md-6 py-md-2 d-none d-md-block"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
+                <RouterLink to="/carts" class="nav-link d-none d-md-block">
+                  <span class="icon-lg material-symbols-outlined">
+                    shopping_cart
+                  </span>
                 </RouterLink>
               </li>
             </ul>
@@ -105,12 +87,31 @@
     </div>
   </nav>
 </template>
-<<<<<<< HEAD
 
 <style>
-.offcanvas-body {
-  overflow: unset;
+#headerNavbar {
+  /* .nav-item {
+    @include mobile {
+      &:first-child {
+        margin-top: -4px;
+      }
+    }
+  } */
+  @media (min-width: 992px) {
+    .offcanvas-body {
+      .nav-item:first-child {
+        .nav-link {
+          padding-right: 14.5px;
+          padding-left: 14.5px;
+        }
+      }
+      .nav-item:last-child {
+        .nav-link {
+          padding-top: 6px;
+          padding-bottom: 6px;
+        }
+      }
+    }
+  }
 }
 </style>
-=======
->>>>>>> 765a418a6495fe076882a9d31720b9b54fb99377

@@ -1,42 +1,40 @@
 // style
 .border-dashed {
-  border-style: dashed !important;
+  --bs-border-color: var(--bs-gray-600);
+  border-width: 2px;
+  border-style: dashed;
+  border-color: var(--bs-border-color);
 }
-.border-base {
-  --bs-border-width: 2px; 
-  --bs-border-style: dashed;
-  --bs-border-color: var(--bs-primary);
-  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+
+.border-dashed-b {
+  --bs-border-color: var(--bs-gray-600);
+  border-bottom-width: 2px;
+  border-bottom-style: dashed;
+  border-bottom-color: var(--bs-border-color);
 }
-.border-bottom-base {
-  --bs-border-width: 2px; 
-  --bs-border-style: dashed;
-  --bs-border-color: var(--bs-primary);
-  border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
-}
-.border-top-base {
-  --bs-border-width: 2px; 
-  --bs-border-style: dashed;
-  --bs-border-color: var(--bs-primary);
-  border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+
+.border-dashed-t {
+  --bs-border-color: var(--bs-gray-600);
+  border-top-width: 2px;
+  border-top-style: dashed;
+  border-top-color: var(--bs-border-color);
 }
 
 // rounded
-.rounded-6 {
-  border-radius: 28px;
-}
 .rounded-7 {
   border-radius: 40px;
 }
 
 // RWD
 @include pad {
-  .rounded-md-6 {
+  .rounded-md-3 {
     border-radius: 28px !important;
   }
+
   .rounded-md-7 {
     border-radius: 40px !important;
   }
+
   .rounded-start-md-5 {
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
@@ -44,10 +42,8 @@
     border-top-left-radius: var(--bs-border-radius-xxl) !important;
   }
 }
+
 @include wed {
-  .rounded-lg-6 {
-    border-radius: 28px !important;
-  }
   .rounded-lg-7 {
     border-radius: 40px !important;
   }

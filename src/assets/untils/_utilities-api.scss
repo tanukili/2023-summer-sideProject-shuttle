@@ -1,16 +1,22 @@
 // Utilities
 
-$utilities: () !default;
+$utilities: (
+  ) !default;
 // stylelint-disable-next-line scss/dollar-variable-default
-$utilities: map-merge(
-  $utilities,
-  (
-    "font-size": (
-      // rfs: true,
-      rfs: false,
-      property: font-size,
-      class: fs,
-      values: $font-sizes
+$utilities: map-merge($utilities,
+    ("font-size": ( // rfs: true,
+        rfs: false,
+        property: font-size,
+        class: fs,
+        values: $font-sizes ),
+      "width": (property: width,
+        class: w,
+        values: (20: 20%, // custom
+          25: 25%,
+          33: 33.33%, // custom
+          50: 50%,
+          75: 75%,
+          100: 100%,
+          auto: auto)),
     ),
-  ),
 );

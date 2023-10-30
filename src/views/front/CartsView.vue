@@ -1,5 +1,4 @@
 <script>
-
 export default {
   data() {
     return {
@@ -46,7 +45,7 @@ export default {
           <li>填寫資料</li>
           <li>訂單完成</li>
         </ol>
-        <div class="progress border-base border-secondary">
+        <div class="progress border-dashed border-secondary">
           <div
             class="progress-bar"
             role="progressbar"
@@ -78,9 +77,7 @@ export default {
         </a>
       </div>
       <div class="table-responsive-sm">
-        <table
-          class="table align-middle table-white text-center fs-8 fs-lg-7"
-        >
+        <table class="table align-middle table-white text-center fs-8 fs-lg-7">
           <thead>
             <tr class="table-light bg-light">
               <th scope="col"></th>
@@ -276,7 +273,8 @@ export default {
             <li
               class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"
             >
-              <span class="fw-bold">優惠券折扣</span><span class="text-danger">NT$ -50</span>
+              <span class="fw-bold">優惠券折扣</span
+              ><span class="text-danger">NT$ -50</span>
             </li>
             <li
               class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"

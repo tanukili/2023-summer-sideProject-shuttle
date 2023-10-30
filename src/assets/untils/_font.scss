@@ -1,17 +1,12 @@
-small, .small {
+small,
+.small {
   font-size: $font-size-sm;
-}
-big, .big {
-  font-size: $h1-font-size !important;
-  @include wed {
-    font-size: 64px !important;
-  }
 }
 
 // style
-.title-style {
+.title {
   text-align: center;
-  font-size: 40px;
+
   span {
     display: inline-block;
     padding-bottom: 16px;
@@ -19,30 +14,45 @@ big, .big {
     border-bottom-style: dashed;
     border-color: $gray-600;
   }
-  @include pad {
-    font-size: 48px;
+}
+
+.font-order {
+  font-size: $h1-font-size  !important;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-base;
+
+  @include wed {
+    font-size: 64px !important;
   }
 }
 
 // RWD
 @include pad {
-  @each $number, $size in $font-sizes {
+
+  @each $number,
+  $size in $font-sizes {
     .fs-md-#{$number} {
-      font-size: $size !important;
+      font-size: $size  !important;
     }
   }
 }
+
 @include wed {
-  @each $number, $size in $font-sizes {
+
+  @each $number,
+  $size in $font-sizes {
     .fs-lg-#{$number} {
-      font-size: $size !important;
+      font-size: $size  !important;
     }
   }
 }
+
 @include wed-xl {
-  @each $number, $size in $font-sizes {
+
+  @each $number,
+  $size in $font-sizes {
     .fs-xl-#{$number} {
-      font-size: $size !important;
+      font-size: $size  !important;
     }
   }
 }

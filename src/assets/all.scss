@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" ); // symbols
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"); // symbols
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"); // rounded
+
 
 @import "../../node_modules/bootstrap/scss/functions";
 @import './untils/variables';
@@ -10,7 +12,6 @@
 
 @import './components/button';
 @import './components/card';
-@import './components/nav';
 @import './components/form';
 @import './components/swiper';
 @import './components/badge';

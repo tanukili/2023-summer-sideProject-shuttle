@@ -65,7 +65,7 @@ export default {
           <div class="col-md-6 px-4">
             <div class="card-body pt-4">
               <h2 class="card-title fs-4 fs-xl-3 text-center">一日綴織體驗</h2>
-              <p class="card-text border-bottom-base border-secondary pb-4">
+              <p class="card-text border-dashed-b border-secondary pb-4">
                 簡單入門的織布技巧，只需要木框與線材就能開始創作，學員們可以如繪圖般，自由地增添各式各樣的線材，讓畫面富有個性。
               </p>
               <ul class="list-group list-group-flush fs-8 pt-2">
@@ -94,7 +94,7 @@ export default {
                 <div class="d-flex align-items-center ms-auto">
                   <label
                     for="filter-select"
-                    class="fw-medium flex-shrink-0 fs-8 fs-lg-7 me-2"
+                    class="flex-shrink-0 fs-8 fs-lg-7 me-2"
                     >報名人數</label
                   >
                   <div class="select-icon">
@@ -251,7 +251,7 @@ export default {
         >
           <ul class="list-group list-group-flush">
             <li
-              class="list-group-item bg-white py-2 my-md-2 border-bottom-base border-mellow"
+              class="list-group-item bg-white py-2 my-md-2 border-dashed-b border-mellow"
             >
               <span class="fw-bold lh-lg"
                 >Q. 課程購買後，能延後或取消課程嗎？ </span
@@ -260,7 +260,7 @@ export default {
               日前為課程費用 30% ， 1 日前為課程費用 50% 。
             </li>
             <li
-              class="list-group-item bg-white py-2 my-md-2 border-bottom-base border-mellow"
+              class="list-group-item bg-white py-2 my-md-2 border-dashed-b border-mellow"
             >
               <span class="fw-bold lh-lg"
                 >Q. 錯過了這次報名時間，之後還會再開設課程嗎？ </span
@@ -270,7 +270,7 @@ export default {
               開課標準會依課程熱門度進行調整，歡迎聯絡我們，告知您的需求。
             </li>
             <li
-              class="list-group-item bg-white py-2 my-md-2 border-bottom-base border-mellow"
+              class="list-group-item bg-white py-2 my-md-2 border-dashed-b border-mellow"
             >
               <span class="fw-bold lh-lg"
                 >Q. 如果上課人數超過 10 人該如何報名？ </span
@@ -285,7 +285,7 @@ export default {
     <div class=""></div>
     <!-- background-style -->
     <div
-      class="bg-position bg-white border-base rounded-circle animation-rotate"
+      class="bg-position bg-white border-dashed rounded-circle animation-rotate"
       style="width: 1400px; height: 1400px; top: -1000px; left: -27%"
     ></div>
     <div
@@ -311,7 +311,7 @@ export default {
     aria-hidden="true"
   >
     <div class="modal-dialog">
-      <div class="modal-content rounded-4 border-base border-light">
+      <div class="modal-content rounded-4 border-dashed border-light">
         <div class="modal-header py-2 border-0">
           <button
             type="button"
@@ -329,9 +329,7 @@ export default {
             task_alt </span
           >已成功加入購物車
         </div>
-        <div
-          class="modal-footer p-3 justify-content-center border-0"
-        >
+        <div class="modal-footer p-3 justify-content-center border-0">
           <RouterLink
             type="button"
             class="btn py-2 btn-outline-mellow text-primary fs-7 mx-2"

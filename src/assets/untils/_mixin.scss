@@ -4,16 +4,19 @@
     @content;
   }
 }
+
 @mixin wed {
   @media (min-width: 992px) {
     @content;
   }
 }
+
 @mixin pad {
   @media (min-width: 768px) {
     @content;
   }
 }
+
 @mixin mobile {
   @media (max-width: 768px) {
     @content;
