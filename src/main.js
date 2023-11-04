@@ -1,3 +1,4 @@
+// import 'sweetalert2/dist/sweetalert2.min.css';
 import './assets/all.scss';
 
 import { createApp } from 'vue';
@@ -13,6 +14,9 @@ import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate';
 import * as AllRules from '@vee-validate/rules'; // VeeValidate寫好的驗證規則
 import { localize, setLocale } from '@vee-validate/i18n'; // VeeValidate 多國語系
 import zhTw from '@vee-validate/i18n/dist/locale/zh_TW.json'; // VeeValidate 繁體中文語系檔
+
+import VueSweetalert2 from 'vue-sweetalert2';
+
 import router from './router';
 
 import 'bootstrap'; // 從nodeModule中載入Bootstrap
@@ -35,6 +39,7 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(VueAxios, axios);
+app.use(VueSweetalert2);
 
 // 掛載元件
 app.component('LoadingOverlay', Loading); // loading

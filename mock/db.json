@@ -20,6 +20,16 @@
       "birthday": "1990-01-01",
       "sex": "female",
       "favorites": []
+    },
+    {
+      "email": "test01@gmail.com",
+      "password": "$2a$10$Ps0axRCMJ6HLUGDc1RlbluxS3F/fr/7rLygZBJ48GpO5SeP097uhq",
+      "phone": "0912345678",
+      "name": "ming",
+      "birthday": "1990-01-01",
+      "sex": "male",
+      "favorites": [],
+      "id": 2
     }
   ]
 }

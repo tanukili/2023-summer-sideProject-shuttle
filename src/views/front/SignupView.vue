@@ -3,6 +3,8 @@ import Flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default {
   components: {
     BackgroundBanner,
@@ -18,7 +20,7 @@ export default {
             'url(/2023-summer-sideProject-shuttle/src/assets/images/banner.jpg)',
         },
       },
-      singUpInfo: {},
+      userBirthday: '',
       flatpickrConfig: {
         enableTime: true,
         dateFormat: 'Y-m-d H:i',
@@ -27,8 +29,42 @@ export default {
   },
   methods: {
     onSubmit(values) {
-      console.log(values);
-      this.singUpInfo = values;
+      const obj = {
+        email: values.信箱,
+        password: values.密碼,
+        phone: values.連絡電話,
+        name: values.會員名稱,
+        birthday: this.userBirthday,
+        sex: values.性別 ? values.性別 : '',
+        favorites: [],
+      };
+      this.singUp(obj);
+    },
+    singUp(userInfo) {
+      this.axios
+        .post(`${api}/signup`, userInfo)
+        .then(() => {
+          this.$swal({
+            icon: 'success',
+            title: '註冊成功',
+            showConfirmButton: false,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutDown',
+            },
+          });
+          // 待修改 加上導入購物頁面、驗證資料寫入cookie
+        })
+        .catch((err) => {
+          if (err.response.data === 'Email already exists') {
+            // 待修改 原生樣式
+            this.$swal('該信箱已註冊');
+          } else {
+            this.$swal(`問題${err.response.status}，抱歉請洽客服`);
+          }
+        });
     },
   },
   mounted() {
@@ -45,7 +81,6 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
-    console.log(this.singUpInfo);
   },
   beforeUnmount() {
     // 銷毀Flatpickr實體，防止資料洩漏
@@ -153,6 +188,7 @@ export default {
                   type="text"
                   id="signUpBirthday"
                   placeholder="1990-01-01"
+                  v-model="userBirthday"
                 />
                 <label for="signUpBirthday">生日</label>
               </div>
