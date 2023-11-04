@@ -2,3 +2,45 @@
   --bs-border-radius: 0;
   --bs-border-color: var(--bs-secondary)
 }
+
+.form-floating>.form-control,
+.form-floating>.form-control-plaintext,
+.form-floating>.form-select {
+  line-height: $line-height-base  !important;
+}
+
+/* 客製化樣式 */
+
+// ErrorMessage
+.form-floating span {
+  color: $danger;
+  font-size: $font-size-sm;
+  position: absolute;
+  top: 50%;
+  right: $input-padding-x;
+  transform: translateY(-50%);
+  background: linear-gradient(rgba(var(--bs-white-rgb), 0.7),
+      rgba(var(--bs-white-rgb), 0.7));
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  border-radius: $border-radius-pill;
+}
+
+// input-required
+.required::after {
+  content: '*';
+  color: $danger;
+}
+
+/* theme-style */
+.form-clear {
+  .form-control {
+    --bs-body-bg: var(--bs-white);
+    --bs-body-color: var(--bs-black);
+  }
+
+  .form-control:not(:placeholder-shown)~label::after,
+  .form-control:focus~label::after {
+    background-color: inherit !important;
+    color: rgba(var(--bs-black-rgb), 0.65) !important;
+  }
+}

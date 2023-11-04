@@ -26,6 +26,12 @@ small,
   }
 }
 
+// 麵包屑
+.breadcrumb {
+  line-height: $line-height-lg;
+  font-weight: $font-weight-semibold;
+}
+
 // RWD
 @include pad {
 

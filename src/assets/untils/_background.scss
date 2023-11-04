@@ -1,11 +1,13 @@
 // 背景樣式
 .bg-cricle {
   position: relative;
+
   .bg-design {
     overflow: hidden;
     display: flex;
     justify-content: center; // 讓 design 部分置中
-    & > * {
+
+    &>* {
       border-radius: 50%;
       flex-shrink: 0; // 取消 flex 自動縮小
       height: 2800px;
@@ -14,14 +16,17 @@
     }
   }
 }
+
 // 首頁圖片背景
 .bg-img {
   background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(images/backplance.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+
   @media (min-width: 1200px) {
     background: none;
   }
+
   .bg-oval {
     z-index: -1;
     background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(images/backplance.jpg);
@@ -33,20 +38,23 @@
     border-radius: 425px;
   }
 }
+
 // 首頁 dash 定位
 .bg-position {
   z-index: -1;
   position: absolute;
 }
+
 .bg-dashed-left {
-  --bs-border-width: 2px; 
+  --bs-border-width: 2px;
   --bs-border-style: dashed;
   border-top-right-radius: 680px;
   border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
   border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
 }
+
 .bg-dashed-right {
-  --bs-border-width: 2px; 
+  --bs-border-width: 2px;
   --bs-border-style: dashed;
   border-bottom-left-radius: 680px;
   border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);

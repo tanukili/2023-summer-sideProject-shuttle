@@ -29,7 +29,7 @@ export default {
     <!-- content -->
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb mb-0 fw-semibold">
+        <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item">
             <RouterLink to="/">首頁</RouterLink>
           </li>

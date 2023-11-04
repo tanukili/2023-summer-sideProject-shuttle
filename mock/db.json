@@ -1,0 +1,25 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "courseName": "json-server",
+      "Userid": 1,
+      "content": "讚讚讚",
+      "stars": 5,
+      "imgUrl": {},
+      "canShared": true
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "test01@mail.com",
+      "password": "test01",
+      "phone": "0912345678",
+      "name": "小華",
+      "birthday": "1990-01-01",
+      "sex": "female",
+      "favorites": []
+    }
+  ]
+}
