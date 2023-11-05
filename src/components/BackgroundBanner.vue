@@ -6,7 +6,7 @@ export default {
 <template>
   <div>
     <div
-      class="bg-banner banner-mask position-absolute vw-100 z-n1"
+      class="bg-banner banner-mask position-absolute w-100 z-n1"
       :style="bannerImg"
     ></div>
   </div>
@@ -17,6 +17,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  height: var(--banner-height);
   --position-top: 0px;
   /* 區塊間距 + 麵包屑 */
   top: calc(120px + 24px * 1.2 + 16px + var(--position-top));

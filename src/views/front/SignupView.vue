@@ -245,14 +245,17 @@ export default {
         </div>
       </div>
       <!-- background -->
-      <BackgroundBanner v-bind:bannerImg="bannerAd.imgUrl"></BackgroundBanner>
+      <BackgroundBanner
+        v-bind:bannerImg="bannerAd.imgUrl"
+        class="singUp-banner"
+      ></BackgroundBanner>
     </div>
   </div>
 </template>
 
 <style>
-.bg-banner {
-  height: 600px;
+.singUp-banner > * {
+  --banner-height: 640px;
   --position-top: 64px;
 }
 </style>

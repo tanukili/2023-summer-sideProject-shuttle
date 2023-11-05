@@ -115,14 +115,17 @@ export default {
         </div>
       </div>
       <!-- background -->
-      <BackgroundBanner v-bind:bannerImg="bannerAd.imgUrl"></BackgroundBanner>
+      <BackgroundBanner
+        v-bind:bannerImg="bannerAd.imgUrl"
+        class="login-banner"
+      ></BackgroundBanner>
     </div>
   </div>
 </template>
 
 <style>
-.bg-banner {
-  height: 400px;
+.login-banner > * {
+  --banner-height: 420px;
   --position-top: 64px;
 }
 </style>
