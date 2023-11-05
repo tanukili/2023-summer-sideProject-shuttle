@@ -1,0 +1,1 @@
+import{_ as n,f as a,g as s,i as r,A as o}from"./index-5d870e0a.js";const t={props:["bannerImg"]};function c(_,l,e,i,p,u){return a(),s("div",null,[r("div",{class:"bg-banner banner-mask position-absolute w-100 z-n1",style:o(e.bannerImg)},null,4)])}const m=n(t,[["render",c]]);export{m as B};

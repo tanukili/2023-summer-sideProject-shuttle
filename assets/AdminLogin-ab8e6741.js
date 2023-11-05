@@ -1,1 +1,0 @@
-import{_ as t,e as o,f as s,g as n,k as a,l as c,i as r,s as _}from"./index-bca04a56.js";const i={},d={class:"about"},l=r("h1",null,"後台登入",-1);function f(m,u){const e=o("RouterLink");return s(),n("div",d,[l,a(e,{to:"/admin"},{default:c(()=>[_("進入後台頁面")]),_:1})])}const h=t(i,[["render",f]]);export{h as default};
