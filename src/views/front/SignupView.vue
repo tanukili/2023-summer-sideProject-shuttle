@@ -11,7 +11,7 @@ export default {
   },
   data() {
     return {
-      isLoading: false,
+      // isLoading: false,
       bannerAd: {
         title: '新註冊會員 贈50元折價券',
         subtitle: '新會員招募中，填寫推薦碼再加碼',
@@ -120,7 +120,7 @@ export default {
             <h1 class="title fs-3 text-primary pt-3 pb-4">
               <span class="border-primary">會員註冊</span>
             </h1>
-            <VForm novalidate @submit="onSubmit" class="px-5 form-clear">
+            <VForm novalidate @submit="onSubmit" class="mx-5 form-clear">
               <div class="form-floating mb-4">
                 <VField
                   name="信箱"

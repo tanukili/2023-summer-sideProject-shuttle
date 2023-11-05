@@ -5,6 +5,8 @@ import HeaderNavbar from './components/HeaderNavbar.vue';
 import FooterNavbar from './components/FooterNavbar.vue';
 import 'aos/dist/aos.css';
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default {
   components: {
     RouterView,
