@@ -1,6 +1,8 @@
 <script>
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default {
   components: {
     BackgroundBanner,
@@ -15,11 +17,49 @@ export default {
             'url(/2023-summer-sideProject-shuttle/src/assets/images/banner/banner-products.jpg)',
         },
       },
+      loginInfo: {
+        password: '',
+        email: '',
+      },
     };
   },
   methods: {
-    onSubmit(values) {
-      console.log(values);
+    login(obj) {
+      this.axios
+        .post(`${api}/login`, obj)
+        .then((res) => {
+          const { accessToken } = res.data;
+          const { id } = res.data.user;
+          document.cookie = `token=${accessToken}; max-age=86400;Secure`;
+          document.cookie = `userId=${id}; max-age=86400;Secure`;
+          this.$swal({
+            icon: 'success',
+            title: '登入成功',
+            showConfirmButton: false,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutDown',
+            },
+          });
+          this.$router.push('/');
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          switch (err.response.data) {
+            case 'Cannot find user':
+              this.$swal('該用戶不存在');
+              break;
+            case 'Incorrect password':
+              this.$swal('密碼輸入錯誤');
+              break;
+
+            default:
+              this.$swal(`問題${err.response.status}，抱歉請洽客服`);
+              break;
+          }
+        });
     },
   },
   mounted() {
@@ -27,6 +67,9 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
+  },
+  updated() {
+    console.log('login 更新');
   },
 };
 </script>
@@ -72,6 +115,7 @@ export default {
                   class="form-control"
                   id="signUpEmail"
                   placeholder="name@example.com"
+                  v-model="loginInfo.email"
                 />
                 <label for="signUpEmail">註冊信箱</label>
               </div>
@@ -82,6 +126,7 @@ export default {
                   class="form-control"
                   id="signUpPassword"
                   placeholder="password"
+                  v-model="loginInfo.password"
                 />
                 <label for="signUpPassword">密碼</label>
               </div>
@@ -98,8 +143,11 @@ export default {
               </div>
 
               <button
-                @submit="onSubmit"
+                @click.prevent="login(loginInfo)"
                 class="btn btn-primary text-white w-100 mt-2 fs-5"
+                :class="
+                  !loginInfo.email || !loginInfo.password ? 'disabled' : true
+                "
               >
                 登入
               </button>

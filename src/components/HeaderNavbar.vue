@@ -1,3 +1,40 @@
+<script>
+export default {
+  props: ['nowId'],
+  data() {
+    return {
+      userId: 0,
+    };
+  },
+  methods: {
+    logout() {
+      // 清除 cookie
+      document.cookie = 'token=;';
+      document.cookie = 'userId=;';
+      this.getUserId();
+      this.$swal('成功登出');
+      this.$router.push('/');
+    },
+    getUserId() {
+      const userId = document.cookie.replace(
+        /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
+        '$1'
+      );
+      this.userId = userId;
+      console.log(this.userId);
+    },
+  },
+  // watch: {
+  //   userId: {
+
+  //   }
+  // },
+  mounted() {
+    this.getUserId();
+  },
+};
+</script>
+
 <template>
   <nav class="navbar navbar-expand-md py-md-3">
     <div class="container">
@@ -69,8 +106,18 @@
                 >
               </li>
               <li class="nav-item me-2">
-                <RouterLink to="/login" class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                <RouterLink
+                  to="/login"
+                  class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                  v-if="!userId"
                   >登入/註冊</RouterLink
+                >
+                <a
+                  class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                  href="#"
+                  @click.prevent="logout"
+                  v-else
+                  >會員登出</a
                 >
               </li>
               <li class="nav-item">
