@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ['nowId'],
+  props: ['id'],
   data() {
     return {
       userId: 0,
@@ -11,7 +11,8 @@ export default {
       // 清除 cookie
       document.cookie = 'token=;';
       document.cookie = 'userId=;';
-      this.getUserId();
+      // 通知父元件更新
+      this.$emit('logout');
       this.$swal('成功登出');
       this.$router.push('/');
     },
@@ -21,14 +22,8 @@ export default {
         '$1'
       );
       this.userId = userId;
-      console.log(this.userId);
     },
   },
-  // watch: {
-  //   userId: {
-
-  //   }
-  // },
   mounted() {
     this.getUserId();
   },
@@ -109,7 +104,7 @@ export default {
                 <RouterLink
                   to="/login"
                   class="fs-lg-6 fs-md-7 fs-5 nav-link"
-                  v-if="!userId"
+                  v-if="!id"
                   >登入/註冊</RouterLink
                 >
                 <a

@@ -43,10 +43,10 @@ export default {
               popup: 'animate__animated animate__fadeOutDown',
             },
           });
+          this.$emit('updateUserId', id);
           this.$router.push('/');
         })
         .catch((err) => {
-          console.log(err.response.data);
           switch (err.response.data) {
             case 'Cannot find user':
               this.$swal('該用戶不存在');
@@ -67,9 +67,6 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
-  },
-  updated() {
-    console.log('login 更新');
   },
 };
 </script>

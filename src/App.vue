@@ -12,9 +12,18 @@ export default {
     FooterNavbar,
   },
   data() {
-    return {};
+    return {
+      id: 0,
+    };
   },
-  methods: {},
+  methods: {
+    updateUserId(userId) {
+      this.id = userId;
+    },
+    handleLogout() {
+      this.id = 0;
+    },
+  },
   mounted() {
     // 進入時觸發
     AOS.init();
@@ -24,10 +33,10 @@ export default {
 
 <template>
   <header>
-    <HeaderNavbar />
+    <HeaderNavbar :id="id" @logout="handleLogout" />
   </header>
   <div>
-    <RouterView />
+    <RouterView @updateUserId="updateUserId" />
   </div>
   <FooterNavbar />
 </template>
