@@ -1,5 +1,6 @@
 <script>
 import ProductsNavs from '../../components/ProductsNavs.vue';
+import FrontPagination from '../../components/FrontPagination.vue';
 
 const hexApi = import.meta.env.VITE_HEX_API_PATH;
 const apiPath = '2023shuttle';
@@ -9,10 +10,12 @@ export default {
   data() {
     return {
       products: [],
+      pagination: {},
     };
   },
   components: {
     ProductsNavs,
+    FrontPagination,
   },
   methods: {
     getProducts(page = 1) {
@@ -21,6 +24,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.products = res.data.products;
+          this.pagination = res.data.pagination;
         })
         .catch((err) => {
           alert(err.message);
@@ -156,41 +160,10 @@ export default {
           </div>
         </div>
         <!-- pagination -->
-        <nav class="mt-5">
-          <ul
-            class="pagination justify-content-center align-items-center lh-sm"
-          >
-            <li class="page-item me-1">
-              <a
-                class="page-link rounded-circle p-1"
-                href="#/products"
-                aria-label="Previous"
-              >
-                <span class="material-symbols-outlined"> chevron_left </span>
-              </a>
-            </li>
-            <li class="page-item mx-1">
-              <a class="page-link fs-6 rounded-circle active" href="#/products"
-                >1</a
-              >
-            </li>
-            <li class="page-item mx-1">
-              <a class="page-link fs-6 rounded-circle" href="#/products">2</a>
-            </li>
-            <li class="page-item mx-1">
-              <a class="page-link fs-6 rounded-circle" href="#/products">3</a>
-            </li>
-            <li class="page-item ms-1">
-              <a
-                class="page-link rounded-circle p-1"
-                href="#/products"
-                aria-label="Next"
-              >
-                <span class="material-symbols-outlined"> chevron_right </span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <FrontPagination
+          :pages="pagination"
+          @updatePage="getProducts"
+        ></FrontPagination>
       </div>
     </div>
     <!-- background-style -->
