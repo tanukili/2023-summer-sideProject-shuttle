@@ -1,27 +1,45 @@
 <script>
 import ProductsNavs from '../../components/ProductsNavs.vue';
 
+const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const apiPath = '2023shuttle';
+
 export default {
+  emits: ['updateUserId'], // 聲明事件避免錯誤
   data() {
     return {
-      isLoading: false,
+      products: [],
     };
   },
   components: {
     ProductsNavs,
   },
+  methods: {
+    getProducts(page = 1) {
+      this.axios
+        .get(`${hexApi}api/${apiPath}/products?page=${page}`)
+        .then((res) => {
+          console.log(res.data);
+          this.products = res.data.products;
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    },
+  },
   mounted() {
     // 進入時觸發
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1200);
+    // this.isLoading = true;
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 1200);
+    this.getProducts();
   },
 };
 </script>
 
 <template>
-  <LoadingOverlay v-model:active="isLoading">
+  <!-- <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -29,7 +47,7 @@ export default {
         <div></div>
       </div>
     </div>
-  </LoadingOverlay>
+  </LoadingOverlay> -->
   <div class="bg-banner product-banner"></div>
   <ProductsNavs></ProductsNavs>
   <div class="position-relative overflow-hidden">
@@ -68,67 +86,29 @@ export default {
           </div>
         </div>
         <!-- list -->
-        <div
-          class="row g-4"
-          data-aos="zoom-out-up"
-          data-aos-duration="1000"
-          data-aos-delay="200"
-        >
-          <div class="col-md-6 col-lg-4">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
+        <div class="row g-4">
+          <div
+            v-for="product in products"
+            :key="product.id"
+            :class="[
+              (products.indexOf(product) + 1) % 8 <= 3
+                ? 'col-md-6 col-lg-4'
+                : 'col-md-6 col-lg-4 d-none d-md-block',
+            ]"
+          >
+            <div class="card">
+              <div class="card-mask position-relative">
                 <img
-                  src="../../assets/images/product/product05.jpg"
-                  alt="product05"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">一日綴織體驗</h3>
-                <span class="badge bg-light">入門</span>
-                <span class="badge bg-light">綴織</span>
-                <span class="badge bg-light">一日</span>
-                <span class="badge bg-light">入門</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
-                  >$850</small
-                >
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product02.jpg"
-                  alt="product02"
-                  class="rounded-top-4"
+                  :src="product.imageUrl"
+                  :alt="`product${product.id}`"
+                  class="rounded-top"
                   style="height: 240px"
                 />
                 <span
-                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
+                  v-if="!product.state.promotion"
+                  class="badge badge-sale position-absolute start-0"
                   style="top: 24px"
-                  data-aos="zoom-out-right"
-                  data-aos-duration="500"
-                  data-aos-delay="300"
-                  >早鳥優惠</span
+                  >優惠中</span
                 >
                 <a href="#">
                   <span
@@ -138,350 +118,39 @@ export default {
                   >
                 </a>
               </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
-                <span class="badge bg-light">簡易織布機</span>
-                <span class="badge bg-light">兩日</span>
-                <span class="badge bg-light">秋冬</span>
-                <span class="badge bg-light">Top 3</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small
-                  class="d-flex align-items-end fs-5 text-danger mb-3 mb-xl-0"
-                >
-                  $1,800
-                  <span
-                    class="fs-6 text-gray-400 align-middle text-decoration-line-through ms-2"
-                  >
-                    $2,000</span
-                  >
-                </small>
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product03.jpg"
-                  alt="product03"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">段染實驗營</h3>
-                <span class="badge bg-light">進階</span>
-                <span class="badge bg-light">輔助</span>
-                <span class="badge bg-light">四日</span>
-                <span class="badge bg-light">Top 3</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
-                  >$850</small
-                >
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product01.jpg"
-                  alt="product01"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">一日綴織體驗</h3>
-                <span class="badge bg-light">入門</span>
-                <span class="badge bg-light">綴織</span>
-                <span class="badge bg-light">一日</span>
-                <span class="badge bg-light">入門</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
-                  >$850</small
-                >
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 d-none d-md-block">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product04.jpg"
-                  alt="product04"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
+              <div class="card-body flex-grow-1 pb-5">
+                <h3 class="card-title fs-5">{{ product.title }}</h3>
                 <span
-                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
-                  style="top: 24px"
-                  data-aos="zoom-out-right"
-                  data-aos-duration="500"
-                  data-aos-delay="300"
-                  >早鳥優惠</span
+                  class="badge bg-light me-2"
+                  v-for="tag in product.info.tags"
+                  :key="product.info.tags.indexOf(tag)"
+                  >{{ tag }}</span
                 >
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
-                <span class="badge bg-light">簡易織布機</span>
-                <span class="badge bg-light">兩日</span>
-                <span class="badge bg-light">秋冬</span>
-                <span class="badge bg-light">Top 3</span>
               </div>
               <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
+                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pt-4 pb-3"
               >
-                <small
-                  class="d-flex align-items-end fs-5 text-danger mb-3 mb-xl-0"
-                >
-                  $1,800
-                  <span
-                    class="fs-6 text-gray-400 align-middle text-decoration-line-through ms-2"
+                <div class="d-flex align-items-center">
+                  <small
+                    v-if="product.price !== product.origin_price"
+                    class="fs-4 fw-bold text-danger"
+                    >${{ product.price }}</small
                   >
-                    $2,000</span
-                  >
-                </small>
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
+                  <small
+                    :class="[
+                      product.price === product.origin_price
+                        ? 'fs-4 fw-bold text-black'
+                        : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
+                    ]"
+                    >${{ product.origin_price }}
+                  </small>
+                </div>
+                <button
+                  class="btn btn-primary text-white fs-md-7 fs-xl-6 ms-lg-auto mt-3"
+                  style="button"
                 >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 d-none d-md-block">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product06.jpg"
-                  alt="product06"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <span
-                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
-                  style="top: 24px"
-                  data-aos="zoom-out-right"
-                  data-aos-duration="500"
-                  data-aos-delay="300"
-                  >早鳥優惠</span
-                >
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
-                <span class="badge bg-light">簡易織布機</span>
-                <span class="badge bg-light">兩日</span>
-                <span class="badge bg-light">秋冬</span>
-                <span class="badge bg-light">Top 3</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small
-                  class="d-flex align-items-end fs-5 text-danger mb-3 mb-xl-0"
-                >
-                  $1,800
-                  <span
-                    class="fs-6 text-gray-400 text-decoration-line-through ms-2"
-                  >
-                    $2,000</span
-                  >
-                </small>
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 d-none d-lg-block">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product07.jpg"
-                  alt="product07"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <span
-                  class="badge bg-danger text-white fs-6 py-2 px-6 position-absolute start-0"
-                  style="top: 24px"
-                  data-aos="zoom-out-right"
-                  data-aos-duration="500"
-                  data-aos-delay="300"
-                  >早鳥優惠</span
-                >
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
-                <span class="badge bg-light">簡易織布機</span>
-                <span class="badge bg-light">兩日</span>
-                <span class="badge bg-light">秋冬</span>
-                <span class="badge bg-light">Top 3</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small
-                  class="d-flex align-items-end fs-5 text-danger mb-3 mb-xl-0"
-                >
-                  $1,800
-                  <span
-                    class="fs-6 text-gray-400 text-decoration-line-through ms-2"
-                  >
-                    $2,000</span
-                  >
-                </small>
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 d-none d-lg-block">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product08.jpg"
-                  alt="product08"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
-                <span class="badge bg-light">簡易織布機</span>
-                <span class="badge bg-light">兩日</span>
-                <span class="badge bg-light">秋冬</span>
-                <span class="badge bg-light">Top 3</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
-                  >$850</small
-                >
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 d-none d-lg-block">
-            <div class="card rounded-4 bg-white fw-bold lh-sm">
-              <div class="img-mask position-relative">
-                <img
-                  src="../../assets/images/product/product02.jpg"
-                  alt="product02"
-                  class="rounded-top-4"
-                  style="height: 240px"
-                />
-                <a href="#">
-                  <span
-                    class="icon-favorite material-symbols-outlined position-absolute"
-                    style="top: 24px; right: 24px"
-                    >favorite</span
-                  >
-                </a>
-              </div>
-              <div class="card-body flex-grow-1 mb-md-3">
-                <h3 class="card-title fs-5">暖色羊毛圍巾</h3>
-                <span class="badge bg-light">簡易織布機</span>
-                <span class="badge bg-light">兩日</span>
-                <span class="badge bg-light">秋冬</span>
-                <span class="badge bg-light">Top 3</span>
-              </div>
-              <div
-                class="card-footer d-flex flex-column flex-xl-row align-items-xl-end pb-3"
-              >
-                <small class="d-inline-block fs-5 text-deep mb-3 mb-xl-0"
-                  >$850</small
-                >
-                <RouterLink
-                  class="btn btn-primary fs-md-7 ms-xl-auto"
-                  to="/product"
-                >
-                  購買課程
-                </RouterLink>
+                  立即購買
+                </button>
               </div>
             </div>
           </div>
