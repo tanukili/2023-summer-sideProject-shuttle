@@ -15,7 +15,8 @@ const router = createRouter({
       component: () => import('../views/front/ProductsView.vue'),
     },
     {
-      path: '/product',
+      // 動態路由
+      path: '/product/:id',
       name: 'product',
       component: () => import('../views/front/ProductView.vue'),
     },
