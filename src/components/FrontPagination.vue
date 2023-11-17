@@ -11,8 +11,8 @@ export default {
 
 <template>
   <nav class="mt-5">
-    <ul class="pagination justify-content-center align-items-center lh-sm">
-      <li class="page-item me-1">
+    <ul class="pagination justify-content-center align-items-center">
+      <li class="page-item me-2">
         <a
           class="page-link rounded-circle p-1"
           href="#/products"
@@ -34,7 +34,7 @@ export default {
           >{{ page }}</a
         >
       </li>
-      <li class="page-item ms-1">
+      <li class="page-item ms-2">
         <a
           class="page-link rounded-circle p-1"
           href="#/products"

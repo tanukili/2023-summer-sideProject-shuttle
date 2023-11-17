@@ -1,4 +1,5 @@
 <script>
+import BackgroundBanner from '../../components/BackgroundBanner.vue';
 import ProductsNavs from '../../components/ProductsNavs.vue';
 import FrontPagination from '../../components/FrontPagination.vue';
 
@@ -9,11 +10,13 @@ export default {
   emits: ['updateUserId'], // 聲明事件避免錯誤
   data() {
     return {
+      bannerImg: 'background-image: url(public/banner/banner-products.jpg)',
       products: [],
       pagination: {},
     };
   },
   components: {
+    BackgroundBanner,
     ProductsNavs,
     FrontPagination,
   },
@@ -52,7 +55,11 @@ export default {
       </div>
     </div>
   </LoadingOverlay> -->
-  <div class="bg-banner product-banner"></div>
+  <!-- <div class="bg-banner product-banner"></div> -->
+  <BackgroundBanner
+    :bannerImg="bannerImg"
+    class="product-banner"
+  ></BackgroundBanner>
   <ProductsNavs></ProductsNavs>
   <div class="position-relative overflow-hidden">
     <!-- contnet -->
@@ -61,7 +68,7 @@ export default {
         <!-- top -->
         <div class="d-flex justify-content-between align-items-center mb-3">
           <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
+            <ol class="breadcrumb">
               <li class="breadcrumb-item">
                 <RouterLink to="/">首頁</RouterLink>
               </li>
@@ -70,14 +77,16 @@ export default {
               </li>
             </ol>
           </nav>
-          <div class="d-flex">
-            <label for="filter-select" class="fs-8 flex-shrink-0 me-2"
+          <div class="d-flex align-items-center">
+            <label
+              for="filter-select"
+              class="lh-lg fw-semibold flex-shrink-0 me-2"
               >排序</label
             >
             <div class="select-icon">
               <select
-                class="form-select form-select-sm border-gray-200 pe-4"
-                aria-label="form-select-sm"
+                class="form-select fs-7 border-secondary"
+                aria-label="form-select"
                 id="filter-select"
               >
                 <option value="CtoE" selected>價格由低到高</option>
@@ -90,14 +99,15 @@ export default {
           </div>
         </div>
         <!-- list -->
-        <div class="row g-4">
+        <div class="row gx-3 gy-4">
           <div
+            class="col-md-6 col-lg-4 col-xxl-3"
             v-for="product in products"
             :key="product.id"
             :class="[
               (products.indexOf(product) + 1) % 8 <= 3
-                ? 'col-md-6 col-lg-4'
-                : 'col-md-6 col-lg-4 d-none d-md-block',
+                ? 'col-md-6 col-lg-4 col-xxl-3'
+                : 'col-md-6 col-lg-4 col-xxl-3 d-none d-md-block',
             ]"
           >
             <div class="card">
@@ -109,7 +119,7 @@ export default {
                   style="height: 240px"
                 />
                 <span
-                  v-if="!product.state.promotion"
+                  v-if="product.state.promotion"
                   class="badge badge-sale position-absolute start-0"
                   style="top: 24px"
                   >優惠中</span
@@ -131,9 +141,7 @@ export default {
                   >{{ tag }}</span
                 >
               </div>
-              <div
-                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pt-4 pb-3"
-              >
+              <div class="card-footer pb-3">
                 <div class="d-flex align-items-center">
                   <small
                     v-if="product.price !== product.origin_price"
@@ -149,12 +157,13 @@ export default {
                     >${{ product.origin_price }}
                   </small>
                 </div>
-                <button
-                  class="btn btn-primary text-white fs-md-7 fs-xl-6 ms-lg-auto mt-3"
+                <RouterLink
+                  :to="`/product/${product.id}`"
+                  class="btn btn-primary w-100 fs-md-7 fs-xl-6 mt-3"
                   style="button"
                 >
-                  立即購買
-                </button>
+                  購買課程
+                </RouterLink>
               </div>
             </div>
           </div>
@@ -168,31 +177,35 @@ export default {
     </div>
     <!-- background-style -->
     <div
-      class="bg-position bg-white border-dashed rounded-circle d-none d-md-block animation-rotate"
-      style="width: 1400px; height: 1400px; top: -900px; left: -20%"
+      class="bg-position bg-white border-dashed rounded-circle d-none d-md-block animation-rotate z-n1"
+      style="width: 90vw; height: 90vw; top: -60vw; left: -20vw"
     ></div>
     <div
-      class="bg-position bg-secondary rounded-circle"
-      style="width: 1400px; height: 1400px; bottom: -900px; right: -20%"
-      data-aos="fade-up"
-      data-aos-duration="2000"
-      data-aos-delay="1000"
+      class="bg-position bg-primary-light rounded-circle z-n2"
+      style="width: 100vw; height: 100vw; bottom: -65vw; right: -20vw"
     ></div>
   </div>
 </template>
 
 <style>
-.product-banner {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)),
-    url(../../assets/images/banner/banner-products.jpg);
+.product-banner > * {
+  position: static;
+}
+.product-banner > *,
+.product-banner > *::before {
   height: 180px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
+  .product-banner > *,
+  .product-banner > *::before {
     height: 240px;
   }
-  @media (min-width: 992px) {
+}
+
+@media (min-width: 992px) {
+  .product-banner > *,
+  .product-banner > *::before {
     height: 300px;
   }
 }

@@ -185,7 +185,7 @@ export default {
   </LoadingOverlay> -->
   <!-- banner -->
   <div
-    class="bg-banner d-flex flex-column justify-content-center"
+    class="home-banner d-flex flex-column justify-content-center"
     style="height: 680px"
   >
     <div class="container">
@@ -596,7 +596,7 @@ export default {
                   </small>
                 </div>
                 <button
-                  class="btn btn-primary text-white fs-md-7 fs-xl-6 ms-lg-auto mt-3"
+                  class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto mt-3"
                   style="button"
                 >
                   立即購買
@@ -627,7 +627,7 @@ export default {
 </template>
 
 <style>
-.bg-banner {
+.home-banner {
   /* 加上半透明遮罩 */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(../../assets/images/banner.jpg);

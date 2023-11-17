@@ -1,6 +1,5 @@
 .btn {
   box-shadow: 0 10px 20px 0 rgba(192, 192, 192, 0.35);
-  color: $primary  !important;
 
   &.btn-primary {
     --bs-btn-hover-bg: #3F4A4D;
@@ -12,5 +11,10 @@
 
   &.btn-white {
     --bs-btn-hover-bg: #F6F6F6;
+  }
+
+  &.btn-white,
+  &.btn-primary-light {
+    --bs-btn-color: var(--bs-primary);
   }
 }

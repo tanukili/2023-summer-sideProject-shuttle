@@ -12,10 +12,7 @@ export default {
       bannerAd: {
         title: '2023夏季 織心好友揪團趣',
         subtitle: '兩人同行，現打 85 折',
-        imgUrl: {
-          'background-image':
-            'url(/2023-summer-sideProject-shuttle/src/assets/images/banner/banner-products.jpg)',
-        },
+        imgUrl: 'background-image: url(public/banner/banner-products.jpg)',
       },
       loginInfo: {
         password: '',
@@ -141,7 +138,7 @@ export default {
 
               <button
                 @click.prevent="login(loginInfo)"
-                class="btn btn-primary text-white w-100 mt-2 fs-5"
+                class="btn btn-primary w-100 mt-2 fs-5"
                 :class="
                   !loginInfo.email || !loginInfo.password ? 'disabled' : true
                 "
@@ -170,7 +167,7 @@ export default {
 
 <style>
 .login-banner > * {
-  --banner-height: 420px;
-  --position-top: 64px;
+  height: 420px;
+  top: calc(120px + 24px * 1.2 + 16px + 64px);
 }
 </style>

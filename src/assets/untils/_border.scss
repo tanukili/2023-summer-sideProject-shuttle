@@ -2,7 +2,7 @@
 .border-dashed {
   --bs-border-color: var(--bs-gray-600);
   border-width: 2px;
-  border-style: dashed;
+  border-style: dashed !important;
   border-color: var(--bs-border-color);
 }
 

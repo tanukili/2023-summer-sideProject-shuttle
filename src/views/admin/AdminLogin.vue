@@ -57,7 +57,7 @@ export default {
         </div>
         <button
           @click.prevent="abminSingin(SinginInfo)"
-          class="btn btn-primary text-white w-100 mt-2 fs-5"
+          class="btn btn-primary w-100 mt-2 fs-5"
         >
           登入
         </button>

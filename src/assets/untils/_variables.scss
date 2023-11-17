@@ -914,8 +914,7 @@ $btn-padding-y-lg: $input-btn-padding-y-lg  !default;
 $btn-padding-x-lg: $input-btn-padding-x-lg  !default;
 $btn-font-size-lg: $input-btn-font-size-lg  !default;
 
-// $btn-border-width:            $input-btn-border-width !default;
-$btn-border-width: 0px !default; // custom
+$btn-border-width: $input-btn-border-width  !default;
 
 // $btn-font-weight:             $font-weight-normal !default;
 $btn-font-weight: $font-weight-bold  !default; // custom

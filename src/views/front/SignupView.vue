@@ -15,10 +15,7 @@ export default {
       bannerAd: {
         title: '新註冊會員 贈50元折價券',
         subtitle: '新會員招募中，填寫推薦碼再加碼',
-        imgUrl: {
-          'background-image':
-            'url(/2023-summer-sideProject-shuttle/src/assets/images/banner.jpg)',
-        },
+        imgUrl: 'background-image: url(public/banner/banner-products.jpg)',
       },
       userBirthday: '',
       flatpickrConfig: {
@@ -237,9 +234,7 @@ export default {
                   我同意網站服務條款及隱私政策
                 </label>
               </div>
-              <button class="btn btn-primary text-white w-100 mb-3 fs-5">
-                註冊
-              </button>
+              <button class="btn btn-primary w-100 mb-3 fs-5">註冊</button>
             </VForm>
           </div>
         </div>
@@ -255,7 +250,7 @@ export default {
 
 <style>
 .singUp-banner > * {
-  --banner-height: 640px;
-  --position-top: 64px;
+  height: 640px;
+  top: calc(120px + 24px * 1.2 + 16px + 64px);
 }
 </style>

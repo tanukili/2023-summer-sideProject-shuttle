@@ -360,7 +360,7 @@ export default {
         <button
           @click.prevent="addProdct"
           type="submit"
-          class="btn btn-primary text-white"
+          class="btn btn-primary"
         >
           新增課程
         </button>
