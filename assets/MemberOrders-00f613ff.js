@@ -1,1 +1,0 @@
-import{_ as t,e as o,f as r,g as s,k as a,l as c,i as n,s as _}from"./index-a941adab.js";const d={},l={class:"bg-primary py-3"},i=n("h1",null,"訂單列表",-1);function m(f,p){const e=o("router-link");return r(),s("div",l,[i,a(e,{to:"/member/order"},{default:c(()=>[_("檢視訂單")]),_:1})])}const h=t(d,[["render",m]]);export{h as default};

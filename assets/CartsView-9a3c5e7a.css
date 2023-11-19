@@ -1,0 +1,1 @@
+.cart-banner>*{position:static;background-position:50% 60%}.cart-banner>*:before{content:none}.cart-banner>*,.cart-banner>*:before{height:180px}@media (min-width: 768px){.cart-banner>*,.cart-banner>*:before{height:240px}}@media (min-width: 992px){.cart-banner>*,.cart-banner>*:before{height:300px}}
