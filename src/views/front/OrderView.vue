@@ -1,22 +1,67 @@
 <script>
+const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const apiPath = '2023shuttle';
+
 export default {
+  emits: ['updateUserId'], // 聲明事件避免錯誤
+  props: ['nowCarts'],
   data() {
     return {
-      isLoading: false,
+      newOrderId: '',
     };
+  },
+  methods: {
+    postOrder(values) {
+      const obj = {
+        data: {
+          user: {
+            name: values.名稱,
+            email: values.連絡信箱,
+            tel: values.連絡電話,
+            address: 'none',
+          },
+          message: values.備註,
+          payment: values.付款方式,
+        },
+      };
+      console.log(values, obj);
+      this.axios
+        .post(`${hexApi}api/${apiPath}/order`, obj)
+        .then((res) => {
+          console.log(res.data);
+          this.orderId = res.data.newOrderId;
+          this.$swal({
+            icon: 'success',
+            title: res.data.message,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutDown',
+            },
+            didClose: () => {
+              this.$router.push('/order-established');
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
   },
   mounted() {
     // 進入時觸發
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1200);
+    // this.isLoading = true;
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 1200);
+    console.log(this.nowCarts);
   },
 };
 </script>
 
 <template>
-  <LoadingOverlay v-model:active="isLoading">
+  <!-- <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -24,23 +69,26 @@ export default {
         <div></div>
       </div>
     </div>
-  </LoadingOverlay>
+  </LoadingOverlay> -->
   <div class="bg-white">
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb mb-0">
+        <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <RouterLink to="/">首頁</RouterLink>
           </li>
           <li class="breadcrumb-item">
             <RouterLink to="/products">購買課程</RouterLink>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">購物車</li>
+          <li class="breadcrumb-item">
+            <RouterLink to="/carts">購物車</RouterLink>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">填寫訂單</li>
         </ol>
       </nav>
       <!-- 訂單進度 -->
       <div class="w-100 w-md-75 d-flex flex-column mx-auto my-5">
-        <ol class="d-flex justify-content-around ps-0">
+        <ol class="d-flex justify-content-around ps-0 fs-6 fw-bold">
           <li>訂單確認</li>
           <li>填寫資料</li>
           <li>訂單完成</li>
@@ -57,11 +105,11 @@ export default {
         </div>
       </div>
       <!-- 訂單內容 -->
-      <div class="row">
+      <div class="row pt-lg-3">
         <div class="col-lg-6">
           <div class="d-flex flex-column h-100">
-            <h4 class="text-center pt-4 pb-5">
-              <span class="border-dashed-b pb-2">確認訂單內容</span>
+            <h4 class="text-center py-4">
+              <span class="border-dashed-b pb-2">訂單內容</span>
             </h4>
             <div class="table-responsive-sm">
               <table
@@ -76,161 +124,173 @@ export default {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="course in nowCarts.carts" :key="course.id">
                     <td>
                       <img
-                        src="../../assets/images/product/product05.jpg"
-                        alt="product05"
+                        :src="course.product.imageUrl"
+                        :alt="`product${course.id}`"
                         class="img-fluid"
                         style="max-width: 150px"
                       />
                     </td>
-                    <td>一日綴織體驗</td>
-                    <td>2</td>
-                    <td>1,445</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        src="../../assets/images/product/product02.jpg"
-                        alt="product02"
-                        class="img-fluid"
-                        style="max-width: 150px"
-                      />
-                    </td>
-                    <td>暖色羊毛圍巾</td>
-                    <td>2</td>
-                    <td class="text-danger">1,800</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        src="../../assets/images/product/product03.jpg"
-                        alt="product03"
-                        class="img-fluid"
-                        style="max-width: 150px"
-                      />
-                    </td>
-                    <td>段染實驗營</td>
-                    <td>1</td>
-                    <td>3,200</td>
+                    <td>{{ course.product.title }}</td>
+                    <td>{{ course.qty }}</td>
+                    <td>{{ course.final_total }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <ul class="list-group list-group-flush fs-7 px-3">
+            <ul class="list-group rounded-2 bg-secondary">
               <li
-                class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"
+                class="list-group-item pt-3 border-0 text-mellow d-flex justify-content-between"
               >
-                目前總金額<span class="fw-bold">NT$ 6,445</span>
+                <span class="fw-bold">目前總金額</span>NT$
+                {{ nowCarts.totalBill }}
               </li>
               <li
-                class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"
+                v-if="nowCarts.coupon"
+                class="list-group-item border-0 d-flex justify-content-between"
               >
-                優惠券折扣<span class="text-danger fw-bold">NT$ -50</span>
+                <span class="fw-bold">優惠券折抵</span
+                ><span class="text-danger">NT$ - {{ nowCarts.coupon }}</span>
               </li>
               <li
-                class="list-group-item bg-white py-1 border-0 d-flex justify-content-between"
+                class="list-group-item border-0 d-flex justify-content-between"
               >
-                折扣後金額<span class="fw-bold">NT$ 6,395</span>
+                <span class="fw-bold">滿額折抵</span
+                ><span class="text-danger"
+                  >NT$ - {{ nowCarts.activeDiscount.discount }}</span
+                >
+              </li>
+              <li
+                class="list-group-item pb-3 border-0 d-flex justify-content-between"
+              >
+                <span class="fw-bold">折扣後金額</span>NT$
+                {{
+                  nowCarts.totalBill -
+                  nowCarts.coupon -
+                  nowCarts.activeDiscount.discount
+                }}
               </li>
             </ul>
             <RouterLink
-              class="text-decoration-underline fs-8 d-lg-inline-block mt-auto d-none"
+              class="text-decoration-underline d-lg-inline-block mt-auto d-none"
               to="/carts"
             >
-              <span
-                class="material-symbols-outlined icon-semibold align-top fs-7 lh-sm"
-              >
+              <span class="material-symbols-outlined icon-semibold">
                 undo
               </span>
               返回購物車
             </RouterLink>
           </div>
         </div>
-        <div class="col-lg-6 mt-5 mt-lg-0">
-          <div class="bg-secondary px-5 py-4">
-            <h4 class="text-center pb-5">
-              <span class="border-dashed-b border-light pb-2"
-                >填寫訂單資料</span
-              >
+        <!-- 填寫訂單資料 -->
+        <div class="col-lg-6 mt-4 mt-lg-0">
+          <div class="bg-primary-light rounded-2 px-5 py-4">
+            <h4 class="text-center pb-4">
+              <span class="border-dashed-b pb-2">填寫資料</span>
             </h4>
-            <form action="#" class="d-flex flex-column">
-              <div class="mb-3">
-                <label for="name" class="form-label fs-6 fw-semibold"
-                  >姓名<span class="text-danger">*</span></label
-                >
-                <input
+            <VForm novalidate @submit="postOrder" class="form-clear">
+              <div class="form-floating mb-4">
+                <VField
+                  name="名稱"
                   type="text"
-                  class="form-control rounded-1 fs-7 ps-3"
+                  rules="required"
+                  class="form-control fs-7"
                   id="name"
-                  placeholder="請輸入真實姓名"
+                  placeholder="name"
                 />
+                <label for="name" class="required">如何稱呼</label>
+                <ErrorMessage name="名稱" />
               </div>
-              <div class="mb-3">
-                <label for="phone" class="form-label fs-6 fw-semibold"
-                  >手機<span class="text-danger">*</span></label
-                >
-                <input
-                  type="tel"
-                  class="form-control rounded-1 fs-7 ps-3"
+              <div class="form-floating mb-4">
+                <VField
+                  name="連絡電話"
+                  type="phone"
+                  rules="required|numeric|length:10"
+                  class="form-control fs-7"
                   id="phone"
-                  placeholder="請輸入聯繫電話"
+                  placeholder="0912345678"
                 />
+                <label for="phone" class="required">連絡電話</label>
+                <ErrorMessage name="連絡電話" />
               </div>
-              <div class="mb-3">
-                <label for="email" class="form-label fs-6 fw-semibold"
-                  >信箱<span class="text-danger">*</span></label
-                >
-                <input
+              <div class="form-floating mb-4">
+                <VField
+                  name="連絡信箱"
                   type="email"
-                  class="form-control rounded-1 fs-7 ps-3"
+                  rules="required|email"
+                  class="form-control fs-7"
                   id="email"
-                  placeholder="請輸入聯繫信箱"
+                  placeholder="name@example.com"
                 />
+                <label for="email" class="required">連絡信箱</label>
+                <ErrorMessage name="連絡信箱" />
               </div>
-              <div class="mb-3">
-                <label for="pay-way" class="form-label fs-6 fw-semibold"
-                  >付款方式<span class="text-danger">*</span></label
+              <div class="form-floating mb-4">
+                <VField
+                  name="付款方式"
+                  rules="required"
+                  as="select"
+                  class="form-select w-100 ps-3 lh-lg fs-7"
+                  id="payment"
+                  placeholder="付款方式"
                 >
-                <div class="select-icon">
-                  <select class="form-select rounded-1 bg-pale fs-7">
-                    <option value="現金" selected>現金</option>
-                    <option value="信用卡">信用卡</option>
-                    <option value="信用卡分期">信用卡分期</option>
-                    <option value="行動支付">行動支付</option>
-                  </select>
-                </div>
+                  <option value="" disabled hidden>請選擇付款方式</option>
+                  <option value="creditCard">信用卡</option>
+                  <option value="cash">現金</option>
+                  <option value="transfer">帳戶匯款</option>
+                  <option value="linePay">Line Pay</option>
+                </VField>
+                <label for="payment" class="floating-select">付款方式</label>
+                <ErrorMessage name="付款方式" />
               </div>
-              <div class="mb-3">
-                <label for="remark" class="form-label fs-6 fw-semibold"
-                  >備註</label
-                >
-                <textarea
-                  class="form-control rounded-1"
+              <div class="form-floating pb-3 mb-5">
+                <VField
+                  name="備註"
+                  as="textarea"
+                  type="textarea"
+                  value=""
+                  class="form-control fs-7 text-wrap"
                   id="remark"
-                  style="height: 150px"
-                ></textarea>
-              </div>
-              <div class="mb-3 form-check">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="order-agree"
-                />
-                <label class="form-check-label" for="order-agree"
-                  >我已閱讀並同意課程注意事項</label
+                  placeholder="備註欄位"
+                  style="height: 116px"
                 >
+                </VField>
+                <label for="remark">備註</label>
               </div>
-              <RouterLink
-                class="btn btn-primary w-75 mx-auto my-3"
-                to="/order-established"
-                >訂單送出</RouterLink
-              >
-            </form>
+              <div class="form-check mb-3">
+                <VField
+                  name="同意"
+                  rules="required"
+                  type="checkbox"
+                  id="agreeNotice"
+                  class="form-check-input"
+                  value="isAgree"
+                />
+                <label class="form-check-label required" for="agreeNotice">
+                  我已閱讀並同意 課程注意事項
+                </label>
+                <ErrorMessage name="同意" v-slot="{ message }"
+                  ><span class="text-danger fs-9 ms-2">{{
+                    (message = '請閱讀完後勾選')
+                  }}</span>
+                </ErrorMessage>
+              </div>
+              <button class="btn btn-primary w-100 mb-3 fs-6">資料送出</button>
+            </VForm>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.floating-select::after {
+  background-color: inherit !important;
+  content: '*' !important;
+  color: var(--bs-danger) !important;
+  position: static !important;
+}
+</style>
