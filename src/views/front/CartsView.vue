@@ -5,7 +5,8 @@ const hexApi = import.meta.env.VITE_HEX_API_PATH;
 const apiPath = '2023shuttle';
 
 export default {
-  emits: ['updateUserId'], // 聲明事件避免錯誤
+  emits: ['updateUserId', 'cartsContent'], // 聲明事件避免錯誤
+  props: ['nowCarts'], // 聲明事件避免錯誤
   components: {
     BackgroundBanner,
   },
@@ -44,20 +45,21 @@ export default {
         // 只會有一個
         totalActive: {
           title: '2023 歲末全館回饋季',
-          description: '滿 3000 折 300，可累計折抵',
+          description: '滿 3000 折 300，可累計折抵（排除優惠券折扣）',
           requiredPrice: 3000, // 滿3000折價300
           percentOff: 300,
-          totalActive(total) {
-            let count = total;
+          totalActive(total, coupon) {
+            let count = total - coupon;
             let discount = 0;
-            if (total < 3000) {
-              return { discount, difference: 3000 - total }; // 差額
+            if (count < 3000) {
+              return { discount, difference: 3000 - count }; // 折後價+差額
             }
             while (count >= 3000) {
               count -= 3000;
               discount += 300;
             }
-            return { discount, difference: 3000 - (total % 3000) }; // 折後價+差額
+            console.log(count, discount);
+            return { discount, difference: 3000 - (count % 3000) }; // 折後價+差額
           },
         },
       },
@@ -110,13 +112,15 @@ export default {
             html: `<p class='text-gray-400'>${
               this.promotions.totalActive.description
             }</p><p>目前金額再 <span class='text-danger'>NT$ ${
-              this.promotions.totalActive.totalActive(this.totalBill).difference
+              this.promotions.totalActive.totalActive(
+                this.totalBill,
+                this.coupon
+              ).difference
             } </span>即可折抵 NT$ 300 </p>`,
             showConfirmButton: false,
             backdrop: false,
             showCloseButton: true,
             width: '40%',
-            didClose: () => {},
           });
         })
         .catch((err) => {
@@ -193,6 +197,9 @@ export default {
             hideClass: {
               popup: 'animate__animated animate__fadeOutDown',
             },
+            didClose: () => {
+              this.getCarts();
+            },
           });
         })
         .catch((err) => {
@@ -201,6 +208,19 @@ export default {
             title: err.response.data.message,
           });
         });
+    },
+    // 可優化
+    emitCartsContent(totalBill, coupon) {
+      this.$emit('cartsContent', {
+        carts: this.carts,
+        totalBill,
+        coupon,
+        activeDiscount: this.promotions.totalActive.totalActive(
+          totalBill,
+          coupon
+        ),
+      });
+      this.$router.push('/order');
     },
   },
   mounted() {
@@ -215,6 +235,16 @@ export default {
   beforeRouteLeave(to, from, next) {
     // 關閉所有 SweetAlert2 視窗
     this.$swal.close();
+    // 傳遞資料
+    this.$emit('cartsContent', {
+      carts: this.carts,
+      totalBill: this.totalBill,
+      coupon: this.coupon,
+      activeDiscount: this.promotions.totalActive.totalActive(
+        this.totalBill,
+        this.coupon
+      ),
+    });
     // 繼續路由遷移
     next();
   },
@@ -444,7 +474,7 @@ export default {
               ><span class="text-danger"
                 >NT$ -
                 {{
-                  promotions.totalActive.totalActive(totalBill).discount
+                  promotions.totalActive.totalActive(totalBill, coupon).discount
                 }}</span
               >
             </li>
@@ -456,7 +486,8 @@ export default {
                 totalBill !== 0
                   ? totalBill -
                     coupon -
-                    promotions.totalActive.totalActive(totalBill).discount
+                    promotions.totalActive.totalActive(totalBill, coupon)
+                      .discount
                   : 0
               }}
             </li>
@@ -464,12 +495,12 @@ export default {
         </div>
       </div>
       <div class="d-flex">
-        <RouterLink
+        <button
           class="btn btn-primary fs-7 fs-lg-6 fw-normal w-75 w-md-50 w-lg-25 mx-auto"
-          to="/order"
+          @click.prevent="emitCartsContent(totalBill, coupon)"
         >
           訂單確認
-        </RouterLink>
+        </button>
       </div>
     </div>
   </div>
