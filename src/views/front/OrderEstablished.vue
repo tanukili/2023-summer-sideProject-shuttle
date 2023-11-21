@@ -1,22 +1,39 @@
 <script>
+const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const apiPath = '2023shuttle';
+
 export default {
+  emits: ['updateUserId', 'nowCarts'], // 聲明事件避免錯誤
   data() {
     return {
-      isLoading: false,
+      orderInfo: { user: {} },
     };
+  },
+  methods: {
+    getOrder(id) {
+      this.axios
+        .get(`${hexApi}api/${apiPath}/order/${id}`)
+        .then((res) => {
+          this.orderInfo = res.data.order;
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
   },
   mounted() {
     // 進入時觸發
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1200);
+    // this.isLoading = true;
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 1200);
+    this.getOrder('-NjlsGb-9yeuLflbzQU4'); // 之後要換成取得新訂單id
   },
 };
 </script>
 
 <template>
-  <LoadingOverlay v-model:active="isLoading">
+  <!-- <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">
         <div></div>
@@ -24,23 +41,26 @@ export default {
         <div></div>
       </div>
     </div>
-  </LoadingOverlay>
+  </LoadingOverlay> -->
   <div class="bg-white">
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb mb-0">
+        <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <RouterLink to="/">首頁</RouterLink>
           </li>
           <li class="breadcrumb-item">
             <RouterLink to="/products">購買課程</RouterLink>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">購物車</li>
+          <li class="breadcrumb-item">
+            <RouterLink to="/carts">購物車</RouterLink>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">訂單完成</li>
         </ol>
       </nav>
       <!-- 訂單進度 -->
       <div class="w-100 w-md-75 d-flex flex-column mx-auto my-5">
-        <ol class="d-flex justify-content-around ps-0">
+        <ol class="d-flex justify-content-around ps-0 fs-6 fw-bold">
           <li>訂單確認</li>
           <li>填寫資料</li>
           <li>訂單完成</li>
@@ -58,45 +78,76 @@ export default {
       </div>
       <!-- 訂單內容 -->
       <div class="row justify-content-center">
-        <div class="modal-body text-center fs-4 fs-md-3 py-3">
-          <span
-            class="material-symbols-outlined icon-semibold fs-3 align-middle lh-lg me-2 text-success"
-          >
-            task_alt </span
-          >訂單已成立
-        </div>
+        <div class="modal-body text-center fs-4 fs-md-3 py-3">訂單已成立</div>
         <div class="col-6 mt-5">
-          <div class="bg-secondary px-5 py-5">
-            <h4 class="text-center pb-4 mb-3">
-              <span class="border-dashed-b border-light pb-2">訂單資訊</span>
+          <div class="bg-secondary rounded-2 px-5 py-4 shadow">
+            <h4 class="text-center py-4">
+              <span class="border-dashed-b pb-2">訂單資訊</span>
             </h4>
-            <ul class="list-group list-group-flush fs-8 pt-2 pb-4">
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">訂單成立日期</span>&emsp;2023.08.19
+            <ul class="list-group list-group-flush pt-2 pb-4">
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">成立日期</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.create_at }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">付款狀態</span>&emsp;未付款
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">付款狀態</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.is_paid ? '付款完成' : '未付款' }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">付款方式</span>&emsp;信用卡
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">應付金額</h5>
+                  <div class="col-7">
+                    <p>NT$ {{ orderInfo.total }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">應付金額</span>&emsp;NT$ 6,395
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">訂單編號</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.id }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">訂單編號</span>&emsp;ABCD0230819
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">訂購者</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.user.name }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">姓名</span>&emsp;陳曉明
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">連絡電話</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.user.tel }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">手機</span>&emsp;0912345678
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">聯絡信箱</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.user.email }}</p>
+                  </div>
+                </div>
               </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">信箱</span>&emsp;email@mail.com
-              </li>
-              <li class="list-group-item border-0 bg-secondary fs-6">
-                <span class="fw-bold">備註</span>&emsp;無
+              <li class="list-group-item border-light">
+                <div class="row">
+                  <h5 class="col fs-6 mb-0">訂單備註</h5>
+                  <div class="col-7">
+                    <p>{{ orderInfo.message }}</p>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
