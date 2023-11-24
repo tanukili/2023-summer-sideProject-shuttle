@@ -10,6 +10,10 @@
     "mock": "cd mock & json-server-auth db.json --port 3000"
   },
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/interaction": "^6.1.9",
+    "@fullcalendar/multimonth": "^6.1.9",
+    "@fullcalendar/vue3": "^6.1.9",
     "@vee-validate/i18n": "^4.11.8",
     "@vee-validate/rules": "^4.11.8",
     "animate.css": "^4.1.1",
