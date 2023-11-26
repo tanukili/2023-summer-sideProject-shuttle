@@ -1,9 +1,71 @@
-<script>
-</script>
+<script></script>
 
 <template>
-  <div class="bg-primary py-3">
-    <h1>編輯會員資料</h1>
+  <div class="bg-white p-4 pb-5 rounded">
+    <h2 class="title fs-4 text-primary mb-4">
+      <span class="border-primary">會員資料</span>
+    </h2>
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">會員名稱</h3>
+              <p class="col-8">未設定</p>
+            </div>
+          </li>
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">手機號碼</h3>
+              <p class="col-8">0912345678</p>
+            </div>
+          </li>
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">手機號碼</h3>
+              <p class="col-8">0912345678</p>
+            </div>
+          </li>
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">電子信箱</h3>
+              <p class="col-8">fakeemail@gmail.com</p>
+            </div>
+          </li>
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">密碼</h3>
+              <p class="col-8">**********</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-5">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">暱稱</h3>
+              <p class="col-8">未設定</p>
+            </div>
+          </li>
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">性別</h3>
+              <p class="col-8">未設定</p>
+            </div>
+          </li>
+          <li class="list-group-item border-white">
+            <div class="row">
+              <h3 class="col-4 fs-7 mb-0">生日</h3>
+              <p class="col-8">未設定</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button class="btn btn-primary mt-5 align-self-center w-25" type="button">
+        變更資料
+      </button>
+    </div>
   </div>
 </template>
 
