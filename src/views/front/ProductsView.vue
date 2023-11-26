@@ -10,9 +10,10 @@ export default {
   emits: ['updateUserId'], // 聲明事件避免錯誤
   data() {
     return {
-      bannerImg: 'background-image: url(public/banner/banner-products.jpg)',
+      bannerImg: 'background-image: url(/banner/banner-products.jpg)',
       products: [],
       pagination: {},
+      test: this.counter,
     };
   },
   components: {
@@ -41,7 +42,9 @@ export default {
     //   this.isLoading = false;
     // }, 1200);
     this.getProducts();
+    console.log(this.counter);
   },
+  computed: {},
 };
 </script>
 

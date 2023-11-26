@@ -69,6 +69,10 @@ const router = createRouter({
           component: () => import('../views/front/member/MemberFeedback.vue'),
         },
         {
+          path: 'favorites',
+          component: () => import('../views/front/member/MemberFavorite.vue'),
+        },
+        {
           path: 'discounts',
           component: () => import('../views/front/member/MemberDiscounts.vue'),
           children: [

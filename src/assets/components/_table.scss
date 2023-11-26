@@ -1,8 +1,8 @@
 .table.table-white {
-  :not(caption) > * > * {
-    background-color: var(--bs-white);
-  }
-  thead > tr > th, thead > tr > th > * {
+  --bs-table-bg: var(--bs-white);
+
+  thead>tr>th,
+  thead>tr>th>* {
     background-color: var(--bs-pale);
   }
 }

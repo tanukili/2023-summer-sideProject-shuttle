@@ -1,6 +1,8 @@
 .btn {
   box-shadow: 0 10px 20px 0 rgba(192, 192, 192, 0.35);
 
+  &:hover {}
+
   &.btn-primary {
     --bs-btn-hover-bg: #3F4A4D;
   }
@@ -17,4 +19,9 @@
   &.btn-primary-light {
     --bs-btn-color: var(--bs-primary);
   }
+}
+
+// .table-white 與 btn-outline-primary:hover 樣式衝突
+.table.table-white .btn-outline-primary:hover {
+  background-color: var(--bs-primary);
 }
