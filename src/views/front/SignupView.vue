@@ -115,7 +115,7 @@ export default {
           </div>
           <div class="col-6 bg-primary-light rounded-5 py-5 shadow">
             <h1 class="title fs-3 text-primary pt-3 pb-4">
-              <span class="border-primary">會員註冊</span>
+              <span class="border-primary">註冊會員</span>
             </h1>
             <VForm novalidate @submit="onSubmit" class="mx-5 form-clear">
               <div class="form-floating mb-4">

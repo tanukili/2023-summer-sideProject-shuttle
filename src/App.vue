@@ -13,19 +13,12 @@ export default {
   },
   data() {
     return {
-      id: 0,
       nowCarts: { activeDiscount: '' },
     };
   },
   methods: {
-    updateUserId(userId) {
-      this.id = userId;
-    },
     getCartsContent(cartsContent) {
       this.nowCarts = cartsContent;
-    },
-    handleLogout() {
-      this.id = 0;
     },
   },
   mounted() {
@@ -37,14 +30,10 @@ export default {
 
 <template>
   <header>
-    <HeaderNavbar :id="id" @logout="handleLogout" />
+    <HeaderNavbar />
   </header>
   <div>
-    <RouterView
-      @updateUserId="updateUserId"
-      @cartsContent="getCartsContent"
-      :nowCarts="nowCarts"
-    />
+    <RouterView @cartsContent="getCartsContent" :nowCarts="nowCarts" />
   </div>
   <FooterNavbar />
 </template>

@@ -1,7 +1,7 @@
 <script>
+import { mapActions } from 'pinia';
+import useMemberLoginStore from '../../stores/useMemberLoginStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
-
-const api = import.meta.env.VITE_API_PATH;
 
 export default {
   components: {
@@ -21,43 +21,7 @@ export default {
     };
   },
   methods: {
-    login(obj) {
-      this.axios
-        .post(`${api}/login`, obj)
-        .then((res) => {
-          const { accessToken } = res.data;
-          const { id } = res.data.user;
-          document.cookie = `token=${accessToken}; max-age=86400;Secure`;
-          document.cookie = `userId=${id}; max-age=86400;Secure`;
-          this.$swal({
-            icon: 'success',
-            title: '登入成功',
-            showConfirmButton: false,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
-          this.$emit('updateUserId', id);
-          this.$router.push('/');
-        })
-        .catch((err) => {
-          switch (err.response.data) {
-            case 'Cannot find user':
-              this.$swal('該用戶不存在');
-              break;
-            case 'Incorrect password':
-              this.$swal('密碼輸入錯誤');
-              break;
-
-            default:
-              this.$swal(`問題${err.response.status}，抱歉請洽客服`);
-              break;
-          }
-        });
-    },
+    ...mapActions(useMemberLoginStore, ['login']),
   },
   mounted() {
     // this.isLoading = true;

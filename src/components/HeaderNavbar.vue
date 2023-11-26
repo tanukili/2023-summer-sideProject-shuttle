@@ -1,43 +1,40 @@
 <script>
+import { mapState, mapActions } from 'pinia';
+import useMemberLoginStore from '../stores/useMemberLoginStore';
+
 export default {
-  props: ['id'],
   data() {
-    return {
-      userId: 0,
-    };
+    return {};
   },
   methods: {
-    logout() {
-      // 清除 cookie
-      document.cookie = 'token=;';
-      document.cookie = 'userId=;';
-      // 通知父元件更新
-      this.$emit('logout');
-      this.$swal('成功登出');
-      this.$router.push('/');
-    },
-    getUserId() {
-      const userId = document.cookie.replace(
-        /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
-      );
-      this.userId = userId;
-    },
+    ...mapActions(useMemberLoginStore, ['logout', 'updateLoginStatus']),
   },
   mounted() {
-    this.getUserId();
+    this.updateLoginStatus();
+  },
+  computed: {
+    ...mapState(useMemberLoginStore, ['isLogin', 'checkUserId']),
   },
 };
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md py-md-3">
+  <nav class="navbar navbar-expand-lg py-md-3">
     <div class="container">
-      <RouterLink to="/" class="d-md-none">
+      <RouterLink to="/" class="d-lg-none">
         <img src="../assets/images/logo.png" alt="logo" style="width: 96px" />
       </RouterLink>
-      <div class="d-flex mx-md-auto">
-        <RouterLink to="/carts" class="p-1 me-2 d-md-none">
+      <div class="d-flex mx-lg-auto">
+        <RouterLink
+          to="/signup"
+          class="fs-6 fw-bold p-1 me-3 d-lg-none d-flex align-items-center"
+          v-if="!isLogin"
+        >
+          <span class="icon-lg material-symbols-outlined me-1">
+            edit_document </span
+          >註冊</RouterLink
+        >
+        <RouterLink to="/carts" class="p-1 me-2 d-lg-none" v-else>
           <span class="material-symbols-outlined fs-3"> shopping_cart </span>
         </RouterLink>
         <button
@@ -67,27 +64,27 @@ export default {
               </span>
             </button>
           </div>
-          <div class="offcanvas-body p-0">
+          <div class="offcanvas-body">
             <ul
-              class="navbar-nav justify-content-end align-items-md-end flex-grow-1 lh-sm"
+              class="navbar-nav justify-content-end align-items-lg-end flex-grow-1 lh-sm"
             >
               <li class="nav-item me-2">
-                <RouterLink to="/howto" class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                <RouterLink to="/howto" class="fs-lg-6 fs-5 nav-link"
                   >認識手織</RouterLink
                 >
               </li>
               <li class="nav-item me-2">
-                <RouterLink to="/products" class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                <RouterLink to="/products" class="fs-lg-6 fs-5 nav-link"
                   >購買課程</RouterLink
                 >
               </li>
               <li class="nav-item">
-                <RouterLink to="/news" class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                <RouterLink to="/news" class="fs-lg-6 fs-5 nav-link"
                   >最新消息</RouterLink
                 >
               </li>
               <li class="nav-item">
-                <RouterLink to="/" class="nav-link px-4 py-0 d-none d-md-block">
+                <RouterLink to="/" class="nav-link px-4 py-0 d-none d-lg-block">
                   <img
                     src="../assets/images/logo-straight.png"
                     alt="logo"
@@ -96,27 +93,60 @@ export default {
                 </RouterLink>
               </li>
               <li class="nav-item me-2">
-                <RouterLink to="/contact" class="fs-lg-6 fs-md-7 fs-5 nav-link"
+                <RouterLink to="/contact" class="fs-lg-6 fs-5 nav-link"
                   >聯絡我們</RouterLink
                 >
               </li>
-              <li class="nav-item me-2">
-                <RouterLink
-                  to="/login"
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link"
-                  v-if="!id"
-                  >登入/註冊</RouterLink
-                >
-                <a
-                  class="fs-lg-6 fs-md-7 fs-5 nav-link"
-                  href="#"
-                  @click.prevent="logout"
-                  v-else
-                  >會員登出</a
+              <!-- 登入前：登入 -->
+              <li class="nav-item me-2" v-if="!isLogin">
+                <RouterLink to="/login" class="fs-lg-6 fs-5 nav-link"
+                  >會員登入</RouterLink
                 >
               </li>
-              <li class="nav-item">
-                <RouterLink to="/carts" class="nav-link d-none d-md-block">
+              <!-- 登入後：會員下拉選單 -->
+              <li class="nav-item dropdown me-2" v-else>
+                <a
+                  class="nav-link dropdown-toggle fs-lg-6 fs-5"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  會員相關
+                </a>
+                <ul
+                  class="dropdown-menu rounded-1"
+                  aria-labelledby="navbarDropdown"
+                >
+                  <li>
+                    <RouterLink class="dropdown-item" to="/member/orders"
+                      >查看訂單</RouterLink
+                    >
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/member/favorites"
+                      >我的收藏</RouterLink
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#" @click.prevent="logout()"
+                      >登出</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item d-none d-lg-block">
+                <RouterLink
+                  to="/signup"
+                  class="fs-lg-6 fs-5 nav-link"
+                  v-if="!isLogin"
+                >
+                  <span class="icon-lg material-symbols-outlined me-1">
+                    edit_document </span
+                  >註冊</RouterLink
+                >
+                <RouterLink to="/carts" class="nav-link" v-else>
                   <span class="icon-lg material-symbols-outlined">
                     shopping_cart
                   </span>
@@ -141,12 +171,6 @@ export default {
   } */
   @media (min-width: 992px) {
     .offcanvas-body {
-      .nav-item:first-child {
-        .nav-link {
-          padding-right: 14.5px;
-          padding-left: 14.5px;
-        }
-      }
       .nav-item:last-child {
         .nav-link {
           padding-top: 6px;
