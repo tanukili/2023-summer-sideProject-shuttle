@@ -1041,7 +1041,8 @@ $form-check-transition: null !default;
 
 $form-check-input-active-filter: brightness(90%) !default;
 
-$form-check-input-bg: $input-bg  !default;
+// $form-check-input-bg: $input-bg  !default;
+$form-check-input-bg: $white  !default; // custom
 $form-check-input-border: var(--#{$prefix}border-width) solid var(--#{$prefix}border-color) !default;
 $form-check-input-border-radius: .25em !default;
 $form-check-radio-border-radius: 50% !default;
@@ -1640,7 +1641,8 @@ $badge-border-radius: 0 !default; // custom
 // Modals
 
 // scss-docs-start modal-variables
-$modal-inner-padding: $spacer  !default;
+// $modal-inner-padding: $spacer  !default;
+$modal-inner-padding: $spacer * 1.5 !default; // custom
 
 $modal-footer-margin-between: .5rem !default;
 
