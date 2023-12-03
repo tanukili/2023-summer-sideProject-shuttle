@@ -6,7 +6,7 @@
       "Userid": 1,
       "content": "讚讚讚",
       "stars": 5,
-      "imgUrl": {},
+      "imgUrl": "fake-link",
       "canShared": true
     }
   ],
@@ -19,7 +19,7 @@
       "name": "小華",
       "birthday": "1990-01-01",
       "sex": "female",
-      "favorites": []
+      "favorites": "fake-link"
     },
     {
       "email": "test01@gmail.com",
@@ -28,7 +28,7 @@
       "name": "ming",
       "birthday": "1990-01-01",
       "sex": "male",
-      "favorites": [],
+      "favorites": "fake-link",
       "id": 2
     }
   ]

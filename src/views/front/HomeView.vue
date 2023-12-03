@@ -13,8 +13,7 @@ export default {
         first: {
           title: '2023 夏季織心好友揪團趣',
           subtitle: '兩人同行，現打 85 折',
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/promotions01.jpg',
+          imgUrl: '/banner/banner-.jpg',
           id: 1,
         },
         other: [
@@ -22,14 +21,14 @@ export default {
             title: '秋季新色 課程預購中',
             subtitle: '秋季課程改版，早鳥預購享優惠',
             imgUrl:
-              '/2023-summer-sideProject-shuttle/src/assets/images/promotions02.jpg',
+              '/2023-summer-sideProject-shuttle/assets/images/promotions02.jpg',
             id: 2,
           },
           {
             title: '新註冊會員 贈 50 元折價券',
             subtitle: '新會員招募中，填寫推薦再加碼',
             imgUrl:
-              '/2023-summer-sideProject-shuttle/src/assets/images/promotions03.jpg',
+              '/2023-summer-sideProject-shuttle/assets/images/promotions03.jpg',
             id: 3,
           },
         ],

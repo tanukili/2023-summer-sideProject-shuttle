@@ -71,6 +71,7 @@ export default {
         .get(`${hexApi}api/${apiPath}/cart`)
         .then((res) => {
           this.carts = res.data.data.carts;
+          console.log(this.carts);
           // 需要修改prodcut資料
           this.carts.forEach((e) => {
             // 三種優惠適用狀況 (注意單雙數)

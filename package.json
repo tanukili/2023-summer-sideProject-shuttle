@@ -24,6 +24,7 @@
     "json-server": "^0.17.4",
     "json-server-auth": "^2.1.0",
     "pinia": "^2.1.6",
+    "punycode": "^2.3.1",
     "sweetalert2": "^11.10.1",
     "swiper": "^10.2.0",
     "vee-validate": "^4.11.8",

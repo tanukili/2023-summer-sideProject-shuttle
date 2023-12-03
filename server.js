@@ -9,7 +9,11 @@ apiServer.db = apiRouter.db;
 
 apiServer.use(middlewares);
 apiServer.use(auth);
+
+// 對應的環境變數 或 默認3000
+const port = process.env.PORT || 3000;
+
 apiServer.use(apiRouter);
-apiServer.listen(3000, () => {
+apiServer.listen(port, () => {
   console.log('JSON Server is running');
 });

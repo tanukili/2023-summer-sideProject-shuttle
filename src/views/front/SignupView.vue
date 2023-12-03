@@ -15,7 +15,7 @@ export default {
       bannerAd: {
         title: '新註冊會員 贈50元折價券',
         subtitle: '新會員招募中，填寫推薦碼再加碼',
-        imgUrl: 'background-image: url(public/banner/banner-products.jpg)',
+        imgUrl: 'background-image: url(/banner/banner-products.jpg)',
       },
       userBirthday: '',
       flatpickrConfig: {

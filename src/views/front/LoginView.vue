@@ -3,6 +3,8 @@ import { mapActions } from 'pinia';
 import useMemberLoginStore from '../../stores/useMemberLoginStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default {
   components: {
     BackgroundBanner,
@@ -12,7 +14,7 @@ export default {
       bannerAd: {
         title: '2023夏季 織心好友揪團趣',
         subtitle: '兩人同行，現打 85 折',
-        imgUrl: 'background-image: url(public/banner/banner-products.jpg)',
+        imgUrl: 'background-image: url(/banner/banner-products.jpg)',
       },
       loginInfo: {
         password: '',
@@ -28,6 +30,7 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
+    console.log(api);
   },
 };
 </script>
