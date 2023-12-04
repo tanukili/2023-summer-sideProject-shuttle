@@ -1,0 +1,1 @@
+import{_ as e,f as s,g as o,i as t}from"./index-6d8db3ed.js";const c={},n={class:"bg-primary py-3"},r=t("h1",null,"酷碰券列表",-1),_=[r];function a(i,d){return s(),o("div",n,_)}const l=e(c,[["render",a]]);export{l as default};
