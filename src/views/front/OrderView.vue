@@ -1,53 +1,18 @@
 <script>
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
-const apiPath = '2023shuttle';
+import { mapState, mapActions } from 'pinia';
+import useCartsStore from '../../stores/useCartsStore';
+import useCouponStore from '../../stores/useCouponStore';
+import useOrderStore from '../../stores/useOrderStore';
 
 export default {
-  emits: ['updateUserId'], // 聲明事件避免錯誤
-  props: ['nowCarts'],
   data() {
     return {
       newOrderId: '',
     };
   },
   methods: {
-    postOrder(values) {
-      const obj = {
-        data: {
-          user: {
-            name: values.名稱,
-            email: values.連絡信箱,
-            tel: values.連絡電話,
-            address: 'none',
-          },
-          message: values.備註,
-          payment: values.付款方式,
-        },
-      };
-      console.log(values, obj);
-      this.axios
-        .post(`${hexApi}api/${apiPath}/order`, obj)
-        .then((res) => {
-          console.log(res.data);
-          this.orderId = res.data.newOrderId;
-          this.$swal({
-            icon: 'success',
-            title: res.data.message,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-            didClose: () => {
-              this.$router.push('/order-established');
-            },
-          });
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
+    ...mapActions(useCartsStore, ['getCart']),
+    ...mapActions(useOrderStore, ['postOrder']),
   },
   mounted() {
     // 進入時觸發
@@ -55,7 +20,16 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
-    console.log(this.nowCarts);
+  },
+  created() {
+    this.getCart();
+  },
+  computed: {
+    ...mapState(useCartsStore, ['carts', 'totalBill', 'nowAllDiscount']),
+    ...mapState(useCouponStore, ['cookieCouponDiscount']),
+    countFinal() {
+      return this.totalBill - this.cookieCouponDiscount - this.nowAllDiscount;
+    },
   },
 };
 </script>
@@ -124,7 +98,7 @@ export default {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="course in nowCarts.carts" :key="course.id">
+                  <tr v-for="course in carts" :key="course.id">
                     <td>
                       <img
                         :src="course.product.imageUrl"
@@ -145,32 +119,28 @@ export default {
                 class="list-group-item pt-3 border-0 text-mellow d-flex justify-content-between"
               >
                 <span class="fw-bold">目前總金額</span>NT$
-                {{ nowCarts.totalBill }}
+                {{ totalBill }}
               </li>
               <li
-                v-if="nowCarts.coupon"
+                v-if="cookieCouponDiscount"
                 class="list-group-item border-0 d-flex justify-content-between"
               >
                 <span class="fw-bold">優惠券折抵</span
-                ><span class="text-danger">NT$ - {{ nowCarts.coupon }}</span>
+                ><span class="text-danger"
+                  >NT$ - {{ cookieCouponDiscount }}</span
+                >
               </li>
               <li
                 class="list-group-item border-0 d-flex justify-content-between"
               >
                 <span class="fw-bold">滿額折抵</span
-                ><span class="text-danger"
-                  >NT$ - {{ nowCarts.activeDiscount.discount }}</span
-                >
+                ><span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
               </li>
               <li
                 class="list-group-item pb-3 border-0 d-flex justify-content-between"
               >
                 <span class="fw-bold">折扣後金額</span>NT$
-                {{
-                  nowCarts.totalBill -
-                  nowCarts.coupon -
-                  nowCarts.activeDiscount.discount
-                }}
+                {{ totalBill - cookieCouponDiscount - nowAllDiscount }}
               </li>
             </ul>
             <RouterLink
@@ -277,6 +247,13 @@ export default {
                   }}</span>
                 </ErrorMessage>
               </div>
+              <!-- 儲存帳單金額 -->
+              <VField
+                class="d-none"
+                name="finalBill"
+                type="text"
+                v-model="countFinal"
+              />
               <button class="btn btn-primary w-100 mb-3 fs-6">資料送出</button>
             </VForm>
           </div>

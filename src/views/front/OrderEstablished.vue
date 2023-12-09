@@ -1,25 +1,22 @@
 <script>
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
-const apiPath = '2023shuttle';
+import { mapState, mapActions } from 'pinia';
+import useCartsStore from '../../stores/useCartsStore';
+import useCouponStore from '../../stores/useCouponStore';
+import useOrderStore from '../../stores/useOrderStore';
+
+const orderId = document.cookie.replace(
+  /(?:(?:^|.*;\s*)newOrderId\s*=\s*([^;]*).*$)|^.*$/,
+  '$1'
+);
 
 export default {
-  emits: ['updateUserId', 'nowCarts'], // 聲明事件避免錯誤
   data() {
     return {
-      orderInfo: { user: {} },
+      id: '',
     };
   },
   methods: {
-    getOrder(id) {
-      this.axios
-        .get(`${hexApi}api/${apiPath}/order/${id}`)
-        .then((res) => {
-          this.orderInfo = res.data.order;
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
+    ...mapActions(useOrderStore, ['getOrder']),
   },
   mounted() {
     // 進入時觸發
@@ -27,7 +24,21 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
-    this.getOrder('-NjlsGb-9yeuLflbzQU4'); // 之後要換成取得新訂單id
+    if (orderId) {
+      this.getOrder(orderId);
+    }
+  },
+  computed: {
+    ...mapState(useOrderStore, ['orderInfo']),
+    ...mapState(useCartsStore, ['totalBill', 'nowAllDiscount']),
+    ...mapState(useCouponStore, ['cookieCouponDiscount']),
+    createDate() {
+      const unix = new Date(this.orderInfo.create_at * 1000);
+      return `${unix.getFullYear()}-${unix.getMonth() + 1}-${unix.getDate()}`;
+    },
+    countFinal() {
+      return this.totalBill - this.cookieCouponDiscount - this.nowAllDiscount;
+    },
   },
 };
 </script>
@@ -79,7 +90,7 @@ export default {
       <!-- 訂單內容 -->
       <div class="row justify-content-center">
         <div class="modal-body text-center fs-4 fs-md-3 py-3">訂單已成立</div>
-        <div class="col-6 mt-5">
+        <div class="col col-md-9 col-lg-7 col-xxl-6 mt-5">
           <div class="bg-secondary rounded-2 px-5 py-4 shadow">
             <h4 class="text-center py-4">
               <span class="border-dashed-b pb-2">訂單資訊</span>
@@ -87,65 +98,67 @@ export default {
             <ul class="list-group list-group-flush pt-2 pb-4">
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">成立日期</h5>
-                  <div class="col-7">
-                    <p>{{ orderInfo.create_at }}</p>
+                  <h5 class="col fs-6 mb-0 text-center text-center">
+                    成立日期
+                  </h5>
+                  <div class="col-7 lh-lg">
+                    <p>{{ createDate }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">付款狀態</h5>
-                  <div class="col-7">
+                  <h5 class="col fs-6 mb-0 text-center">付款狀態</h5>
+                  <div class="col-7 lh-lg">
                     <p>{{ orderInfo.is_paid ? '付款完成' : '未付款' }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">應付金額</h5>
-                  <div class="col-7">
-                    <p>NT$ {{ orderInfo.total }}</p>
+                  <h5 class="col fs-6 mb-0 text-center">應付金額</h5>
+                  <div class="col-7 lh-lg">
+                    <p>NT$ {{ countFinal }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">訂單編號</h5>
-                  <div class="col-7">
+                  <h5 class="col fs-6 mb-0 text-center">訂單編號</h5>
+                  <div class="col-7 lh-lg">
                     <p>{{ orderInfo.id }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">訂購者</h5>
-                  <div class="col-7">
+                  <h5 class="col fs-6 mb-0 text-center">訂購者</h5>
+                  <div class="col-7 lh-lg">
                     <p>{{ orderInfo.user.name }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">連絡電話</h5>
-                  <div class="col-7">
+                  <h5 class="col fs-6 mb-0 text-center">連絡電話</h5>
+                  <div class="col-7 lh-lg">
                     <p>{{ orderInfo.user.tel }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">聯絡信箱</h5>
-                  <div class="col-7">
+                  <h5 class="col fs-6 mb-0 text-center">聯絡信箱</h5>
+                  <div class="col-7 lh-lg">
                     <p>{{ orderInfo.user.email }}</p>
                   </div>
                 </div>
               </li>
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0">訂單備註</h5>
-                  <div class="col-7">
-                    <p>{{ orderInfo.message }}</p>
+                  <h5 class="col fs-6 mb-0 text-center">訂單備註</h5>
+                  <div class="col-7 lh-lg">
+                    <p>{{ orderInfo.message || '無' }}</p>
                   </div>
                 </div>
               </li>
