@@ -30,6 +30,9 @@ export default {
     countFinal() {
       return this.totalBill - this.cookieCouponDiscount - this.nowAllDiscount;
     },
+    imgBase() {
+      return import.meta.env.VITE_IMG_BASE;
+    },
   },
 };
 </script>
@@ -101,7 +104,7 @@ export default {
                   <tr v-for="course in carts" :key="course.id">
                     <td>
                       <img
-                        :src="course.product.imageUrl"
+                        :src="`${imgBase}${course.product.imageUrl}`"
                         :alt="`product${course.id}`"
                         class="img-fluid"
                         style="max-width: 150px"

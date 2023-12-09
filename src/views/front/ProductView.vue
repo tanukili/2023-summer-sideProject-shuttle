@@ -41,6 +41,9 @@ export default {
       'productPromotion',
       'countQuota',
     ]),
+    imgBase() {
+      return import.meta.env.VITE_IMG_BASE;
+    },
   },
 };
 </script>
@@ -76,7 +79,7 @@ export default {
         <div class="row g-0">
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
-              :src="singleProduct.imageUrl"
+              :src="`${imgBase}${singleProduct.imageUrl}`"
               class="img-fluid rounded-top-5 rounded-start-md-5 h-100"
               :alt="singleProduct.title"
             />

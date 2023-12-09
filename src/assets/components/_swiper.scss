@@ -72,15 +72,26 @@
 
   &-prev,
   &-next {
+
     // top: 50%;
+    @include pad {
+      display: none !important;
+    }
+
 
     &::after {
-      --swiper-navigation-size: 48px;
+      --swiper-navigation-size: 36px;
       color: $primary;
       background: $white;
-      padding: 8px;
+      padding: 4px;
       border-radius: 50%;
       font-family: 'Material Symbols Rounded' !important;
+      box-shadow: 0 10px 20px 0 rgba(192, 192, 192, 0.35);
+
+      @include wed-xl {
+        padding: 8px;
+        --swiper-navigation-size: 48px;
+      }
     }
   }
 

@@ -13,27 +13,30 @@ export default {
         first: {
           title: '2023 歲末全館回饋季',
           subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
-          imgUrl: '/activity/2023-year-end01-sm.jpg',
+          imgUrl:
+            '/2023-summer-sideProject-shuttle/activity/2023-year-end01-sm.jpg',
           id: 3,
         },
         other: [
           {
             title: '2023 春季織心好友揪團趣',
             subtitle: '兩人同行，現打 85 折',
-            imgUrl: '/activity/2023-spring-sm.jpg',
+            imgUrl:
+              '/2023-summer-sideProject-shuttle/activity/2023-spring-sm.jpg',
             id: 1,
           },
           {
             title: '2023 秋冬新色早鳥優惠',
             subtitle: '新色上架！指定課程打九折',
-            imgUrl: '/activity/2023-winnter-sm.jpg',
+            imgUrl:
+              '/2023-summer-sideProject-shuttle/activity/2023-winnter-sm.jpg',
             id: 2,
           },
         ],
       },
       reviews: [
         {
-          avatarUrl: '/avatar/avatar01.png',
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar01.png',
           name: 'Ada Wang',
           course: '桌上型織布機',
           comment:
@@ -42,7 +45,7 @@ export default {
           id: 1,
         },
         {
-          avatarUrl: '/avatar/avatar02.png',
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
           name: 'Miyako Kajiro',
           course: '一日綴織體驗',
           comment:
@@ -51,7 +54,7 @@ export default {
           id: 2,
         },
         {
-          avatarUrl: '/avatar/avatar03.png',
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar03.png',
           name: 'Li-Fang Gong',
           course: '織帶機',
           comment: '跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。',
@@ -59,7 +62,7 @@ export default {
           id: 3,
         },
         {
-          avatarUrl: '/avatar/avatar04.png',
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar04.png',
           name: 'Guertena',
           course: '織紋設計',
           comment:
@@ -68,7 +71,7 @@ export default {
           id: 1,
         },
         {
-          avatarUrl: '/avatar/avatar01.png',
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar01.png',
           name: 'Ada Wang',
           course: '桌上型織布機',
           comment:
@@ -77,7 +80,7 @@ export default {
           id: 5,
         },
         {
-          avatarUrl: '/avatar/avatar02.png',
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
           name: 'Miyako Kajiro',
           course: '一日綴織體驗',
           comment:
@@ -93,7 +96,7 @@ export default {
           price: 850,
           sellingPrice: 850,
           onSale: false,
-          imgUrl: '/product/product01.jpg',
+          imgUrl: '/2023-summer-sideProject-shuttle/product/product01.jpg',
           id: 1,
         },
         {
@@ -102,7 +105,7 @@ export default {
           price: 1200,
           sellingPrice: 1080,
           onSale: true,
-          imgUrl: '/product/product02.jpg',
+          imgUrl: '/2023-summer-sideProject-shuttle/product/product02.jpg',
           id: 2,
         },
         {
@@ -111,7 +114,7 @@ export default {
           price: 4800,
           sellingPrice: 4800,
           onSale: false,
-          imgUrl: '/product/product05.jpg',
+          imgUrl: '/2023-summer-sideProject-shuttle/product/product05.jpg',
           id: 3,
         },
         {
@@ -120,7 +123,7 @@ export default {
           price: 1100,
           sellingPrice: 1100,
           onSale: false,
-          imgUrl: '/product/product06-1.jpg',
+          imgUrl: '/2023-summer-sideProject-shuttle/product/product06-1.jpg',
           id: 4,
         },
         {
@@ -129,7 +132,7 @@ export default {
           price: 13900,
           sellingPrice: 13900,
           onSale: false,
-          imgUrl: '/product/product03-1.jpg',
+          imgUrl: '/2023-summer-sideProject-shuttle/product/product03-1.jpg',
           id: 5,
         },
       ],
@@ -175,7 +178,7 @@ export default {
     style="height: 680px"
   >
     <div class="container">
-      <div class="w-33 ms-xl-8">
+      <div class="w-md-50 w-xl-33 ms-xl-8">
         <h1 class="fs-2 text-white" style="line-height: 64px">
           一封真摯的邀請函<br />
           給予手織
@@ -279,7 +282,7 @@ export default {
       </h2>
       <div class="mt-5 mx-lg-5 px-lg-3">
         <div
-          class="card rounded-5 p-md-4 mb-4"
+          class="card rounded-2 rounded-md-5 p-md-4 mb-4"
           data-aos="flip-up"
           data-aos-easing="ease-out-cubic"
           data-aos-duration="2000"
@@ -287,7 +290,7 @@ export default {
           <div class="d-md-flex m-lg-6">
             <img
               src="/home-page/feature01.jpg"
-              class="rounded-md-3 border-dashed border-gray-500 feature-img"
+              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img w-md-50"
               alt="feature01"
             />
             <div
@@ -300,7 +303,7 @@ export default {
                 >
                   從入門到應用
                 </h5>
-                <p class="fs-6 lh-lg">
+                <p class="fs-7 fs-lg-6 lh-lg">
                   完全沒接觸過織補的初學者，我們推薦一日課程，體驗從縣道面的樂趣；想要挑戰大型創作的學生，則可以參考落地織布機課程，獲得更全面、密集的學習。
                 </p>
               </div>
@@ -308,7 +311,7 @@ export default {
           </div>
         </div>
         <div
-          class="card rounded-5 p-md-4 mb-4"
+          class="card rounded-2 rounded-md-5 p-md-4 mb-4"
           data-aos="flip-up"
           data-aos-easing="ease-out-cubic"
           data-aos-duration="2000"
@@ -316,7 +319,7 @@ export default {
           <div class="d-md-flex flex-md-row-reverse m-lg-6">
             <img
               src="/home-page/feature02.jpg"
-              class="rounded-md-3 border-dashed border-gray-500 feature-img"
+              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img w-md-50"
               alt="feature02"
             />
             <div
@@ -329,7 +332,7 @@ export default {
                 >
                   免裝備報到
                 </h5>
-                <p class="fs-6 lh-lg">
+                <p class="fs-7 fs-lg-6 lh-lg">
                   基本器材及耗材由我們提供，不用擔心有沒有織布機，您只需要準備紙筆等文既即可，輕鬆無負擔。
                 </p>
               </div>
@@ -337,7 +340,7 @@ export default {
           </div>
         </div>
         <div
-          class="card rounded-5 p-md-4"
+          class="card rounded-2 rounded-md-5 p-md-4"
           data-aos="flip-up"
           data-aos-easing="ease-out-cubic"
           data-aos-duration="2000"
@@ -345,7 +348,7 @@ export default {
           <div class="d-md-flex m-lg-6">
             <img
               src="/home-page/feature03.jpg"
-              class="rounded-md-3 border-dashed border-gray-500 feature-img"
+              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img w-md-50"
               alt="feature03"
             />
             <div
@@ -358,7 +361,7 @@ export default {
                 >
                   多樣化輔助課程
                 </h5>
-                <p class="fs-6 lh-lg">
+                <p class="fs-7 fs-lg-6 lh-lg">
                   用膩了現成素材？我們另有準備輔助課程，包含異材質、進階織紋、染色、布料加工等主題。您可以依照需求選購，增添創作靈感。
                 </p>
               </div>
@@ -410,7 +413,6 @@ export default {
           },
           '1200': {
             slidesPerView: 3,
-            spaceBetween: 36,
           },
           '1400': {
             slidesPerView: 4,
@@ -641,16 +643,14 @@ export default {
   width: 100%;
   height: 220px;
 }
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .feature-img {
-    width: 50%;
-    height: 240px;
+    border: none !important;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 992px) {
   .feature-img {
-    width: 43.8%;
-    height: 360px;
+    height: 100%;
   }
 }
 

@@ -22,11 +22,26 @@
     width: 25% !important;
   }
 
+  .w-lg-33 {
+    width: 33.33% !important;
+  }
+
   .w-lg-75 {
     width: 75% !important;
   }
 
   .w-lg-auto {
     width: auto !important;
+  }
+}
+
+@include wed-xl {
+
+  .w-xl-33 {
+    width: 33.33% !important;
+  }
+
+  .w-xl-20 {
+    width: 20% !important;
   }
 }

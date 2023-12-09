@@ -2,25 +2,28 @@
   <div class="border-dashed-b border-gray-200">
     <div class="container">
       <ul class="nav fs-6 text-center">
-        <li class="nav-item w-20">
-          <RouterLink class="nav-link py-4 mx-4" aria-current="page" to="/"
+        <li class="nav-item w-33 w-md-25 w-xl-20">
+          <RouterLink
+            class="nav-link px-3 py-4 mx-md-4"
+            aria-current="page"
+            to="/"
             >首頁</RouterLink
           >
         </li>
-        <li class="nav-item w-20">
-          <RouterLink class="nav-link py-4 mx-4" to="/products"
+        <li class="nav-item w-33 w-md-25 w-xl-20">
+          <RouterLink class="nav-link px-3 py-4 mx-md-4" to="/products"
             >購買課程</RouterLink
           >
         </li>
-        <li class="nav-item w-20">
-          <RouterLink class="nav-link py-4 mx-4" to="/news"
+        <li class="nav-item w-33 w-md-25 w-xl-20">
+          <RouterLink class="nav-link px-3 py-4 mx-md-4" to="/news"
             >最新消息</RouterLink
           >
         </li>
-        <li class="nav-item w-20 d-none d-md-block">
+        <li class="nav-item w-xl-20 w-md-25 d-none d-md-block">
           <RouterLink class="nav-link py-4 mx-4" to="/">版權宣告</RouterLink>
         </li>
-        <li class="nav-item w-20 d-none d-md-block">
+        <li class="nav-item w-xl-20 d-none d-xl-block">
           <RouterLink class="nav-link py-4 mx-4" to="/">隱私權政策</RouterLink>
         </li>
       </ul>

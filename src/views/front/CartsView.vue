@@ -70,6 +70,9 @@ export default {
       const required = this.allActive.requiredPrice;
       return required - (this.totalBill % required);
     },
+    imgBase() {
+      return import.meta.env.VITE_IMG_BASE;
+    },
   },
   // // 生命週期：離開當前路由前調用
   // beforeRouteLeave(to, from, next) {
@@ -172,7 +175,7 @@ export default {
               <td>
                 <div class="d-none d-md-flex flex-column align-items-center">
                   <img
-                    :src="course.product.imageUrl"
+                    :src="`${imgBase}${course.product.imageUrl}`"
                     :alt="`product${course.id}`"
                     class="img-fluid"
                     style="max-width: 150px"
