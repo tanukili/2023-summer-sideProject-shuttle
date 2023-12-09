@@ -1,0 +1,1 @@
+import{_ as e,f as s,g as t,i as o}from"./index-cbb9c24a.js";const c={},n={class:"about"},_=o("h1",null,"後台文章列表",-1),a=[_];function r(d,i){return s(),t("div",n,a)}const l=e(c,[["render",r]]);export{l as default};
