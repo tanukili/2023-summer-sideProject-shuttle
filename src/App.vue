@@ -12,15 +12,9 @@ export default {
     FooterNavbar,
   },
   data() {
-    return {
-      nowCarts: { activeDiscount: '' },
-    };
+    return {};
   },
-  methods: {
-    getCartsContent(cartsContent) {
-      this.nowCarts = cartsContent;
-    },
-  },
+  methods: {},
   mounted() {
     // 進入時觸發
     AOS.init();
@@ -33,7 +27,7 @@ export default {
     <HeaderNavbar />
   </header>
   <div>
-    <RouterView @cartsContent="getCartsContent" :nowCarts="nowCarts" />
+    <RouterView />
   </div>
   <FooterNavbar />
 </template>

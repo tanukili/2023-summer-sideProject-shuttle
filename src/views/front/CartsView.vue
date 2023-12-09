@@ -1,227 +1,49 @@
 <script>
+import { mapState, mapActions } from 'pinia';
+import useActivitiesStore from '../../stores/useActivitiesStore';
+import useCartsStore from '../../stores/useCartsStore';
+import useCouponStore from '../../stores/useCouponStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
-const apiPath = '2023shuttle';
-
 export default {
-  emits: ['updateUserId', 'cartsContent'], // 聲明事件避免錯誤
-  props: ['nowCarts'], // 聲明事件避免錯誤
   components: {
     BackgroundBanner,
   },
   data() {
     return {
       bannerImg: 'background-image: url(/banner/banner-carts.jpg)',
-      carts: [],
-      totalBill: 0,
-      coupon: 0,
       couponCode: '',
-      promotions: {
-        unlimitedActives: {
-          promotion01: {
-            title: '2023 秋冬新色早鳥優惠',
-            description: '對象商品現打九折',
-            percentOff: 0.9, // 全面 9 折
-            checkLimits(subtotal) {
-              return subtotal * this.percentOff; // 折後價
-            },
-          },
-        },
-        numActives: {
-          promotion03: {
-            title: '2023 夏季織心好友揪團趣',
-            description: '兩人現打八五折',
-            requiredNum: 2, // 兩人以上 85 折
-            percentOff: 0.85,
-            checkLimits(qty, subtotal) {
-              if (qty >= this.requiredNum) {
-                return Math.round(subtotal * this.percentOff); // 折後價
-              }
-              return qty; // 回傳限制
-            },
-          },
-        },
-        // 只會有一個
-        totalActive: {
-          title: '2023 歲末全館回饋季',
-          description: '滿 3000 折 300，可累計折抵（排除優惠券折扣）',
-          requiredPrice: 3000, // 滿3000折價300
-          percentOff: 300,
-          totalActive(total, coupon) {
-            let count = total - coupon;
-            let discount = 0;
-            if (count < 3000) {
-              return { discount, difference: 3000 - count }; // 折後價+差額
-            }
-            while (count >= 3000) {
-              count -= 3000;
-              discount += 300;
-            }
-            console.log(count, discount);
-            return { discount, difference: 3000 - (count % 3000) }; // 折後價+差額
-          },
-        },
-      },
     };
   },
   methods: {
-    getCarts() {
-      this.axios
-        .get(`${hexApi}api/${apiPath}/cart`)
+    ...mapActions(useActivitiesStore, ['getActivities']),
+    ...mapActions(useCartsStore, [
+      'getCart',
+      'putCart',
+      'deleteAllCart',
+      'deleteCart',
+      'goToOrder',
+    ]),
+    ...mapActions(useCouponStore, ['useCoupon']),
+    goToOrder() {
+      // 全館活動提醒 暫時的寫法
+      this.$swal({
+        // position: 'bottom-end',
+        // backdrop: false,
+        title: `${this.allActive.title}`,
+        html: `<p class='text-gray-400'>${this.allActive.description}</p>
+            <p>目前金額再 <span class='text-danger'>NT$ ${this.countDifference} </span>可折抵 NT$ ${this.allActive.percentOff} </p>`,
+        showDenyButton: true,
+        showCloseButton: true,
+        confirmButtonText: '修改訂單',
+        denyButtonText: '下一步',
+      })
+        // 按鈕事件
         .then((res) => {
-          this.carts = res.data.data.carts;
-          console.log(this.carts);
-          // 需要修改prodcut資料
-          this.carts.forEach((e) => {
-            // 三種優惠適用狀況 (注意單雙數)
-            e.product.state.promotions = {};
-            if (e.product.state.promotion) {
-              switch (e.product.state.promotion) {
-                case 'promotion01':
-                  e.product.state.promotionType = 'unlimitedActive';
-                  break;
-                case 'promotion03':
-                  e.product.state.promotionType = 'numActive';
-                  break;
-                default:
-                  break;
-              }
-            }
-            // price 直接由 origan-price 產生，並回應在 total
-            e.product.price = e.product.origin_price;
-            if (e.product.state.promotionType === 'unlimitedActive') {
-              e.product.price = this.promotions.unlimitedActives[
-                e.product.state.promotion
-              ].checkLimits(e.product.origin_price);
-              e.total = e.product.price * e.qty;
-            }
-            // final_total 直接由 total 產生
-            e.final_total = e.total;
-            if (e.product.state.promotionType === 'numActive') {
-              e.final_total = this.promotions.numActives[
-                e.product.state.promotion
-              ].checkLimits(e.qty, e.total);
-            }
-          });
-          // 總金額
-          this.totalBill = res.data.data.total;
-          // 全館活動提醒
-          this.$swal({
-            position: 'bottom-end',
-            title: `${this.promotions.totalActive.title}`,
-            html: `<p class='text-gray-400'>${
-              this.promotions.totalActive.description
-            }</p><p>目前金額再 <span class='text-danger'>NT$ ${
-              this.promotions.totalActive.totalActive(
-                this.totalBill,
-                this.coupon
-              ).difference
-            } </span>即可折抵 NT$ 300 </p>`,
-            showConfirmButton: false,
-            backdrop: false,
-            showCloseButton: true,
-            width: '40%',
-          });
-        })
-        .catch((err) => {
-          console.log(err.response);
+          if (res.isDenied) {
+            this.$router.push('/order');
+          }
         });
-    },
-    putCarts(id, newQty) {
-      const obj = { data: { product_id: id, qty: newQty } };
-      this.axios
-        .put(`${hexApi}api/${apiPath}/cart/${id}`, obj)
-        .then(() => {
-          this.getCarts();
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
-    deleteCarts(id) {
-      this.axios
-        .delete(`${hexApi}api/${apiPath}/cart/${id}`)
-        .then((res) => {
-          this.$swal({
-            title: res.data.message,
-            didClose: () => {
-              this.getCarts();
-            },
-          });
-        })
-        .catch((err) => {
-          this.$swal({
-            icon: 'error',
-            title: err.response.data.message,
-          });
-        });
-    },
-    deleteAllCarts() {
-      this.axios
-        .delete(`${hexApi}api/${apiPath}/carts`)
-        .then((res) => {
-          this.$swal({
-            title: res.data.message,
-            didClose: () => {
-              this.getCarts();
-            },
-          });
-        })
-        .catch((err) => {
-          this.$swal({
-            icon: 'error',
-            title: err.response.data.message,
-          });
-        });
-    },
-    showPromotion(name, type) {
-      if (name && type) {
-        const key = type;
-        const value = name;
-        return this.promotions[`${key}s`][value];
-      }
-      return false;
-    },
-    postCoupon(code) {
-      const obj = { data: { code } };
-      this.axios
-        .post(`${hexApi}api/${apiPath}/coupon`, obj)
-        .then((res) => {
-          this.coupon = this.totalBill - res.data.data.final_total;
-          this.$swal({
-            icon: 'success',
-            title: res.data.message,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-            didClose: () => {
-              this.getCarts();
-            },
-          });
-        })
-        .catch((err) => {
-          this.$swal({
-            icon: 'error',
-            title: err.response.data.message,
-          });
-        });
-    },
-    // 可優化
-    emitCartsContent(totalBill, coupon) {
-      this.$emit('cartsContent', {
-        carts: this.carts,
-        totalBill,
-        coupon,
-        activeDiscount: this.promotions.totalActive.totalActive(
-          totalBill,
-          coupon
-        ),
-      });
-      this.$router.push('/order');
     },
   },
   mounted() {
@@ -230,25 +52,32 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
-    this.getCarts();
   },
-  // 生命週期：離開當前路由前調用
-  beforeRouteLeave(to, from, next) {
-    // 關閉所有 SweetAlert2 視窗
-    this.$swal.close();
-    // 傳遞資料
-    this.$emit('cartsContent', {
-      carts: this.carts,
-      totalBill: this.totalBill,
-      coupon: this.coupon,
-      activeDiscount: this.promotions.totalActive.totalActive(
-        this.totalBill,
-        this.coupon
-      ),
-    });
-    // 繼續路由遷移
-    next();
+  created() {
+    this.getActivities();
+    this.getCart();
   },
+  computed: {
+    ...mapState(useActivitiesStore, [
+      'allActive',
+      'unlimitedActivities',
+      'numActivities',
+      'nowAllDiscount',
+    ]),
+    ...mapState(useCartsStore, ['carts', 'totalBill', 'nowAllDiscount']),
+    ...mapState(useCouponStore, ['couponDiscount']),
+    countDifference() {
+      const required = this.allActive.requiredPrice;
+      return required - (this.totalBill % required);
+    },
+  },
+  // // 生命週期：離開當前路由前調用
+  // beforeRouteLeave(to, from, next) {
+  //   // 關閉所有 SweetAlert2 視窗
+  //   this.$swal.close();
+  //   // 繼續路由遷移
+  //   next();
+  // },
 };
 </script>
 
@@ -309,7 +138,7 @@ export default {
         <a
           class="btn btn-sm btn-outline-primary px-3 fw-normal d-inline-block shadow-none"
           href="#"
-          @click.prevent="deleteAllCarts()"
+          @click.prevent="deleteAllCart()"
         >
           清空購物車
         </a>
@@ -334,7 +163,7 @@ export default {
           <tbody>
             <tr v-for="course in carts" :key="course.id">
               <th scope="row">
-                <a href="#" @click.prevent="deleteCarts(course.id)">
+                <a href="#" @click.prevent="deleteCart(course.id)">
                   <span class="material-symbols-outlined icon-fill fs-5">
                     delete_forever
                   </span>
@@ -353,7 +182,6 @@ export default {
               <td>{{ course.product.title }}</td>
               <td>
                 <div class="d-flex flex-column">
-                  <!-- 已由 unlimitedActives 優惠計算 product.price -->
                   <span
                     v-if="course.product.origin_price !== course.product.price"
                     class="text-gray-400 text-decoration-line-through"
@@ -373,7 +201,7 @@ export default {
                   <select
                     class="form-select form-select-sm fs-lg-7 pe-4 border-secondary"
                     v-model="course.qty"
-                    @change="putCarts(course.id, parseInt(course.qty))"
+                    @change="putCart(course.id, parseInt(course.qty))"
                   >
                     <option
                       :value="num"
@@ -388,7 +216,6 @@ export default {
               </td>
               <td>
                 <div class="d-flex flex-column">
-                  <!-- 已由 numActive 優惠計算 product.final_total -->
                   <span
                     v-if="course.final_total !== course.total"
                     class="text-gray-400 text-decoration-line-through"
@@ -405,26 +232,32 @@ export default {
               </td>
               <td class="fs-8 px-md-3">
                 <div
-                  v-if="
-                    showPromotion(
-                      course.product.state.promotion,
-                      course.product.state.promotionType
-                    )
-                  "
+                  v-if="course.product.state.promotion"
                   class="d-none d-md-flex flex-column"
                 >
-                  {{
-                    showPromotion(
-                      course.product.state.promotion,
-                      course.product.state.promotionType
-                    ).title
-                  }}
-                  <span class="text-gray-200 fs-9 fw-light">{{
-                    showPromotion(
-                      course.product.state.promotion,
-                      course.product.state.promotionType
-                    ).description
-                  }}</span>
+                  <div
+                    v-if="unlimitedActivities[course.product.state.promotion]"
+                  >
+                    {{
+                      unlimitedActivities[course.product.state.promotion].title
+                    }}
+                  </div>
+                  <div v-else>
+                    {{ numActivities[course.product.state.promotion].title }}
+                    <div
+                      v-if="
+                        course.qty <
+                        numActivities[course.product.state.promotion]
+                          .requiredNum
+                      "
+                      class="text-gray-200 fs-9 lh-lg fw-light"
+                    >
+                      {{
+                        numActivities[course.product.state.promotion]
+                          .description
+                      }}
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -447,50 +280,39 @@ export default {
               class="btn btn-secondary shadow-none py-2 fs-7"
               type="button"
               id="coupon-btn"
-              @click.prevent="postCoupon(couponCode)"
+              @click.prevent="useCoupon(couponCode)"
             >
               確認使用
             </button>
           </div>
         </div>
         <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
-          <ul class="list-group rounded-2 bg-secondary">
+          <ul class="list-group rounded-2">
             <li
-              class="list-group-item pt-3 border-0 text-mellow d-flex justify-content-between"
+              class="list-group-item border-0 text-mellow d-flex justify-content-between py-3"
             >
               <span class="fw-bold">目前總金額</span>NT$ {{ totalBill }}
             </li>
             <li
-              v-if="coupon"
+              v-if="couponDiscount"
               class="list-group-item border-0 d-flex justify-content-between"
             >
               <span class="fw-bold">優惠券折抵</span
-              ><span class="text-danger">NT$ - {{ coupon }}</span>
+              ><span class="text-danger">NT$ - {{ couponDiscount }}</span>
             </li>
             <li
-              v-if="promotions.totalActive"
+              v-if="allActive.requiredPrice <= totalBill"
               class="list-group-item border-0 d-flex justify-content-between"
             >
               <span class="fw-bold">滿額折抵</span
-              ><span class="text-danger"
-                >NT$ -
-                {{
-                  promotions.totalActive.totalActive(totalBill, coupon).discount
-                }}</span
-              >
+              ><span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
             </li>
             <li
+              v-if="couponDiscount || allActive.requiredPrice <= totalBill"
               class="list-group-item pb-3 border-0 d-flex justify-content-between"
             >
               <span class="fw-bold">折扣後金額</span>NT$
-              {{
-                totalBill !== 0
-                  ? totalBill -
-                    coupon -
-                    promotions.totalActive.totalActive(totalBill, coupon)
-                      .discount
-                  : 0
-              }}
+              {{ totalBill - couponDiscount - nowAllDiscount }}
             </li>
           </ul>
         </div>
@@ -498,7 +320,7 @@ export default {
       <div class="d-flex">
         <button
           class="btn btn-primary fs-7 fs-lg-6 fw-normal w-75 w-md-50 w-lg-25 mx-auto"
-          @click.prevent="emitCartsContent(totalBill, coupon)"
+          @click.prevent="goToOrder()"
         >
           訂單確認
         </button>
