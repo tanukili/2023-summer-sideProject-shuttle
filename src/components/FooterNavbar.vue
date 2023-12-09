@@ -32,7 +32,7 @@
     >
       <img
         class="order-md-1 mb-3 mb-md-0"
-        src="../assets/images/logo-horizontal.png"
+        src="/logo/logo-horizontal.png"
         alt="logo"
         style="max-width: 236px"
       />
@@ -58,8 +58,7 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center
-                url('/src/assets/images/vector/Facebook.svg');
+              background: no-repeat center url('/icon/Facebook.svg');
             "
           >
           </a>
@@ -71,8 +70,7 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center
-                url('/src/assets/images/vector/Messager.svg');
+              background: no-repeat center url('/icon/Messager.svg');
             "
           >
           </a>
@@ -84,8 +82,7 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center
-                url('/src/assets/images/vector/Instagram.svg');
+              background: no-repeat center url('/icon/Instagram.svg');
             "
           >
           </a>
@@ -97,8 +94,7 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center
-                url('/src/assets/images/vector/Pinterest.svg');
+              background: no-repeat center url('/icon/Pinterest.svg');
             "
           >
           </a>

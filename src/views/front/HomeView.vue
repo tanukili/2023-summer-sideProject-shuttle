@@ -11,32 +11,29 @@ export default {
     return {
       discounts: {
         first: {
-          title: '2023 夏季織心好友揪團趣',
-          subtitle: '兩人同行，現打 85 折',
-          imgUrl: '/banner/banner-.jpg',
-          id: 1,
+          title: '2023 歲末全館回饋季',
+          subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
+          imgUrl: '/activity/2023-year-end01-sm.jpg',
+          id: 3,
         },
         other: [
           {
-            title: '秋季新色 課程預購中',
-            subtitle: '秋季課程改版，早鳥預購享優惠',
-            imgUrl:
-              '/2023-summer-sideProject-shuttle/assets/images/promotions02.jpg',
-            id: 2,
+            title: '2023 春季織心好友揪團趣',
+            subtitle: '兩人同行，現打 85 折',
+            imgUrl: '/activity/2023-spring-sm.jpg',
+            id: 1,
           },
           {
-            title: '新註冊會員 贈 50 元折價券',
-            subtitle: '新會員招募中，填寫推薦再加碼',
-            imgUrl:
-              '/2023-summer-sideProject-shuttle/assets/images/promotions03.jpg',
-            id: 3,
+            title: '2023 秋冬新色早鳥優惠',
+            subtitle: '新色上架！指定課程打九折',
+            imgUrl: '/activity/2023-winnter-sm.jpg',
+            id: 2,
           },
         ],
       },
       reviews: [
         {
-          avatarUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/avatar01.png',
+          avatarUrl: '/avatar/avatar01.png',
           name: 'Ada Wang',
           course: '桌上型織布機',
           comment:
@@ -45,8 +42,7 @@ export default {
           id: 1,
         },
         {
-          avatarUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/avatar02.png',
+          avatarUrl: '/avatar/avatar02.png',
           name: 'Miyako Kajiro',
           course: '一日綴織體驗',
           comment:
@@ -55,8 +51,7 @@ export default {
           id: 2,
         },
         {
-          avatarUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/avatar03.png',
+          avatarUrl: '/avatar/avatar03.png',
           name: 'Li-Fang Gong',
           course: '織帶機',
           comment: '跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。',
@@ -64,8 +59,7 @@ export default {
           id: 3,
         },
         {
-          avatarUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/avatar04.png',
+          avatarUrl: '/avatar/avatar04.png',
           name: 'Guertena',
           course: '織紋設計',
           comment:
@@ -74,8 +68,7 @@ export default {
           id: 1,
         },
         {
-          avatarUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/avatar01.png',
+          avatarUrl: '/avatar/avatar01.png',
           name: 'Ada Wang',
           course: '桌上型織布機',
           comment:
@@ -84,8 +77,7 @@ export default {
           id: 5,
         },
         {
-          avatarUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/avatar02.png',
+          avatarUrl: '/avatar/avatar02.png',
           name: 'Miyako Kajiro',
           course: '一日綴織體驗',
           comment:
@@ -96,53 +88,48 @@ export default {
       ],
       popCourses: [
         {
-          name: '一日綴織體驗',
+          name: '一日梭織體驗（12月）',
           tags: ['入門', '綴織', '一日', 'Top 3'],
           price: 850,
           sellingPrice: 850,
           onSale: false,
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/product01.jpg',
+          imgUrl: '/product/product01.jpg',
           id: 1,
         },
         {
           name: '暖色羊毛圍巾',
-          tags: ['簡易織布機', '兩日', '秋冬', 'Top 3'],
-          price: 2000,
-          sellingPrice: 1800,
+          tags: ['兩日', '初階', '簡易織布機', '秋冬'],
+          price: 1200,
+          sellingPrice: 1080,
           onSale: true,
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/product02.jpg',
+          imgUrl: '/product/product02.jpg',
           id: 2,
         },
         {
-          name: '段染實驗營',
-          tags: ['進階', '輔助', '四日', 'Top 3'],
-          price: 850,
-          sellingPrice: 850,
+          name: '平織織紋大補帖',
+          tags: ['長時間', '進階', '落地織布機', 'TOP 3'],
+          price: 4800,
+          sellingPrice: 4800,
           onSale: false,
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/product03.jpg',
+          imgUrl: '/product/product05.jpg',
           id: 3,
         },
         {
-          name: '一日綴織體驗',
-          tags: ['入門', '綴織', '一日', 'Top 3'],
-          price: 850,
-          sellingPrice: 850,
+          name: '認識挑織（平日）',
+          tags: ['三日', '初階', '簡易織布機', 'TOP 3'],
+          price: 1100,
+          sellingPrice: 1100,
           onSale: false,
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/product01.jpg',
+          imgUrl: '/product/product06-1.jpg',
           id: 4,
         },
         {
-          name: '暖色羊毛圍巾',
-          tags: ['簡易織布機', '兩日', '秋冬', 'Top 3'],
-          price: 2000,
-          sellingPrice: 1800,
-          onSale: true,
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/src/assets/images/product02.jpg',
+          name: '段染進階營',
+          tags: ['長時間', '輔助', '落地織布機', '創作'],
+          price: 13900,
+          sellingPrice: 13900,
+          onSale: false,
+          imgUrl: '/product/product03-1.jpg',
           id: 5,
         },
       ],
@@ -299,7 +286,7 @@ export default {
         >
           <div class="d-md-flex m-lg-6">
             <img
-              src="../../assets/images/feature01.jpg"
+              src="/home-page/feature01.jpg"
               class="rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature01"
             />
@@ -328,7 +315,7 @@ export default {
         >
           <div class="d-md-flex flex-md-row-reverse m-lg-6">
             <img
-              src="../../assets/images/feature02.jpg"
+              src="/home-page/feature02.jpg"
               class="rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature02"
             />
@@ -357,7 +344,7 @@ export default {
         >
           <div class="d-md-flex m-lg-6">
             <img
-              src="../../assets/images/feature03.jpg"
+              src="/home-page/feature03.jpg"
               class="rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature03"
             />
@@ -629,7 +616,7 @@ export default {
 .home-banner {
   /* 加上半透明遮罩 */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(../../assets/images/banner.jpg);
+    url(/banner/banner.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

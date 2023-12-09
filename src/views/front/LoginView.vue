@@ -30,7 +30,6 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
-    console.log(api);
   },
 };
 </script>

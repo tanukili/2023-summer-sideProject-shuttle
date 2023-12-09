@@ -19,7 +19,7 @@
 
 // 首頁圖片背景
 .bg-img {
-  background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(images/backplance.jpg);
+  background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(/banner/backplance01.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -29,7 +29,7 @@
 
   .bg-oval {
     z-index: -1;
-    background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(images/backplance.jpg);
+    background: linear-gradient(rgba(var(--bs-primary-rgb), 0.6), rgba(var(--bs-secondary-rgb), 0.6)), url(/banner/backplance01.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     position: absolute;

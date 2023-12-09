@@ -96,7 +96,7 @@ export default {
     order: 0;
   }
   .fc-header-toolbar {
-    flex-warp: warp;
+    flex-wrap: wrap;
     .fc-toolbar-chunk:nth-child(2) {
       order: 1;
       padding-top: 8px;

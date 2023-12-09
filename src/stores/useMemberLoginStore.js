@@ -22,7 +22,6 @@ export default defineStore('member', {
   // methods
   actions: {
     login(obj) {
-      console.log('click', api);
       axios
         .post(`${api}/login`, obj)
         .then((res) => {

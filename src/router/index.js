@@ -127,7 +127,7 @@ const router = createRouter({
       component: () => import('../views/admin/AdminView.vue'),
       children: [
         {
-          path: '',
+          path: 'home',
           component: () => import('../views/admin/AdminProducts.vue'),
         },
         {

@@ -1117,7 +1117,7 @@ $form-select-bg-size: 16px !default; // custom
 // In pixels because image dimensions
 $form-select-indicator-color: $gray-800  !default;
 // $form-select-indicator: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
-$form-select-indicator: url("./images/vector/arrow_drop_down.svg") !default; // custom
+$form-select-indicator: url("/icon/arrow_drop_down.svg") !default; // custom
 
 $form-select-feedback-icon-padding-end: $form-select-padding-x * 2.5 + $form-select-indicator-padding  !default;
 $form-select-feedback-icon-position: center right $form-select-indicator-padding  !default;
@@ -1285,7 +1285,7 @@ $nav-tabs-border-radius: var(--#{$prefix}border-radius) !default;
 $nav-tabs-link-hover-border-color: var(--#{$prefix}secondary-bg) var(--#{$prefix}secondary-bg) $nav-tabs-border-color  !default;
 $nav-tabs-link-active-color: var(--#{$prefix}emphasis-color) !default;
 // $nav-tabs-link-active-bg:           var(--#{$prefix}body-bg) !default;
-$nav-tabs-link-active-bg: $secondary  !default; // custom
+$nav-tabs-link-active-bg: $primary-light  !default; // custom
 $nav-tabs-link-active-border-color: var(--#{$prefix}border-color) var(--#{$prefix}border-color) $nav-tabs-link-active-bg  !default;
 
 $nav-pills-border-radius: var(--#{$prefix}border-radius) !default;

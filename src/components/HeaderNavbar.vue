@@ -22,7 +22,7 @@ export default {
   <nav class="navbar navbar-expand-lg py-md-3">
     <div class="container">
       <RouterLink to="/" class="d-lg-none">
-        <img src="../assets/images/logo.png" alt="logo" style="width: 96px" />
+        <img src="/logo/logo.png" alt="logo" style="width: 96px" />
       </RouterLink>
       <div class="d-flex mx-lg-auto">
         <RouterLink
@@ -86,7 +86,7 @@ export default {
               <li class="nav-item">
                 <RouterLink to="/" class="nav-link px-4 py-0 d-none d-lg-block">
                   <img
-                    src="../assets/images/logo-straight.png"
+                    src="/logo/logo-straight.png"
                     alt="logo"
                     style="width: 96px"
                   />
