@@ -1,19 +1,15 @@
 <script>
+import { mapState, mapActions } from 'pinia';
+import useProductsStore from '../../stores/useProductsStore';
+import useActivitiesStore from '../../stores/useActivitiesStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 import ProductsNavs from '../../components/ProductsNavs.vue';
 import FrontPagination from '../../components/FrontPagination.vue';
 
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
-const apiPath = '2023shuttle';
-
 export default {
-  emits: ['updateUserId'], // 聲明事件避免錯誤
   data() {
     return {
       bannerImg: 'background-image: url(/banner/banner-products.jpg)',
-      products: [],
-      pagination: {},
-      test: this.counter,
     };
   },
   components: {
@@ -22,18 +18,8 @@ export default {
     FrontPagination,
   },
   methods: {
-    getProducts(page = 1) {
-      this.axios
-        .get(`${hexApi}api/${apiPath}/products?page=${page}`)
-        .then((res) => {
-          console.log(res.data);
-          this.products = res.data.products;
-          this.pagination = res.data.pagination;
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
-    },
+    ...mapActions(useProductsStore, ['getProducts']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
   },
   mounted() {
     // 進入時觸發
@@ -42,9 +28,12 @@ export default {
     //   this.isLoading = false;
     // }, 1200);
     this.getProducts();
-    console.log(this.counter);
+    this.getActivities();
   },
-  computed: {},
+  computed: {
+    ...mapState(useProductsStore, ['products', 'pagination']),
+    ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
+  },
 };
 </script>
 
@@ -104,16 +93,15 @@ export default {
         <!-- list -->
         <div class="row gx-3 gy-4">
           <div
-            class="col-md-6 col-lg-4 col-xxl-3"
             v-for="product in products"
             :key="product.id"
             :class="[
-              (products.indexOf(product) + 1) % 8 <= 3
-                ? 'col-md-6 col-lg-4 col-xxl-3'
-                : 'col-md-6 col-lg-4 col-xxl-3 d-none d-md-block',
+              products.indexOf(product) + 1 <= 9
+                ? 'col-md-6 col-lg-4 gx-xxl-5'
+                : 'col-md-6 col-lg-4 gx-xxl-5 d-lg-none',
             ]"
           >
-            <div class="card">
+            <div class="card h-100">
               <div class="card-mask position-relative">
                 <img
                   :src="product.imageUrl"
@@ -122,10 +110,18 @@ export default {
                   style="height: 240px"
                 />
                 <span
-                  v-if="product.state.promotion"
+                  v-if="unlimitedActivities[product.state.promotion]"
                   class="badge badge-sale position-absolute start-0"
                   style="top: 24px"
-                  >優惠中</span
+                  >{{
+                    unlimitedActivities[product.state.promotion].badge
+                  }}</span
+                >
+                <span
+                  v-else-if="numActivities[product.state.promotion]"
+                  class="badge badge-sale bg-success position-absolute start-0"
+                  style="top: 24px"
+                  >{{ numActivities[product.state.promotion].badge }}</span
                 >
                 <a href="#">
                   <span
@@ -147,13 +143,16 @@ export default {
               <div class="card-footer pb-3">
                 <div class="d-flex align-items-center">
                   <small
-                    v-if="product.price !== product.origin_price"
+                    v-if="unlimitedActivities[product.state.promotion]"
                     class="fs-4 fw-bold text-danger"
-                    >${{ product.price }}</small
+                    >${{
+                      product.origin_price *
+                      unlimitedActivities[product.state.promotion].percentOff
+                    }}</small
                   >
                   <small
                     :class="[
-                      product.price === product.origin_price
+                      !unlimitedActivities[product.state.promotion]
                         ? 'fs-4 fw-bold text-black'
                         : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
                     ]"

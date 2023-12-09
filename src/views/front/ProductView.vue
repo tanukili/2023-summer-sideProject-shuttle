@@ -1,20 +1,12 @@
 <script>
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
-const apiPath = '2023shuttle';
+import { mapState, mapActions } from 'pinia';
+import useActivitiesStore from '../../stores/useActivitiesStore';
+import useProductsStore from '../../stores/useProductsStore';
+import useCartsStore from '../../stores/useCartsStore';
 
 export default {
-  emits: ['updateUserId'], // 聲明事件避免錯誤
   data() {
     return {
-      product: {
-        info: {
-          dateTime: {},
-          detail: {
-            studys: [],
-          },
-        },
-        state: {},
-      },
       recommendTo: {
         體驗: '無經驗者、親子、長者',
         初階: '初學者、輕鬆學習、製作小型作品',
@@ -22,90 +14,13 @@ export default {
         輔助: '創作者、獨特風格、應用',
       },
       addNum: 1,
+      id: this.$route.params.id,
     };
   },
   methods: {
-    getproduct(id) {
-      this.axios
-        .get(`${hexApi}api/${apiPath}/product/${id}`)
-        .then((res) => {
-          console.log(res.data);
-          this.product = res.data.product;
-          // 資料格式需優改的部分,統一放在detail
-          const { detail } = this.product.info;
-          const { dateTime } = this.product.info;
-          detail.perSpendTime = 0; // 由程式計算
-          dateTime.date = dateTime.data; // 名字錯誤
-          const toH = dateTime.to.slice(0, 2);
-          const fromH = dateTime.from.slice(0, 2);
-          const toM = dateTime.to.slice(-2);
-          const fromM = dateTime.from.slice(-2);
-          detail.perSpendTime = `${toH - fromH + (toM - fromM) / 60}`; // 由程式計算
-          detail.classes = dateTime.date.split(', ').length;
-          detail.studys = this.product.info.detail.study; // 更改名
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
-    addCart(qty, isToCarts) {
-      const obj = { data: { product_id: this.product.id, qty } };
-      const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
-      );
-      // 確認身分
-      if (!token) {
-        this.$swal('請先登入註冊');
-        this.$router.push('/login');
-        return;
-      }
-      // 防止同時下標時超額報名
-      const remainedNum =
-        this.product.info.capacity - this.product.info.studentNum;
-      if (remainedNum <= this.addNum) {
-        this.$swal({
-          title: '目前名額不足，請洽客服',
-          html: '<p class="mb-2"><span class="icon-fill material-symbols-outlined align-bottom"> call </span>：<a href="tel:0912345678" class="link-hover">0912345678</a></p><p><span class="icon-fill material-symbols-outlined align-bottom"> mail </span>：<a href="mailto:Shuttle2013@gmail.com" class="link-hover">Shuttle2013@gmail.com</a></p>',
-        });
-      } else {
-        this.axios
-          .post(`${hexApi}api/${apiPath}/cart`, obj)
-          .then(() => {
-            this.toCartsNow(isToCarts);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
-    toCartsNow(boolen) {
-      if (boolen) {
-        this.$router.push('/carts');
-      } else {
-        this.$swal({
-          icon: 'success',
-          title: '成功加入購物車',
-          showDenyButton: true,
-          showCloseButton: true,
-          confirmButtonText: '繼續購物',
-          denyButtonText: '立即結帳',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutDown',
-          },
-          // 按鈕事件
-        }).then((res) => {
-          if (res.isConfirmed) {
-            this.$router.push('/products');
-          } else if (res.isDenied) {
-            this.$router.push('/carts');
-          }
-        });
-      }
-    },
+    ...mapActions(useActivitiesStore, ['getActivities', 'countAllDiscount']),
+    ...mapActions(useProductsStore, ['getProduct']),
+    ...mapActions(useCartsStore, ['addToCart', 'isOverQuota']),
   },
   mounted() {
     // 進入時觸發
@@ -116,7 +31,16 @@ export default {
   },
   created() {
     // 取出動態路由.參數.自定名稱
-    this.getproduct(this.$route.params.id);
+    this.getProduct(this.id);
+    this.getActivities();
+  },
+  computed: {
+    ...mapState(useActivitiesStore, ['unlimitedActivities', 'numActivities']),
+    ...mapState(useProductsStore, [
+      'singleProduct',
+      'productPromotion',
+      'countQuota',
+    ]),
   },
 };
 </script>
@@ -143,7 +67,7 @@ export default {
             <RouterLink to="/products">購買課程</RouterLink>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            {{ product.title }}
+            {{ singleProduct.title }}
           </li>
         </ol>
       </nav>
@@ -152,9 +76,9 @@ export default {
         <div class="row g-0">
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
-              :src="product.imageUrl"
+              :src="singleProduct.imageUrl"
               class="img-fluid rounded-top-5 rounded-start-md-5 h-100"
-              alt="prodcut05"
+              :alt="singleProduct.title"
             />
             <a href="#">
               <span
@@ -167,57 +91,81 @@ export default {
           <div class="col-md-6 px-3">
             <div class="card-body mt-4">
               <h2 class="card-title fs-4 fs-xl-3 text-center">
-                {{ product.title }}
+                {{ singleProduct.title }}
               </h2>
               <p
                 class="card-text border-dashed-b border-primary-light lh-lg pb-3"
               >
-                {{ product.info.summary }}
+                {{ singleProduct.info.summary }}
               </p>
               <ul class="list-group list-group-flush pt-2">
                 <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">日期</span>&emsp;{{
-                    product.info.dateTime.date
+                  <span class="fw-bold">日期</span>&emsp;
+                  <span v-for="date in singleProduct.calssDates" :key="date">
+                    {{
+                      singleProduct.calssDates.indexOf(date)
+                        ? ' ; ' + date
+                        : date
+                    }}
+                  </span>
+                </li>
+                <li class="list-group-item bg-white border-0">
+                  <span class="fw-bold">時間</span>&emsp;
+                  {{
+                    `${singleProduct.courseTime[0]} ~ ${singleProduct.courseTime[1]}`
                   }}
                 </li>
                 <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">時間</span>&emsp;{{
-                    product.info.dateTime.from
-                  }}
-                  ~ {{ product.info.dateTime.to }}
-                </li>
-                <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">剩餘名額</span>&emsp;{{
-                    product.info.capacity - product.info.studentNum
+                  <span class="fw-bold">剩餘名額</span>&emsp;
+                  {{
+                    singleProduct.info.capacity - singleProduct.info.studentNum
                   }}
                   位
                 </li>
                 <li class="list-group-item bg-white border-0">
                   <span class="fw-bold">教學主題</span>&emsp;{{
-                    product.info.skills
+                    singleProduct.info.skills
                   }}
                 </li>
-                <li class="list-group-item bg-white">
+                <li class="list-group-item bg-white border-0">
                   <span class="fw-bold">推薦對象</span>&emsp;{{
-                    recommendTo[product.category]
+                    recommendTo[singleProduct.category]
                   }}
+                </li>
+                <li
+                  class="list-group-item bg-white"
+                  v-if="unlimitedActivities[productPromotion]"
+                >
+                  <span class="fw-bold">適用優惠</span>&emsp;
+                  {{ unlimitedActivities[productPromotion].description }}
+                </li>
+                <li
+                  class="list-group-item bg-white"
+                  v-else-if="numActivities[productPromotion]"
+                >
+                  <span class="fw-bold">適用優惠</span>&emsp;
+                  {{ numActivities[productPromotion].description }}
                 </li>
               </ul>
             </div>
             <div class="card-footer pb-4">
               <div class="d-flex align-items-center mb-4 px-3">
                 <small
-                  v-if="product.price !== product.origin_price"
+                  v-if="unlimitedActivities[singleProduct.state.promotion]"
                   class="fs-4 fw-bold text-danger"
-                  >${{ product.price }}</small
+                  >${{
+                    singleProduct.origin_price *
+                    unlimitedActivities[singleProduct.state.promotion]
+                      .percentOff
+                  }}</small
                 >
                 <small
                   :class="[
-                    product.price === product.origin_price
+                    !unlimitedActivities[singleProduct.state.promotion]
                       ? 'fs-4 fw-bold text-black'
                       : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
                   ]"
-                  >${{ product.origin_price }}
+                  >${{ singleProduct.origin_price }}
                 </small>
                 <div class="d-flex align-items-center ms-auto">
                   <label
@@ -230,12 +178,7 @@ export default {
                       class="form-select form-select-sm fs-7"
                       v-model="addNum"
                     >
-                      <option
-                        :value="num"
-                        v-for="num in product.info.capacity -
-                        product.info.studentNum"
-                        :key="num"
-                      >
+                      <option :value="num" v-for="num in countQuota" :key="num">
                         {{ num }}
                       </option>
                     </select>
@@ -247,7 +190,7 @@ export default {
                   <button
                     class="btn btn-outline-primary w-100"
                     type="button"
-                    @click.prevent="addCart(addNum, false)"
+                    @click.prevent="addToCart(id, addNum, countQuota, false)"
                   >
                     加入購物車
                   </button>
@@ -255,7 +198,7 @@ export default {
                 <div class="col-lg-6">
                   <button
                     class="btn btn-primary w-100"
-                    @click.prevent="addCart(addNum, true)"
+                    @click.prevent="addToCart(id, addNum, countQuota, true)"
                   >
                     立即購買
                   </button>
@@ -269,7 +212,7 @@ export default {
       <ul class="nav nav-tabs" id="productTab" role="tablist">
         <li class="nav-item w-33 w-md-25 me-md-1" role="presentation">
           <button
-            class="nav-link mt-3 py-3 border-dashed fs-lg-5 w-100 active"
+            class="nav-link py-3 border-dashed fs-lg-5 w-100 active"
             id="introduction-tab"
             data-bs-toggle="tab"
             data-bs-target="#introduction"
@@ -283,7 +226,7 @@ export default {
         </li>
         <li class="nav-item w-33 w-md-25 me-md-1" role="presentation">
           <button
-            class="nav-link mt-3 py-3 border-dashed fs-lg-5 w-100"
+            class="nav-link py-3 border-dashed fs-lg-5 w-100"
             id="precaution-tab"
             data-bs-toggle="tab"
             data-bs-target="#precaution"
@@ -297,7 +240,7 @@ export default {
         </li>
         <li class="nav-item w-33 w-md-25" role="presentation">
           <button
-            class="nav-link mt-3 py-3 border-dashed fs-lg-5 w-100"
+            class="nav-link py-3 border-dashed fs-lg-5 w-100"
             id="FAQ-tab"
             data-bs-toggle="tab"
             data-bs-target="#FAQ"
@@ -320,20 +263,22 @@ export default {
         >
           <ul class="list-group list-group-flush fw-bold">
             <li class="list-group-item bg-white py-1 border-0">
-              <span>上課堂數：</span>{{ product.info.detail.classes }} 堂
+              <span>上課堂數：</span>{{ singleProduct.info.classes }} 堂
             </li>
             <li class="list-group-item bg-white py-1 border-0">
-              <span>單堂時數：</span>{{ product.info.detail.perSpendTime }} 小時
+              <span>單堂時數：</span
+              >{{ singleProduct.info.detail.perSpendTime }} 小時
             </li>
             <li class="list-group-item bg-white py-1 border-0 mb-3">
-              <span>成品大小 ( cm ) ：</span>{{ product.info.detail.size }}
+              <span>成品大小 ( cm ) ：</span
+              >{{ singleProduct.info.detail.size }}
             </li>
             <li class="list-group-item bg-white py-1 border-0 mb-3">
               <span>學習技巧：</span>
-              <ul class="fw-normal pt-2">
+              <ul class="fw-normal pt-2 lh-lg">
                 <li
-                  v-for="study in product.info.detail.studys"
-                  :key="product.info.detail.studys.indexOf(study)"
+                  v-for="study in singleProduct.info.detail.study"
+                  :key="singleProduct.info.detail.study.indexOf(study)"
                 >
                   {{ study }}
                 </li>
@@ -341,7 +286,7 @@ export default {
             </li>
             <li class="list-group-item bg-white py-1 border-0">
               <span>貼心提醒：</span>
-              <ul class="fw-normal pt-2">
+              <ul class="fw-normal pt-2 lh-lg">
                 <li>織框由課程單位提供</li>
                 <li>
                   本課程提供學員們棉線作為織作素材，學員們也可以自備喜愛線材，經由老師討論後使用在作品上。
@@ -385,7 +330,7 @@ export default {
           <ul class="list-group list-group-flush lh-lg">
             <li class="list-group-item bg-white border-dashed-b pb-3">
               <h6 class="mb-0">Q. 課程購買後，能延後或取消課程嗎？</h6>
-              <p>
+              <p class="mt-3 ms-4">
                 開課 7 日前可以免費調整課程時間或取消，7日內則需支付取消費用， 3
                 日前為課程費用 30% ， 1 日前為課程費用 50% 。
               </p>
@@ -394,7 +339,7 @@ export default {
               <h6 class="mb-0">
                 Q. 錯過了這次報名時間，之後還會再開設課程嗎？
               </h6>
-              <p>
+              <p class="mt-3 ms-4">
                 需要視課程類型而定，體驗類課程的開課間隔約 1 ~ 2
                 月；初學者課程的開課間隔約一季；進階課程則約一年 1 次。<br />
                 開課標準會依課程熱門度進行調整，歡迎聯絡我們，告知您的需求。
@@ -402,7 +347,7 @@ export default {
             </li>
             <li class="list-group-item bg-white my-md-2 border-dashed-b pt-3">
               <h6 class="mb-0">Q. 如果上課人數超過 10 人該如何報名？</h6>
-              <p>
+              <p class="mt-3 ms-4">
                 人數超過 10
                 人的團體，我們能專門為您開設新課程，有需求者歡迎聯絡我們。
               </p>
