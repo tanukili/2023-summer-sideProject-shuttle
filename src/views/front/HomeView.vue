@@ -504,15 +504,15 @@ export default {
         <span class="border-primary">本季熱門</span>
       </h2>
       <div class="position-relative">
+        <!-- :autoplay="{
+            delay: 3000,
+            disableOnInteraction: false,
+          }" -->
         <swiper
-          class="my-5 mobile-style position-static"
+          class="my-5 mobile-style pop-swiper position-static"
           :spaceBetween="0"
           :noSwiping="true"
           :navigation="true"
-          :autoplay="{
-            delay: 3000,
-            disableOnInteraction: false,
-          }"
           :breakpoints="{
             '768': {
               slidesPerView: 2,
@@ -605,11 +605,11 @@ export default {
     <!-- popular-packground -->
     <div
       class="bg-position bg-dashed-left border-primary d-none d-md-block start-0 z-0"
-      style="width: 30%; height: 340px; top: 120px"
+      style="width: 30%; height: 360px; top: 120px"
     ></div>
     <div
       class="bg-position bg-dashed-right border-primary d-none d-md-block end-0 z-0"
-      style="width: 70%; height: 340px; top: 460px"
+      style="width: 70%; height: 360px; top: 460px"
     ></div>
   </div>
 </template>
@@ -648,9 +648,9 @@ export default {
     border: none !important;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .feature-img {
-    height: 100%;
+    height: auto;
   }
 }
 

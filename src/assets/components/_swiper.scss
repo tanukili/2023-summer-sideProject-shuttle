@@ -6,6 +6,13 @@
   margin-right: -16px !important;
   padding-bottom: 16px !important;
 
+  &.pop-swiper {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    margin-left: -8px !important;
+    margin-right: -8px !important;
+  }
+
   // mobile
   @include mobile {
     &.mobile-style {
@@ -74,29 +81,36 @@
   &-next {
 
     // top: 50%;
-    @include pad {
-      display: none !important;
+    display: none !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: $white;
+    border-radius: 50%;
+    box-shadow: 0 10px 20px 0 rgba(192, 192, 192, 0.35);
+
+    @include wed {
+      display: flex !important;
     }
 
+    @include wed-xl {
+      width: 64px !important;
+      height: 64px !important;
+    }
 
     &::after {
-      --swiper-navigation-size: 36px;
+      --swiper-navigation-size: 48px;
       color: $primary;
-      background: $white;
-      padding: 4px;
-      border-radius: 50%;
       font-family: 'Material Symbols Rounded' !important;
-      box-shadow: 0 10px 20px 0 rgba(192, 192, 192, 0.35);
 
-      @include wed-xl {
-        padding: 8px;
-        --swiper-navigation-size: 48px;
-      }
     }
   }
 
   &-prev {
-    left: var(--swiper-navigation-sides-offset, -5%) !important;
+    left: var(--swiper-navigation-sides-offset, -40px) !important;
+
+    @media (min-width: 1504px) {
+      left: var(--swiper-navigation-sides-offset, -104px) !important;
+    }
 
     &::after {
       content: '\e5cb' !important;
@@ -104,7 +118,11 @@
   }
 
   &-next {
-    right: var(--swiper-navigation-sides-offset, -5%) !important;
+    right: var(--swiper-navigation-sides-offset, -40px) !important;
+
+    @media (min-width: 1504px) {
+      right: var(--swiper-navigation-sides-offset, -104px) !important;
+    }
 
     &::after {
       content: '\e5cc' !important;

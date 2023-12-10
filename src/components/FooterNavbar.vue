@@ -1,7 +1,3 @@
-<script>
-const imgBase = import.meta.env.VITE_IMG_BASE;
-</script>
-
 <template>
   <div class="border-dashed-b border-gray-200">
     <div class="container">
