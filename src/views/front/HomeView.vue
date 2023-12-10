@@ -504,15 +504,15 @@ export default {
         <span class="border-primary">本季熱門</span>
       </h2>
       <div class="position-relative">
-        <!-- :autoplay="{
-            delay: 3000,
-            disableOnInteraction: false,
-          }" -->
         <swiper
           class="my-5 mobile-style pop-swiper position-static"
           :spaceBetween="0"
           :noSwiping="true"
           :navigation="true"
+          :autoplay="{
+            delay: 3000,
+            disableOnInteraction: false,
+          }"
           :breakpoints="{
             '768': {
               slidesPerView: 2,
