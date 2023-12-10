@@ -290,7 +290,7 @@ export default {
           <div class="d-md-flex m-lg-6">
             <img
               src="/home-page/feature01.jpg"
-              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img w-md-50"
+              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature01"
             />
             <div
@@ -319,7 +319,7 @@ export default {
           <div class="d-md-flex flex-md-row-reverse m-lg-6">
             <img
               src="/home-page/feature02.jpg"
-              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img w-md-50"
+              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature02"
             />
             <div
@@ -348,7 +348,7 @@ export default {
           <div class="d-md-flex m-lg-6">
             <img
               src="/home-page/feature03.jpg"
-              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img w-md-50"
+              class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature03"
             />
             <div
@@ -651,6 +651,23 @@ export default {
 @media (min-width: 768px) {
   .feature-img {
     height: auto;
+  }
+}
+@media (min-width: 768px) {
+  .feature-img {
+    max-width: 280px;
+    height: 210px;
+  }
+}
+@media (min-width: 992px) {
+  .feature-img {
+    max-width: 320px;
+    height: 360px;
+  }
+}
+@media (min-width: 1200px) {
+  .feature-img {
+    max-width: 480px;
   }
 }
 
