@@ -3,7 +3,7 @@ import { mapActions } from 'pinia';
 import useMemberLoginStore from '../../stores/useMemberLoginStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
-const api = import.meta.env.VITE_API_PATH;
+const imgBase = import.meta.env.VITE_IMG_BASE;
 
 export default {
   components: {
@@ -12,9 +12,9 @@ export default {
   data() {
     return {
       bannerAd: {
-        title: '2023夏季 織心好友揪團趣',
-        subtitle: '兩人同行，現打 85 折',
-        imgUrl: 'background-image: url(/banner/banner-products.jpg)',
+        title: '2023 歲末全館回饋季',
+        subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
+        imgUrl: `background-image: url(${imgBase}/activity/2023-year-end02.jpg)`,
       },
       loginInfo: {
         password: '',

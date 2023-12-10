@@ -17,10 +17,12 @@ export default defineStore('carts', {
   }),
   actions: {
     addToCart(id, qty, quota, buyNow) {
-      this.checkIdentity();
       const obj = { data: { product_id: id, qty } };
       const isOverQuota = this.checkQuota(qty, quota);
-      if (!isOverQuota) {
+      if (!token) {
+        swal.fire('請先登入註冊');
+        this.router.push({ name: 'login' });
+      } else if (!isOverQuota) {
         axios
           .post(`${hexApi}api/${apiPath}/cart`, obj)
           .then(() => {
@@ -29,13 +31,6 @@ export default defineStore('carts', {
           .catch((err) => {
             swal.fire(`問題${err.response.status}，抱歉請洽客服`);
           });
-      }
-    },
-    // 確認身分
-    checkIdentity() {
-      if (!token) {
-        swal.fire('請先登入註冊');
-        this.router.push({ name: 'login' });
       }
     },
     // 檢查名額

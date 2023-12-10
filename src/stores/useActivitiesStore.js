@@ -20,7 +20,7 @@ export default defineStore('activities', {
           this.unlimitedActivities = res.data.unlimitedActivities;
         })
         .catch(() => {
-          swal.fire('伺服器取的資料失敗');
+          swal.fire('無法取得優惠資料');
         });
     },
   },

@@ -4,6 +4,7 @@ import 'flatpickr/dist/flatpickr.css';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
 const api = import.meta.env.VITE_API_PATH;
+const imgBase = import.meta.env.VITE_IMG_BASE;
 
 export default {
   components: {
@@ -13,9 +14,9 @@ export default {
     return {
       // isLoading: false,
       bannerAd: {
-        title: '新註冊會員 贈50元折價券',
-        subtitle: '新會員招募中，填寫推薦碼再加碼',
-        imgUrl: 'background-image: url(/banner/banner-products.jpg)',
+        title: '新註冊會員 贈100元折價券',
+        subtitle: '新會員招募中，註冊即贈優惠券',
+        imgUrl: `background-image: url(${imgBase}/activity/newMember.jpg)`,
       },
       userBirthday: '',
       flatpickrConfig: {
