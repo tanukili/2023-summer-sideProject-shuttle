@@ -1,3 +1,7 @@
+<script>
+const imgBase = import.meta.env.VITE_IMG_BASE;
+</script>
+
 <template>
   <div class="border-dashed-b border-gray-200">
     <div class="container">
@@ -61,7 +65,8 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center url('/icon/Facebook.svg');
+              background: no-repeat center
+                url('/2023-summer-sideProject-shuttle/icon/Facebook.svg');
             "
           >
           </a>
@@ -73,7 +78,8 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center url('/icon/Messager.svg');
+              background: no-repeat center
+                url('/2023-summer-sideProject-shuttle/icon/Messager.svg');
             "
           >
           </a>
@@ -85,7 +91,8 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center url('/icon/Instagram.svg');
+              background: no-repeat center
+                url('/2023-summer-sideProject-shuttle/icon/Instagram.svg');
             "
           >
           </a>
@@ -97,7 +104,8 @@
             style="
               width: 40px;
               height: 40px;
-              background: no-repeat center url('/icon/Pinterest.svg');
+              background: no-repeat center
+                url('/2023-summer-sideProject-shuttle/icon/Pinterest.svg');
             "
           >
           </a>
