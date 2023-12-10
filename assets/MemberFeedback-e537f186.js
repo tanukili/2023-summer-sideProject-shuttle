@@ -1,1 +1,0 @@
-import{_ as e,f as s,g as c,i as t}from"./index-c5d007e1.js";const o={},r={class:"bg-primary py-3"},_=t("h1",null,"課程回饋",-1),a=[_];function n(d,i){return s(),c("div",r,a)}const l=e(o,[["render",n]]);export{l as default};
