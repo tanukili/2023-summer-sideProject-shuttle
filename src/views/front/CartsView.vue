@@ -37,6 +37,7 @@ export default {
         showCloseButton: true,
         confirmButtonText: '修改訂單',
         denyButtonText: '下一步',
+        denyButtonColor: 'var(--bs-primary)',
       })
         // 按鈕事件
         .then((res) => {

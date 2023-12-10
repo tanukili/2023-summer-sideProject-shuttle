@@ -46,14 +46,26 @@ export default defineStore('member', {
         .catch((err) => {
           switch (err.response.data) {
             case 'Cannot find user':
-              swal.fire('該用戶不存在');
+              swal.fire({
+                icon: 'error',
+                title: '該用戶不存在',
+                showConfirmButton: false,
+              });
               break;
             case 'Incorrect password':
-              swal.fire('密碼輸入錯誤');
+              swal.fire({
+                icon: 'error',
+                title: '密碼輸入錯誤',
+                showConfirmButton: false,
+              });
               break;
 
             default:
-              swal.fire(`問題${err.response.status}，抱歉請洽客服`);
+              swal.fire({
+                icon: 'error',
+                title: `問題${err.response.status}，抱歉請洽客服`,
+                showConfirmButton: false,
+              });
               break;
           }
         });

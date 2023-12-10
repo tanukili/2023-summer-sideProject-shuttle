@@ -38,6 +38,8 @@ export default defineStore('carts', {
       if (addNum >= quota) {
         swal.fire({
           title: '目前名額不足，請洽客服',
+          showConfirmButton: false,
+          icon: 'warning',
           html: '<p class="mb-2"><span class="icon-fill material-symbols-outlined align-bottom"> call </span>：<a href="tel:0912345678" class="link-hover">0912345678</a></p><p><span class="icon-fill material-symbols-outlined align-bottom"> mail </span>：<a href="mailto:Shuttle2013@gmail.com" class="link-hover">Shuttle2013@gmail.com</a></p>',
         });
         return true;
@@ -53,10 +55,11 @@ export default defineStore('carts', {
           .fire({
             icon: 'success',
             title: '成功加入購物車',
-            showDenyButton: true,
             showCloseButton: true,
+            showDenyButton: true,
             confirmButtonText: '繼續購物',
             denyButtonText: '立即結帳',
+            denyButtonColor: 'var(--bs-primary)',
             showClass: {
               popup: 'animate__animated animate__fadeInDown',
             },
@@ -116,6 +119,7 @@ export default defineStore('carts', {
         .then((res) => {
           swal.fire({
             title: res.data.message,
+            confirmButtonText: '確認',
             didClose: () => {
               this.getCart();
             },
@@ -135,6 +139,7 @@ export default defineStore('carts', {
         .then((res) => {
           swal.fire({
             title: res.data.message,
+            confirmButtonText: '確認',
             didClose: () => {
               this.getCart();
             },

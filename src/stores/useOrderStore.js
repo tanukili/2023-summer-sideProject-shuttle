@@ -41,13 +41,8 @@ export default defineStore('orders', {
           this.fixBill(values.finalBill, newOrderId);
           swal.fire({
             icon: 'success',
+            confirmButtonText: '確認',
             title: res.data.message,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
             didClose: () => {
               this.router.push({ name: 'order-established' });
             },

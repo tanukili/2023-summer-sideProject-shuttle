@@ -39,9 +39,13 @@
         "badge": "早鳥優惠",
         "description": "新色上架！指定課程打九折",
         "percentOff": 0.9,
-        "imageUrl": "/activity/2023-winter.jpg",
-        "images-sm": ["/activity/2023-winter-sm.jpg"],
-        "images": ["/activity/2023-winter.jpg"],
+        "imageUrl": "public/activity/2023-winter.jpg",
+        "images-sm": [
+          "public/activity/2023-winter-sm.jpg"
+        ],
+        "images": [
+          "public/activity/2023-winter.jpg"
+        ],
         "article": "2023 秋冬新色早鳥優惠 文章文章"
       }
     },
@@ -52,9 +56,13 @@
         "description": "兩人同行，現打 85 折",
         "requiredNum": 2,
         "percentOff": 0.85,
-        "imageUrl": "/activity/2023-spring.jpg",
-        "imageSm": ["/activity/2023-spring-sm.jpg"],
-        "images": ["/activity/2023-spring.jpg"],
+        "imageUrl": "public/activity/2023-spring.jpg",
+        "imageSm": [
+          "public/activity/2023-spring-sm.jpg"
+        ],
+        "images": [
+          "public/activity/2023-spring.jpg"
+        ],
         "article": "2023 春季織心好友揪團趣 文章文章"
       }
     },
@@ -65,12 +73,12 @@
       "percentOff": 300,
       "imageUrl": "public/activity/2023-year-end01.jpg",
       "imageSm": [
-        "/activity/2023-year-end01-sm.jpg",
-        "/activity/2023-year-end02-sm.jpg"
+        "public/activity/2023-year-end01-sm.jpg",
+        "public/activity/2023-year-end02-sm.jpg"
       ],
       "images": [
-        "/activity/2023-year-end01.jpg",
-        "/activity/2023-year-end02.jpg"
+        "public/activity/2023-year-end01.jpg",
+        "public/activity/2023-year-end02.jpg"
       ],
       "article": "2023 歲末全館回饋季 文章文章"
     }
@@ -87,6 +95,10 @@
     {
       "id": "-NlEr2CKgMDU6hwnI0QB",
       "total": 3125
+    },
+    {
+      "id": "-NlJ3dOK9BWy8TmObO_v",
+      "total": 1830
     }
   ]
 }

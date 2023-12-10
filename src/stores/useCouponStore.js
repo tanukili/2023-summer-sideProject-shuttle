@@ -43,6 +43,7 @@ export default defineStore('coupon', {
       axios.put(`${api}/coupons/${code}`, obj).then((res) => {
         swal.fire({
           icon: 'success',
+          confirmButtonText: '確認',
           title: `成功套用「${res.data.title}」`,
           showClass: {
             popup: 'animate__animated animate__fadeInDown',

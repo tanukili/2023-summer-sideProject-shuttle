@@ -7,8 +7,9 @@
 @import './untils/utilities-api';
 @import './untils/mixin';
 
-@import './untils/sweetalert-variables'; // 自訂樣式
-@import '../../node_modules/sweetalert2/src/sweetalert2';
+// @import '../../node_modules/sweetalert2/src/variables';
+@import './components/sweetAlert2';
+// @import '../../node_modules/sweetalert2/src/sweetalert2';
 
 @import './base/base';
 
