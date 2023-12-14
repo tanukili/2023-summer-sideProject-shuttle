@@ -15,6 +15,7 @@ export default defineStore('orders', {
     orderInfo: {
       user: {},
     },
+    orders: [],
   }),
   actions: {
     postOrder(values) {
@@ -60,9 +61,27 @@ export default defineStore('orders', {
       };
       axios.post(`${api}/ordersFinalBill`, obj);
     },
+    getfixBill() {
+      axios.get(`${api}/ordersFinalBill`).then((res) => {
+        const billArr = [...res.data].reverse();
+        this.orders.forEach((e, i) => {
+          e.finalBill = billArr[i].total;
+        });
+      });
+    },
     getOrder(id) {
       axios.get(`${hexApi}api/${apiPath}/order/${id}`).then((res) => {
         this.orderInfo = res.data.order;
+      });
+    },
+    getOrders() {
+      axios.get(`${hexApi}api/${apiPath}/orders`).then((res) => {
+        console.log(res.data.orders);
+        this.orders = res.data.orders;
+        this.orders.forEach((e) => {
+          e.products = Object.values(e.products);
+        });
+        this.getfixBill();
       });
     },
   },

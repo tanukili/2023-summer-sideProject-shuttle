@@ -61,7 +61,7 @@ const router = createRouter({
           component: () => import('../views/front/member/MemberOrders.vue'),
         },
         {
-          path: 'order',
+          path: 'order/:id',
           component: () => import('../views/front/member/MemberOrder.vue'),
         },
         {

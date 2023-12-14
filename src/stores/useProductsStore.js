@@ -11,7 +11,9 @@ export default defineStore('products', {
     pagination: {},
     singleProduct: {
       state: {},
-      info: {},
+      info: {
+        detail: {},
+      },
       calssDates: [],
       courseTime: '',
     },
@@ -45,7 +47,7 @@ export default defineStore('products', {
           const classInfo = this.singleProduct.info;
           this.singleProduct.calssDates = classInfo.ClassTime.map((e) => {
             const unixTime = new Date(e[0] * 1000);
-            const month = unixTime.getMonth().toString().padStart(2, '0');
+            const month = (unixTime.getMonth() + 1).toString().padStart(2, '0');
             const date = unixTime.getDate().toString().padStart(2, '0');
             return `${unixTime.getFullYear()}.${month}.${date}`;
           });
