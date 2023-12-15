@@ -15,6 +15,11 @@ export default defineStore('carts', {
     totalBill: 0,
     nowAllDiscount: 0,
   }),
+  getters: {
+    cartsNum() {
+      return this.carts.length;
+    },
+  },
   actions: {
     addToCart(id, qty, quota, buyNow) {
       const obj = { data: { product_id: id, qty } };

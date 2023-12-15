@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import useMemberLoginStore from '../stores/useMemberLoginStore';
+import useCartsStore from '../stores/useCartsStore';
 
 export default {
   data() {
@@ -8,17 +9,21 @@ export default {
   },
   methods: {
     ...mapActions(useMemberLoginStore, ['logout', 'updateLoginStatus']),
+    ...mapActions(useCartsStore, ['getCart']),
   },
   mounted() {
     this.updateLoginStatus();
+    this.getCart();
   },
   computed: {
     ...mapState(useMemberLoginStore, ['isLogin', 'checkUserId']),
+    ...mapState(useCartsStore, ['cartsNum']),
   },
 };
 </script>
 
 <template>
+  {{ cartsNum }}
   <div>
     <nav class="navbar navbar-expand-lg py-md-3">
       <div class="container">
@@ -31,12 +36,27 @@ export default {
             class="fs-6 fw-bold p-1 me-3 d-lg-none d-flex align-items-center"
             v-if="!isLogin"
           >
-            <span class="icon-lg material-symbols-outlined me-1">
+            <span class="icon-lg material-symbols-outlined me-2">
               edit_document </span
             >註冊</RouterLink
           >
           <RouterLink to="/carts" class="p-1 me-2 d-lg-none" v-else>
-            <span class="material-symbols-outlined fs-3"> shopping_cart </span>
+            <span
+              class="material-symbols-outlined fs-3 position-relative"
+              :class="{ 'icon-fill': cartsNum }"
+            >
+              shopping_cart
+              <span
+                class="position-absolute start-100 translate-middle badge"
+                style="top: -10%"
+              >
+                <span
+                  class="text-white fs-9 lh-sm px-1 bg-danger rounded-1"
+                  style="font-family: var(--bs-font-sans-serif)"
+                  >{{ cartsNum }}</span
+                >
+              </span>
+            </span>
           </RouterLink>
           <button
             class="navbar-toggler border-0 p-1"
@@ -154,8 +174,21 @@ export default {
                     >註冊</RouterLink
                   >
                   <RouterLink to="/carts" class="nav-link" v-else>
-                    <span class="icon-lg material-symbols-outlined">
+                    <span
+                      class="icon-lg material-symbols-outlined position-relative"
+                      :class="{ 'icon-fill': cartsNum }"
+                    >
                       shopping_cart
+                      <span
+                        class="position-absolute start-100 translate-middle badge"
+                        style="top: -15%"
+                      >
+                        <span
+                          class="text-white fs-9 lh-sm px-1 bg-danger rounded-1"
+                          style="font-family: var(--bs-font-sans-serif)"
+                          >{{ cartsNum }}</span
+                        >
+                      </span>
                     </span>
                   </RouterLink>
                 </li>
