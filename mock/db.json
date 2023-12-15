@@ -30,6 +30,56 @@
       "sex": "male",
       "favorites": "fake-link",
       "id": 2
+    },
+    {
+      "email": "test0123@gmail.com",
+      "password": "$2a$10$K5zNaDe8M0Nwkxe1LwXRS.P5BcB1wUOX6mKh0.rp6vCTSisp6BjMW",
+      "phone": "0978456123",
+      "name": "Bob",
+      "birthday": "2023-10-01",
+      "sex": "male",
+      "favorites": [],
+      "id": 3
+    },
+    {
+      "email": "test0155@gmail.com",
+      "password": "$2a$10$OEMWFgXlciuQVEoMHujfX.aeOgro00UhFv1yIl7LJJFsXu/mxJ7Ie",
+      "phone": "0986531548",
+      "name": "San",
+      "birthday": "2023-10-01",
+      "sex": "male",
+      "favorites": [],
+      "id": 4
+    },
+    {
+      "email": "test0166@gmail.com",
+      "password": "$2a$10$hxUbdzVgxYgnqS3kijNGO.1ci7YlTTvkeWFp2ZpwPv5r0yro80t9u",
+      "phone": "0987546123",
+      "name": "Mary",
+      "birthday": "1999-12-02",
+      "sex": "female",
+      "favorites": [],
+      "id": 5
+    },
+    {
+      "email": "test0177@gmail.com",
+      "password": "$2a$10$.3BWjeIpUlyDfISYI8oCvONR9rZTdsUrH2Bitljvdtr8kBOfiJfPe",
+      "phone": "0945643215",
+      "name": "Sara",
+      "birthday": "2000-12-05",
+      "sex": "female",
+      "favorites": [],
+      "id": 6
+    },
+    {
+      "email": "test0188@gmail.com",
+      "password": "$2a$10$UaBmPy9eIvomIZPlFOubIeBioS2Y1aDeNmNINYW7nBSS5q5dyYME6",
+      "phone": "0978546413",
+      "name": "Tom",
+      "birthday": "2023-03-15",
+      "sex": "male",
+      "favorites": [],
+      "id": 7
     }
   ],
   "activities": {

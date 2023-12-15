@@ -81,5 +81,38 @@ export default defineStore('member', {
     updateLoginStatus() {
       this.isLogin = this.checkUserId;
     },
+    singUp(userInfo) {
+      axios
+        .post(`${api}/signup`, userInfo)
+        .then((res) => {
+          console.log(res.data);
+          this.isLogin = true;
+          const { data } = res;
+          document.cookie = `token=${data.accessToken}; max-age=86400;Secure`;
+          document.cookie = `userId=${data.user.id}; max-age=86400;Secure`;
+          swal.fire({
+            icon: 'success',
+            title: '註冊成功',
+            showConfirmButton: false,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutDown',
+            },
+            didClose: () => {
+              this.router.push({ name: 'home' });
+            },
+          });
+        })
+        .catch((err) => {
+          if (err.response.data === 'Email already exists') {
+            // 待修改 原生樣式
+            swal.fire('該信箱已註冊');
+          } else {
+            swal.fire(`問題${err.response.status}，抱歉請洽客服`);
+          }
+        });
+    },
   },
 });

@@ -1,7 +1,10 @@
 <script>
 import Flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.css';
+import { mapState, mapActions } from 'pinia';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
+
+import useMemberLoginStore from '../../stores/useMemberLoginStore';
 
 const api = import.meta.env.VITE_API_PATH;
 const imgBase = import.meta.env.VITE_IMG_BASE;
@@ -26,6 +29,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useMemberLoginStore, ['singUp']),
     onSubmit(values) {
       const obj = {
         email: values.信箱,
@@ -37,32 +41,6 @@ export default {
         favorites: [],
       };
       this.singUp(obj);
-    },
-    singUp(userInfo) {
-      this.axios
-        .post(`${api}/signup`, userInfo)
-        .then(() => {
-          this.$swal({
-            icon: 'success',
-            title: '註冊成功',
-            showConfirmButton: false,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
-          // 待修改 加上導入購物頁面、驗證資料寫入cookie
-        })
-        .catch((err) => {
-          if (err.response.data === 'Email already exists') {
-            // 待修改 原生樣式
-            this.$swal('該信箱已註冊');
-          } else {
-            this.$swal(`問題${err.response.status}，抱歉請洽客服`);
-          }
-        });
     },
   },
   mounted() {
@@ -83,6 +61,9 @@ export default {
   beforeUnmount() {
     // 銷毀Flatpickr實體，防止資料洩漏
     this.flatpickr.destroy();
+  },
+  computed: {
+    ...mapState(useMemberLoginStore, ['isLogin', 'checkUserId']),
   },
 };
 </script>
@@ -147,7 +128,7 @@ export default {
                 <VField
                   name="輸入密碼"
                   type="password"
-                  rules="confirmed:@密碼"
+                  rules="confirmed:@密碼|required"
                   class="form-control"
                   id="checkPassword"
                   placeholder="password"
@@ -234,6 +215,11 @@ export default {
                 <label class="form-check-label required">
                   我同意網站服務條款及隱私政策
                 </label>
+                <ErrorMessage name="agreeTerms" v-slot="{ message }"
+                  ><span class="text-danger fs-9 ms-2">{{
+                    (message = '請閱讀完後勾選')
+                  }}</span>
+                </ErrorMessage>
               </div>
               <button class="btn btn-primary w-100 mb-3 fs-5">註冊</button>
             </VForm>
