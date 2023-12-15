@@ -30,38 +30,43 @@ export default {
 </script>
 <template>
   <div class="about">
-    <h1>後台登入</h1>
-    <div class="container">
-      <form class="mx-5 form-clear pb-4 border-dashed-b border-secondary-light">
-        <div class="form-floating mb-4">
-          <input
-            name="信箱"
-            type="email"
-            class="form-control"
-            id="signInEmail"
-            placeholder="name@example.com"
-            v-model="SinginInfo.username"
-          />
-          <label for="signInEmail">信箱</label>
+    <div class="bg-white block-spacing-sm">
+      <div class="container">
+        <div class="w-50 mx-auto">
+          <h2 class="text-center mb-4">後台登入</h2>
+          <form class="mx-5 form-clear d-flex flex-column align-items-center">
+            <div class="form-floating mb-4 w-100">
+              <input
+                name="信箱"
+                type="email"
+                class="form-control"
+                id="signInEmail"
+                placeholder="name@example.com"
+                v-model="SinginInfo.username"
+              />
+              <label for="signInEmail">信箱</label>
+            </div>
+            <div class="form-floating pb-3 mb-4 w-100">
+              <input
+                name="密碼"
+                type="password"
+                class="form-control"
+                id="signInPassword"
+                placeholder="password"
+                v-model="SinginInfo.password"
+              />
+              <label for="signInPassword">密碼</label>
+            </div>
+            <button
+              style="width: 280px"
+              @click.prevent="abminSingin(SinginInfo)"
+              class="btn btn-primary mt-2 fs-6"
+            >
+              登入
+            </button>
+          </form>
         </div>
-        <div class="form-floating pb-3 mb-5">
-          <input
-            name="密碼"
-            type="password"
-            class="form-control"
-            id="signInPassword"
-            placeholder="password"
-            v-model="SinginInfo.password"
-          />
-          <label for="signInPassword">密碼</label>
-        </div>
-        <button
-          @click.prevent="abminSingin(SinginInfo)"
-          class="btn btn-primary w-100 mt-2 fs-5"
-        >
-          登入
-        </button>
-      </form>
+      </div>
     </div>
   </div>
 </template>
