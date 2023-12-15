@@ -9,6 +9,7 @@ export default defineStore('products', {
   state: () => ({
     products: [],
     pagination: {},
+    popProducts: [],
     singleProduct: {
       state: {},
       info: {
@@ -33,6 +34,23 @@ export default defineStore('products', {
         .then((res) => {
           this.products = res.data.products;
           this.pagination = res.data.pagination;
+        })
+        .catch((err) => {
+          swal.fire(err.message);
+        });
+    },
+    getAllProducts() {
+      axios
+        .get(`${hexApi}api/${apiPath}/products/all`)
+        .then((res) => {
+          console.log(res.data);
+          this.products = res.data.products;
+          const arrLength = this.products.length;
+          let i = arrLength - 5;
+          for (i; i < arrLength; i++) {
+            this.popProducts.push(this.products[i]);
+          }
+          console.log(this.popProducts);
         })
         .catch((err) => {
           swal.fire(err.message);

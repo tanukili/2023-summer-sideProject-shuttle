@@ -33,12 +33,13 @@
     <div
       class="d-flex flex-column flex-md-row justify-content-md-between align-items-center"
     >
-      <img
-        class="order-md-1 mb-3 mb-md-0"
-        src="/logo/logo-horizontal.png"
-        alt="logo"
-        style="max-width: 236px"
-      />
+      <RouterLink to="/" class="order-md-1 mb-3 mb-md-0">
+        <img
+          src="/logo/logo-horizontal.png"
+          alt="logo"
+          style="max-width: 236px"
+        />
+      </RouterLink>
       <ul class="order-md-0 list-unstyled mb-md-0 align">
         <li class="mb-1 mb-lg-6">
           <a class="lh-lg" href="tel:0312-345-678">

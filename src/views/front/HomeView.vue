@@ -1,10 +1,14 @@
 <script>
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+
+import { mapActions, mapState } from 'pinia';
+import useProductsStore from '../../stores/useProductsStore';
+import useActivitiesStore from '../../stores/useActivitiesStore';
+import BackToTop from '../../components/BackToTop.vue';
 
 export default {
   data() {
@@ -89,60 +93,17 @@ export default {
           id: 6,
         },
       ],
-      popCourses: [
-        {
-          name: '一日梭織體驗（12月）',
-          tags: ['入門', '綴織', '一日', 'Top 3'],
-          price: 850,
-          sellingPrice: 850,
-          onSale: false,
-          imgUrl: '/2023-summer-sideProject-shuttle/product/product01.jpg',
-          id: 1,
-        },
-        {
-          name: '暖色羊毛圍巾',
-          tags: ['兩日', '初階', '簡易織布機', '秋冬'],
-          price: 1200,
-          sellingPrice: 1080,
-          onSale: true,
-          imgUrl: '/2023-summer-sideProject-shuttle/product/product02.jpg',
-          id: 2,
-        },
-        {
-          name: '平織織紋大補帖',
-          tags: ['長時間', '進階', '落地織布機', 'TOP 3'],
-          price: 4800,
-          sellingPrice: 4800,
-          onSale: false,
-          imgUrl: '/2023-summer-sideProject-shuttle/product/product05.jpg',
-          id: 3,
-        },
-        {
-          name: '認識挑織（平日）',
-          tags: ['三日', '初階', '簡易織布機', 'TOP 3'],
-          price: 1100,
-          sellingPrice: 1100,
-          onSale: false,
-          imgUrl: '/2023-summer-sideProject-shuttle/product/product06-1.jpg',
-          id: 4,
-        },
-        {
-          name: '段染進階營',
-          tags: ['長時間', '輔助', '落地織布機', '創作'],
-          price: 13900,
-          sellingPrice: 13900,
-          onSale: false,
-          imgUrl: '/2023-summer-sideProject-shuttle/product/product03-1.jpg',
-          id: 5,
-        },
-      ],
+      imgBase: '',
     };
   },
   components: {
     Swiper,
     SwiperSlide,
+    BackToTop,
   },
   methods: {
+    ...mapActions(useProductsStore, ['getAllProducts']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
     onSwiper(swiper) {
       this.swiper = swiper;
     },
@@ -158,6 +119,13 @@ export default {
     // setTimeout(() => {
     //   this.isLoading = false;
     // }, 1200);
+    this.getAllProducts();
+    this.getActivities();
+    this.imgBase = import.meta.env.VITE_IMG_BASE;
+  },
+  computed: {
+    ...mapState(useProductsStore, ['popProducts']),
+    ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
   },
 };
 </script>
@@ -369,13 +337,13 @@ export default {
           </div>
         </div>
       </div>
-      <button
+      <RouterLink
+        to="/products"
         class="icon-e icon-east btn btn-white mt-5"
-        type="button"
         style="width: 280px"
       >
         開始上課
-      </button>
+      </RouterLink>
     </div>
     <!-- feature-background -->
     <div
@@ -535,20 +503,26 @@ export default {
           :modules="modules"
           @swiper="onSwiper"
         >
-          <swiper-slide v-for="course in popCourses" :key="course.id">
+          <swiper-slide v-for="course in popProducts" :key="course.id">
             <div class="card w-100">
               <div class="card-mask position-relative">
                 <img
-                  :src="course.imgUrl"
+                  :src="`${imgBase}${course.imageUrl}`"
                   :alt="`product${course.id}`"
                   class="rounded-top"
                   style="height: 240px"
                 />
                 <span
-                  v-if="course.onSale"
+                  v-if="unlimitedActivities[course.state.promotion]"
                   class="badge badge-sale position-absolute start-0"
                   style="top: 24px"
-                  >早鳥優惠</span
+                  >{{ unlimitedActivities[course.state.promotion].badge }}</span
+                >
+                <span
+                  v-else-if="numActivities[course.state.promotion]"
+                  class="badge badge-sale bg-success position-absolute start-0"
+                  style="top: 24px"
+                  >{{ numActivities[course.state.promotion].badge }}</span
                 >
                 <a href="#">
                   <span
@@ -559,11 +533,11 @@ export default {
                 </a>
               </div>
               <div class="card-body flex-grow-1 pb-5">
-                <h3 class="card-title fs-5">{{ course.name }}</h3>
+                <h3 class="card-title fs-5">{{ course.title }}</h3>
                 <span
                   class="badge bg-light me-2"
-                  v-for="tag in course.tags"
-                  :key="course.tags.indexOf(tag)"
+                  v-for="tag in course.info.tags"
+                  :key="course.info.tags.indexOf(tag)"
                   >{{ tag }}</span
                 >
               </div>
@@ -571,36 +545,41 @@ export default {
                 class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pt-4 pb-3"
               >
                 <div class="d-flex align-items-center">
-                  <small v-if="course.onSale" class="fs-4 fw-bold text-danger"
-                    >${{ course.sellingPrice }}</small
+                  <small
+                    v-if="unlimitedActivities[course.state.promotion]"
+                    class="fs-4 fw-bold text-danger"
+                    >${{
+                      course.origin_price *
+                      unlimitedActivities[course.state.promotion].percentOff
+                    }}</small
                   >
                   <small
                     :class="[
-                      !course.onSale
+                      !unlimitedActivities[course.state.promotion]
                         ? 'fs-4 fw-bold text-black'
                         : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
                     ]"
-                    >${{ course.price }}
+                    >${{ course.origin_price }}
                   </small>
                 </div>
-                <button
+                <RouterLink
+                  :to="`/product/${course.id}`"
                   class="btn btn-primary fs-md-7 fs-xl-6 ms-lg-auto mt-3"
-                  style="button"
                 >
                   立即購買
-                </button>
+                </RouterLink>
               </div>
             </div>
           </swiper-slide>
         </swiper>
       </div>
-      <button
+      <RouterLink
+        to="/products"
         class="icon-e icon-east btn btn-white z-1 mx-auto"
-        type="button"
         style="width: 280px"
       >
         了解更多課程
-      </button>
+      </RouterLink>
     </div>
     <!-- popular-packground -->
     <div
@@ -612,6 +591,7 @@ export default {
       style="width: 70%; height: 360px; top: 460px"
     ></div>
   </div>
+  <BackToTop></BackToTop>
 </template>
 
 <style>

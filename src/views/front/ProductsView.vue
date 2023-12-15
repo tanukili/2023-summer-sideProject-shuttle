@@ -167,7 +167,6 @@ export default {
                 <RouterLink
                   :to="`/product/${product.id}`"
                   class="btn btn-primary w-100 fs-md-7 fs-xl-6 mt-3"
-                  style="button"
                 >
                   購買課程
                 </RouterLink>

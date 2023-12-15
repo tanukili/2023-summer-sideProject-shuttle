@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-  <header>
+  <header class="sticky-top bg-body">
     <HeaderNavbar />
   </header>
   <div>
@@ -31,5 +31,3 @@ export default {
   </div>
   <FooterNavbar />
 </template>
-
-<style></style>
