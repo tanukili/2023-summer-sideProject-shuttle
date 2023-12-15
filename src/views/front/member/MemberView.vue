@@ -18,7 +18,9 @@ export default {
           <li class="breadcrumb-item active" aria-current="page">會員頁面</li>
         </ol>
       </nav>
-      <MemberCalendar></MemberCalendar>
+      <div class="mx-5">
+        <MemberCalendar></MemberCalendar>
+      </div>
       <div class="row">
         <div class="col-md-3">
           <ul class="memberNav nav nav-fill flex-md-column">

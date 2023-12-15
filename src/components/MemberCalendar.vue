@@ -5,6 +5,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import multiMonthPlugin from '@fullcalendar/multimonth';
 // import zhCnLocale from '@fullcalendar/core/locales/zh-cn';
+import { mapState, mapActions } from 'pinia';
+import useOrderStore from '../stores/useOrderStore';
 
 export default {
   components: {
@@ -34,17 +36,7 @@ export default {
         },
         dayMaxEvents: true,
         eventMouseEnter: this.handleEventMouseEnter, // hover 事件
-        events: [
-          {
-            title: '一日梭織',
-            start: '2023-11-23 13:00',
-            end: '2023-11-23 16:00',
-            description: '3人',
-            classNames: 'text-danger',
-            borderColor: 'var(--bs-success)',
-            startStr: '2023-11-23 13:00',
-          },
-        ],
+        events: [],
       },
       tooltipOptions: {
         title: 'This is a tooltip',
@@ -54,19 +46,31 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useOrderStore, ['getOrders']),
+
     handleEventMouseEnter(info) {
       const event = info.event._def;
-      console.log(info);
+      // console.log(info);
       this.$swal({
         title: `${event.title}`,
-        html: `<p>上課人數：${event.extendedProps.description}</p><p>開課時間：${event.extendedProps.startStr}</p>`,
+        html: `<p>上課人數：${event.extendedProps.description}</p><p>上課時間：${event.extendedProps.startStr}</p>`,
       });
     },
+  },
+  mounted() {
+    this.getOrders();
+  },
+  beforeUpdate() {
+    this.calendarOptions.events = this.calenderEvents;
+  },
+  computed: {
+    ...mapState(useOrderStore, ['orders', 'calenderEvents']),
   },
 };
 </script>
 
 <template>
+  <div class="d-none">{{ calenderEvents }}</div>
   <div class="calendar-h mb-3 shadow bg-white">
     <FullCalendar :options="calendarOptions" />
   </div>
