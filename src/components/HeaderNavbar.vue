@@ -23,7 +23,6 @@ export default {
 </script>
 
 <template>
-  {{ cartsNum }}
   <div>
     <nav class="navbar navbar-expand-lg py-md-3">
       <div class="container">

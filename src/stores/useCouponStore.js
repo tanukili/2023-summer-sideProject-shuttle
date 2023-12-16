@@ -7,6 +7,7 @@ const api = import.meta.env.VITE_API_PATH;
 export default defineStore('coupon', {
   state: () => ({
     couponDiscount: 0,
+    coupons: {},
   }),
   getters: {
     cookieCouponDiscount() {
@@ -53,6 +54,12 @@ export default defineStore('coupon', {
           },
         });
         this.couponCode = '';
+      });
+    },
+    getCoupons() {
+      axios.get(`${api}/coupons`).then((res) => {
+        console.log(res.data);
+        this.coupons = res.data;
       });
     },
   },

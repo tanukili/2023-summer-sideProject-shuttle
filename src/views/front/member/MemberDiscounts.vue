@@ -1,17 +1,36 @@
 <script>
+import MemberNavs from '../../../components/MemberNavs.vue';
+
+export default {
+  components: {
+    MemberNavs,
+  },
+  data() {
+    return {
+      orderOption: [
+        {
+          name: '優惠活動',
+          sort: 'activities',
+          isRouterLink: true,
+          path: '/discounts',
+          isClicked: true,
+        },
+        {
+          name: '折扣券',
+          sort: 'coupon',
+          isRouterLink: true,
+          path: '/discounts/coupons',
+          isClicked: false,
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <template>
-  <div class="bg-primary py-3">
-    <h1>優惠列表</h1>
+  <div class="pt-3">
+    <MemberNavs :options="orderOption" />
   </div>
-  <nav>
-    <Router-link to="/member/discounts">優惠活動</Router-link>
-    <Router-link to="/member/discounts/coupons">酷碰券們</Router-link>
-  </nav>
   <router-view></router-view>
 </template>
-
-<!-- <style>
-
-</style> -->

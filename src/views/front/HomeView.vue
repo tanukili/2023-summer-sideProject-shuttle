@@ -33,7 +33,7 @@ export default {
             title: '2023 秋冬新色早鳥優惠',
             subtitle: '新色上架！指定課程打九折',
             imgUrl:
-              '/2023-summer-sideProject-shuttle/activity/2023-winnter-sm.jpg',
+              '/2023-summer-sideProject-shuttle/activity/2023-winter-sm.jpg',
             id: 2,
           },
         ],

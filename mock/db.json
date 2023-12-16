@@ -90,12 +90,8 @@
         "description": "新色上架！指定課程打九折",
         "percentOff": 0.9,
         "imageUrl": "public/activity/2023-winter.jpg",
-        "images-sm": [
-          "public/activity/2023-winter-sm.jpg"
-        ],
-        "images": [
-          "public/activity/2023-winter.jpg"
-        ],
+        "image-sm": "/activity/2023-winter-sm.jpg",
+        "images": ["/activity/2023-winter.jpg"],
         "article": "2023 秋冬新色早鳥優惠 文章文章"
       }
     },
@@ -106,13 +102,9 @@
         "description": "兩人同行，現打 85 折",
         "requiredNum": 2,
         "percentOff": 0.85,
-        "imageUrl": "public/activity/2023-spring.jpg",
-        "imageSm": [
-          "public/activity/2023-spring-sm.jpg"
-        ],
-        "images": [
-          "public/activity/2023-spring.jpg"
-        ],
+        "imageUrl": "/activity/2023-spring.jpg",
+        "image-sm": "/activity/2023-spring-sm.jpg",
+        "images": ["/activity/2023-spring.jpg"],
         "article": "2023 春季織心好友揪團趣 文章文章"
       }
     },
@@ -121,14 +113,11 @@
       "description": "滿 3000 折 300，可累折（排除優惠券折扣）",
       "requiredPrice": 3000,
       "percentOff": 300,
-      "imageUrl": "public/activity/2023-year-end01.jpg",
-      "imageSm": [
-        "public/activity/2023-year-end01-sm.jpg",
-        "public/activity/2023-year-end02-sm.jpg"
-      ],
+      "imageUrl": "/activity/2023-year-end01.jpg",
+      "image-sm": "/activity/2023-year-end01-sm.jpg",
       "images": [
-        "public/activity/2023-year-end01.jpg",
-        "public/activity/2023-year-end02.jpg"
+        "/activity/2023-year-end01.jpg",
+        "/activity/2023-year-end02.jpg"
       ],
       "article": "2023 歲末全館回饋季 文章文章"
     }
