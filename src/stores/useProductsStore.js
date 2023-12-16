@@ -43,14 +43,12 @@ export default defineStore('products', {
       axios
         .get(`${hexApi}api/${apiPath}/products/all`)
         .then((res) => {
-          console.log(res.data);
           this.products = res.data.products;
           const arrLength = this.products.length;
           let i = arrLength - 5;
           for (i; i < arrLength; i++) {
             this.popProducts.push(this.products[i]);
           }
-          console.log(this.popProducts);
         })
         .catch((err) => {
           swal.fire(err.message);

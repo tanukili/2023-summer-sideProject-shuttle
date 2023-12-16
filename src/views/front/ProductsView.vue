@@ -2,6 +2,7 @@
 import { mapState, mapActions } from 'pinia';
 import useProductsStore from '../../stores/useProductsStore';
 import useActivitiesStore from '../../stores/useActivitiesStore';
+import useFavoriteStore from '../../stores/useFavoriteStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 import ProductsNavs from '../../components/ProductsNavs.vue';
 import FrontPagination from '../../components/FrontPagination.vue';
@@ -22,6 +23,7 @@ export default {
   methods: {
     ...mapActions(useProductsStore, ['getProducts']),
     ...mapActions(useActivitiesStore, ['getActivities']),
+    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
   },
   mounted() {
     // 進入時觸發
@@ -31,10 +33,12 @@ export default {
     // }, 1200);
     this.getProducts();
     this.getActivities();
+    this.getFavorites();
   },
   computed: {
     ...mapState(useProductsStore, ['products', 'pagination']),
     ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
+    ...mapState(useFavoriteStore, ['favorites']),
     imgBase() {
       return import.meta.env.VITE_IMG_BASE;
     },
@@ -128,9 +132,13 @@ export default {
                   style="top: 24px"
                   >{{ numActivities[product.state.promotion].badge }}</span
                 >
-                <a href="#">
+                <a href="#" @click.prevent="toggleFavorite(product.id)">
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
+                    :class="{
+                      'icon-fill text-danger':
+                        favorites.indexOf(product.id) !== -1,
+                    }"
                     style="top: 24px; right: 24px"
                     >favorite</span
                   >

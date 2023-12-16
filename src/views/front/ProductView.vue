@@ -3,6 +3,7 @@ import { mapState, mapActions } from 'pinia';
 import useActivitiesStore from '../../stores/useActivitiesStore';
 import useProductsStore from '../../stores/useProductsStore';
 import useCartsStore from '../../stores/useCartsStore';
+import useFavoriteStore from '../../stores/useFavoriteStore';
 
 export default {
   data() {
@@ -21,6 +22,7 @@ export default {
     ...mapActions(useActivitiesStore, ['getActivities', 'countAllDiscount']),
     ...mapActions(useProductsStore, ['getProduct']),
     ...mapActions(useCartsStore, ['addToCart', 'isOverQuota']),
+    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
   },
   mounted() {
     // 進入時觸發
@@ -33,6 +35,7 @@ export default {
     // 取出動態路由.參數.自定名稱
     this.getProduct(this.id);
     this.getActivities();
+    this.getFavorites();
   },
   computed: {
     ...mapState(useActivitiesStore, ['unlimitedActivities', 'numActivities']),
@@ -41,6 +44,7 @@ export default {
       'productPromotion',
       'countQuota',
     ]),
+    ...mapState(useFavoriteStore, ['favorites']),
     imgBase() {
       return import.meta.env.VITE_IMG_BASE;
     },
@@ -80,12 +84,16 @@ export default {
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
               :src="`${imgBase}${singleProduct.imageUrl}`"
-              class="img-fluid rounded-top-5 rounded-start-md-5 h-100"
+              class="card-mask img-fluid rounded-top-5 rounded-start-md-5 h-100"
               :alt="singleProduct.title"
             />
-            <a href="#">
+            <a href="#" @click.prevent="toggleFavorite(singleProduct.id)">
               <span
                 class="icon-favorite material-symbols-outlined position-absolute"
+                :class="{
+                  'icon-fill text-danger':
+                    favorites.indexOf(singleProduct.id) !== -1,
+                }"
                 style="top: 24px; left: 24px"
                 >favorite</span
               >
