@@ -1,0 +1,1 @@
+import{_ as e,e as s,f as t,j as o}from"./index-2c5ab8de.js";const c={},n={class:"about"},_=o("h1",null,"後台訂單列表",-1),r=[_];function a(d,i){return s(),t("div",n,r)}const l=e(c,[["render",a]]);export{l as default};

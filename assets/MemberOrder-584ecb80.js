@@ -1,1 +1,0 @@
-import{_ as t,l as o,e as r,f as s,s as a,u as c,j as n,x as _}from"./index-f004d629.js";const d={},l={class:"bg-primary py-3"},i=n("h1",null,"單筆訂單",-1);function m(f,p){const e=o("router-link");return r(),s("div",l,[i,a(e,{to:"/member/feedback"},{default:c(()=>[_("填寫回饋")]),_:1})])}const x=t(d,[["render",m]]);export{x as default};

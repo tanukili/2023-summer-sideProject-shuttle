@@ -1,1 +1,0 @@
-import{_ as e,e as t,f as s,j as o}from"./index-f004d629.js";const a={data(){return{isLoading:!1}},mounted(){}},n={class:"about"},c=o("h1",null,"單篇消息",-1),r=[c];function _(d,i,f,l,p,u){return t(),s("div",n,r)}const m=e(a,[["render",_]]);export{m as default};
