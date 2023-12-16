@@ -240,7 +240,7 @@ export default {
               </div>
               <div class="col-5">
                 <div v-for="img in singleProduct.imagesUrl" :key="img">
-                  <img :src="img" alt="產品照片" />
+                  <img :src="`${imgBase}${img}`" alt="產品照片" />
                 </div>
               </div>
             </div>
