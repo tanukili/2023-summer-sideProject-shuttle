@@ -4,10 +4,6 @@ import axios from 'axios';
 
 const hexApi = import.meta.env.VITE_HEX_API_PATH;
 const apiPath = '2023shuttle';
-const token = document.cookie.replace(
-  /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
-  '$1'
-);
 
 export default defineStore('carts', {
   state: () => ({
@@ -24,6 +20,10 @@ export default defineStore('carts', {
     addToCart(id, qty, quota, buyNow) {
       const obj = { data: { product_id: id, qty } };
       const isOverQuota = this.checkQuota(qty, quota);
+      const token = document.cookie.replace(
+        /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
+        '$1'
+      );
       if (!token) {
         swal.fire('請先登入註冊');
         this.router.push({ name: 'login' });
