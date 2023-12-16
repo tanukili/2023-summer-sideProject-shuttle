@@ -28,6 +28,17 @@ export default defineStore('coupon', {
           //   swal.fire('優惠券已使用');
           //   return;
           // }
+          swal.fire({
+            icon: 'success',
+            confirmButtonText: '確認',
+            title: `成功套用「${res.data.title}」`,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutDown',
+            },
+          });
           this.couponDiscount += res.data.discount;
           document.cookie = `couponDiscount=${this.couponDiscount}; max-age=86400;Secure`;
           obj.is_used = true;
