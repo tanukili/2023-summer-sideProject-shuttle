@@ -33,6 +33,8 @@ export default {
     // }, 1200);
     this.getProducts();
     this.getActivities();
+  },
+  created() {
     this.getFavorites();
   },
   computed: {

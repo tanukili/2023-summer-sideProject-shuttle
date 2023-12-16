@@ -15,7 +15,7 @@ export default defineStore('coupon', {
         /(?:(?:^|.*;\s*)couponDiscount\s*=\s*([^;]*).*$)|^.*$/,
         '$1'
       );
-      return couponDiscount;
+      return couponDiscount ? couponDiscount : 0;
     },
   },
   actions: {

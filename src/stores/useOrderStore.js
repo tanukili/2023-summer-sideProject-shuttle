@@ -64,9 +64,10 @@ export default defineStore('orders', {
     },
     getfixBill() {
       axios.get(`${api}/ordersFinalBill`).then((res) => {
-        const billArr = [...res.data].reverse();
+        const billArr = [...res.data].reverse().map((e) => e.total);
+        console.log(billArr);
         this.orders.forEach((e, i) => {
-          e.finalBill = billArr[i].total;
+          e.finalBill = billArr[i];
         });
       });
     },
