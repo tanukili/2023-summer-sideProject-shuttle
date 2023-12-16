@@ -31,7 +31,7 @@ export default defineStore('coupon', {
           this.couponDiscount += res.data.discount;
           document.cookie = `couponDiscount=${this.couponDiscount}; max-age=86400;Secure`;
           obj.is_used = true;
-          this.putCouponState(code, obj);
+          // this.putCouponState(code, obj);
         })
         .catch(() => {
           swal.fire({
