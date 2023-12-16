@@ -1,1 +1,0 @@
-import{_ as e,e as o,f as s,j as t}from"./index-c02af96d.js";const c={},n={class:"about"},_=t("h1",null,"優惠活動列表",-1),a=[_];function r(d,i){return o(),s("div",n,a)}const l=e(c,[["render",r]]);export{l as default};
