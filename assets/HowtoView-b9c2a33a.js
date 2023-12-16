@@ -1,1 +1,0 @@
-import{_ as e,e as t,f as o,j as s}from"./index-2c5ab8de.js";const a={data(){return{isLoading:!1}},mounted(){}},n={class:"about"},c=s("h1",null,"如何織作",-1),r=[c];function _(d,i,f,l,p,u){return t(),o("div",n,r)}const m=e(a,[["render",_]]);export{m as default};
