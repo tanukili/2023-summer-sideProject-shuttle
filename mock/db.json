@@ -91,9 +91,7 @@
         "percentOff": 0.9,
         "imageUrl": "public/activity/2023-winter.jpg",
         "image-sm": "/activity/2023-winter-sm.jpg",
-        "images": [
-          "/activity/2023-winter.jpg"
-        ],
+        "images": ["/activity/2023-winter.jpg"],
         "article": "2023 秋冬新色早鳥優惠 文章文章"
       }
     },
@@ -106,9 +104,7 @@
         "percentOff": 0.85,
         "imageUrl": "/activity/2023-spring.jpg",
         "image-sm": "/activity/2023-spring-sm.jpg",
-        "images": [
-          "/activity/2023-spring.jpg"
-        ],
+        "images": ["/activity/2023-spring.jpg"],
         "article": "2023 春季織心好友揪團趣 文章文章"
       }
     },
@@ -135,14 +131,6 @@
     }
   ],
   "ordersFinalBill": [
-    {
-      "id": "-NlEr2CKgMDU6hwnI0QB",
-      "total": 3125
-    },
-    {
-      "id": "-NlJ3dOK9BWy8TmObO_v",
-      "total": 1830
-    },
     {
       "id": "-Nlp-x6TKqHJ7abgNA9T",
       "total": 7790
