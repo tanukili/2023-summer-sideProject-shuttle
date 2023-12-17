@@ -8,6 +8,10 @@ const orderId = document.cookie.replace(
   /(?:(?:^|.*;\s*)newOrderId\s*=\s*([^;]*).*$)|^.*$/,
   '$1'
 );
+const cookieValue = document.cookie.replace(
+  /(?:(?:^|.*;\s*)couponDiscount\s*=\s*([^;]*).*$)|^.*$/,
+  '$1'
+);
 
 export default {
   data() {
@@ -36,6 +40,12 @@ export default {
       const unix = new Date(this.orderInfo.create_at * 1000);
       return `${unix.getFullYear()}-${unix.getMonth() + 1}-${unix.getDate()}`;
     },
+    cookieCoupon() {
+      if (cookieValue) {
+        return cookieValue;
+      }
+      return 0;
+    },
     countFinal() {
       return this.totalBill - this.cookieCouponDiscount - this.nowAllDiscount;
     },
@@ -44,6 +54,7 @@ export default {
 </script>
 
 <template>
+  餅乾{{ cookieCoupon }}
   <!-- <LoadingOverlay v-model:active="isLoading">
     <div class="loadingio-spinner-pulse-1iwbsd99pb">
       <div class="ldio-dcvhkke5k">

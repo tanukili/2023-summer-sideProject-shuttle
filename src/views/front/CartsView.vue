@@ -7,6 +7,8 @@ import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
 const imgBase = import.meta.env.VITE_IMG_BASE;
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default {
   components: {
     BackgroundBanner,
@@ -15,6 +17,7 @@ export default {
     return {
       bannerImg: `background-image: url(${imgBase}/banner/banner-carts.jpg)`,
       couponCode: '',
+      couponDiscount: 0,
     };
   },
   methods: {
@@ -26,7 +29,39 @@ export default {
       'deleteCart',
       'goToOrder',
     ]),
-    ...mapActions(useCouponStore, ['useCoupon']),
+    useCoupon(code) {
+      this.axios
+        .get(`${api}/coupons/${code}`)
+        .then((res) => {
+          const obj = res.data;
+          // if (obj.is_used) {
+          //   swal.fire('優惠券已使用');
+          //   return;
+          // }
+          console.log(res.data);
+          this.$swal({
+            icon: 'success',
+            confirmButtonText: '確認',
+            title: `成功套用「${res.data.title}」`,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutDown',
+            },
+          });
+          this.couponDiscount = res.data.discount;
+          document.cookie = `couponDiscount=${this.couponDiscount}; max-age=86400;Secure`;
+          obj.is_used = true;
+          // this.putCouponState(code, obj);
+        })
+        .catch(() => {
+          this.$swal({
+            icon: 'error',
+            title: '優惠券使用失敗',
+          });
+        });
+    },
     goToOrder() {
       // 全館活動提醒 暫時的寫法
       this.$swal({
@@ -68,10 +103,16 @@ export default {
       'nowAllDiscount',
     ]),
     ...mapState(useCartsStore, ['carts', 'totalBill', 'nowAllDiscount']),
-    ...mapState(useCouponStore, ['couponDiscount']),
+    ...mapState(useCouponStore, ['cookieCouponDiscount']),
     countDifference() {
       const required = this.allActive.requiredPrice;
       return required - (this.totalBill % required);
+    },
+    countFinal() {
+      if (!this.couponDiscount) {
+        return this.totalBill - this.nowAllDiscount;
+      }
+      return this.totalBill - this.couponDiscount - this.nowAllDiscount;
     },
     imgBase() {
       return import.meta.env.VITE_IMG_BASE;
@@ -342,7 +383,7 @@ export default {
                 class="list-group-item pb-3 border-0 d-flex justify-content-between"
               >
                 <span class="fw-bold">折扣後金額</span>NT$
-                {{ totalBill - couponDiscount - nowAllDiscount }}
+                {{ countFinal }}
               </li>
             </ul>
           </div>

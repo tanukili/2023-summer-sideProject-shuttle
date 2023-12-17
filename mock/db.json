@@ -91,7 +91,9 @@
         "percentOff": 0.9,
         "imageUrl": "public/activity/2023-winter.jpg",
         "image-sm": "/activity/2023-winter-sm.jpg",
-        "images": ["/activity/2023-winter.jpg"],
+        "images": [
+          "/activity/2023-winter.jpg"
+        ],
         "article": "2023 秋冬新色早鳥優惠 文章文章"
       }
     },
@@ -104,7 +106,9 @@
         "percentOff": 0.85,
         "imageUrl": "/activity/2023-spring.jpg",
         "image-sm": "/activity/2023-spring-sm.jpg",
-        "images": ["/activity/2023-spring.jpg"],
+        "images": [
+          "/activity/2023-spring.jpg"
+        ],
         "article": "2023 春季織心好友揪團趣 文章文章"
       }
     },
@@ -138,6 +142,10 @@
     {
       "id": "-Nlp2E--2n44FKmEGU7D",
       "total": 2600
+    },
+    {
+      "id": "-NlpEtaICu1N9sznA-fV",
+      "total": 2900
     }
   ],
   "favorites": [
@@ -160,6 +168,11 @@
       "productId": "-Nl4FI70ENShJ368MCVp",
       "userId": "7",
       "id": "iNAe9Ex"
+    },
+    {
+      "productId": "-Nl4FFASzpIz5ruH172s",
+      "userId": "2",
+      "id": "urukdj-"
     }
   ]
 }

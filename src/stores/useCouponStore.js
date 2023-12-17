@@ -11,11 +11,14 @@ export default defineStore('coupon', {
   }),
   getters: {
     cookieCouponDiscount() {
-      const couponDiscount = document.cookie.replace(
+      const cookieValue = document.cookie.replace(
         /(?:(?:^|.*;\s*)couponDiscount\s*=\s*([^;]*).*$)|^.*$/,
         '$1'
       );
-      return couponDiscount ? couponDiscount : 0;
+      if (cookieValue) {
+        return cookieValue;
+      }
+      return 0;
     },
   },
   actions: {
