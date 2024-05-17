@@ -32,7 +32,7 @@ export default {
     useCoupon(code) {
       this.axios
         .get(`${api}/coupons/${code}`)
-        .then((res) => {
+        .then(res => {
           const obj = res.data;
           // if (obj.is_used) {
           //   swal.fire('優惠券已使用');
@@ -77,7 +77,7 @@ export default {
         denyButtonColor: 'var(--bs-primary)',
       })
         // 按鈕事件
-        .then((res) => {
+        .then(res => {
           if (res.isDenied) {
             this.$router.push('/order');
           }
@@ -138,10 +138,7 @@ export default {
       </div>
     </div>
   </LoadingOverlay> -->
-  <BackgroundBanner
-    :bannerImg="bannerImg"
-    class="cart-banner"
-  ></BackgroundBanner>
+  <BackgroundBanner :bannerImg="bannerImg" class="cart-banner"></BackgroundBanner>
   <div class="bg-white">
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
@@ -192,10 +189,7 @@ export default {
         </div>
         <!-- 訂單內容 -->
         <div class="d-flex align-items-center mb-2">
-          <RouterLink
-            class="text-decoration-underline d-inline-block me-auto"
-            to="/products"
-          >
+          <RouterLink class="text-decoration-underline d-inline-block me-auto" to="/products">
             <span class="material-symbols-outlined icon-semibold"> undo </span>
             返回課程列表
           </RouterLink>
@@ -208,9 +202,7 @@ export default {
           </a>
         </div>
         <div class="table-responsive-sm">
-          <table
-            class="table align-middle table-white text-center fs-8 fs-lg-7"
-          >
+          <table class="table align-middle table-white text-center fs-8 fs-lg-7">
             <thead>
               <tr class="table-light bg-light">
                 <th scope="col"></th>
@@ -222,9 +214,7 @@ export default {
                 <th scope="col">人數</th>
                 <th scope="col">小計</th>
                 <th scope="col">
-                  <div class="d-none d-md-flex flex-column px-md-3">
-                    適用優惠
-                  </div>
+                  <div class="d-none d-md-flex flex-column px-md-3">適用優惠</div>
                 </th>
               </tr>
             </thead>
@@ -232,9 +222,7 @@ export default {
               <tr v-for="course in carts" :key="course.id">
                 <th scope="row">
                   <a href="#" @click.prevent="deleteCart(course.id)">
-                    <span class="material-symbols-outlined icon-fill fs-5">
-                      delete_forever
-                    </span>
+                    <span class="material-symbols-outlined icon-fill fs-5"> delete_forever </span>
                   </a>
                 </th>
                 <td>
@@ -251,16 +239,12 @@ export default {
                 <td>
                   <div class="d-flex flex-column">
                     <span
-                      v-if="
-                        course.product.origin_price !== course.product.price
-                      "
+                      v-if="course.product.origin_price !== course.product.price"
                       class="text-gray-400 text-decoration-line-through"
                       >{{ course.product.origin_price }}</span
                     ><span
                       :class="`${
-                        course.product.origin_price !== course.product.price
-                          ? 'text-danger'
-                          : false
+                        course.product.origin_price !== course.product.price ? 'text-danger' : false
                       }`"
                       >{{ course.product.price }}</span
                     >
@@ -275,8 +259,7 @@ export default {
                     >
                       <option
                         :value="num"
-                        v-for="num in course.product.info.capacity -
-                        course.product.info.studentNum"
+                        v-for="num in course.product.info.capacity - course.product.info.studentNum"
                         :key="num"
                       >
                         {{ num }}
@@ -291,42 +274,25 @@ export default {
                       class="text-gray-400 text-decoration-line-through"
                       >{{ course.total }}</span
                     ><span
-                      :class="`${
-                        course.final_total !== course.total
-                          ? 'text-danger'
-                          : false
-                      }`"
+                      :class="`${course.final_total !== course.total ? 'text-danger' : false}`"
                       >{{ course.final_total }}</span
                     >
                   </div>
                 </td>
                 <td class="fs-8 px-md-3">
-                  <div
-                    v-if="course.product.state.promotion"
-                    class="d-none d-md-flex flex-column"
-                  >
-                    <div
-                      v-if="unlimitedActivities[course.product.state.promotion]"
-                    >
-                      {{
-                        unlimitedActivities[course.product.state.promotion]
-                          .title
-                      }}
+                  <div v-if="course.product.state.promotion" class="d-none d-md-flex flex-column">
+                    <div v-if="unlimitedActivities[course.product.state.promotion]">
+                      {{ unlimitedActivities[course.product.state.promotion].title }}
                     </div>
                     <div v-else>
                       {{ numActivities[course.product.state.promotion].title }}
                       <div
                         v-if="
-                          course.qty <
-                          numActivities[course.product.state.promotion]
-                            .requiredNum
+                          course.qty < numActivities[course.product.state.promotion].requiredNum
                         "
                         class="text-gray-200 fs-9 lh-lg fw-light"
                       >
-                        {{
-                          numActivities[course.product.state.promotion]
-                            .description
-                        }}
+                        {{ numActivities[course.product.state.promotion].description }}
                       </div>
                     </div>
                   </div>
@@ -359,9 +325,7 @@ export default {
           </div>
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
             <ul class="list-group rounded-2">
-              <li
-                class="list-group-item border-0 text-mellow d-flex justify-content-between py-3"
-              >
+              <li class="list-group-item border-0 text-mellow d-flex justify-content-between py-3">
                 <span class="fw-bold">目前總金額</span>NT$ {{ totalBill }}
               </li>
               <li

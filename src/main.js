@@ -1,3 +1,4 @@
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/all.scss';
 
 import { createApp, markRaw } from 'vue'; // 利用 markRaw() 將router 傳遞給 pinia
