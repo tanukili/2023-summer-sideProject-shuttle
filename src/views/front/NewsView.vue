@@ -17,36 +17,14 @@
         <div class="nav-sticky col-md-3 mb-4 mb-md-0 fs-8 fs-lg-7">
           <nav class="nav nav-underline flex-md-column bg-primary-light rounded-1 p-3 p-lg-4">
             <a
+              v-for="(name, index) in categories"
+              :key="index"
               class="flex-fill text-center nav-link"
-              :class="{ active: nowClass === 'all' }"
+              :class="{ active: nowCategory === index }"
               href="#"
-              @click.prevent="nowClass = 'all'"
+              @click.prevent="nowCategory = index"
             >
-              全部文章
-            </a>
-            <a
-              class="flex-fill text-center nav-link"
-              :class="{ active: nowClass === 'course' }"
-              href="#"
-              @click.prevent="nowClass = 'course'"
-            >
-              課程公告
-            </a>
-            <a
-              class="flex-fill text-center nav-link"
-              :class="{ active: nowClass === 'discount' }"
-              @click.prevent="nowClass = 'discount'"
-              href="#"
-            >
-              優惠活動
-            </a>
-            <a
-              class="flex-fill text-center nav-link"
-              :class="{ active: nowClass === 'exhibiton' }"
-              @click.prevent="nowClass = 'exhibiton'"
-              href="#"
-            >
-              展覽與競賽
+              {{ name }}
             </a>
           </nav>
         </div>
@@ -57,7 +35,7 @@
                 <div class="col-md-5 col-xxl-4">
                   <div class="pt-4 py-md-3 py-xxl-4 px-4 pe-md-0">
                     <img
-                      :src="article.imgUrl"
+                      :src="article.image"
                       class="border-dashed border-gray-500 rounded-2"
                       :alt="article.title"
                       style="height: 192px"
@@ -70,14 +48,14 @@
                     <ul class="list-unstyled mb-2">
                       <li
                         class="badge bg-light me-2 rounded-1"
-                        v-for="tag in article.tags"
+                        v-for="tag in article.tag"
                         :key="tag"
                       >
                         {{ tag }}
                       </li>
                     </ul>
                     <p class="card-text flex-grow-1 fs-8 fs-lg-7">
-                      {{ article.content }}
+                      {{ article.description }}
                     </p>
                     <router-link to="/new" class="text-muted align-self-end fs-8 fs-xl-7 mt-3">
                       閱讀全文
@@ -90,48 +68,50 @@
           </ul>
         </div>
       </div>
-      <FrontPagination :pages="pagination" @updatePage="getProducts"></FrontPagination>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'pinia';
-import useProductsStore from '../../stores/useProductsStore';
+import getDataStore from '../../stores/getDataStore';
 
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
-import FrontPagination from '../../components/FrontPagination.vue';
 
 export default {
-  components: { BackgroundBanner, FrontPagination },
+  components: { BackgroundBanner },
 
   data() {
     return {
       bannerImg: 'banner/banner-contact.png',
-      article: {
-        title: '2024春季 織心好友揪團趣',
-        tags: ['優惠活動', '現折優惠'],
-        content: '活動期間（ 2023.06.01 至 2023.08.31 止）同一課程報名人數滿兩人，即可現打 85 折。',
-        imgUrl: 'activity/2023-spring.jpg',
-      },
-      nowClass: 'all',
+      categories: ['全部文章', '課程公告', '優惠活動', '展覽與競賽'],
+      nowCategory: 0,
+      articles: [],
     };
   },
   methods: {
-    ...mapActions(useProductsStore, ['getProducts']),
+    ...mapActions(getDataStore, ['getFontData']),
   },
   computed: {
-    ...mapState(useProductsStore, ['products', 'pagination']),
-
-    articles() {
-      const arr = [];
-      for (let i = 1; i < 4; i += 1) {
-        arr.push(this.article);
+    ...mapState(getDataStore, ['remoteData']),
+  },
+  watch: {
+    nowCategory(newValue) {
+      if (newValue) {
+        this.articles = this.remoteData.filter((article) => article.category === newValue);
+      } else {
+        this.articles = [...this.remoteData];
       }
-      return arr;
+      window.scrollTo(0, 220);
+    },
+    remoteData(data) {
+      this.articles = [...data];
     },
   },
-  mounted() {},
+  mounted() {
+    this.getFontData('articles');
+    // this.getFontData('article', '-NyAAeekgJAq6eEG8QkT');
+  },
 };
 </script>
 
