@@ -2,14 +2,11 @@
 import Flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const hexApi = import.meta.env.VITE_HEX_API_URL;
 const apiPath = '2023shuttle';
 const config = {
   headers: {
-    Authorization: document.cookie.replace(
-      /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    ),
+    Authorization: document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1'),
   },
 };
 
@@ -121,30 +118,15 @@ export default {
       <form>
         <div class="mb-3">
           <label for="1" class="form-label">課程標題</label>
-          <input
-            v-model="newProduct.title"
-            type="text"
-            class="form-control"
-            id="1"
-          />
+          <input v-model="newProduct.title" type="text" class="form-control" id="1" />
         </div>
         <div class="mb-3">
           <label for="2" class="form-label">定價</label>
-          <input
-            v-model="newProduct.origin_price"
-            type="number"
-            class="form-control"
-            id="2"
-          />
+          <input v-model="newProduct.origin_price" type="number" class="form-control" id="2" />
         </div>
         <div class="mb-3">
           <label for="2" class="form-label">售價</label>
-          <input
-            v-model="newProduct.price"
-            type="number"
-            class="form-control"
-            id="2"
-          />
+          <input v-model="newProduct.price" type="number" class="form-control" id="2" />
         </div>
         <div class="mb-3">
           <label for="3" class="form-label">開課日期</label>
@@ -173,30 +155,15 @@ export default {
         </div>
         <div class="mb-3">
           <label for="3.5" class="form-label">課堂數</label>
-          <input
-            v-model="newProduct.info.classes"
-            type="number"
-            class="form-control"
-            id="3.5"
-          />
+          <input v-model="newProduct.info.classes" type="number" class="form-control" id="3.5" />
         </div>
         <div class="mb-3">
           <label for="3.75" class="form-label">名額</label>
-          <input
-            v-model="newProduct.info.capacity"
-            type="number"
-            class="form-control"
-            id="3.75"
-          />
+          <input v-model="newProduct.info.capacity" type="number" class="form-control" id="3.75" />
         </div>
         <div class="mb-3">
           <label for="4" class="form-label">使用技巧</label>
-          <input
-            v-model="newProduct.info.skills"
-            type="text"
-            class="form-control"
-            id="4"
-          />
+          <input v-model="newProduct.info.skills" type="text" class="form-control" id="4" />
         </div>
         <div class="mb-3">
           <label for="5" class="form-label">推薦對象</label>
@@ -209,12 +176,7 @@ export default {
         </div>
         <div class="mb-3">
           <label for="6" class="form-label">課程簡介</label>
-          <input
-            v-model="newProduct.info.summary"
-            type="textarea"
-            class="form-control"
-            id="6"
-          />
+          <input v-model="newProduct.info.summary" type="textarea" class="form-control" id="6" />
         </div>
         <div class="mb-3">
           <h6>課程描述</h6>
@@ -240,12 +202,7 @@ export default {
             <div>
               <label for="7.75" class="form-label">學習內容</label>
               <small>可複選</small>
-              <select
-                v-model="newProduct.info.detail.study"
-                class="form-select"
-                id="7.75"
-                multiple
-              >
+              <select v-model="newProduct.info.detail.study" class="form-select" id="7.75" multiple>
                 <optgroup label="前置作業">
                   <option value="線材計算與整經">線材計算與整經</option>
                   <option value="圖案設計">圖案設計</option>
@@ -337,12 +294,7 @@ export default {
         </div>
         <div class="mb-3">
           <label for="15" class="form-label">適用優惠</label>
-          <select
-            v-model="newProduct.state.promotion"
-            class="form-select"
-            id="15"
-            multiple
-          >
+          <select v-model="newProduct.state.promotion" class="form-select" id="15" multiple>
             <option value="promotion01">秋冬早鳥</option>
             <option value="promotion02">周年慶</option>
             <option value="promotion03">夏季折扣</option>
@@ -350,20 +302,9 @@ export default {
         </div>
         <div class="mb-3">
           <label for="16" class="form-label">課程圖片</label>
-          <input
-            v-model="newProduct.imageUrl"
-            type="text"
-            class="form-control"
-            id="16"
-          />
+          <input v-model="newProduct.imageUrl" type="text" class="form-control" id="16" />
         </div>
-        <button
-          @click.prevent="addProdct"
-          type="submit"
-          class="btn btn-primary"
-        >
-          新增課程
-        </button>
+        <button @click.prevent="addProdct" type="submit" class="btn btn-primary">新增課程</button>
       </form>
       <table class="table">
         <thead>
@@ -400,9 +341,7 @@ export default {
             <td>{{ product.info.studentNum }}</td>
             <td>{{ product.state.nowStatus }}</td>
             <td>
-              <button type="button" class="btn btn-secondary btn-sm">
-                詳細
-              </button>
+              <button type="button" class="btn btn-secondary btn-sm">詳細</button>
             </td>
           </tr>
         </tbody>

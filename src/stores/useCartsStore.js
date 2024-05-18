@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import swal from 'sweetalert2';
 import axios from 'axios';
 
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const hexApi = import.meta.env.VITE_HEX_API_URL;
 const apiPath = '2023shuttle';
 
 export default defineStore('carts', {
@@ -20,10 +20,7 @@ export default defineStore('carts', {
     addToCart(id, qty, quota, buyNow) {
       const obj = { data: { product_id: id, qty } };
       const isOverQuota = this.checkQuota(qty, quota);
-      const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
-      );
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
       if (!token) {
         swal.fire('請先登入註冊');
         this.router.push({ name: 'login' });
@@ -97,10 +94,7 @@ export default defineStore('carts', {
             }
           });
           // 總金額
-          this.totalBill = this.carts.reduce(
-            (acc, e) => acc + e.final_total,
-            0
-          );
+          this.totalBill = this.carts.reduce((acc, e) => acc + e.final_total, 0);
           // 折扣金額 暫時的寫法
           const num = Math.floor(this.totalBill / 3000);
           this.nowAllDiscount = 300 * num;

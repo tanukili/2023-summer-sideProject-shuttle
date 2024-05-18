@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import swal from 'sweetalert2';
 import axios from 'axios';
 
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const hexApi = import.meta.env.VITE_HEX_API_URL;
 const apiPath = '2023shuttle';
 
 export default defineStore('products', {
@@ -22,9 +22,7 @@ export default defineStore('products', {
   }),
   getters: {
     countQuota() {
-      return (
-        this.singleProduct.info.capacity - this.singleProduct.info.studentNum
-      );
+      return this.singleProduct.info.capacity - this.singleProduct.info.studentNum;
     },
   },
   actions: {

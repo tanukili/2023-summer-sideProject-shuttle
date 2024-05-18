@@ -3,12 +3,9 @@ import swal from 'sweetalert2';
 import axios from 'axios';
 
 const api = import.meta.env.VITE_API_PATH;
-const hexApi = import.meta.env.VITE_HEX_API_PATH;
+const hexApi = import.meta.env.VITE_HEX_API_URL;
 const apiPath = '2023shuttle';
-const userId = document.cookie.replace(
-  /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-  '$1'
-);
+const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
 export default defineStore('orders', {
   state: () => ({
