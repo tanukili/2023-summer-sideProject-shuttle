@@ -7,7 +7,7 @@
           <li class="breadcrumb-item">
             <RouterLink to="/">首頁</RouterLink>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">購買課程</li>
+          <li class="breadcrumb-item active" aria-current="page">聯絡我們</li>
         </ol>
       </nav>
       <h2 class="title fs-3 fs-lg-2 pb-3 pb-xl-5">

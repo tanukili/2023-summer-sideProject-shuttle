@@ -7,6 +7,7 @@ export default defineStore('getDataStore', {
     url: import.meta.env.VITE_HEX_API_URL,
     path: import.meta.env.VITE_HEX_API_PATH,
     remoteData: null,
+    singleInfo: null,
     pagination: null,
   }),
   actions: {
@@ -15,17 +16,21 @@ export default defineStore('getDataStore', {
       if (id) {
         apiUrl += `/${id}`;
       }
-      console.log(apiUrl);
       axios
         .get(apiUrl)
         .then((res) => {
-          this.remoteData = res.data[targetName];
+          let updateTarget = 'remoteData';
+          if (id) {
+            updateTarget = 'singleInfo';
+          }
+          this[updateTarget] = res.data[targetName];
           const { pagination } = res.data;
           if (pagination) {
             this.pagination = pagination;
           }
-          console.log(this.remoteData);
-          console.log(this.pagination);
+          // console.log(this.remoteData);
+          console.log(this.singleInfo);
+          // console.log(this.pagination);
         })
         .catch((err) => {
           swal.fire({

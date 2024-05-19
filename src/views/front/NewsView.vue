@@ -57,7 +57,10 @@
                     <p class="card-text flex-grow-1 fs-8 fs-lg-7">
                       {{ article.description }}
                     </p>
-                    <router-link to="/new" class="text-muted align-self-end fs-8 fs-xl-7 mt-3">
+                    <router-link
+                      :to="`/new/${article.id}`"
+                      class="text-muted align-self-end fs-8 fs-xl-7 mt-3"
+                    >
                       閱讀全文
                       <i class="bi bi-caret-right-fill"></i>
                     </router-link>
@@ -83,7 +86,7 @@ export default {
 
   data() {
     return {
-      bannerImg: 'banner/banner-contact.png',
+      bannerImg: 'banner/banner-news.png',
       categories: ['全部文章', '課程公告', '優惠活動', '展覽與競賽'],
       nowCategory: 0,
       articles: [],
@@ -110,7 +113,6 @@ export default {
   },
   mounted() {
     this.getFontData('articles');
-    // this.getFontData('article', '-NyAAeekgJAq6eEG8QkT');
   },
 };
 </script>

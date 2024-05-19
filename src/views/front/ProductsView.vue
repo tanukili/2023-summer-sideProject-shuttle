@@ -8,12 +8,10 @@ import BackgroundBanner from '../../components/BackgroundBanner.vue';
 import ProductsNavs from '../../components/ProductsNavs.vue';
 import FrontPagination from '../../components/FrontPagination.vue';
 
-const imgBase = import.meta.env.VITE_IMG_BASE;
-
 export default {
   data() {
     return {
-      bannerImg: `background-image: url(${imgBase}/banner/banner-products.jpg)`,
+      bannerImg: 'banner/banner-products.png',
     };
   },
   components: {
@@ -61,10 +59,7 @@ export default {
     </div>
   </LoadingOverlay> -->
   <!-- <div class="bg-banner product-banner"></div> -->
-  <BackgroundBanner
-    :bannerImg="bannerImg"
-    class="product-banner"
-  ></BackgroundBanner>
+  <BackgroundBanner :bannerImg="bannerImg"></BackgroundBanner>
   <ProductsNavs></ProductsNavs>
   <div class="position-relative overflow-hidden">
     <!-- contnet -->
@@ -77,17 +72,11 @@ export default {
               <li class="breadcrumb-item">
                 <RouterLink to="/">首頁</RouterLink>
               </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                購買課程
-              </li>
+              <li class="breadcrumb-item active" aria-current="page">購買課程</li>
             </ol>
           </nav>
           <div class="d-flex align-items-center">
-            <label
-              for="filter-select"
-              class="lh-lg fw-semibold flex-shrink-0 me-2"
-              >排序</label
-            >
+            <label for="filter-select" class="lh-lg fw-semibold flex-shrink-0 me-2">排序</label>
             <div class="select-icon">
               <select
                 class="form-select fs-7 border-secondary"
@@ -126,26 +115,26 @@ export default {
                   v-if="unlimitedActivities[product.state.promotion]"
                   class="badge badge-sale position-absolute start-0"
                   style="top: 24px"
-                  >{{
-                    unlimitedActivities[product.state.promotion].badge
-                  }}</span
                 >
+                  {{ unlimitedActivities[product.state.promotion].badge }}
+                </span>
                 <span
                   v-else-if="numActivities[product.state.promotion]"
                   class="badge badge-sale bg-success position-absolute start-0"
                   style="top: 24px"
-                  >{{ numActivities[product.state.promotion].badge }}</span
                 >
+                  {{ numActivities[product.state.promotion].badge }}
+                </span>
                 <a href="#" @click.prevent="toggleFavorite(product.id)">
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
                     :class="{
-                      'icon-fill text-danger':
-                        favorites.indexOf(product.id) !== -1,
+                      'icon-fill text-danger': favorites.indexOf(product.id) !== -1,
                     }"
                     style="top: 24px; right: 24px"
-                    >favorite</span
                   >
+                    favorite
+                  </span>
                 </a>
               </div>
               <div class="card-body flex-grow-1 pb-5">
@@ -154,26 +143,28 @@ export default {
                   class="badge bg-light me-2"
                   v-for="tag in product.info.tags"
                   :key="product.info.tags.indexOf(tag)"
-                  >{{ tag }}</span
                 >
+                  {{ tag }}
+                </span>
               </div>
               <div class="card-footer pb-3">
                 <div class="d-flex align-items-center">
                   <small
                     v-if="unlimitedActivities[product.state.promotion]"
                     class="fs-4 fw-bold text-danger"
-                    >${{
-                      product.origin_price *
-                      unlimitedActivities[product.state.promotion].percentOff
-                    }}</small
                   >
+                    ${{
+                      product.origin_price * unlimitedActivities[product.state.promotion].percentOff
+                    }}
+                  </small>
                   <small
                     :class="[
                       !unlimitedActivities[product.state.promotion]
                         ? 'fs-4 fw-bold text-black'
                         : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
                     ]"
-                    >${{ product.origin_price }}
+                  >
+                    ${{ product.origin_price }}
                   </small>
                 </div>
                 <RouterLink
@@ -187,10 +178,7 @@ export default {
           </div>
         </div>
         <!-- pagination -->
-        <FrontPagination
-          :pages="pagination"
-          @updatePage="getProducts"
-        ></FrontPagination>
+        <FrontPagination :pages="pagination" @updatePage="getProducts"></FrontPagination>
       </div>
     </div>
     <!-- background-style -->
@@ -205,26 +193,4 @@ export default {
   </div>
 </template>
 
-<style>
-.product-banner > * {
-  position: static;
-}
-.product-banner > *,
-.product-banner > *::before {
-  height: 180px;
-}
-
-@media (min-width: 768px) {
-  .product-banner > *,
-  .product-banner > *::before {
-    height: 240px;
-  }
-}
-
-@media (min-width: 992px) {
-  .product-banner > *,
-  .product-banner > *::before {
-    height: 300px;
-  }
-}
-</style>
+<style></style>
