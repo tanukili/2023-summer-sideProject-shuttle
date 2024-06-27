@@ -11,6 +11,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    // 改用 ip 方式開啟 dev 網址（方變 imgur api 測試）
+    host: '127.0.0.1',
+  },
   proxyTable: {
     // proxy all requests starting with /api to jsonplaceholder (將api請求轉發到mock server)
     '/api': {
