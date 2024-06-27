@@ -5,8 +5,6 @@ import useCartsStore from '../../stores/useCartsStore';
 import useCouponStore from '../../stores/useCouponStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
-const imgBase = import.meta.env.VITE_IMG_BASE;
-
 const api = import.meta.env.VITE_API_PATH;
 
 export default {
@@ -15,7 +13,7 @@ export default {
   },
   data() {
     return {
-      bannerImg: `background-image: url(${imgBase}/banner/banner-carts.jpg)`,
+      bannerImg: 'banner/banner-carts.jpg',
       couponCode: '',
       couponDiscount: 0,
     };
@@ -32,7 +30,7 @@ export default {
     useCoupon(code) {
       this.axios
         .get(`${api}/coupons/${code}`)
-        .then(res => {
+        .then((res) => {
           const obj = res.data;
           // if (obj.is_used) {
           //   swal.fire('優惠券已使用');
@@ -77,7 +75,7 @@ export default {
         denyButtonColor: 'var(--bs-primary)',
       })
         // 按鈕事件
-        .then(res => {
+        .then((res) => {
           if (res.isDenied) {
             this.$router.push('/order');
           }
@@ -113,9 +111,6 @@ export default {
         return this.totalBill - this.nowAllDiscount;
       }
       return this.totalBill - this.couponDiscount - this.nowAllDiscount;
-    },
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
     },
   },
   // // 生命週期：離開當前路由前調用
@@ -190,7 +185,7 @@ export default {
         <!-- 訂單內容 -->
         <div class="d-flex align-items-center mb-2">
           <RouterLink class="text-decoration-underline d-inline-block me-auto" to="/products">
-            <span class="material-symbols-outlined icon-semibold"> undo </span>
+            <span class="material-symbols-outlined icon-semibold">undo</span>
             返回課程列表
           </RouterLink>
           <a
@@ -222,13 +217,13 @@ export default {
               <tr v-for="course in carts" :key="course.id">
                 <th scope="row">
                   <a href="#" @click.prevent="deleteCart(course.id)">
-                    <span class="material-symbols-outlined icon-fill fs-5"> delete_forever </span>
+                    <span class="material-symbols-outlined icon-fill fs-5">delete_forever</span>
                   </a>
                 </th>
                 <td>
                   <div class="d-none d-md-flex flex-column align-items-center">
                     <img
-                      :src="`${imgBase}${course.product.imageUrl}`"
+                      :src="course.product.imageUrl"
                       :alt="`product${course.id}`"
                       class="img-fluid"
                       style="max-width: 150px"
@@ -241,13 +236,16 @@ export default {
                     <span
                       v-if="course.product.origin_price !== course.product.price"
                       class="text-gray-400 text-decoration-line-through"
-                      >{{ course.product.origin_price }}</span
-                    ><span
+                    >
+                      {{ course.product.origin_price }}
+                    </span>
+                    <span
                       :class="`${
                         course.product.origin_price !== course.product.price ? 'text-danger' : false
                       }`"
-                      >{{ course.product.price }}</span
                     >
+                      {{ course.product.price }}
+                    </span>
                   </div>
                 </td>
                 <td>
@@ -272,11 +270,12 @@ export default {
                     <span
                       v-if="course.final_total !== course.total"
                       class="text-gray-400 text-decoration-line-through"
-                      >{{ course.total }}</span
-                    ><span
-                      :class="`${course.final_total !== course.total ? 'text-danger' : false}`"
-                      >{{ course.final_total }}</span
                     >
+                      {{ course.total }}
+                    </span>
+                    <span :class="`${course.final_total !== course.total ? 'text-danger' : false}`">
+                      {{ course.final_total }}
+                    </span>
                   </div>
                 </td>
                 <td class="fs-8 px-md-3">
@@ -326,27 +325,29 @@ export default {
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
             <ul class="list-group rounded-2">
               <li class="list-group-item border-0 text-mellow d-flex justify-content-between py-3">
-                <span class="fw-bold">目前總金額</span>NT$ {{ totalBill }}
+                <span class="fw-bold">目前總金額</span>
+                NT$ {{ totalBill }}
               </li>
               <li
                 v-if="couponDiscount"
                 class="list-group-item border-0 d-flex justify-content-between"
               >
-                <span class="fw-bold">優惠券折抵</span
-                ><span class="text-danger">NT$ - {{ couponDiscount }}</span>
+                <span class="fw-bold">優惠券折抵</span>
+                <span class="text-danger">NT$ - {{ couponDiscount }}</span>
               </li>
               <li
                 v-if="allActive.requiredPrice <= totalBill"
                 class="list-group-item border-0 d-flex justify-content-between"
               >
-                <span class="fw-bold">滿額折抵</span
-                ><span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
+                <span class="fw-bold">滿額折抵</span>
+                <span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
               </li>
               <li
                 v-if="couponDiscount || allActive.requiredPrice <= totalBill"
                 class="list-group-item pb-3 border-0 d-flex justify-content-between"
               >
-                <span class="fw-bold">折扣後金額</span>NT$
+                <span class="fw-bold">折扣後金額</span>
+                NT$
                 {{ countFinal }}
               </li>
             </ul>

@@ -1,5 +1,5 @@
 <script>
-import MemberNavs from '../../../components/MemberNavs.vue';
+import MemberNavs from '@/components/front/member/MemberNavs.vue';
 
 export default {
   components: {

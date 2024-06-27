@@ -10,11 +10,7 @@ export default {
     this.getActivities();
   },
   computed: {
-    ...mapState(useActivitiesStore, [
-      'allActive',
-      'numActivities',
-      'unlimitedActivities',
-    ]),
+    ...mapState(useActivitiesStore, ['allActive', 'numActivities', 'unlimitedActivities']),
     activitiesArr() {
       const arr = [];
       arr.push(this.allActive);
@@ -27,9 +23,6 @@ export default {
         arr.push(this.unlimitedActivities[e]);
       });
       return arr;
-    },
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
     },
   },
 };
@@ -52,12 +45,7 @@ export default {
         </h3>
       </div>
       <div class="col">
-        <img
-          :src="`${imgBase}${active['image-sm']}`"
-          alt=""
-          class="img-fluid"
-          style="max-width: 100px"
-        />
+        <img :src="`${active['image-sm']}`" alt="" class="img-fluid" style="max-width: 100px" />
       </div>
       <div class="col">
         <p class="fs-7" style="width: 420px">

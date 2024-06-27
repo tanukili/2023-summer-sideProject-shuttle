@@ -17,23 +17,20 @@ export default {
         first: {
           title: '2023 歲末全館回饋季',
           subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
-          imgUrl:
-            '/2023-summer-sideProject-shuttle/activity/2023-year-end01-sm.jpg',
+          imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-year-end01-sm.jpg',
           id: 3,
         },
         other: [
           {
             title: '2023 春季織心好友揪團趣',
             subtitle: '兩人同行，現打 85 折',
-            imgUrl:
-              '/2023-summer-sideProject-shuttle/activity/2023-spring-sm.jpg',
+            imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-spring-sm.jpg',
             id: 1,
           },
           {
             title: '2023 秋冬新色早鳥優惠',
             subtitle: '新色上架！指定課程打九折',
-            imgUrl:
-              '/2023-summer-sideProject-shuttle/activity/2023-winter-sm.jpg',
+            imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-winter-sm.jpg',
             id: 2,
           },
         ],
@@ -52,8 +49,7 @@ export default {
           avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
           name: 'Miyako Kajiro',
           course: '一日綴織體驗',
-          comment:
-            '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
+          comment: '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
           starts: 5, // value: 1~5
           id: 2,
         },
@@ -69,8 +65,7 @@ export default {
           avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar04.png',
           name: 'Guertena',
           course: '織紋設計',
-          comment:
-            '以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。',
+          comment: '以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。',
           starts: 5, // value: 1~5
           id: 1,
         },
@@ -87,13 +82,11 @@ export default {
           avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
           name: 'Miyako Kajiro',
           course: '一日綴織體驗',
-          comment:
-            '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
+          comment: '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
           starts: 5, // value: 1~5
           id: 6,
         },
       ],
-      imgBase: '',
     };
   },
   components: {
@@ -121,7 +114,6 @@ export default {
     // }, 1200);
     this.getAllProducts();
     this.getActivities();
-    this.imgBase = import.meta.env.VITE_IMG_BASE;
   },
   computed: {
     ...mapState(useProductsStore, ['popProducts']),
@@ -141,14 +133,12 @@ export default {
     </div>
   </LoadingOverlay> -->
   <!-- banner -->
-  <div
-    class="home-banner d-flex flex-column justify-content-center"
-    style="height: 680px"
-  >
+  <div class="home-banner d-flex flex-column justify-content-center" style="height: 680px">
     <div class="container">
       <div class="w-md-50 w-xl-33 ms-xl-8">
         <h1 class="fs-2 text-white" style="line-height: 64px">
-          一封真摯的邀請函<br />
+          一封真摯的邀請函
+          <br />
           給予手織
           <select
             class="form-select fs-5 fw-bold d-inline-block text-primary align-text-bottom"
@@ -183,19 +173,12 @@ export default {
               class="card-img h-100"
               :alt="`promotions0${discounts.first.id}`"
             />
-            <div
-              class="card-img-overlay d-flex flex-column justify-content-between"
-            >
+            <div class="card-img-overlay d-flex flex-column justify-content-between">
               <div>
                 <h5 class="fs-3 mb-2">{{ discounts.first.title }}</h5>
                 <h6 class="fs-4">{{ discounts.first.subtitle }}</h6>
               </div>
-              <button
-                class="btn btn-lg btn-white align-self-md-end"
-                type="button"
-              >
-                瞭解更多
-              </button>
+              <button class="btn btn-lg btn-white align-self-md-end" type="button">瞭解更多</button>
             </div>
           </div>
         </div>
@@ -208,24 +191,13 @@ export default {
             v-for="activity in discounts.other"
             :key="activity.id"
           >
-            <img
-              :src="activity.imgUrl"
-              class="card-img h-100"
-              :alt="`promotions0${activity.id}`"
-            />
-            <div
-              class="card-img-overlay d-flex flex-column justify-content-between"
-            >
+            <img :src="activity.imgUrl" class="card-img h-100" :alt="`promotions0${activity.id}`" />
+            <div class="card-img-overlay d-flex flex-column justify-content-between">
               <div>
                 <h5 class="fs-3 mb-2">{{ activity.title }}</h5>
                 <h6 class="fs-4">{{ activity.subtitle }}</h6>
               </div>
-              <button
-                class="btn btn-lg btn-white align-self-md-end"
-                type="button"
-              >
-                瞭解更多
-              </button>
+              <button class="btn btn-lg btn-white align-self-md-end" type="button">瞭解更多</button>
             </div>
           </div>
         </div>
@@ -261,14 +233,10 @@ export default {
               class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature01"
             />
-            <div
-              class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5"
-            >
+            <div class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5">
               <div class="pt-2 pb-3 px-3 p-md-0">
                 <small class="font-order text-secondary">01</small>
-                <h5
-                  class="card-title fs-3 fs-lg-2 text-black mt-2 mt-xl-3 mb-xl-4"
-                >
+                <h5 class="card-title fs-3 fs-lg-2 text-black mt-2 mt-xl-3 mb-xl-4">
                   從入門到應用
                 </h5>
                 <p class="fs-7 fs-lg-6 lh-lg">
@@ -290,16 +258,10 @@ export default {
               class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature02"
             />
-            <div
-              class="d-flex flex-column justify-content-center me-md-4 me-xl-5"
-            >
+            <div class="d-flex flex-column justify-content-center me-md-4 me-xl-5">
               <div class="pt-2 pb-3 px-3 p-md-0">
                 <small class="font-order text-secondary">02</small>
-                <h5
-                  class="card-title fs-3 fs-lg-2 text-black mt-2 mt-xl-3 mb-xl-4"
-                >
-                  免裝備報到
-                </h5>
+                <h5 class="card-title fs-3 fs-lg-2 text-black mt-2 mt-xl-3 mb-xl-4">免裝備報到</h5>
                 <p class="fs-7 fs-lg-6 lh-lg">
                   基本器材及耗材由我們提供，不用擔心有沒有織布機，您只需要準備紙筆等文既即可，輕鬆無負擔。
                 </p>
@@ -319,14 +281,10 @@ export default {
               class="rounded-top-2 rounded-md-3 border-dashed border-gray-500 feature-img"
               alt="feature03"
             />
-            <div
-              class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5"
-            >
+            <div class="d-flex flex-column justify-content-center ms-md-4 ms-xl-5">
               <div class="pt-2 pb-3 px-3 p-md-0">
                 <small class="font-order text-secondary">03</small>
-                <h5
-                  class="card-title fs-3 fs-lg-2 text-black mt-2 mt-xl-3 mb-xl-4"
-                >
+                <h5 class="card-title fs-3 fs-lg-2 text-black mt-2 mt-xl-3 mb-xl-4">
                   多樣化輔助課程
                 </h5>
                 <p class="fs-7 fs-lg-6 lh-lg">
@@ -337,20 +295,12 @@ export default {
           </div>
         </div>
       </div>
-      <RouterLink
-        to="/products"
-        class="icon-e icon-east btn btn-white mt-5"
-        style="width: 280px"
-      >
+      <RouterLink to="/products" class="icon-e icon-east btn btn-white mt-5" style="width: 280px">
         開始上課
       </RouterLink>
     </div>
     <!-- feature-background -->
-    <div
-      class="bg-oval d-none d-xl-block"
-      style="top: 40px; left: 8.3%"
-      data-aos="fade-left"
-    ></div>
+    <div class="bg-oval d-none d-xl-block" style="top: 40px; left: 8.3%" data-aos="fade-left"></div>
     <div
       class="bg-oval sec d-none d-xl-block"
       style="top: 890px; right: 8.3%"
@@ -400,11 +350,11 @@ export default {
                 style="max-width: 64px; max-height: 64px"
               />
               <div>
-                <small class="fs-7"
-                  >{{ review.name }}<br /><span class="fs-6">{{
-                    review.course
-                  }}</span></small
-                >
+                <small class="fs-7">
+                  {{ review.name }}
+                  <br />
+                  <span class="fs-6">{{ review.course }}</span>
+                </small>
               </div>
             </div>
             <div class="py-4 flex-grow-1">
@@ -418,36 +368,41 @@ export default {
                   'material-symbols-outlined': review.starts,
                   'icon-fill': review.starts,
                 }"
-                >star</span
               >
+                star
+              </span>
               <span
                 :class="{
                   'material-symbols-outlined': review.starts,
                   'icon-fill': review.starts > 1,
                 }"
-                >star</span
               >
+                star
+              </span>
               <span
                 :class="{
                   'material-symbols-outlined': review.starts,
                   'icon-fill': review.starts > 2,
                 }"
-                >star</span
               >
+                star
+              </span>
               <span
                 :class="{
                   'material-symbols-outlined': review.starts,
                   'icon-fill': review.starts > 3,
                 }"
-                >star</span
               >
+                star
+              </span>
               <span
                 :class="{
                   'material-symbols-outlined': review.starts,
                   'icon-fill': review.starts > 4,
                 }"
-                >star</span
               >
+                star
+              </span>
             </div>
           </div>
           <div
@@ -507,7 +462,7 @@ export default {
             <div class="card w-100">
               <div class="card-mask position-relative">
                 <img
-                  :src="`${imgBase}${course.imageUrl}`"
+                  :src="course.imageUrl"
                   :alt="`product${course.id}`"
                   class="rounded-top"
                   style="height: 240px"
@@ -516,20 +471,23 @@ export default {
                   v-if="unlimitedActivities[course.state.promotion]"
                   class="badge badge-sale position-absolute start-0"
                   style="top: 24px"
-                  >{{ unlimitedActivities[course.state.promotion].badge }}</span
                 >
+                  {{ unlimitedActivities[course.state.promotion].badge }}
+                </span>
                 <span
                   v-else-if="numActivities[course.state.promotion]"
                   class="badge badge-sale bg-success position-absolute start-0"
                   style="top: 24px"
-                  >{{ numActivities[course.state.promotion].badge }}</span
                 >
+                  {{ numActivities[course.state.promotion].badge }}
+                </span>
                 <a href="#">
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
                     style="top: 24px; right: 24px"
-                    >favorite</span
                   >
+                    favorite
+                  </span>
                 </a>
               </div>
               <div class="card-body flex-grow-1 pb-5">
@@ -538,28 +496,28 @@ export default {
                   class="badge bg-light me-2"
                   v-for="tag in course.info.tags"
                   :key="course.info.tags.indexOf(tag)"
-                  >{{ tag }}</span
                 >
+                  {{ tag }}
+                </span>
               </div>
-              <div
-                class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pt-4 pb-3"
-              >
+              <div class="card-footer d-flex flex-column flex-lg-row align-items-lg-end pt-4 pb-3">
                 <div class="d-flex align-items-center">
                   <small
                     v-if="unlimitedActivities[course.state.promotion]"
                     class="fs-4 fw-bold text-danger"
-                    >${{
-                      course.origin_price *
-                      unlimitedActivities[course.state.promotion].percentOff
-                    }}</small
                   >
+                    ${{
+                      course.origin_price * unlimitedActivities[course.state.promotion].percentOff
+                    }}
+                  </small>
                   <small
                     :class="[
                       !unlimitedActivities[course.state.promotion]
                         ? 'fs-4 fw-bold text-black'
                         : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
                     ]"
-                    >${{ course.origin_price }}
+                  >
+                    ${{ course.origin_price }}
                   </small>
                 </div>
                 <RouterLink
@@ -597,8 +555,7 @@ export default {
 <style>
 .home-banner {
   /* 加上半透明遮罩 */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(/banner/banner.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/banner/banner.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

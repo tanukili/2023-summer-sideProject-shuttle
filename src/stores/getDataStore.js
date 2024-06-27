@@ -28,9 +28,6 @@ export default defineStore('getDataStore', {
           if (pagination) {
             this.pagination = pagination;
           }
-          // console.log(this.remoteData);
-          console.log(this.singleInfo);
-          // console.log(this.pagination);
         })
         .catch((err) => {
           swal.fire({
