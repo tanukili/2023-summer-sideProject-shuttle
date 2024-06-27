@@ -179,6 +179,16 @@ export default {
                   <VField
                     type="radio"
                     name="性別"
+                    value="other"
+                    class="form-check-input"
+                    id="signUpOther"
+                  />
+                  <label for="signUpOther">其他</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <VField
+                    type="radio"
+                    name="性別"
                     value="private"
                     class="form-check-input"
                     id="signUpPrivate"

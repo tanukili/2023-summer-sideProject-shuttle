@@ -4,6 +4,7 @@ const auth = require('json-server-auth');
 const apiServer = jsonServer.create();
 const apiRouter = jsonServer.router('mock/db.json');
 const middlewares = jsonServer.defaults();
+
 // 綁定
 apiServer.db = apiRouter.db;
 
@@ -12,10 +13,7 @@ apiServer.use(auth);
 // 跨域請求
 module.exports = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 };
 

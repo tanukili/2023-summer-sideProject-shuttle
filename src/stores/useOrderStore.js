@@ -100,7 +100,7 @@ export default defineStore('orders', {
         };
         obj.title = e.product.title;
         obj.description = `${e.qty} 位學員`;
-        e.product.info.ClassTime.forEach((ele) => {
+        e.product.info.classTime.forEach((ele) => {
           const date = this.countDate(ele[0]);
           obj.start = `${date} ${this.countTime(ele[0])}`;
           obj.end = `${date} ${this.countTime(ele[1])}`;

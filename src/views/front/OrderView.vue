@@ -30,9 +30,6 @@ export default {
     countFinal() {
       return this.totalBill - this.cookieCouponDiscount - this.nowAllDiscount;
     },
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
-    },
   },
 };
 </script>
@@ -89,9 +86,7 @@ export default {
               <span class="border-dashed-b pb-2">訂單內容</span>
             </h4>
             <div class="table-responsive-sm">
-              <table
-                class="table align-middle table-white text-center fs-8 fs-lg-7"
-              >
+              <table class="table align-middle table-white text-center fs-8 fs-lg-7">
                 <thead>
                   <tr class="table-light bg-light">
                     <th scope="col">預覽</th>
@@ -104,7 +99,7 @@ export default {
                   <tr v-for="course in carts" :key="course.id">
                     <td>
                       <img
-                        :src="`${imgBase}${course.product.imageUrl}`"
+                        :src="course.product.imageUrl"
                         :alt="`product${course.id}`"
                         class="img-fluid"
                         style="max-width: 150px"
@@ -118,31 +113,25 @@ export default {
               </table>
             </div>
             <ul class="list-group rounded-2 bg-secondary">
-              <li
-                class="list-group-item pt-3 border-0 text-mellow d-flex justify-content-between"
-              >
-                <span class="fw-bold">目前總金額</span>NT$
+              <li class="list-group-item pt-3 border-0 text-mellow d-flex justify-content-between">
+                <span class="fw-bold">目前總金額</span>
+                NT$
                 {{ totalBill }}
               </li>
               <li
                 v-if="cookieCouponDiscount"
                 class="list-group-item border-0 d-flex justify-content-between"
               >
-                <span class="fw-bold">優惠券折抵</span
-                ><span class="text-danger"
-                  >NT$ - {{ cookieCouponDiscount }}</span
-                >
+                <span class="fw-bold">優惠券折抵</span>
+                <span class="text-danger">NT$ - {{ cookieCouponDiscount }}</span>
               </li>
-              <li
-                class="list-group-item border-0 d-flex justify-content-between"
-              >
-                <span class="fw-bold">滿額折抵</span
-                ><span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
+              <li class="list-group-item border-0 d-flex justify-content-between">
+                <span class="fw-bold">滿額折抵</span>
+                <span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
               </li>
-              <li
-                class="list-group-item pb-3 border-0 d-flex justify-content-between"
-              >
-                <span class="fw-bold">折扣後金額</span>NT$
+              <li class="list-group-item pb-3 border-0 d-flex justify-content-between">
+                <span class="fw-bold">折扣後金額</span>
+                NT$
                 {{ totalBill - cookieCouponDiscount - nowAllDiscount }}
               </li>
             </ul>
@@ -150,9 +139,7 @@ export default {
               class="text-decoration-underline d-lg-inline-block mt-auto d-none"
               to="/carts"
             >
-              <span class="material-symbols-outlined icon-semibold">
-                undo
-              </span>
+              <span class="material-symbols-outlined icon-semibold">undo</span>
               返回購物車
             </RouterLink>
           </div>
@@ -228,8 +215,7 @@ export default {
                   id="remark"
                   placeholder="備註欄位"
                   style="height: 116px"
-                >
-                </VField>
+                ></VField>
                 <label for="remark">備註</label>
               </div>
               <div class="form-check mb-3">
@@ -244,19 +230,12 @@ export default {
                 <label class="form-check-label required" for="agreeNotice">
                   我已閱讀並同意 課程注意事項
                 </label>
-                <ErrorMessage name="同意" v-slot="{ message }"
-                  ><span class="text-danger fs-9 ms-2">{{
-                    (message = '請閱讀完後勾選')
-                  }}</span>
+                <ErrorMessage name="同意" v-slot="{ message }">
+                  <span class="text-danger fs-9 ms-2">{{ (message = '請閱讀完後勾選') }}</span>
                 </ErrorMessage>
               </div>
               <!-- 儲存帳單金額 -->
-              <VField
-                class="d-none"
-                name="finalBill"
-                type="text"
-                v-model="countFinal"
-              />
+              <VField class="d-none" name="finalBill" type="text" v-model="countFinal" />
               <button class="btn btn-primary w-100 mb-3 fs-6">資料送出</button>
             </VForm>
           </div>

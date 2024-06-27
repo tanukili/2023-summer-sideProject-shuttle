@@ -40,10 +40,6 @@ export default {
     ...mapState(useProductsStore, ['products', 'pagination']),
     ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
     ...mapState(useFavoriteStore, ['favorites']),
-
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
-    },
   },
 };
 </script>
@@ -106,7 +102,7 @@ export default {
             <div class="card h-100">
               <div class="card-mask position-relative">
                 <img
-                  :src="`${imgBase}${product.imageUrl}`"
+                  :src="product.imageUrl"
                   :alt="`product${product.id}`"
                   class="rounded-top"
                   style="height: 240px"

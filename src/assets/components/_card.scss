@@ -8,7 +8,7 @@
 }
 
 // 半透明遮罩 (下在父層)
-.card-mask {
+.card-mask, .img-mask {
   position: relative;
 
   &::before {
@@ -19,6 +19,9 @@
         rgba(0, 0, 0, 0.5) 16.76%,
         rgba(0, 0, 0, 0) 100%);
     position: absolute;
-    border-radius: $card-border-radius;
   }
+}
+
+.card-mask ::before {
+  border-radius: $card-border-radius;
 }

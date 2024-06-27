@@ -59,13 +59,13 @@ export default defineStore('products', {
           this.singleProduct = res.data.product;
           this.productPromotion = res.data.product.state.promotion;
           const classInfo = this.singleProduct.info;
-          this.singleProduct.calssDates = classInfo.ClassTime.map((e) => {
+          this.singleProduct.calssDates = classInfo.classTime.map((e) => {
             const unixTime = new Date(e[0] * 1000);
             const month = (unixTime.getMonth() + 1).toString().padStart(2, '0');
             const date = unixTime.getDate().toString().padStart(2, '0');
             return `${unixTime.getFullYear()}.${month}.${date}`;
           });
-          this.singleProduct.courseTime = classInfo.ClassTime[0].map((e) => {
+          this.singleProduct.courseTime = classInfo.classTime[0].map((e) => {
             const unixTime = new Date(e * 1000);
             const hour = unixTime.getHours().toString().padStart(2, '0');
             const min = unixTime.getMinutes().toString().padStart(2, '0');
