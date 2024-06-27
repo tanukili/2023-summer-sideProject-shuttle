@@ -58,12 +58,8 @@
     width: 16px;
     height: 16px;
     opacity: 1;
-    background: $secondary;
-
-    @include pad {
-      background: $white;
-    }
-
+    background: $white;
+    
     &.swiper-pagination-bullet-active {
       background: $primary;
     }

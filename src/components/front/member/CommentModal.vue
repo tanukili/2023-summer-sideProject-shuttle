@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="modal fade"
-    id="commentModal"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-  >
+  <div class="modal fade" id="commentModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-primary border-dashed border-white border-bottom-0 pb-3">
@@ -19,56 +13,69 @@
             class="contanier overflow-hidden"
             ref="commentForm"
           >
-            <div class="row gy-4">
-              <div class="col d-flex flex-column justify-content-between">
+            <div class="row gy-7">
+              <div class="col-lg-6 d-flex flex-column justify-content-between">
                 <div class="d-flex align-items-end mb-2">
-                  <h5 class="required mb-0">滿意度調查</h5>
+                  <h5 class="mb-0" :class="{ required: !clickedCourse.isCommented }">
+                    {{ clickedCourse.isCommented ? '您的評價' : '滿意度調查' }}
+                  </h5>
                   <span class="ms-3 text-danger" v-if="Object.keys(errors).length">
                     請確認是否填寫完整
                   </span>
                 </div>
-                <p class="fs-9 mb-3">1 為「非常不滿意」，3 為「普通」，5 為「非常滿意」</p>
+                <p class="fs-8 mb-3">1 為「非常不滿意」，5 為「非常滿意」。</p>
                 <table class="table text-center mb-0">
                   <thead>
                     <tr class="border-gray-200">
-                      <th scope="col" width="86"></th>
-                      <th scope="col">1</th>
-                      <th scope="col">2</th>
-                      <th scope="col">3</th>
-                      <th scope="col">4</th>
-                      <th scope="col">5</th>
+                      <th scope="col" width="86" class="fw-normal">選項</th>
+                      <th scope="col">{{ clickedCourse.isCommented ? '滿意度' : '1' }}</th>
+                      <template v-if="!clickedCourse.isCommented">
+                        <th scope="col">2</th>
+                        <th scope="col">3</th>
+                        <th scope="col">4</th>
+                        <th scope="col">5</th>
+                      </template>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      v-for="option in satisfactionOption"
-                      :key="option.id"
-                      class="border-gray-200"
-                    >
+                    <tr v-for="option in satisfactionOption" :key="option.id" class="border-light">
                       <th scope="row">
                         <label class="form-check-label" :for="option.id">
                           {{ option.label }}
                         </label>
                       </th>
-                      <td v-for="num in 5" :key="num">
-                        <VField
-                          rules="required"
-                          :name="option.id"
-                          type="radio"
-                          :value="num"
-                          :id="num === 5 ? option.id : ''"
-                          class="form-check-input"
-                          v-model="comment.satisfaction[option.id]"
-                        />
+                      <template v-if="!clickedCourse.isCommented">
+                        <td v-for="num in 5" :key="num">
+                          <VField
+                            rules="required"
+                            :name="option.id"
+                            type="radio"
+                            :value="num"
+                            :id="num === 5 ? option.id : ''"
+                            class="form-check-input"
+                            v-model="comment.satisfaction[option.id]"
+                          />
+                        </td>
+                      </template>
+                      <td v-else>
+                        <i
+                          class="bi mx-1 text-warning"
+                          :class="[
+                            num <= comment.satisfaction[option.id] ? 'bi-star-fill' : 'bi-star',
+                          ]"
+                          v-for="num in 5"
+                          :key="num"
+                        ></i>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div class="col">
-                <h5 class="mb-2">意見反饋</h5>
-                <label class="fs-9 mb-3" for="feedback">可自由填寫課後心得或建議</label>
+              <div class="col-lg-6">
+                <h5 class="mb-2">{{ clickedCourse.isCommented ? '您的意見' : '意見反饋' }}</h5>
+                <label class="fs-8 mb-3" for="feedback">自由填寫課後心得或建議</label>
                 <VField
+                  v-if="!clickedCourse.isCommented"
                   as="textarea"
                   class="form-control fs-7 bg-white"
                   name="feedback"
@@ -76,10 +83,15 @@
                   style="height: 180px"
                   v-model="comment.describe"
                 />
+                <p v-else class="px-4 py-3 border border-gray-200 rounded-1" style="height: 180px">
+                  {{ comment.describe ? comment.describe : '無相關評論' }}
+                </p>
               </div>
-              <div class="col-md-10 mt-5">
-                <h5 class="mb-0 mb-2">分享圖片</h5>
-                <div class="d-flex aling-items-center ms-2 mb-3">
+              <div class="col-lg-10">
+                <h5 class="mb-0 mb-2">
+                  {{ clickedCourse.isCommented ? '照片集' : '分享照片' }}
+                </h5>
+                <div v-if="!clickedCourse.isCommented" class="d-flex aling-items-center ms-2 mb-3">
                   <input
                     class="form-check-input fs-8 me-1"
                     type="checkbox"
@@ -90,7 +102,7 @@
                     我同意提供分享的照片，作為 Shuttle 宣傳之用。
                   </label>
                 </div>
-                <div class="input-group fs-7 ms-2">
+                <div v-show="!clickedCourse.isCommented" class="input-group fs-7 ms-2">
                   <VField
                     name="imgUrl"
                     type="file"
@@ -109,17 +121,25 @@
                   </button>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-12 mt-3">
                 <swiper
                   v-if="comment.imgUrls.length"
-                  class="comment-swiper px-4"
-                  :class="{ 'pb-7': comment.imgUrls.length }"
+                  class="comment-swiper"
+                  :class="{
+                    'pb-7': comment.imgUrls.length > 2,
+                    'pb-lg-0': comment.imgUrls.length > 2 && comment.imgUrls.length <= 4,
+                  }"
                   :spaceBetween="12"
                   :noSwiping="true"
                   :pagination="true"
                   :modules="modules"
                   @swiper="onSwiper"
-                  :slidesPerView="4"
+                  :slidesPerView="2"
+                  :breakpoints="{
+                    '992': {
+                      slidesPerView: 4,
+                    },
+                  }"
                 >
                   <template v-if="comment.imgUrls.length">
                     <swiper-slide v-for="(imgUrl, index) in comment.imgUrls" :key="index">
@@ -134,11 +154,8 @@
                     </swiper-slide>
                   </template>
                 </swiper>
-                <div
-                  v-else
-                  class="bg-dark bg-opacity-25 rounded-1 d-flex justify-content-center mx-2"
-                >
-                  <span class="py-5">目前沒有任何圖片</span>
+                <div v-else class="bg-dark bg-opacity-25 rounded-1 d-flex justify-content-center">
+                  <span class="py-5">沒有上傳任何圖片</span>
                 </div>
               </div>
             </div>
@@ -150,6 +167,7 @@
             關閉
           </button>
           <button
+            v-if="!clickedCourse.isCommented"
             @click="this.$refs.submitBtn.click()"
             type="button"
             class="btn btn-primary fs-7 py-2 ms-2"
@@ -220,6 +238,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(memberStore, ['userComments']),
     ...mapState(alertStore, ['alertstyles']),
   },
   methods: {
@@ -268,8 +287,12 @@ export default {
   },
   watch: {
     clickedCourse(newValue) {
-      this.comment.orderId = newValue.id;
-      this.comment.productId = newValue.product_id;
+      if (newValue.isCommented) {
+        this.comment = { ...this.userComments.find((comment) => comment.orderId === newValue.id) };
+      } else {
+        this.comment.orderId = newValue.id;
+        this.comment.productId = newValue.product_id;
+      }
     },
   },
   mounted() {
@@ -277,10 +300,15 @@ export default {
     this.modal = new bootstrap.Modal(document.getElementById('commentModal'));
     const danglingStr = '_element';
     this.modal[danglingStr].addEventListener('hidden.bs.modal', () => {
-      const { imgUrls, agreeToShare } = this.$options.data().comment;
-      this.comment.imgUrls = [...imgUrls];
-      this.comment.agreeToShare = agreeToShare;
-      this.$refs.commentForm.resetForm();
+      const { comment } = this.$options.data();
+      if (!this.clickedCourse.isCommented) {
+        this.$refs.commentForm.resetForm();
+        // 需手動調整的 checkbox 與 file
+        this.comment.imgUrls = [...comment.imgUrls];
+        this.comment.agreeToShare = comment.agreeToShare;
+      } else {
+        this.comment = { ...comment };
+      }
       document.querySelector('#addImgInput').value = '';
     });
   },

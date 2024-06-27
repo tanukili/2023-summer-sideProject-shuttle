@@ -552,7 +552,7 @@ export default {
   <BackToTop></BackToTop>
 </template>
 
-<style>
+<style lang="scss">
 .home-banner {
   /* 加上半透明遮罩 */
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/banner/banner.jpg);
@@ -614,8 +614,15 @@ export default {
   height: 360px;
 }
 /* reviews swiper-pagination */
-.swiper-pagination {
-  position: unset;
-  padding-top: 48px;
+.reviews-swiper {
+  .swiper-pagination-bullet {
+    @media (max-width: 768px) {
+      background: #dddcd6;
+    }
+  }
+  .swiper-pagination {
+    position: unset;
+    padding-top: 48px;
+  }
 }
 </style>

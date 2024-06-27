@@ -59,7 +59,6 @@ export default defineStore('memberStore', {
           headers: { Authorization: `Bearer ${this.userToken}` },
         })
         .then((res) => {
-          console.log(res.data);
           this.userComments = [...res.data];
         })
         .catch((err) => {

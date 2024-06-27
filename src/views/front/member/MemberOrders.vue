@@ -65,12 +65,13 @@
                 <button
                   v-if="product.recentCourse.stateCode === 3"
                   type="button"
-                  class="btn btn-secondary p-2 mx-2 w-75 fs-8 shadow-none mt-2"
+                  class="btn p-2 mx-2 w-75 fs-8 shadow-none mt-2"
+                  :class="[product.isCommented ? 'btn-primary-light' : 'btn-primary']"
                   data-bs-toggle="modal"
                   data-bs-target="#commentModal"
                   @click="clickedCourse = { ...product }"
                 >
-                  填寫心得
+                  {{ product.isCommented ? '查看心得' : '填寫心得' }}
                 </button>
               </td>
             </tr>
@@ -148,24 +149,18 @@
             <button
               v-if="product.recentCourse.stateCode === 3"
               type="button"
-              class="btn btn-secondary p-2 mx-2 w-75 fs-8 shadow-none mt-2"
+              class="btn p-2 mx-2 w-75 fs-8 shadow-none mt-2"
+              :class="[product.isCommented ? 'btn-primary-light' : 'btn-primary']"
               data-bs-toggle="modal"
               data-bs-target="#commentModal"
               @click="clickedCourse = { ...product }"
             >
-              填寫心得
+              {{ product.isCommented ? '查看心得' : '填寫心得' }}
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-    {{
-      userComments.find(
-        (comment) =>
-          comment.orderId === '-Nzc78haUnDhmBTRS1nt' &&
-          comment.productId === '-Nl4FI70ENShJ368MCVp',
-      )
-    }}
   </div>
   <!-- 課程 modal -->
   <div
@@ -255,7 +250,6 @@
       </div>
     </div>
   </div>
-
   <CommentModal :clicked-course="clickedCourse" />
 </template>
 
@@ -355,20 +349,22 @@ export default {
         default:
           return this.orders;
       }
-      console.log(this.orders);
     },
   },
   watch: {
     remoteData(newValue) {
-      // 在單一產品 obj 新增 key：最近開課時間
+      // 在單一產品 obj 新增需要屬性
       this.orders = [...newValue].map((order) => {
-        console.log(this.order);
         const updatedOrder = { ...order };
         const products = Object.values(order.products);
         products.forEach((product) => {
+          // 新增：最近開課時間（以 id 取得訂單中的產品 Obj 後，新增屬性）
           const { classTime } = product.product.info;
-          // 以 id 取得訂單中的產品 Obj
           updatedOrder.products[product.id].recentCourse = this.findRecentCourse(classTime);
+          // 新增：是否已評論
+          updatedOrder.products[product.id].isCommented = this.userComments.some(
+            (comment) => comment.orderId === product.id,
+          );
         });
         return updatedOrder;
       });
