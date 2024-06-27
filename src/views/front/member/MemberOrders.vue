@@ -1,131 +1,61 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import useOrderStore from '../../../stores/useOrderStore';
-import useProductsStore from '../../../stores/useProductsStore';
-import MemberNavs from '../../../components/MemberNavs.vue';
-
-export default {
-  components: {
-    MemberNavs,
-  },
-  data() {
-    return {
-      orderOption: [
-        {
-          name: '全部訂單',
-          sort: 'all',
-          isClicked: true,
-        },
-        {
-          name: '未付款',
-          sort: 'unpaid',
-          isClicked: false,
-        },
-        {
-          name: '即將開課',
-          sort: 'comingSoon',
-          isClicked: false,
-        },
-        {
-          name: '授課中',
-          sort: 'teaching',
-          isClicked: false,
-        },
-        {
-          name: '已完課',
-          sort: 'completed',
-          isClicked: false,
-        },
-      ],
-      satisfactions: [
-        {
-          name: 'contentStars',
-          labelName: '課程內容',
-          id: 'courseContent',
-          max: 5,
-        },
-        {
-          name: 'processStars',
-          labelName: '流程設計',
-          id: 'courseProcess',
-          max: 5,
-        },
-        {
-          name: 'qualityStars',
-          labelName: '教學品質',
-          id: 'courseQuality',
-          max: 5,
-        },
-        {
-          name: 'recommendStars',
-          labelName: '值得推薦',
-          id: 'courseRecommend',
-          max: 5,
-        },
-      ],
-    };
-  },
-  methods: {
-    ...mapActions(useOrderStore, ['getOrders']),
-    ...mapActions(useProductsStore, ['getProduct']),
-  },
-  mounted() {
-    this.getOrders();
-  },
-  computed: {
-    ...mapState(useOrderStore, ['orders']),
-    ...mapState(useProductsStore, ['singleProduct']),
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
-    },
-  },
-};
-</script>
-
 <template>
-  <div>
-    <MemberNavs :options="orderOption" />
-    <div
-      class="pb-5 p-4 border-dashed-b border-gray-100 bg-white"
-      v-for="order in orders"
-      :key="order.id"
-    >
-      <div class="d-flex justify-content-between py-2 bg-light">
-        <h2 class="fs-7 mb-0 ms-2">訂單編號：{{ order.id }}</h2>
-        <!-- <h4 class="fs-7 mb-0 me-2">成立日期：{{ order.create_at }}</h4> -->
-      </div>
-      <table class="table table-white text-center align-middle">
-        <thead>
-          <tr class="d-none">
-            <th scope="col">開課狀態</th>
-            <th scope="col">預覽圖片</th>
-            <th scope="col">課程名稱</th>
-            <th scope="col">報名人數</th>
-            <th scope="col">小計</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="product in order.products" :key="product.id">
-            <td scope="row">{{ order.is_paid ? '已付款' : '未付款' }}</td>
-            <td>
-              <img
-                :src="`${imgBase}${product.product.imageUrl}`"
-                alt=""
-                class="img-fluid"
-                style="max-width: 100px"
-              />
-            </td>
-            <td>
-              <h3 class="fs-7 mb-0">{{ product.product.title }}</h3>
-            </td>
-            <td>{{ product.qty }} 位</td>
-            <td>NT$ {{ product.total }}</td>
-            <td>
-              <div class="d-flex flex-column">
+  <div class="form-check form-switch mt-2 mb-3 ms-3">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      role="switch"
+      id="displaySwitch"
+      @click="switchMode()"
+    />
+    <label class="form-check-label" for="displaySwitch">
+      {{ `切換成「${isOrdersMode ? '個別課程' : '訂單編號'}」模式` }}
+    </label>
+  </div>
+  <MemberNavs :options="navsOption" :now-option="nowOption" @get-option="getOption" />
+  <div class="bg-white py-2 px-5">
+    <ul v-if="isOrdersMode" class="list-unstyled">
+      <li
+        class="py-4 border-dashed-b border-gray-100"
+        v-for="order in filteredList"
+        :key="order.id"
+      >
+        <h2 class="fs-7 mb-0 p-3 bg-light">
+          訂單編號：{{ order.id }}
+          <span
+            class="badge text-white ms-2 rounded-1"
+            :class="[order.is_paid ? 'bg-success' : 'bg-danger']"
+          >
+            {{ order.is_paid ? '付款完成' : '未付款' }}
+          </span>
+        </h2>
+        <table class="table table-white text-center align-middle mb-0">
+          <thead class="d-none">
+            <tr>
+              <th scope="col">預覽圖片</th>
+              <th scope="col">課程名稱</th>
+              <th scope="col">報名人數</th>
+              <th scope="col">小計</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in order.products" :key="product.id">
+              <td width="180">
+                <img
+                  :src="product.product.imageUrl"
+                  :alt="product.product.title"
+                  style="height: 100px"
+                />
+              </td>
+              <td>
+                <h3 class="fs-7 mb-0 text-start">{{ product.product.title }}</h3>
+              </td>
+              <td>{{ product.qty }} 位</td>
+              <td class="text-end">NT$ {{ product.total }}</td>
+              <td width="160">
                 <button
                   type="button"
-                  class="btn btn-outline-primary btn-sm shadow-none mb-2"
+                  class="btn btn-outline-primary p-2 mx-2 w-75 fs-8 shadow-none"
                   data-bs-toggle="modal"
                   data-bs-target="#productInfo"
                   @click="getProduct(product.product.id)"
@@ -133,29 +63,109 @@ export default {
                   課程資訊
                 </button>
                 <button
-                  v-if="true"
+                  v-if="product.recentCourse.stateCode === 3"
                   type="button"
-                  class="btn btn-secondary btn-sm shadow-none"
+                  class="btn btn-secondary p-2 mx-2 w-75 fs-8 shadow-none mt-2"
                   data-bs-toggle="modal"
-                  data-bs-target="#experienceModal"
+                  data-bs-target="#commentModal"
+                  @click="clickedCourse = { ...product }"
                 >
                   填寫心得
                 </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-between">
-        <router-link
-          class="btn btn-outline-primary py-2 fs-7 shadow-none"
-          :to="`/member/order/${order.id}`"
-          >檢視訂單</router-link
-        >
-
-        <p>折扣完總額：NT$ {{ order.finalBill }}</p>
-      </div>
-    </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-start">
+                <router-link
+                  class="icon-e icon-sm icon-east btn btn-primary-light py-2 fs-8 shadow-none"
+                  :to="`/member/order/${order.id}`"
+                >
+                  查看訂單明細
+                </router-link>
+              </td>
+              <td colspan="2" class="text-end">訂單總金額：NT$ {{ order.finalBill }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </li>
+    </ul>
+    <table v-else class="last-tr-borderless table my-4 table-white text-center align-middle">
+      <thead>
+        <tr>
+          <th scope="col">最近開課時間</th>
+          <th scope="col">預覽圖片</th>
+          <th scope="col">課程名稱</th>
+          <th scope="col">人數</th>
+          <th scope="col">小計</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(product, index) in filteredList" :key="index">
+          <td>
+            <small class="d-flex flex-column align-items-center fs-7">
+              <span
+                class="badge rounded-1 mb-2"
+                style="letter-spacing: 1.2px"
+                :class="{
+                  'bg-success text-white': product.recentCourse.stateCode === 0,
+                  'bg-primary text-white': product.recentCourse.stateCode === 1,
+                  'bg-warning': product.recentCourse.stateCode === 2,
+                  'bg-primary-light': product.recentCourse.stateCode === 3,
+                }"
+              >
+                {{ product.recentCourse.caption }}
+              </span>
+              <span v-if="product.recentCourse.stateCode !== 3" class="fs-6">
+                {{ product.recentCourse.date }}
+              </span>
+            </small>
+          </td>
+          <td width="120">
+            <img
+              :src="product.product.imageUrl"
+              :alt="product.product.title"
+              style="height: 100px"
+            />
+          </td>
+          <td>
+            <h2 class="fs-7 mb-0">{{ product.product.title }}</h2>
+          </td>
+          <td>{{ product.qty }} 位</td>
+          <td class="text-end">NT$ {{ product.total }}</td>
+          <td width="160">
+            <button
+              type="button"
+              class="btn btn-outline-primary p-2 mx-2 w-75 fs-8 shadow-none"
+              data-bs-toggle="modal"
+              data-bs-target="#productInfo"
+              @click="getProduct(product.product.id)"
+            >
+              課程資訊
+            </button>
+            <button
+              v-if="product.recentCourse.stateCode === 3"
+              type="button"
+              class="btn btn-secondary p-2 mx-2 w-75 fs-8 shadow-none mt-2"
+              data-bs-toggle="modal"
+              data-bs-target="#commentModal"
+              @click="clickedCourse = { ...product }"
+            >
+              填寫心得
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {{
+      userComments.find(
+        (comment) =>
+          comment.orderId === '-Nzc78haUnDhmBTRS1nt' &&
+          comment.productId === '-Nl4FI70ENShJ368MCVp',
+      )
+    }}
   </div>
   <!-- 課程 modal -->
   <div
@@ -194,15 +204,8 @@ export default {
                     <tr class="border-light">
                       <th scope="row" class="text-center">上課日期</th>
                       <td>
-                        <span
-                          v-for="date in singleProduct.calssDates"
-                          :key="date"
-                        >
-                          {{
-                            singleProduct.calssDates.indexOf(date) > 0
-                              ? '、' + date
-                              : date
-                          }}
+                        <span v-for="date in singleProduct.calssDates" :key="date">
+                          {{ singleProduct.calssDates.indexOf(date) > 0 ? '、' + date : date }}
                         </span>
                       </td>
                     </tr>
@@ -240,142 +243,149 @@ export default {
               </div>
               <div class="col-5">
                 <div v-for="img in singleProduct.imagesUrl" :key="img">
-                  <img :src="`${imgBase}${img}`" alt="產品照片" />
+                  <img :src="img" alt="產品照片" />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer border-0 pt-0">
-          <button
-            type="button"
-            class="btn btn-secondary py-2"
-            data-bs-dismiss="modal"
-          >
-            關閉
-          </button>
+          <button type="button" class="btn btn-secondary py-2" data-bs-dismiss="modal">關閉</button>
         </div>
       </div>
     </div>
   </div>
-  <!-- 評價 modal -->
-  <div
-    class="modal fade"
-    id="experienceModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div
-          class="modal-header bg-primary border-dashed border-white border-bottom-0 py-3"
-        >
-          <h5 class="modal-title fs-6 text-white" id="exampleModalLabel">
-            課程編號：
-          </h5>
-        </div>
-        <div class="modal-body">
-          <div class="contanier">
-            <div class="row mb-3">
-              <div class="col d-flex flex-column justify-content-between">
-                <div>
-                  <h6 class="mb-2 required">滿意度調查</h6>
-                  <p class="fs-9 mb-1">
-                    1 為「非常不滿意」，3 為「普通」，5 為「非常滿意」
-                  </p>
-                  <table class="table text-center">
-                    <thead>
-                      <tr class="border-gray-200">
-                        <th scope="col"></th>
-                        <th scope="col">1</th>
-                        <th scope="col">2</th>
-                        <th scope="col">3</th>
-                        <th scope="col">4</th>
-                        <th scope="col">5</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="option in satisfactions"
-                        :key="option.id"
-                        class="border-gray-200"
-                      >
-                        <th scope="row">
-                          <label class="form-check-label" :for="option.id">
-                            {{ option.labelName }}
-                          </label>
-                        </th>
-                        <td v-for="num in option.max" :key="num">
-                          <input
-                            class="form-check-input"
-                            :name="option.name"
-                            type="radio"
-                            :value="num"
-                            :id="num === 5 ? option.id : ''"
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="col">
-                <h6 class="mb-2">
-                  <label for="feedback"> 意見反饋 </label>
-                </h6>
-                <textarea
-                  class="form-control fs-7 bg-white"
-                  name="feedback"
-                  id="feedback"
-                  style="height: 200px"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <h6 class="mb-2">分享圖片</h6>
-            <div class="input-group w-75 mb-2">
-              <input
-                type="file"
-                class="form-control fs-7 py-2"
-                id="addimage"
-                aria-describedby="addimage"
-                aria-label="Upload"
-              />
-              <button
-                class="btn btn-outline-primary fs-8 fw-medium p-2 rounded-end-1 shadow-none"
-                type="button"
-                id="addimage"
-              >
-                上傳檔案
-              </button>
-            </div>
-            <div class="d-flex aling-items-center">
-              <input
-                class="form-check-input fs-8 me-1"
-                type="checkbox"
-                id="agreeShare"
-              />
-              <label class="fs-8" for="agreeShare"
-                >我同意提供分享的照片，作為 Shuttle 宣傳之用。</label
-              >
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer border-secondary py-3">
-          <button
-            type="button"
-            class="btn btn-secondary py-2"
-            data-bs-dismiss="modal"
-          >
-            關閉
-          </button>
-          <button type="button" class="btn btn-primary py-2">送出</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+  <CommentModal :clicked-course="clickedCourse" />
 </template>
 
-<style></style>
+<script>
+import MemberNavs from '@/components/front/member/MemberNavs.vue';
+import CommentModal from '@/components/front/member/CommentModal.vue';
+import { mapState, mapActions } from 'pinia';
+import getDataStore from '@/stores/getDataStore';
+import useProductsStore from '@/stores/useProductsStore';
+import memberStore from '@/stores/front/memberStore';
+
+export default {
+  components: {
+    MemberNavs,
+    CommentModal,
+  },
+  data() {
+    return {
+      isOrdersMode: true,
+      clickedCourse: {},
+      orders: null,
+      courses: null,
+      orderOption: ['全部訂單', '未付款訂單'],
+      courseOption: ['所有課程', '未開課', '授課中', '已完課'],
+      nowOption: '全部訂單',
+    };
+  },
+  methods: {
+    ...mapActions(useProductsStore, ['getProduct']),
+    ...mapActions(getDataStore, ['getFontData']),
+    ...mapActions(memberStore, ['getUserCommits']),
+    getOption(value) {
+      this.nowOption = value;
+    },
+    switchMode() {
+      this.isOrdersMode = !this.isOrdersMode;
+      if (this.isOrdersMode) {
+        this.nowOption = '全部訂單';
+      } else {
+        this.nowOption = '所有課程';
+      }
+    },
+    findRecentCourse(unixArr) {
+      // const nowDate = Math.floor(+new Date() / 1000);
+      const nowDate = 1720098000 + 2;
+      const flatUnixArr = unixArr.flat();
+      const [firstUnix] = flatUnixArr;
+      let stateCode = 0;
+      let targetUnix = null;
+      const captions = ['開課日', '今日上課', '下節課程', '完課'];
+      // 判斷開始
+      if (firstUnix <= nowDate && flatUnixArr[flatUnixArr.length - 1] >= nowDate) {
+        const unixIndex = flatUnixArr.findIndex(
+          (unix, index) => unix <= nowDate && flatUnixArr[index + 1] >= nowDate,
+        );
+        stateCode = unixIndex % 2 ? 2 : 1;
+        targetUnix = unixIndex % 2 ? flatUnixArr[unixIndex + 1] : flatUnixArr[unixIndex];
+      }
+      if (flatUnixArr.every((unix) => unix < nowDate)) {
+        stateCode = 3;
+        targetUnix = flatUnixArr[flatUnixArr.length - 1];
+      }
+      if (flatUnixArr.every((unix) => unix > nowDate)) {
+        targetUnix = firstUnix;
+      }
+      // 判斷結束
+      return { stateCode, caption: captions[stateCode], date: this.unixToStr(targetUnix, false) };
+    },
+    unixToStr(unix, isFull = true) {
+      const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+      const date = new Date(parseInt(unix, 10) * 1000);
+      const dateStr = `${date.getDate()}`.padStart(2, '0');
+      return `${isFull ? `${date.getFullYear()}.` : ''}${month[date.getMonth()]}.${dateStr}`;
+    },
+  },
+  computed: {
+    ...mapState(useProductsStore, ['singleProduct']),
+    ...mapState(getDataStore, ['remoteData']),
+    ...mapState(memberStore, ['userComments']),
+    navsOption() {
+      return this.isOrdersMode ? this.orderOption : this.courseOption;
+    },
+    filteredList() {
+      switch (this.nowOption) {
+        case this.orderOption[1]: // 未付款訂單
+          return this.orders.filter((order) => !order.is_paid);
+        case this.courseOption[0]: // 全部課程
+          return this.courses;
+        case this.courseOption[1]: // 未開課
+          return this.courses.filter((course) => course.recentCourse.stateCode === 0);
+        case this.courseOption[2]: // 授課中
+          return this.courses.filter(
+            (course) => course.recentCourse.stateCode > 1 && course.recentCourse.stateCode < 3,
+          );
+        case this.courseOption[3]: // 已完課
+          return this.courses.filter((course) => course.recentCourse.stateCode === 3);
+        default:
+          return this.orders;
+      }
+      console.log(this.orders);
+    },
+  },
+  watch: {
+    remoteData(newValue) {
+      // 在單一產品 obj 新增 key：最近開課時間
+      this.orders = [...newValue].map((order) => {
+        console.log(this.order);
+        const updatedOrder = { ...order };
+        const products = Object.values(order.products);
+        products.forEach((product) => {
+          const { classTime } = product.product.info;
+          // 以 id 取得訂單中的產品 Obj
+          updatedOrder.products[product.id].recentCourse = this.findRecentCourse(classTime);
+        });
+        return updatedOrder;
+      });
+      this.courses = newValue.map((order) => Object.values(order.products)).flat();
+    },
+  },
+  mounted() {
+    this.getFontData('orders');
+    this.getUserCommits();
+  },
+};
+</script>
+
+<style lang="scss">
+.last-tr-borderless tbody {
+  tr:last-child td {
+    border: unset;
+  }
+}
+</style>
