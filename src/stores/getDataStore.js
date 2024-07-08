@@ -12,17 +12,13 @@ export default defineStore('getDataStore', {
   }),
   actions: {
     getFontData(targetName, id = '') {
-      let apiUrl = `${this.url}api/${this.path}/${targetName}`;
-      if (id) {
-        apiUrl += `/${id}`;
-      }
+      const apiUrl = `${this.url}api/${this.path}/${targetName}${id ? '/' + id : ''}`;
+      console.log(apiUrl);
       axios
         .get(apiUrl)
         .then((res) => {
-          let updateTarget = 'remoteData';
-          if (id) {
-            updateTarget = 'singleInfo';
-          }
+          // 區分：全部 vs 指定單筆
+          const updateTarget = id ? 'singleInfo' : 'remoteData';
           this[updateTarget] = res.data[targetName];
           const { pagination } = res.data;
           if (pagination) {

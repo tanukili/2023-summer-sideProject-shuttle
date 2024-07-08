@@ -58,7 +58,7 @@
                   class="btn btn-outline-primary p-2 mx-2 w-75 fs-8 shadow-none"
                   data-bs-toggle="modal"
                   data-bs-target="#productInfo"
-                  @click="getProduct(product.product.id)"
+                  @click="clickedCourse = { ...product }"
                 >
                   課程資訊
                 </button>
@@ -83,7 +83,7 @@
                   class="icon-e icon-sm icon-east btn btn-primary-light py-2 fs-8 shadow-none"
                   :to="`/member/order/${order.id}`"
                 >
-                  查看訂單明細
+                  前往訂單明細
                 </router-link>
               </td>
               <td colspan="2" class="text-end">訂單總金額：NT$ {{ order.finalBill }}</td>
@@ -142,7 +142,7 @@
               class="btn btn-outline-primary p-2 mx-2 w-75 fs-8 shadow-none"
               data-bs-toggle="modal"
               data-bs-target="#productInfo"
-              @click="getProduct(product.product.id)"
+              @click="clickedCourse = { ...product }"
             >
               課程資訊
             </button>
@@ -162,109 +162,25 @@
       </tbody>
     </table>
   </div>
-  <!-- 課程 modal -->
-  <div
-    class="modal fade"
-    id="productInfo"
-    tabindex="-1"
-    aria-labelledby="productInfoLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-primary py-3">
-          <h5 class="modal-title fs-6 text-white" id="exampleModalLabel">
-            課程編號：{{ singleProduct.id }}
-          </h5>
-        </div>
-        <div class="modal-body">
-          <div class="contanier mx-4">
-            <h3 class="title mb-5">
-              <span>{{ singleProduct.title }}</span>
-            </h3>
-            <div class="row gx-4">
-              <div class="col-7">
-                <table class="table">
-                  <thead>
-                    <tr class="d-none">
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-light">
-                      <th scope="row" class="text-center w-25">類型</th>
-                      <td>{{ singleProduct.category }}</td>
-                    </tr>
-                    <tr class="border-light">
-                      <th scope="row" class="text-center">上課日期</th>
-                      <td>
-                        <span v-for="date in singleProduct.calssDates" :key="date">
-                          {{ singleProduct.calssDates.indexOf(date) > 0 ? '、' + date : date }}
-                        </span>
-                      </td>
-                    </tr>
-                    <tr class="border-light">
-                      <th scope="row" class="text-center">上課時間</th>
-                      <td>
-                        {{ singleProduct.courseTime[0] }} ~
-                        {{ singleProduct.courseTime[1] }}
-                      </td>
-                    </tr>
-                    <tr class="border-light">
-                      <th scope="row" class="text-center">上課內容</th>
-                      <td>
-                        <ul>
-                          <li
-                            v-for="item in singleProduct.info.detail.study"
-                            :key="item"
-                            class="my-2"
-                          >
-                            {{ item }}
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr class="border-light">
-                      <th scope="row" class="text-center">成品大小</th>
-                      <td>{{ singleProduct.info.detail.size }} (cm)</td>
-                    </tr>
-                    <tr class="border-light">
-                      <th scope="row" class="text-center">課程簡述</th>
-                      <td>{{ singleProduct.info.summary }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-5">
-                <div v-for="img in singleProduct.imagesUrl" :key="img">
-                  <img :src="img" alt="產品照片" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pt-0">
-          <button type="button" class="btn btn-secondary py-2" data-bs-dismiss="modal">關閉</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ProductModal :clicked-course="clickedCourse" />
   <CommentModal :clicked-course="clickedCourse" />
 </template>
 
 <script>
 import MemberNavs from '@/components/front/member/MemberNavs.vue';
 import CommentModal from '@/components/front/member/CommentModal.vue';
+import ProductModal from '@/components/front/member/ProductModal.vue';
 import { mapState, mapActions } from 'pinia';
 import getDataStore from '@/stores/getDataStore';
 import useProductsStore from '@/stores/useProductsStore';
+import utilitiesStore from '@/stores/utilitiesStore';
 import memberStore from '@/stores/front/memberStore';
 
 export default {
   components: {
     MemberNavs,
     CommentModal,
+    ProductModal,
   },
   data() {
     return {
@@ -278,9 +194,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useProductsStore, ['getProduct']),
     ...mapActions(getDataStore, ['getFontData']),
     ...mapActions(memberStore, ['getUserCommits']),
+    ...mapActions(useProductsStore, ['getProduct']),
+    ...mapActions(utilitiesStore, ['unixToStr']),
     getOption(value) {
       this.nowOption = value;
     },
@@ -317,12 +234,6 @@ export default {
       }
       // 判斷結束
       return { stateCode, caption: captions[stateCode], date: this.unixToStr(targetUnix, false) };
-    },
-    unixToStr(unix, isFull = true) {
-      const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-      const date = new Date(parseInt(unix, 10) * 1000);
-      const dateStr = `${date.getDate()}`.padStart(2, '0');
-      return `${isFull ? `${date.getFullYear()}.` : ''}${month[date.getMonth()]}.${dateStr}`;
     },
   },
   computed: {
