@@ -65,6 +65,8 @@ export default defineStore('products', {
             const date = unixTime.getDate().toString().padStart(2, '0');
             return `${unixTime.getFullYear()}.${month}.${date}`;
           });
+          console.log(this.singleProduct);
+          console.log(this.productPromotion);
           this.singleProduct.courseTime = classInfo.classTime[0].map((e) => {
             const unixTime = new Date(e * 1000);
             const hour = unixTime.getHours().toString().padStart(2, '0');

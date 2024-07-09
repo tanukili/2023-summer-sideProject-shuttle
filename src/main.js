@@ -23,10 +23,6 @@ import App from './App.vue'; // 有另外設定變數，所以要放在最後
 import router from './router';
 
 const options = {
-  confirmButtonColor: 'var(--bs-success)',
-  confirmButtonText: '確認',
-  cancelButtonColor: 'var(--bs-danger)',
-  padding: '0 0 16px',
   showClass: {
     popup: 'animate__animated animate__fadeInDown',
   },

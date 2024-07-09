@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
-import swal from 'sweetalert2';
 import axios from 'axios';
+import swal from 'sweetalert2';
+import alertStore from '@/stores/alertStore';
 
 const hexApi = import.meta.env.VITE_HEX_API_URL;
 const apiPath = '2023shuttle';
@@ -10,6 +11,7 @@ export default defineStore('carts', {
     carts: [],
     totalBill: 0,
     nowAllDiscount: 0,
+    alertstyles: alertStore().alertstyles,
   }),
   getters: {
     cartsNum() {
@@ -50,24 +52,14 @@ export default defineStore('carts', {
     },
     // 直接購買 還是 加入購物車
     checkoutNow(boolean) {
+      const { alertstyles, baseContent, btns } = alertStore();
       if (boolean) {
         this.router.push({ name: 'carts' });
       } else {
-        swal
+        alertstyles.alert_btns
           .fire({
-            icon: 'success',
-            title: '成功加入購物車',
-            showCloseButton: true,
-            showDenyButton: true,
-            confirmButtonText: '繼續購物',
-            denyButtonText: '立即結帳',
-            denyButtonColor: 'var(--bs-primary)',
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
+            ...baseContent('成功加入購物車', 1, '繼續購物'),
+            ...btns('立即結帳'),
           })
           // 按鈕事件
           .then((res) => {

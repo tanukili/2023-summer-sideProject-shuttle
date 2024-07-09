@@ -52,6 +52,19 @@ export default defineStore('alertStore', {
           },
         },
       },
+      {
+        alert_btns: {
+          customClass: {
+            title: 'fs-4',
+            popup: 'rounded-2 p-2',
+            actions: 'mb-3',
+            confirmButton: 'btn btn-outline-secondary border border-2 border-secondary',
+            denyButton: 'btn btn-primary',
+          },
+          confirmButtonColor: '#fff',
+          denyButtonColor: '#47585C',
+        },
+      },
     ],
   }),
   getters: {
@@ -71,6 +84,13 @@ export default defineStore('alertStore', {
         icon: icons[iconCode],
         title,
         confirmButtonText,
+      };
+    },
+    btns(denyText = '', showCloseButton = true) {
+      return {
+        showCloseButton,
+        showDenyButton: !!denyText,
+        denyButtonText: denyText,
       };
     },
   },
