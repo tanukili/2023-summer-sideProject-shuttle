@@ -1,61 +1,5 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import useActivitiesStore from '../../stores/useActivitiesStore';
-import useProductsStore from '../../stores/useProductsStore';
-import useCartsStore from '../../stores/useCartsStore';
-import useFavoriteStore from '../../stores/useFavoriteStore';
-
-export default {
-  data() {
-    return {
-      recommendTo: {
-        體驗: '無經驗者、親子、長者',
-        初階: '初學者、輕鬆學習、製作小型作品',
-        進階: '深入技術、挑戰中大型作品',
-        輔助: '創作者、獨特風格、應用',
-      },
-      addNum: 1,
-      id: this.$route.params.id,
-    };
-  },
-  methods: {
-    ...mapActions(useActivitiesStore, ['getActivities', 'countAllDiscount']),
-    ...mapActions(useProductsStore, ['getProduct']),
-    ...mapActions(useCartsStore, ['addToCart', 'isOverQuota']),
-    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
-  },
-  mounted() {
-    // 進入時觸發
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
-  },
-  created() {
-    // 取出動態路由.參數.自定名稱
-    this.getProduct(this.id);
-    this.getActivities();
-    this.getFavorites();
-  },
-  computed: {
-    ...mapState(useActivitiesStore, ['unlimitedActivities', 'numActivities']),
-    ...mapState(useProductsStore, ['singleProduct', 'productPromotion', 'countQuota']),
-    ...mapState(useFavoriteStore, ['favorites']),
-  },
-};
-</script>
-
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
-  <div class="position-relative overflow-hidden" style="z-index: 0">
+  <div v-if="product" class="position-relative overflow-hidden" style="z-index: 0">
     <!-- content -->
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
@@ -67,7 +11,7 @@ export default {
             <RouterLink to="/products">購買課程</RouterLink>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            {{ singleProduct.title }}
+            {{ product.title }}
           </li>
         </ol>
       </nav>
@@ -76,15 +20,15 @@ export default {
         <div class="row g-0">
           <div class="col-md-6 position-relative mb-3 mb-md-0">
             <img
-              :src="singleProduct.imageUrl"
+              :src="product.imageUrl"
               class="card-mask img-fluid rounded-top-5 rounded-start-md-5 h-100"
-              :alt="singleProduct.title"
+              :alt="product.title"
             />
-            <a href="#" @click.prevent="toggleFavorite(singleProduct.id)">
+            <a href="#" @click.prevent="toggleFavorite(product.id)">
               <span
                 class="icon-favorite material-symbols-outlined position-absolute"
                 :class="{
-                  'icon-fill text-danger': favorites.indexOf(singleProduct.id) !== -1,
+                  'icon-fill text-danger': favorites.indexOf(product.id) !== -1,
                 }"
                 style="top: 24px; left: 24px"
               >
@@ -95,69 +39,79 @@ export default {
           <div class="col-md-6 px-3">
             <div class="card-body mt-4">
               <h2 class="card-title fs-4 fs-xl-3 text-center">
-                {{ singleProduct.title }}
+                {{ product.title }}
               </h2>
               <p class="card-text border-dashed-b border-primary-light lh-lg pb-3">
-                {{ singleProduct.info.summary }}
+                {{ product.info.summary }}
               </p>
-              <ul class="list-group list-group-flush pt-2">
-                <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">日期</span>
-                  &emsp;
-                  <span v-for="date in singleProduct.calssDates" :key="date">
-                    {{ singleProduct.calssDates.indexOf(date) ? ' ; ' + date : date }}
-                  </span>
-                </li>
-                <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">時間</span>
-                  &emsp;
-                  {{ `${singleProduct.courseTime[0]} ~ ${singleProduct.courseTime[1]}` }}
-                </li>
-                <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">剩餘名額</span>
-                  &emsp;
-                  {{ singleProduct.info.capacity - singleProduct.info.studentNum }}
-                  位
-                </li>
-                <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">教學主題</span>
-                  &emsp;{{ singleProduct.info.skills }}
-                </li>
-                <li class="list-group-item bg-white border-0">
-                  <span class="fw-bold">推薦對象</span>
-                  &emsp;{{ recommendTo[singleProduct.category] }}
-                </li>
-                <li class="list-group-item bg-white" v-if="unlimitedActivities[productPromotion]">
-                  <span class="fw-bold">適用優惠</span>
-                  &emsp;
-                  {{ unlimitedActivities[productPromotion].description }}
-                </li>
-                <li class="list-group-item bg-white" v-else-if="numActivities[productPromotion]">
-                  <span class="fw-bold">適用優惠</span>
-                  &emsp;
-                  {{ numActivities[productPromotion].description }}
-                </li>
-              </ul>
+              <table class="table table-white mb-0">
+                <thead>
+                  <tr class="d-none">
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-light">
+                    <th scope="row" width="100" class="text-center">上課日期</th>
+                    <td class="pb-0">
+                      <span
+                        v-for="(unix, index) in product.info.classTime"
+                        :key="unix"
+                        class="bg-primary-light me-2 mb-2 px-1 d-inline-block"
+                      >
+                        {{ unixToStr(unix[0], !index ? true : false) }}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr class="border-light">
+                    <th scope="row" class="text-center">上課時間</th>
+                    <td>
+                      {{ `${unixToTime(time[0])} ~ ${unixToTime(time[1])}` }}
+                    </td>
+                  </tr>
+                  <tr class="border-light">
+                    <th scope="row" class="text-center">剩餘名額</th>
+                    <td>
+                      {{ product.info.capacity - product.info.studentNum }}
+                      位
+                    </td>
+                  </tr>
+                  <tr class="border-light">
+                    <th scope="row" class="text-center">教學主題</th>
+                    <td>
+                      {{ product.info.skills }}
+                    </td>
+                  </tr>
+                  <tr class="border-light">
+                    <th scope="row" class="text-center">推薦對象</th>
+                    <td>{{ recommendTo[product.category] }}</td>
+                  </tr>
+                  <tr class="border-light" v-if="unlimitedActivities[productPromotion]">
+                    <th scope="row" class="text-center">適用優惠</th>
+                    <td class="fs-8">{{ unlimitedActivities[productPromotion].description }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="card-footer pb-4">
               <div class="d-flex align-items-center mb-4 px-3">
                 <small
-                  v-if="unlimitedActivities[singleProduct.state.promotion]"
+                  v-if="unlimitedActivities[product.state.promotion]"
                   class="fs-4 fw-bold text-danger"
                 >
                   ${{
-                    singleProduct.origin_price *
-                    unlimitedActivities[singleProduct.state.promotion].percentOff
+                    product.origin_price * unlimitedActivities[product.state.promotion].percentOff
                   }}
                 </small>
                 <small
                   :class="[
-                    !unlimitedActivities[singleProduct.state.promotion]
+                    !unlimitedActivities[product.state.promotion]
                       ? 'fs-4 fw-bold text-black'
                       : 'fs-6 text-gray-400 text-decoration-line-through ms-2',
                   ]"
                 >
-                  ${{ singleProduct.origin_price }}
+                  NT$ {{ product.origin_price }}
                 </small>
                 <div class="d-flex align-items-center ms-auto">
                   <label for="filter-select" class="flex-shrink-0 fs-8 fs-lg-7 me-2">
@@ -165,7 +119,11 @@ export default {
                   </label>
                   <div class="select-icon">
                     <select class="form-select form-select-sm fs-7" v-model="addNum">
-                      <option :value="num" v-for="num in countQuota" :key="num">
+                      <option
+                        :value="num"
+                        v-for="num in product.info.capacity - product.info.studentNum"
+                        :key="num"
+                      >
                         {{ num }}
                       </option>
                     </select>
@@ -199,7 +157,7 @@ export default {
       <ul class="nav nav-tabs" id="productTab" role="tablist">
         <li class="nav-item w-33 w-md-25 me-md-1" role="presentation">
           <button
-            class="nav-link py-3 border-dashed fs-lg-5 w-100 active"
+            class="nav-link py-3 border-dashed fs-lg-5 w-100 active border-bottom-0"
             id="introduction-tab"
             data-bs-toggle="tab"
             data-bs-target="#introduction"
@@ -213,7 +171,7 @@ export default {
         </li>
         <li class="nav-item w-33 w-md-25 me-md-1" role="presentation">
           <button
-            class="nav-link py-3 border-dashed fs-lg-5 w-100"
+            class="nav-link py-3 border-dashed fs-lg-5 w-100 border-bottom-0"
             id="precaution-tab"
             data-bs-toggle="tab"
             data-bs-target="#precaution"
@@ -227,7 +185,7 @@ export default {
         </li>
         <li class="nav-item w-33 w-md-25" role="presentation">
           <button
-            class="nav-link py-3 border-dashed fs-lg-5 w-100"
+            class="nav-link py-3 border-dashed fs-lg-5 w-100 border-bottom-0"
             id="FAQ-tab"
             data-bs-toggle="tab"
             data-bs-target="#FAQ"
@@ -251,22 +209,22 @@ export default {
           <ul class="list-group list-group-flush fw-bold">
             <li class="list-group-item bg-white py-1 border-0">
               <span>上課堂數：</span>
-              {{ singleProduct.info.classes }} 堂
+              {{ product.info.classes }} 堂
             </li>
             <li class="list-group-item bg-white py-1 border-0">
               <span>單堂時數：</span>
-              {{ singleProduct.info.detail.perSpendTime }} 小時
+              {{ product.info.detail.perSpendTime }} 小時
             </li>
             <li class="list-group-item bg-white py-1 border-0 mb-3">
               <span>成品大小 ( cm ) ：</span>
-              {{ singleProduct.info.detail.size }}
+              {{ product.info.detail.size }}
             </li>
             <li class="list-group-item bg-white py-1 border-0 mb-3">
               <span>學習技巧：</span>
               <ul class="fw-normal pt-2 lh-lg">
                 <li
-                  v-for="study in singleProduct.info.detail.study"
-                  :key="singleProduct.info.detail.study.indexOf(study)"
+                  v-for="study in product.info.detail.study"
+                  :key="product.info.detail.study.indexOf(study)"
                 >
                   {{ study }}
                 </li>
@@ -352,8 +310,55 @@ export default {
   </div>
 </template>
 
-<style>
-.link-hover:hover {
-  text-decoration: underline;
-}
-</style>
+<script>
+import { mapState, mapActions } from 'pinia';
+import getDataStore from '@/stores/getDataStore';
+import useActivitiesStore from '../../stores/useActivitiesStore';
+import useProductsStore from '../../stores/useProductsStore';
+import useCartsStore from '../../stores/useCartsStore';
+import useFavoriteStore from '../../stores/useFavoriteStore';
+import utilitiesStore from '@/stores/utilitiesStore';
+
+export default {
+  data() {
+    return {
+      product: null,
+      time: [],
+      recommendTo: {
+        體驗: '無經驗者、親子、長者',
+        初階: '初學者、輕鬆學習、製作小型作品',
+        進階: '深入技術、挑戰中大型作品',
+        輔助: '創作者、獨特風格、應用',
+      },
+      addNum: 1,
+      id: this.$route.params.id,
+    };
+  },
+  computed: {
+    ...mapState(getDataStore, ['singleInfo']),
+    ...mapState(useActivitiesStore, ['unlimitedActivities', 'numActivities']),
+    ...mapState(useProductsStore, ['singleProduct', 'productPromotion', 'countQuota']),
+    ...mapState(useFavoriteStore, ['favorites']),
+  },
+  methods: {
+    ...mapActions(getDataStore, ['getFontData']),
+    ...mapActions(useActivitiesStore, ['getActivities', 'countAllDiscount']),
+    ...mapActions(useCartsStore, ['addToCart', 'isOverQuota']),
+    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
+    ...mapActions(utilitiesStore, ['unixToStr', 'unixToTime']),
+  },
+  watch: {
+    singleInfo(newValue) {
+      this.product = { ...newValue };
+      this.time = this.product.info.classTime.flat().filter((unix, i) => i < 2);
+    },
+  },
+  mounted() {
+    this.getFontData('product', this.id);
+    this.getActivities();
+    this.getFavorites();
+  },
+};
+</script>
+
+<style lang="scss"></style>
