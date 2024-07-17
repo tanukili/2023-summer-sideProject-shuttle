@@ -172,31 +172,13 @@
           </table>
         </div>
         <!-- 訂單底部 -->
-
         <div class="row mb-4 pb-md-3 pt-2">
           <div class="col-10 col-md-5">
-            <div class="input-group mb-3 mb-lg-4">
-              <input
-                v-model="couponCode"
-                type="text"
-                class="form-control fs-7"
-                placeholder="請輸入折扣碼"
-                aria-label="coupon number"
-                aria-describedby="coupon-btn"
-              />
-              <button
-                class="btn btn-secondary shadow-none py-2 fs-7"
-                type="button"
-                id="coupon-btn"
-                @click.prevent="useCoupon(couponCode)"
-              >
-                確認使用
-              </button>
-            </div>
+            <CouponModal :total-bill="totalBill" />
           </div>
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
-            <ul class="list-group rounded-2 text-mellow">
-              <li class="list-group-item border-0 d-flex justify-content-between p-4 pb-2 fw-bold">
+            <ul class="list-group rounded-2 text-mellow py-4 bg-body">
+              <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
                 小計總和：
                 <span class="text-end">NT$ {{ totalBill }}</span>
               </li>
@@ -245,12 +227,14 @@ import useActivitiesStore from '@/stores/useActivitiesStore';
 import useCartsStore from '@/stores/useCartsStore';
 import useCouponStore from '@/stores/useCouponStore';
 import BackgroundBanner from '@/components/BackgroundBanner.vue';
+import CouponModal from '@/components/front/CouponModal.vue';
 
 const api = import.meta.env.VITE_API_PATH;
 
 export default {
   components: {
     BackgroundBanner,
+    CouponModal,
   },
   data() {
     return {
@@ -258,12 +242,11 @@ export default {
       couponCode: '',
       couponDiscount: 0,
       cart: [],
-      coupons: [],
     };
   },
   computed: {
     ...mapState(alertStore, ['alertstyles']),
-    ...mapState(getDataStore, ['remoteData', 'jsonData']),
+    ...mapState(getDataStore, ['remoteData']),
     ...mapState(useActivitiesStore, ['allActive', 'unlimitedActivities', 'numActivities']),
     ...mapState(useCartsStore, ['totalBill', 'nowAllDiscount']),
     ...mapState(useCouponStore, ['cookieCouponDiscount']),
@@ -283,7 +266,7 @@ export default {
   },
   methods: {
     ...mapActions(alertStore, ['baseContent']),
-    ...mapActions(getDataStore, ['getFontData', 'getJsonData']),
+    ...mapActions(getDataStore, ['getFontData']),
     ...mapActions(useActivitiesStore, ['getActivities']),
     ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart', 'goToOrder']),
     useCoupon(code) {
@@ -352,16 +335,10 @@ export default {
         return item;
       });
     },
-    jsonData(newValue) {
-      console.log(newValue);
-      this.coupons = [...newValue];
-    },
   },
   mounted() {
-    const nowDate = Math.floor(new Date().getTime() / 1000);
     this.getActivities();
     this.getFontData('cart');
-    this.getJsonData('coupons', `?is_used=false&exp_gte=${nowDate}`);
   },
 
   // // 生命週期：離開當前路由前調用
