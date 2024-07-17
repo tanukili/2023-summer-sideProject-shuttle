@@ -6,6 +6,7 @@
         :to="`/member${option.path}`"
         class="nav-link text-center py-3 border border-white fw-medium rounded-top"
         :class="{ active: nowOption === option.name }"
+        @click="$emit('getOption', option.name)"
       >
         {{ option.name }}
       </Router-link>

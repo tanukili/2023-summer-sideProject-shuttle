@@ -13,7 +13,7 @@
           <button
             class="btn btn-sm fs-8 btn-outline-primary shadow-sm align-top"
             :disabled="order.is_paid"
-            @click="order.is_paid = !order.is_paid"
+            @click="noticePaied(id)"
             type="button"
           >
             <i class="bi" :class="[order.is_paid ? 'bi-bell-fill' : 'bi-bell']"></i>
@@ -128,6 +128,7 @@
 <script>
 import ProductModal from '@/components/front/member/ProductModal.vue';
 import { mapState, mapActions } from 'pinia';
+import alertStore from '@/stores/alertStore';
 import getDataStore from '@/stores/getDataStore';
 import useActivitiesStore from '@/stores/useActivitiesStore';
 import utilitiesStore from '@/stores/utilitiesStore';
@@ -139,9 +140,12 @@ export default {
       order: null,
       clickedCourse: {},
       id: this.$route.params.id,
+      hexApi: import.meta.env.VITE_HEX_API_URL,
+      apiPath: import.meta.env.VITE_HEX_API_PATH,
     };
   },
   computed: {
+    ...mapState(alertStore, ['alertstyles']),
     ...mapState(getDataStore, ['singleInfo']),
     ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
     originBill() {
@@ -154,14 +158,26 @@ export default {
       return this.order.total;
     },
     activities() {
-      console.log({ ...this.numActivities, ...this.unlimitedActivities });
       return { ...this.numActivities, ...this.unlimitedActivities };
     },
   },
   methods: {
+    ...mapActions(alertStore, ['baseContent']),
     ...mapActions(getDataStore, ['getFontData']),
     ...mapActions(useActivitiesStore, ['getActivities']),
     ...mapActions(utilitiesStore, ['unixToStr']),
+    noticePaied(id) {
+      console.log(id);
+      this.axios
+        .post(`${this.hexApi}api/${this.apiPath}/pay/${id}`)
+        .then((res) => {
+          this.alertstyles.toast.fire(this.baseContent(`完成付款通知`));
+          this.getFontData('order', id);
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
+    },
   },
   watch: {
     singleInfo(newValue) {

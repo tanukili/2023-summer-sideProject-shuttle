@@ -13,6 +13,20 @@
   </div>
   <MemberNavs :options="navsOption" :now-option="nowOption" @get-option="getOption" />
   <div class="bg-white py-2 px-5">
+    <div v-if="!orders?.length" class="d-flex flex-column align-items-center py-5 lh-1">
+      <i
+        class="bi bi-journal-x text-gray-200 p-4 rounded-circle my-4"
+        style="font-size: 92px; border: 6px solid var(--bs-gray-100)"
+      ></i>
+      <h3>目前沒有任何訂單</h3>
+      <RouterLink
+        to="/products"
+        class="icon-e icon-east btn btn-primary-light mt-3"
+        style="width: 280px"
+      >
+        選購課程
+      </RouterLink>
+    </div>
     <ul v-if="isOrdersMode" class="list-unstyled">
       <li
         class="py-4 border-dashed-b border-gray-100"
