@@ -1,67 +1,66 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import useActivitiesStore from '../../../stores/useActivitiesStore';
-
-export default {
-  methods: {
-    ...mapActions(useActivitiesStore, ['getActivities']),
-  },
-  mounted() {
-    this.getActivities();
-  },
-  computed: {
-    ...mapState(useActivitiesStore, ['allActive', 'numActivities', 'unlimitedActivities']),
-    activitiesArr() {
-      const arr = [];
-      arr.push(this.allActive);
-      const numKeys = Object.keys(this.numActivities);
-      numKeys.forEach((e) => {
-        arr.push(this.numActivities[e]);
-      });
-      const unlimitedKeys = Object.keys(this.unlimitedActivities);
-      unlimitedKeys.forEach((e) => {
-        arr.push(this.unlimitedActivities[e]);
-      });
-      return arr;
-    },
-  },
-};
-</script>
-
 <template>
-  <div
-    class="pb-5 p-4 border-dashed-b border-gray-100 bg-white"
-    v-for="active in activitiesArr"
-    :key="active.title"
-  >
-    <div class="d-flex justify-content-between py-3 bg-light">
-      <h2 class="fs-7 mb-0 ms-2">活動名稱：{{ active.title }}</h2>
-      <!-- <h4 class="fs-7 mb-0 me-2">活動期間：{{}}</h4> -->
-    </div>
-    <div class="row align-items-center my-4">
-      <div class="col">
-        <h3 class="fs-7 text-center mb-0">
-          {{ active.badge ? active.badge : '全館優惠' }}
-        </h3>
-      </div>
-      <div class="col">
-        <img :src="`${active['image-sm']}`" alt="" class="img-fluid" style="max-width: 100px" />
-      </div>
-      <div class="col">
-        <p class="fs-7" style="width: 420px">
-          {{ active.description }}
-        </p>
-      </div>
-      <div class="col">
-        <button
-          type="button"
-          class="btn btn-outline-primary btn-sm shadow-none mb-2 w-100"
-          data-bs-toggle="modal"
-          data-bs-target="#productInfo"
-        >
-          了解詳情
-        </button>
+  <div class="px-5 pb-5 bg-white">
+    <div
+      class="py-7 border-dashed-b border-gray-100"
+      v-for="activity in activies"
+      :key="activity.title"
+    >
+      <h2 class="fs-6 bg-light p-3 mb-7">
+        <router-link :to="`${activity.page_path ? activity.page_path : '/'}`">
+          {{ activity.title }}
+        </router-link>
+      </h2>
+      <div class="row align-items-center mx-2">
+        <div class="col-3">
+          <img :src="`${activity['image-sm']}`" alt="優惠封面照" class="img-fluid" />
+        </div>
+        <div class="col">
+          <h3 class="fs-6 mb-2">
+            {{ activity.badge ? activity.badge : '全館優惠' }}
+          </h3>
+          <p>{{ activity.description }}</p>
+        </div>
+        <div class="col-3 text-end">
+          <router-link
+            class="icon-e icon-sm icon-east px-4 py-2 btn btn-primary-light fs-8 shadow-none"
+            :to="`${activity.page_path ? activity.page_path : '/'}`"
+          >
+            了解更多
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'pinia';
+import getDataStore from '@/stores/getDataStore';
+
+export default {
+  data() {
+    return {
+      activies: null,
+    };
+  },
+  computed: {
+    ...mapState(getDataStore, ['jsonData']),
+  },
+  methods: {
+    ...mapActions(getDataStore, ['getJsonData']),
+  },
+  watch: {
+    jsonData(newValue) {
+      this.activies = Object.values(newValue).map((activity) => {
+        if (Object.values(activity).length === 1) {
+          return Object.values(activity)[0];
+        }
+        return activity;
+      });
+    },
+  },
+  mounted() {
+    this.getJsonData('activities');
+  },
+};
+</script>

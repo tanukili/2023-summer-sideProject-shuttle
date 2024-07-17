@@ -1,34 +1,56 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import swal from 'sweetalert2';
+import alertStore from './alertStore';
 
 export default defineStore('getDataStore', {
   state: () => ({
-    url: import.meta.env.VITE_HEX_API_URL,
+    url: import.meta.env.VITE_API_PATH,
+    hexUrl: import.meta.env.VITE_HEX_API_URL,
     path: import.meta.env.VITE_HEX_API_PATH,
     remoteData: null,
     singleInfo: null,
     pagination: null,
+    jsonData: null,
   }),
   actions: {
     getFontData(targetName, id = '') {
-      const apiUrl = `${this.url}api/${this.path}/${targetName}${id ? '/' + id : ''}`;
+      const apiUrl = `${this.hexUrl}api/${this.path}/${targetName}${id ? '/' + id : ''}`;
+      const { alertstyles, baseContent } = alertStore();
       console.log(apiUrl);
       axios
         .get(apiUrl)
         .then((res) => {
           // 區分：全部 vs 指定單筆
           const updateTarget = id ? 'singleInfo' : 'remoteData';
-          this[updateTarget] = res.data[targetName];
+          if (targetName === 'cart') {
+            this[updateTarget] = res.data.data.carts;
+          } else {
+            this[updateTarget] = res.data[targetName];
+          }
           const { pagination } = res.data;
           if (pagination) {
             this.pagination = pagination;
           }
         })
         .catch((err) => {
-          swal.fire({
-            icon: 'error',
-            title: `系統問題${err.response.status}，請聯繫客服`,
+          alertstyles.toast_danger.fire({
+            ...baseContent(`問題 ${err.response.status}，請洽客服。`),
+          });
+        });
+    },
+    getJsonData(targetName, filter = '') {
+      const apiUrl = `${this.url}/${targetName}${filter ? '/' + filter : ''}`;
+      const { alertstyles, baseContent } = alertStore();
+      console.log(apiUrl);
+      axios
+        .get(apiUrl)
+        .then((res) => {
+          this.jsonData = res.data;
+        })
+        .catch((err) => {
+          alertstyles.toast_danger.fire({
+            ...baseContent(`問題 ${err.response.status}，請洽客服。`),
           });
         });
     },
