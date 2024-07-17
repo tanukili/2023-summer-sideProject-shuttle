@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import alertStore from '@/stores/alertStore';
+import getDataStore from '@/stores/getDataStore';
 
 const hexApi = import.meta.env.VITE_HEX_API_URL;
 const apiPath = '2023shuttle';
@@ -99,48 +100,34 @@ export default defineStore('carts', {
       axios
         .put(`${hexApi}api/${apiPath}/cart/${id}`, obj)
         .then(() => {
-          this.getCart();
+          getDataStore().getFontData('cart');
         })
         .catch((err) => err.response);
     },
     // 刪除全部
     deleteAllCart() {
+      const { alertstyles, baseContent } = alertStore();
       axios
         .delete(`${hexApi}api/${apiPath}/carts`)
-        .then((res) => {
-          swal.fire({
-            title: res.data.message,
-            confirmButtonText: '確認',
-            didClose: () => {
-              this.getCart();
-            },
-          });
+        .then(() => {
+          alertstyles.toast.fire({ ...baseContent('成功清空購物車！') });
+          getDataStore().getFontData('cart');
         })
         .catch((err) => {
-          swal.fire({
-            icon: 'error',
-            title: err.response.data.message,
-          });
+          alertstyles.toast_danger.fire({ ...baseContent(err.response.data.message) });
         });
     },
     // 刪除單筆
     deleteCart(id) {
+      const { alertstyles, baseContent } = alertStore();
       axios
         .delete(`${hexApi}api/${apiPath}/cart/${id}`)
-        .then((res) => {
-          swal.fire({
-            title: res.data.message,
-            confirmButtonText: '確認',
-            didClose: () => {
-              this.getCart();
-            },
-          });
+        .then(() => {
+          alertstyles.toast.fire({ ...baseContent('刪除成功！') });
+          getDataStore().getFontData('cart');
         })
         .catch((err) => {
-          swal.fire({
-            icon: 'error',
-            title: err.response.data.message,
-          });
+          alertstyles.toast_danger.fire({ ...baseContent(err.response.data.message) });
         });
     },
   },
