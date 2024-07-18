@@ -151,14 +151,14 @@
       }
     },
     "allActive": {
-      "title": "2023 歲末全館回饋季",
+      "title": "2024 周年慶全館回饋中",
       "description": "滿 3000 折 300，可累折（排除優惠券折扣）",
       "requiredPrice": 3000,
       "percentOff": 300,
       "imageUrl": "/activity/2023-year-end01.jpg",
       "image-sm": "/activity/2023-year-end01-sm.jpg",
       "images": ["/activity/2023-year-end01.jpg", "/activity/2023-year-end02.jpg"],
-      "article": "2023 歲末全館回饋季 文章文章",
+      "article": "2024 周年慶全館回饋中 文章文章",
       "page_path": "/new/-NyAAeekgJAq6eEG8QkT"
     }
   },
@@ -194,7 +194,7 @@
       "is_used": false,
       "title": "會員生日禮",
       "discount": 300,
-      "description": "滿 1,500 即可使用，祝您生日快樂！",
+      "description": "滿 1,500 即可折抵 300，祝您生日快樂！",
       "quota": 1500,
       "id": "birthday",
       "exp": 1765468800

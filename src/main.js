@@ -22,15 +22,6 @@ import 'bootstrap'; // 從nodeModule中載入Bootstrap
 import App from './App.vue'; // 有另外設定變數，所以要放在最後
 import router from './router';
 
-const options = {
-  showClass: {
-    popup: 'animate__animated animate__fadeInDown',
-  },
-  hideClass: {
-    popup: 'animate__animated animate__fadeOutDown',
-  },
-};
-
 // 使用 Object.keys 將 AllRules 轉為陣列並使用 forEach 迴圈將驗證規則加入 VeeValidate
 Object.keys(AllRules).forEach((rule) => {
   defineRule(rule, AllRules[rule]);
@@ -52,7 +43,7 @@ const app = createApp(App);
 app.use(pinia);
 app.use(router);
 app.use(VueAxios, axios);
-app.use(VueSweetalert2, options);
+app.use(VueSweetalert2);
 
 // 掛載元件
 app.component('LoadingOverlay', Loading); // loading

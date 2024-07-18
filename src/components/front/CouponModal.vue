@@ -14,7 +14,7 @@
     data-bs-toggle="modal"
     data-bs-target="#couponModal"
   >
-    使用優惠券
+    {{ clickedCoupon.id ? `已套用「${clickedCoupon.title}」` : '選擇優惠券' }}
   </button>
   <div
     class="modal fade"
@@ -53,22 +53,25 @@
                   type="radio"
                   name="coupon"
                   :id="coupon.id"
-                  @click="isChecked = coupon.id"
+                  @click="
+                    (clickedCoupon = { ...coupon }), $emit('couponDiscount', clickedCoupon.discount)
+                  "
+                  :checked="clickedCoupon.id === coupon.id"
                   :disabled="!coupon.isAvailable"
                 />
                 <label class="form-check-label fs-6 fw-bold" :for="coupon.id">
                   {{ coupon.title }}
                 </label>
                 <i
-                  v-if="isChecked === coupon.id"
+                  v-if="clickedCoupon.id === coupon.id"
                   class="bi bi-check-circle-fill ms-1 text-success"
                 ></i>
                 <span class="ms-auto">期限：{{ unixToStr(coupon.exp) }}</span>
               </div>
               <p class="ms-4 mt-2">
                 {{ coupon.description }}
-                <i v-if="coupon.quota >= totalBill" class="text-danger">
-                  還差 {{ coupon.quota - totalBill }} 元
+                <i v-if="coupon.quota > total" class="text-danger">
+                  還差 {{ coupon.quota - total }} 元
                 </i>
               </p>
             </div>
@@ -81,40 +84,62 @@
 
 <script>
 import { mapActions, mapState } from 'pinia';
+import alertStore from '@/stores/alertStore';
 import getDateStore from '@/stores/getDataStore';
 import utilitiesStore from '@/stores/utilitiesStore';
 
 export default {
-  props: ['totalBill'],
+  props: ['sumSubtotals'],
+  emits: ['couponDiscount'],
   data() {
     return {
       coupons: [],
-      isChecked: '',
+      clickedCoupon: {},
+      total: 0,
     };
   },
   computed: {
+    ...mapState(alertStore, ['alertstyles']),
     ...mapState(getDateStore, ['jsonData']),
     availableCoupons() {
       return this.coupons.filter((coupon) => coupon.isAvailable);
     },
   },
   methods: {
+    ...mapActions(alertStore, ['baseContent']),
     ...mapActions(getDateStore, ['getJsonData']),
     ...mapActions(utilitiesStore, ['unixToStr']),
+    updateAvailable() {
+      this.coupons.map((coupon) => {
+        const isAvailable = coupon.quota <= this.total;
+        coupon.isAvailable = isAvailable;
+      });
+    },
   },
   watch: {
     jsonData(newValue) {
       this.coupons = [...newValue];
-      this.coupons.map((coupon) => {
-        const isAvailable = coupon.quota <= this.totalBill;
-        coupon.isAvailable = isAvailable;
-      });
-      console.log(this.coupons);
+      this.updateAvailable();
+    },
+    sumSubtotals(newValue) {
+      this.total = newValue;
+      // 檢查小計總和 > 優惠券使用限制
+      const { quota } = this.clickedCoupon;
+      if (newValue < quota) {
+        this.alertstyles.alert.fire({
+          ...this.baseContent('優惠券移除', 2),
+          text: '目前金額未達該券使用限制',
+        });
+        this.clickedCoupon = {};
+        this.$emit('couponDiscount', 0);
+      }
+      this.updateAvailable();
     },
   },
   mounted() {
     const nowDate = Math.floor(new Date().getTime() / 1000);
     this.getJsonData('coupons', `?is_used=false&exp_gte=${nowDate}`);
+    this.total = this.sumSubtotals;
   },
 };
 </script>

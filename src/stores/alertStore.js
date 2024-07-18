@@ -53,16 +53,41 @@ export default defineStore('alertStore', {
         },
       },
       {
+        alert: {
+          customClass: {
+            title: 'fs-4',
+            popup: 'rounded-2 p-2 pb-7',
+            actions: 'mb-3',
+            htmlContainer: 'mt-2',
+          },
+          showConfirmButton: false,
+          timer: 2000,
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutDown',
+          },
+        },
+      },
+      {
         alert_btns: {
           customClass: {
             title: 'fs-4',
             popup: 'rounded-2 p-2',
             actions: 'mb-3',
+            htmlContainer: 'mt-2',
             confirmButton: 'btn btn-outline-secondary border border-2 border-secondary',
             denyButton: 'btn btn-primary',
           },
           confirmButtonColor: '#fff',
           denyButtonColor: '#47585C',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutDown',
+          },
         },
       },
     ],
@@ -79,7 +104,7 @@ export default defineStore('alertStore', {
   },
   actions: {
     baseContent(title, iconCode = 0, confirmButtonText = '確認') {
-      const icons = ['', 'success', 'error'];
+      const icons = ['', 'success', 'error', 'info'];
       return {
         icon: icons[iconCode],
         title,

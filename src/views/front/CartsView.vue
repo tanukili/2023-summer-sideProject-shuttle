@@ -172,15 +172,15 @@
           </table>
         </div>
         <!-- 訂單底部 -->
-        <div class="row mb-4 pb-md-3 pt-2">
+        <div class="row pt-2">
           <div class="col-10 col-md-5">
-            <CouponModal :total-bill="totalBill" />
+            <CouponModal :sum-subtotals="sumSubtotals" @coupon-discount="getCouponDiscount" />
           </div>
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
             <ul class="list-group rounded-2 text-mellow py-4 bg-body">
               <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
                 小計總和：
-                <span class="text-end">NT$ {{ totalBill }}</span>
+                <span class="text-end">NT$ {{ sumSubtotals }}</span>
               </li>
               <li
                 v-if="couponDiscount"
@@ -190,29 +190,32 @@
                 <span class="text-danger">- {{ couponDiscount }}</span>
               </li>
               <li
-                v-if="allActive.requiredPrice <= totalBill"
+                v-if="fullDiscount"
                 class="list-group-item border-0 d-flex justify-content-between px-4 py-2 fw-bold"
               >
                 滿額折抵：
-                <span class="text-danger">- {{ nowAllDiscount }}</span>
+                <span class="text-danger">- {{ fullDiscount }}</span>
               </li>
               <li
-                v-if="couponDiscount || allActive.requiredPrice <= totalBill"
-                class="list-group-item pt-2 p-4 border-0 d-flex justify-content-between fw-bold"
+                v-if="couponDiscount || fullDiscount"
+                class="list-group-item pt-2 px-4 border-0 d-flex justify-content-between fw-bold"
               >
                 折扣後金額：
-                <span class="text-end">NT$ {{ countFinal }}</span>
+                <span class="text-end">NT$ {{ finalBill }}</span>
               </li>
             </ul>
           </div>
-        </div>
-        <div class="d-flex">
-          <button
-            class="btn btn-primary fs-7 fs-lg-6 fw-normal w-75 w-md-50 w-lg-25 mx-auto"
-            @click.prevent="goToOrder()"
-          >
-            訂單確認
-          </button>
+          <div class="col-12 text-center mt-4">
+            <button
+              class="icon-e icon-east btn btn-primary fs-7 fs-lg-6 w-75 w-md-50 w-lg-25"
+              @click.prevent="activeAlert"
+            >
+              前往結帳
+            </button>
+            <p v-if="allActive.requiredPrice > finalBill" class="mt-6 text-danger fs-8">
+              限時優惠：{{ allActive.description }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -225,11 +228,8 @@ import alertStore from '@/stores/alertStore';
 import getDataStore from '@/stores/getDataStore';
 import useActivitiesStore from '@/stores/useActivitiesStore';
 import useCartsStore from '@/stores/useCartsStore';
-import useCouponStore from '@/stores/useCouponStore';
 import BackgroundBanner from '@/components/BackgroundBanner.vue';
 import CouponModal from '@/components/front/CouponModal.vue';
-
-const api = import.meta.env.VITE_API_PATH;
 
 export default {
   components: {
@@ -248,72 +248,39 @@ export default {
     ...mapState(alertStore, ['alertstyles']),
     ...mapState(getDataStore, ['remoteData']),
     ...mapState(useActivitiesStore, ['allActive', 'unlimitedActivities', 'numActivities']),
-    ...mapState(useCartsStore, ['totalBill', 'nowAllDiscount']),
-    ...mapState(useCouponStore, ['cookieCouponDiscount']),
-    countDifference() {
-      const required = this.allActive.requiredPrice;
-      return required - (this.totalBill % required);
-    },
-    countFinal() {
-      if (!this.couponDiscount) {
-        return this.totalBill - this.nowAllDiscount;
-      }
-      return this.totalBill - this.couponDiscount - this.nowAllDiscount;
-    },
     activities() {
       return { ...this.numActivities, ...this.unlimitedActivities };
     },
+    sumSubtotals() {
+      return this.cart.reduce((acc, item) => {
+        return acc + item.subtotal;
+      }, 0);
+    },
+    fullDiscount() {
+      const { requiredPrice, percentOff } = this.allActive;
+      return Math.floor(this.sumSubtotals / requiredPrice) * percentOff;
+    },
+    finalBill() {
+      return this.sumSubtotals - this.couponDiscount - this.fullDiscount;
+    },
   },
   methods: {
-    ...mapActions(alertStore, ['baseContent']),
+    ...mapActions(alertStore, ['baseContent', 'btns']),
     ...mapActions(getDataStore, ['getFontData']),
     ...mapActions(useActivitiesStore, ['getActivities']),
-    ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart', 'goToOrder']),
-    useCoupon(code) {
-      this.axios
-        .get(`${api}/coupons/${code}`)
-        .then((res) => {
-          const obj = res.data;
-          // if (obj.is_used) {
-          //   swal.fire('優惠券已使用');
-          //   return;
-          // }
-          console.log(res.data);
-          this.$swal({
-            icon: 'success',
-            confirmButtonText: '確認',
-            title: `成功套用「${res.data.title}」`,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
-          this.couponDiscount = res.data.discount;
-          document.cookie = `couponDiscount=${this.couponDiscount}; max-age=86400;Secure`;
-          obj.is_used = true;
-          // this.putCouponState(code, obj);
-        })
-        .catch(() => {
-          this.alertstyles.toast_danger(this.baseContent('優惠券使用失敗'));
-        });
+    ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart']),
+    getCouponDiscount(discount) {
+      this.couponDiscount = discount;
     },
-    goToOrder() {
-      // 全館活動提醒 暫時的寫法
-      this.$swal({
-        // position: 'bottom-end',
-        // backdrop: false,
-        title: `${this.allActive.title}`,
-        html: `<p class='text-gray-400'>${this.allActive.description}</p>
-            <p>目前金額再 <span class='text-danger'>NT$ ${this.countDifference} </span>可折抵 NT$ ${this.allActive.percentOff} </p>`,
-        showDenyButton: true,
-        showCloseButton: true,
-        confirmButtonText: '修改訂單',
-        denyButtonText: '下一步',
-        denyButtonColor: 'var(--bs-primary)',
-      })
-        // 按鈕事件
+    activeAlert() {
+      const { title, description, requiredPrice, percentOff } = this.allActive;
+      const difference = requiredPrice - (this.sumSubtotals % requiredPrice);
+      this.alertstyles.alert_btns
+        .fire({
+          ...this.baseContent(title, 3, '修改訂單'),
+          ...this.btns('繼續結帳', false),
+          html: `<p>${description}</p><i class="fs-7">還差 <span class="text-danger">${difference}</span> 元，就能再折抵 ${percentOff} 元。</i>`,
+        })
         .then((res) => {
           if (res.isDenied) {
             this.$router.push('/order');
@@ -340,14 +307,6 @@ export default {
     this.getActivities();
     this.getFontData('cart');
   },
-
-  // // 生命週期：離開當前路由前調用
-  // beforeRouteLeave(to, from, next) {
-  //   // 關閉所有 SweetAlert2 視窗
-  //   this.$swal.close();
-  //   // 繼續路由遷移
-  //   next();
-  // },
 };
 </script>
 
