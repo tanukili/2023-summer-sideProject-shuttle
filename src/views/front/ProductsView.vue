@@ -25,11 +25,6 @@ export default {
     ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
   },
   mounted() {
-    // 進入時觸發
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
     this.getProducts();
     this.getActivities();
   },
@@ -45,16 +40,6 @@ export default {
 </script>
 
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
-  <!-- <div class="bg-banner product-banner"></div> -->
   <BackgroundBanner :bannerImg="bannerImg"></BackgroundBanner>
   <ProductsNavs></ProductsNavs>
   <div class="position-relative overflow-hidden">
@@ -62,30 +47,30 @@ export default {
     <div class="block-spacing-sm container">
       <div class="mx-3 mx-md-0">
         <!-- top -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <RouterLink to="/">首頁</RouterLink>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">購買課程</li>
-            </ol>
-          </nav>
-          <div class="d-flex align-items-center">
-            <label for="filter-select" class="lh-lg fw-semibold flex-shrink-0 me-2">排序</label>
-            <div class="select-icon">
-              <select
-                class="form-select fs-7 border-secondary"
-                aria-label="form-select"
-                id="filter-select"
-              >
-                <option value="CtoE" selected>價格由低到高</option>
-                <option value="EtoC">價格由低到高</option>
-                <option value="popularity">人氣順</option>
-                <option value="LtoS">課程時間長到短</option>
-                <option value="StoL">課程時間短到長</option>
-              </select>
-            </div>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <RouterLink to="/">首頁</RouterLink>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">購買課程</li>
+          </ol>
+        </nav>
+        <div class="d-flex align-items-center mb-2">
+          <label for="filter-select" class="lh-lg fw-semibold flex-shrink-0 me-2 ms-auto">
+            排序
+          </label>
+          <div class="select-icon">
+            <select
+              class="form-select fs-7 border-secondary"
+              aria-label="form-select"
+              id="filter-select"
+            >
+              <option value="CtoE" selected>價格由低到高</option>
+              <option value="EtoC">價格由低到高</option>
+              <option value="popularity">人氣順</option>
+              <option value="LtoS">課程時間長到短</option>
+              <option value="StoL">課程時間短到長</option>
+            </select>
           </div>
         </div>
         <!-- list -->
@@ -99,7 +84,7 @@ export default {
                 : 'col-md-6 col-lg-4 gx-xxl-5 d-lg-none',
             ]"
           >
-            <div class="card h-100">
+            <router-link :to="`product/${product.id}`" class="card h-100">
               <div class="card-mask position-relative">
                 <img
                   :src="product.imageUrl"
@@ -109,19 +94,23 @@ export default {
                 />
                 <span
                   v-if="unlimitedActivities[product.state.promotion]"
-                  class="badge badge-sale position-absolute start-0"
-                  style="top: 24px"
+                  class="badge badge-sale position-absolute"
+                  style="top: 24px; left: -4px"
                 >
                   {{ unlimitedActivities[product.state.promotion].badge }}
                 </span>
                 <span
                   v-else-if="numActivities[product.state.promotion]"
-                  class="badge badge-sale bg-success position-absolute start-0"
-                  style="top: 24px"
+                  class="badge badge-sale bg-success position-absolute"
+                  style="top: 24px; left: -4px"
                 >
                   {{ numActivities[product.state.promotion].badge }}
                 </span>
-                <a href="#" @click.prevent="toggleFavorite(product.id)">
+                <a
+                  href="#"
+                  @click.prevent="toggleFavorite(product.id)"
+                  :title="[favorites.indexOf(product.id) !== -1 ? '移除收藏' : '加入收藏']"
+                >
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
                     :class="{
@@ -133,7 +122,7 @@ export default {
                   </span>
                 </a>
               </div>
-              <div class="card-body flex-grow-1 pb-5">
+              <div class="card-body flex-grow-1 pb-3">
                 <h3 class="card-title fs-5">{{ product.title }}</h3>
                 <span
                   class="badge bg-light me-2"
@@ -167,10 +156,10 @@ export default {
                   :to="`/product/${product.id}`"
                   class="btn btn-primary w-100 fs-md-7 fs-xl-6 mt-3"
                 >
-                  購買課程
+                  前往購買
                 </RouterLink>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
         <!-- pagination -->

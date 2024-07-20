@@ -1,12 +1,10 @@
 import { defineStore } from 'pinia';
 import swal from 'sweetalert2';
 import axios from 'axios';
+import alertStore from './alertStore';
 
 const api = import.meta.env.VITE_API_PATH;
-const userId = document.cookie.replace(
-  /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-  '$1'
-);
+const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
 export default defineStore('coupon', {
   state: () => ({
@@ -37,6 +35,7 @@ export default defineStore('coupon', {
       });
     },
     toggleFavorite(prodcutId) {
+      const { alertstyles, baseContent } = alertStore();
       const isAdded = this.favorites.indexOf(prodcutId) !== -1;
       if (isAdded) {
         const id = this.favoritesObj[prodcutId];
@@ -48,32 +47,15 @@ export default defineStore('coupon', {
         };
         axios.post(`${api}/favorites`, obj).then(() => {
           this.getFavorites();
-          swal.fire({
-            confirmButtonText: '確認',
-            title: '已加入收藏',
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
+          alertstyles.toast.fire({ ...baseContent('成功加入收藏') });
         });
       }
     },
     deleteFavorite(id) {
+      const { alertstyles, baseContent } = alertStore();
       axios.delete(`${api}/favorites/${id}`).then(() => {
         this.getFavorites();
-        swal.fire({
-          confirmButtonText: '確認',
-          title: '已移除收藏',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutDown',
-          },
-        });
+        alertstyles.toast.fire({ ...baseContent('已移除收藏') });
       });
     },
     getFavorites() {

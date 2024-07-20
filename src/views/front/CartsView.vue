@@ -31,8 +31,8 @@
       </div>
       <div v-else>
         <!-- 訂單進度 -->
-        <div class="w-100 w-md-75 d-flex flex-column mx-auto my-5">
-          <ol class="d-flex justify-content-around ps-0 fs-6 fw-bold">
+        <div class="w-100 w-md-75 d-flex flex-column mx-auto mt-5 mb-7 mb-lg-5">
+          <ol class="d-flex justify-content-around ps-0 fs-7 fs-md-6 fw-bold">
             <li>訂單確認</li>
             <li>填寫資料</li>
             <li>訂單完成</li>
@@ -49,27 +49,34 @@
           </div>
         </div>
         <!-- 訂單內容 -->
-        <div class="d-flex align-items-center m-3">
-          <RouterLink class="text-decoration-underline d-inline-block me-auto fs-7" to="/products">
+        <h2 class="title fs-4 text-primary mb-7 mb-md-5">
+          <span class="border-primary pb-6">購物車一覽</span>
+        </h2>
+        <div class="d-flex align-items-end mb-2">
+          <RouterLink
+            class="text-decoration-underline d-inline-block me-auto fs-8 fs-lg-7"
+            to="/products"
+          >
             <span class="material-symbols-outlined icon-semibold">undo</span>
             返回課程列表
           </RouterLink>
-          <a
-            class="btn btn-sm fs-7 btn-outline-danger shadow-sm px-3"
-            href="#"
-            @click.prevent="deleteAllCart()"
+          <button
+            class="btn btn-sm fs-7 btn-outline-danger shadow-sm px-3 fs-8 fs-lg-7"
+            type="button"
+            @click="deleteAllCart()"
           >
             清空購物車
-          </a>
+          </button>
         </div>
-        <div class="table-responsive-sm">
-          <table class="table align-middle table-white text-center fs-8 fs-lg-7">
+        <div class="table-responsive mb-4">
+          <table
+            class="table align-middle table-white text-center fs-8 fs-md-7 mb-0"
+            style="min-width: 696px"
+          >
             <thead>
               <tr class="table-light bg-light">
-                <th scope="col"></th>
-                <th scope="col">
-                  <div class="d-none d-md-flex flex-column">預覽</div>
-                </th>
+                <th scope="col" width="48px"></th>
+                <th scope="col" class="d-none d-lg-table-cell">預覽</th>
                 <th scope="col">課程名稱</th>
                 <th scope="col">價格</th>
                 <th scope="col">人數</th>
@@ -86,15 +93,13 @@
                     <span class="material-symbols-outlined icon-fill fs-5">delete_forever</span>
                   </a>
                 </th>
-                <td>
-                  <div class="d-none d-md-flex flex-column align-items-center">
-                    <img
-                      :src="course.product.imageUrl"
-                      :alt="`product${course.id}`"
-                      class="img-fluid"
-                      style="max-width: 150px"
-                    />
-                  </div>
+                <td class="d-none d-lg-table-cell">
+                  <img
+                    :src="course.product.imageUrl"
+                    :alt="`product${course.id}`"
+                    class="img-fluid"
+                    style="max-width: 150px"
+                  />
                 </td>
                 <td>
                   <RouterLink :to="`/product/${course.product.id}`" class="fw-bold">
@@ -172,11 +177,11 @@
           </table>
         </div>
         <!-- 訂單底部 -->
-        <div class="row pt-2">
-          <div class="col-10 col-md-5">
+        <div class="row gy-4">
+          <div class="col-12 col-md-6 text-center text-md-start">
             <CouponModal :sum-subtotals="sumSubtotals" @coupon-discount="getCouponDiscount" />
           </div>
-          <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
+          <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mx-auto me-md-0">
             <ul class="list-group rounded-2 text-mellow py-4 bg-body">
               <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
                 小計總和：
@@ -205,10 +210,11 @@
               </li>
             </ul>
           </div>
-          <div class="col-12 text-center mt-4">
+          <div class="col-12 text-center mt-7">
             <button
-              class="icon-e icon-east btn btn-primary fs-7 fs-lg-6 w-75 w-md-50 w-lg-25"
+              class="icon-e icon-east btn btn-primary fw-semibold"
               @click.prevent="activeAlert"
+              style="width: 240px"
             >
               前往結帳
             </button>

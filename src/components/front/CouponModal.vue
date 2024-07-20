@@ -23,7 +23,7 @@
     aria-labelledby="couponModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable text-start">
       <div class="modal-content">
         <div class="modal-header bg-primary border-dashed border-white border-bottom-0 pb-3">
           <h3 class="modal-title fs-6 text-white" id="couponModalLabel">優惠券一覽</h3>
@@ -31,7 +31,7 @@
             <i class="bi bi-x-lg text-white"></i>
           </button>
         </div>
-        <div class="modal-body p-5">
+        <div class="modal-body px-3 py-7 p-sm-5">
           <div v-if="!coupons.length" class="d-flex flex-column align-items-center lh-1">
             <i
               class="bi bi-exclamation-lg text-gray-200 p-4 rounded-circle mb-3"
@@ -68,7 +68,7 @@
                 ></i>
                 <span class="ms-auto">期限：{{ unixToStr(coupon.exp) }}</span>
               </div>
-              <p class="ms-4 mt-2">
+              <p class="mt-2">
                 {{ coupon.description }}
                 <i v-if="coupon.quota > total" class="text-danger">
                   還差 {{ coupon.quota - total }} 元

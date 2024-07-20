@@ -18,10 +18,10 @@
       <!-- 課程內容 -->
       <div class="card bg-white rounded-5 mb-5">
         <div class="row g-0">
-          <div class="col-md-6 position-relative mb-3 mb-md-0">
+          <div class="col-lg-6 position-relative mb-3 mb-md-0 product-card-img">
             <img
               :src="product.imageUrl"
-              class="card-mask img-fluid rounded-top-5 rounded-start-md-5 h-100"
+              class="card-mask img-fluid rounded-top-5 rounded-start-lg-5 h-100"
               :alt="product.title"
             />
             <a href="#" @click.prevent="toggleFavorite(product.id)">
@@ -36,8 +36,8 @@
               </span>
             </a>
           </div>
-          <div class="col-md-6 px-3">
-            <div class="card-body mt-4">
+          <div class="col-lg-6 px-md-3">
+            <div class="card-body mt-md-4 mb-md-2">
               <h2 class="card-title fs-4 fs-xl-3 text-center">
                 {{ product.title }}
               </h2>
@@ -94,8 +94,8 @@
                 </tbody>
               </table>
             </div>
-            <div class="card-footer pb-4">
-              <div class="d-flex align-items-center mb-4 px-3">
+            <div class="card-footer pt-0 pb-7">
+              <div class="d-md-flex align-items-center mb-3 mb-lg-7 px-3">
                 <small
                   v-if="unlimitedActivities[product.state.promotion]"
                   class="fs-4 fw-bold text-danger"
@@ -114,9 +114,7 @@
                   NT$ {{ product.origin_price }}
                 </small>
                 <div class="d-flex align-items-center ms-auto">
-                  <label for="filter-select" class="flex-shrink-0 fs-8 fs-lg-7 me-2">
-                    報名人數
-                  </label>
+                  <label for="filter-select" class="flex-shrink-0 me-2 ms-auto">報名人數</label>
                   <div class="select-icon">
                     <select class="form-select form-select-sm fs-7" v-model="addNum">
                       <option
@@ -130,8 +128,8 @@
                   </div>
                 </div>
               </div>
-              <div class="row gx-2">
-                <div class="col-lg-6 mb-2 mb-3">
+              <div class="row g-2 justify-content-center">
+                <div class="col-11 col-md-6">
                   <button
                     class="btn btn-outline-primary w-100"
                     type="button"
@@ -140,7 +138,7 @@
                     加入購物車
                   </button>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-11 col-md-6">
                   <button
                     class="btn btn-primary w-100"
                     @click.prevent="addToCart(id, addNum, countQuota, true)"
@@ -157,7 +155,7 @@
       <ul class="nav nav-tabs" id="productTab" role="tablist">
         <li class="nav-item w-33 w-md-25 me-md-1" role="presentation">
           <button
-            class="nav-link py-3 border-dashed fs-lg-5 w-100 active border-bottom-0"
+            class="nav-link py-3 border-dashed fs-md-6 w-100 active border-bottom-0"
             id="introduction-tab"
             data-bs-toggle="tab"
             data-bs-target="#introduction"
@@ -171,7 +169,7 @@
         </li>
         <li class="nav-item w-33 w-md-25 me-md-1" role="presentation">
           <button
-            class="nav-link py-3 border-dashed fs-lg-5 w-100 border-bottom-0"
+            class="nav-link py-3 border-dashed fs-md-6 w-100 border-bottom-0"
             id="precaution-tab"
             data-bs-toggle="tab"
             data-bs-target="#precaution"
@@ -185,7 +183,7 @@
         </li>
         <li class="nav-item w-33 w-md-25" role="presentation">
           <button
-            class="nav-link py-3 border-dashed fs-lg-5 w-100 border-bottom-0"
+            class="nav-link py-3 border-dashed fs-md-6 w-100 border-bottom-0"
             id="FAQ-tab"
             data-bs-toggle="tab"
             data-bs-target="#FAQ"
@@ -361,4 +359,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@media (max-width: 992px) {
+  .product-card-img {
+    max-height: 280px;
+  }
+}
+</style>
