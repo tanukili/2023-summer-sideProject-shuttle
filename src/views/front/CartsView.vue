@@ -98,7 +98,7 @@
                     :src="course.product.imageUrl"
                     :alt="`product${course.id}`"
                     class="img-fluid"
-                    style="max-width: 150px"
+                    style="max-width: 150px; max-height: 100px"
                   />
                 </td>
                 <td>
@@ -179,13 +179,13 @@
         <!-- 訂單底部 -->
         <div class="row gy-4">
           <div class="col-12 col-md-6 text-center text-md-start">
-            <CouponModal :sum-subtotals="sumSubtotals" @coupon-discount="getCouponDiscount" />
+            <CouponModal :sum-subtotals="cartOverview.sumSubtotals" />
           </div>
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mx-auto me-md-0">
             <ul class="list-group rounded-2 text-mellow py-4 bg-body">
               <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
                 小計總和：
-                <span class="text-end">NT$ {{ sumSubtotals }}</span>
+                <span class="text-end">NT$ {{ cartOverview.sumSubtotals }}</span>
               </li>
               <li
                 v-if="couponDiscount"
@@ -195,18 +195,18 @@
                 <span class="text-danger">- {{ couponDiscount }}</span>
               </li>
               <li
-                v-if="fullDiscount"
+                v-if="cartOverview.fullDiscount"
                 class="list-group-item border-0 d-flex justify-content-between px-4 py-2 fw-bold"
               >
                 滿額折抵：
-                <span class="text-danger">- {{ fullDiscount }}</span>
+                <span class="text-danger">- {{ cartOverview.fullDiscount }}</span>
               </li>
               <li
-                v-if="couponDiscount || fullDiscount"
+                v-if="couponDiscount || cartOverview.fullDiscount"
                 class="list-group-item pt-2 px-4 border-0 d-flex justify-content-between fw-bold"
               >
                 折扣後金額：
-                <span class="text-end">NT$ {{ finalBill }}</span>
+                <span class="text-end">NT$ {{ cartOverview.finalBill }}</span>
               </li>
             </ul>
           </div>
@@ -218,7 +218,10 @@
             >
               前往結帳
             </button>
-            <p v-if="allActive.requiredPrice > finalBill" class="mt-6 text-danger fs-8">
+            <p
+              v-if="allActive.requiredPrice > cartOverview.finalBill"
+              class="mt-6 text-danger fs-8"
+            >
               限時優惠：{{ allActive.description }}
             </p>
           </div>
@@ -234,6 +237,8 @@ import alertStore from '@/stores/alertStore';
 import getDataStore from '@/stores/getDataStore';
 import useActivitiesStore from '@/stores/useActivitiesStore';
 import useCartsStore from '@/stores/useCartsStore';
+import useCouponStore from '@/stores/useCouponStore';
+
 import BackgroundBanner from '@/components/BackgroundBanner.vue';
 import CouponModal from '@/components/front/CouponModal.vue';
 
@@ -246,38 +251,27 @@ export default {
     return {
       bannerImg: 'banner/banner-carts.jpg',
       couponCode: '',
-      couponDiscount: 0,
       cart: [],
     };
   },
   computed: {
     ...mapState(alertStore, ['alertstyles']),
-    ...mapState(getDataStore, ['remoteData']),
+    ...mapState(getDataStore, ['cartData']),
     ...mapState(useActivitiesStore, ['allActive', 'unlimitedActivities', 'numActivities']),
+    ...mapState(useCouponStore, ['couponDiscount']),
     activities() {
       return { ...this.numActivities, ...this.unlimitedActivities };
     },
-    sumSubtotals() {
-      return this.cart.reduce((acc, item) => {
-        return acc + item.subtotal;
-      }, 0);
-    },
-    fullDiscount() {
+    cartOverview() {
       const { requiredPrice, percentOff } = this.allActive;
-      return Math.floor(this.sumSubtotals / requiredPrice) * percentOff;
-    },
-    finalBill() {
-      return this.sumSubtotals - this.couponDiscount - this.fullDiscount;
+      return this.countCart(this.couponDiscount, requiredPrice, percentOff);
     },
   },
   methods: {
     ...mapActions(alertStore, ['baseContent', 'btns']),
     ...mapActions(getDataStore, ['getFontData']),
     ...mapActions(useActivitiesStore, ['getActivities']),
-    ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart']),
-    getCouponDiscount(discount) {
-      this.couponDiscount = discount;
-    },
+    ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart', 'countCart']),
     activeAlert() {
       const { title, description, requiredPrice, percentOff } = this.allActive;
       const difference = requiredPrice - (this.sumSubtotals % requiredPrice);
@@ -295,18 +289,8 @@ export default {
     },
   },
   watch: {
-    remoteData(newValue) {
-      this.cart = [...newValue].map((item) => {
-        // 小計計算（數量優惠）
-        const { total, qty } = item;
-        const { promotion } = item.product.state;
-        const activity = this.numActivities[promotion];
-        item.subtotal = total;
-        if (!!activity && activity.requiredNum <= qty) {
-          item.subtotal = Math.round(total * activity.percentOff);
-        }
-        return item;
-      });
+    cartData(newValue) {
+      this.cart = [...newValue];
     },
   },
   mounted() {

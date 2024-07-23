@@ -3,22 +3,16 @@ import axios from 'axios';
 import swal from 'sweetalert2';
 import alertStore from '@/stores/alertStore';
 import getDataStore from '@/stores/getDataStore';
-
-const hexApi = import.meta.env.VITE_HEX_API_URL;
-const apiPath = '2023shuttle';
+import useActivitiesStore from '@/stores/useActivitiesStore';
+import useCouponStore from '@/stores/useCouponStore';
 
 export default defineStore('carts', {
   state: () => ({
-    carts: [],
-    totalBill: 0,
-    nowAllDiscount: 0,
+    hexApi: import.meta.env.VITE_HEX_API_URL,
+    apiPath: import.meta.env.VITE_HEX_API_PATH,
     alertstyles: alertStore().alertstyles,
   }),
-  getters: {
-    cartsNum() {
-      return this.carts.length;
-    },
-  },
+  getters: {},
   actions: {
     addToCart(id, qty, quota, buyNow) {
       const obj = { data: { product_id: id, qty } };
@@ -29,7 +23,7 @@ export default defineStore('carts', {
         this.router.push({ name: 'login' });
       } else if (!isOverQuota) {
         axios
-          .post(`${hexApi}api/${apiPath}/cart`, obj)
+          .post(`${this.hexApi}api/${this.apiPath}/cart`, obj)
           .then(() => {
             this.checkoutNow(buyNow);
           })
@@ -72,33 +66,11 @@ export default defineStore('carts', {
           });
       }
     },
-    // 取得購物車
-    getCart() {
-      axios
-        .get(`${hexApi}api/${apiPath}/cart`)
-        .then((res) => {
-          this.carts = res.data.data.carts;
-          // 計算 numActive 優惠
-          this.carts.forEach((e) => {
-            const { promotion } = e.product.state;
-            // 暫時的寫法
-            if (promotion === '2023-spring' && e.qty >= 2) {
-              e.final_total = Math.round(e.total * 0.85);
-            }
-          });
-          // 總金額
-          this.totalBill = this.carts.reduce((acc, e) => acc + e.final_total, 0);
-          // 折扣金額 暫時的寫法
-          const num = Math.floor(this.totalBill / 3000);
-          this.nowAllDiscount = 300 * num;
-        })
-        .catch((err) => err.response);
-    },
     // 修改數量
     putCart(id, newQty) {
       const obj = { data: { product_id: id, qty: newQty } };
       axios
-        .put(`${hexApi}api/${apiPath}/cart/${id}`, obj)
+        .put(`${this.hexApi}api/${this.apiPath}/cart/${id}`, obj)
         .then(() => {
           getDataStore().getFontData('cart');
         })
@@ -108,7 +80,7 @@ export default defineStore('carts', {
     deleteAllCart() {
       const { alertstyles, baseContent } = alertStore();
       axios
-        .delete(`${hexApi}api/${apiPath}/carts`)
+        .delete(`${this.hexApi}api/${this.apiPath}/carts`)
         .then(() => {
           alertstyles.toast.fire({ ...baseContent('成功清空購物車！') });
           getDataStore().getFontData('cart');
@@ -121,7 +93,7 @@ export default defineStore('carts', {
     deleteCart(id) {
       const { alertstyles, baseContent } = alertStore();
       axios
-        .delete(`${hexApi}api/${apiPath}/cart/${id}`)
+        .delete(`${this.hexApi}api/${this.apiPath}/cart/${id}`)
         .then(() => {
           alertstyles.toast.fire({ ...baseContent('刪除成功！') });
           getDataStore().getFontData('cart');
@@ -129,6 +101,14 @@ export default defineStore('carts', {
         .catch((err) => {
           alertstyles.toast_danger.fire({ ...baseContent(err.response.data.message) });
         });
+    },
+    // 計算訂單金額細項
+    countCart(couponDiscount, requiredPrice, percentOff) {
+      const { cartData } = getDataStore();
+      const sumSubtotals = cartData.reduce((acc, item) => acc + item.subtotal, 0); //小計總和
+      const fullDiscount = Math.floor(sumSubtotals / requiredPrice) * percentOff; // 滿額折抵
+      const finalBill = sumSubtotals - fullDiscount - couponDiscount; // 最終金額
+      return { sumSubtotals, couponDiscount, fullDiscount, finalBill };
     },
   },
 });

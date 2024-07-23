@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import swal from 'sweetalert2';
 import alertStore from './alertStore';
+import useActivitiesStore from './useActivitiesStore';
 
 export default defineStore('getDataStore', {
   state: () => ({
@@ -9,6 +9,7 @@ export default defineStore('getDataStore', {
     hexUrl: import.meta.env.VITE_HEX_API_URL,
     path: import.meta.env.VITE_HEX_API_PATH,
     remoteData: null,
+    cartData: [],
     singleInfo: null,
     pagination: null,
     jsonData: null,
@@ -24,7 +25,7 @@ export default defineStore('getDataStore', {
           // 區分：全部 vs 指定單筆
           const updateTarget = id ? 'singleInfo' : 'remoteData';
           if (targetName === 'cart') {
-            this[updateTarget] = res.data.data.carts;
+            this.adjustCartData(res.data.data.carts);
           } else {
             this[updateTarget] = res.data[targetName];
           }
@@ -38,6 +39,21 @@ export default defineStore('getDataStore', {
             ...baseContent(`問題 ${err.response.status}，請洽客服。`),
           });
         });
+    },
+    // 調整購物車資料
+    adjustCartData(data) {
+      const { numActivities } = useActivitiesStore();
+      this.cartData = [...data].map((item) => {
+        // 小計計算（數量優惠）
+        const { total, qty } = item;
+        const { promotion } = item.product.state;
+        const activity = numActivities[promotion];
+        item.subtotal = total;
+        if (!!activity && activity.requiredNum <= qty) {
+          item.subtotal = Math.round(total * activity.percentOff);
+        }
+        return item;
+      });
     },
     getJsonData(targetName, filter = '') {
       const apiUrl = `${this.url}/${targetName}${filter ? '/' + filter : ''}`;
