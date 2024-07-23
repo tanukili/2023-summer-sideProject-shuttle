@@ -1,52 +1,4 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import useCartsStore from '../../stores/useCartsStore';
-import useCouponStore from '../../stores/useCouponStore';
-import useOrderStore from '../../stores/useOrderStore';
-
-export default {
-  data() {
-    return {
-      newOrderId: '',
-    };
-  },
-  methods: {
-    ...mapActions(useCartsStore, ['getCart']),
-    ...mapActions(useOrderStore, ['postOrder']),
-  },
-  mounted() {
-    // 進入時觸發
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
-  },
-  created() {
-    this.getCart();
-  },
-  computed: {
-    ...mapState(useCartsStore, ['carts', 'totalBill', 'nowAllDiscount']),
-    ...mapState(useCouponStore, ['cookieCouponDiscount']),
-    countFinal() {
-      return this.totalBill - this.cookieCouponDiscount - this.nowAllDiscount;
-    },
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
-    },
-  },
-};
-</script>
-
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
   <div class="bg-white">
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
@@ -81,80 +33,78 @@ export default {
           ></div>
         </div>
       </div>
-      <!-- 訂單內容 -->
       <div class="row pt-lg-3">
+        <!-- 訂單內容 -->
         <div class="col-lg-6">
           <div class="d-flex flex-column h-100">
             <h4 class="text-center py-4">
               <span class="border-dashed-b pb-2">訂單內容</span>
             </h4>
             <div class="table-responsive-sm">
-              <table
-                class="table align-middle table-white text-center fs-8 fs-lg-7"
-              >
+              <table class="table align-middle table-white text-center fs-8 fs-lg-7">
                 <thead>
                   <tr class="table-light bg-light">
-                    <th scope="col">預覽</th>
+                    <th scope="col" width="160px">預覽</th>
                     <th scope="col">課程名稱</th>
                     <th scope="col">人數</th>
-                    <th scope="col">小計</th>
+                    <th scope="col" width="96px">小計</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="course in carts" :key="course.id">
+                  <tr v-for="course in cart" :key="course.id">
                     <td>
                       <img
-                        :src="`${imgBase}${course.product.imageUrl}`"
+                        :src="course.product.imageUrl"
                         :alt="`product${course.id}`"
                         class="img-fluid"
-                        style="max-width: 150px"
+                        style="max-width: 120px; max-height: 80px"
                       />
                     </td>
-                    <td>{{ course.product.title }}</td>
+                    <td class="text-start fw-bold">{{ course.product.title }}</td>
                     <td>{{ course.qty }}</td>
-                    <td>{{ course.final_total }}</td>
+                    <td>{{ course.subtotal }}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <ul class="list-group rounded-2 bg-secondary">
-              <li
-                class="list-group-item pt-3 border-0 text-mellow d-flex justify-content-between"
+            <div class="row justify-content-center align-items-end mx-sm-2">
+              <div class="col d-none d-sm-block">
+                <RouterLink class="text-decoration-underline pt-3" to="/carts">
+                  <span class="material-symbols-outlined icon-semibold">undo</span>
+                  返回購物車
+                </RouterLink>
+              </div>
+              <ul
+                class="col-8 col-sm-6 col-md-5 col-lg-6 list-group rounded-2 text-mellow py-4 bg-body"
               >
-                <span class="fw-bold">目前總金額</span>NT$
-                {{ totalBill }}
-              </li>
-              <li
-                v-if="cookieCouponDiscount"
-                class="list-group-item border-0 d-flex justify-content-between"
-              >
-                <span class="fw-bold">優惠券折抵</span
-                ><span class="text-danger"
-                  >NT$ - {{ cookieCouponDiscount }}</span
+                <li
+                  class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold"
                 >
-              </li>
-              <li
-                class="list-group-item border-0 d-flex justify-content-between"
-              >
-                <span class="fw-bold">滿額折抵</span
-                ><span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
-              </li>
-              <li
-                class="list-group-item pb-3 border-0 d-flex justify-content-between"
-              >
-                <span class="fw-bold">折扣後金額</span>NT$
-                {{ totalBill - cookieCouponDiscount - nowAllDiscount }}
-              </li>
-            </ul>
-            <RouterLink
-              class="text-decoration-underline d-lg-inline-block mt-auto d-none"
-              to="/carts"
-            >
-              <span class="material-symbols-outlined icon-semibold">
-                undo
-              </span>
-              返回購物車
-            </RouterLink>
+                  小計總和：
+                  <span class="text-end">NT$ {{ cartOverview.sumSubtotals }}</span>
+                </li>
+                <li
+                  v-if="cartOverview.couponDiscount"
+                  class="list-group-item border-0 d-flex justify-content-between px-4 py-2 fw-bold"
+                >
+                  優惠券折抵：
+                  <span class="text-danger">- {{ cartOverview.couponDiscount }}</span>
+                </li>
+                <li
+                  v-if="cartOverview.fullDiscount"
+                  class="list-group-item border-0 d-flex justify-content-between px-4 py-2 fw-bold"
+                >
+                  滿額折抵：
+                  <span class="text-danger">- {{ cartOverview.fullDiscount }}</span>
+                </li>
+                <li
+                  class="list-group-item pt-2 px-4 border-0 d-flex justify-content-between fw-bold"
+                >
+                  <span class="fw-bold">應付金額</span>
+                  NT${{ cartOverview.finalBill }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <!-- 填寫訂單資料 -->
@@ -163,10 +113,15 @@ export default {
             <h4 class="text-center pb-4">
               <span class="border-dashed-b pb-2">填寫資料</span>
             </h4>
-            <VForm novalidate @submit="postOrder" class="form-clear">
+            <VForm
+              novalidate
+              @submit="postOrder"
+              @invalid-submit="onInvalidSubmit"
+              class="form-clear"
+            >
               <div class="form-floating mb-4">
                 <VField
-                  name="名稱"
+                  name="name"
                   type="text"
                   rules="required"
                   class="form-control fs-7"
@@ -174,23 +129,27 @@ export default {
                   placeholder="name"
                 />
                 <label for="name" class="required">如何稱呼</label>
-                <ErrorMessage name="名稱" />
+                <ErrorMessage name="name" v-slot="{ message }">
+                  <span>{{ message.replace('name', '名稱') }}</span>
+                </ErrorMessage>
               </div>
               <div class="form-floating mb-4">
                 <VField
-                  name="連絡電話"
-                  type="phone"
+                  name="tel"
+                  type="tel"
                   rules="required|numeric|length:10"
                   class="form-control fs-7"
-                  id="phone"
+                  id="tel"
                   placeholder="0912345678"
                 />
-                <label for="phone" class="required">連絡電話</label>
-                <ErrorMessage name="連絡電話" />
+                <label for="tel" class="required">連絡電話</label>
+                <ErrorMessage name="tel" v-slot="{ message }">
+                  <span>{{ message.replace('tel', '連絡電話') }}</span>
+                </ErrorMessage>
               </div>
               <div class="form-floating mb-4">
                 <VField
-                  name="連絡信箱"
+                  name="email"
                   type="email"
                   rules="required|email"
                   class="form-control fs-7"
@@ -198,11 +157,13 @@ export default {
                   placeholder="name@example.com"
                 />
                 <label for="email" class="required">連絡信箱</label>
-                <ErrorMessage name="連絡信箱" />
+                <ErrorMessage name="email" v-slot="{ message }">
+                  <span>{{ message.replace('email', '信箱') }}</span>
+                </ErrorMessage>
               </div>
               <div class="form-floating mb-4">
                 <VField
-                  name="付款方式"
+                  name="payment"
                   rules="required"
                   as="select"
                   class="form-select w-100 ps-3 lh-lg fs-7"
@@ -216,11 +177,13 @@ export default {
                   <option value="linePay">Line Pay</option>
                 </VField>
                 <label for="payment" class="floating-select">付款方式</label>
-                <ErrorMessage name="付款方式" />
+                <ErrorMessage name="payment" v-slot="{ message }">
+                  <span>{{ message.replace('payment', '付款方式') }}</span>
+                </ErrorMessage>
               </div>
               <div class="form-floating pb-3 mb-5">
                 <VField
-                  name="備註"
+                  name="message"
                   as="textarea"
                   type="textarea"
                   value=""
@@ -228,26 +191,23 @@ export default {
                   id="remark"
                   placeholder="備註欄位"
                   style="height: 116px"
-                >
-                </VField>
+                ></VField>
                 <label for="remark">備註</label>
               </div>
               <div class="form-check mb-3">
                 <VField
-                  name="同意"
+                  name="isAgree"
                   rules="required"
                   type="checkbox"
-                  id="agreeNotice"
+                  id="isAgree"
                   class="form-check-input"
                   value="isAgree"
                 />
-                <label class="form-check-label required" for="agreeNotice">
+                <label class="form-check-label required" for="isAgree">
                   我已閱讀並同意 課程注意事項
                 </label>
-                <ErrorMessage name="同意" v-slot="{ message }"
-                  ><span class="text-danger fs-9 ms-2">{{
-                    (message = '請閱讀完後勾選')
-                  }}</span>
+                <ErrorMessage name="isAgree">
+                  <span class="text-danger fs-9 ms-2">{{ (message = '請閱讀完後勾選') }}</span>
                 </ErrorMessage>
               </div>
               <!-- 儲存帳單金額 -->
@@ -255,7 +215,7 @@ export default {
                 class="d-none"
                 name="finalBill"
                 type="text"
-                v-model="countFinal"
+                v-model="cartOverview.finalBill"
               />
               <button class="btn btn-primary w-100 mb-3 fs-6">資料送出</button>
             </VForm>
@@ -265,6 +225,100 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'pinia';
+import alertStore from '@/stores/alertStore';
+import getDataStore from '@/stores/getDataStore';
+import useActivitiesStore from '@/stores/useActivitiesStore';
+import useCartsStore from '@/stores/useCartsStore';
+import useCouponStore from '@/stores/useCouponStore';
+
+export default {
+  data() {
+    return {
+      hexApi: import.meta.env.VITE_HEX_API_URL,
+      apiPath: import.meta.env.VITE_HEX_API_PATH,
+      newOrderId: '',
+      cart: [],
+    };
+  },
+  computed: {
+    ...mapState(alertStore, ['alertstyles']),
+    ...mapState(getDataStore, ['cartData']),
+    ...mapState(useActivitiesStore, ['allActive']),
+    ...mapState(useCartsStore, ['cartOverview']),
+    ...mapState(useCouponStore, ['couponDiscount']),
+    cartOverview() {
+      const { requiredPrice, percentOff } = this.allActive;
+      return this.countCart(this.couponDiscount, requiredPrice, percentOff);
+    },
+  },
+  methods: {
+    ...mapActions(alertStore, ['baseContent']),
+    ...mapActions(getDataStore, ['getFontData']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
+    ...mapActions(useCartsStore, ['countCart']),
+    ...mapActions(useCouponStore, ['getCookieCoupon', 'toggleCoupon', 'useCoupon']),
+    postOrder(value) {
+      const { name, tel, email, payment, message } = value;
+      const { sumSubtotals, couponDiscount, fullDiscount, finalBill } = this.cartOverview;
+      const obj = {
+        data: {
+          user: {
+            name,
+            tel,
+            email,
+            address: 'none',
+            userId: 2,
+          },
+          payment,
+          message,
+          sumSubtotals,
+          couponDiscount,
+          fullDiscount,
+          finalBill,
+        },
+      };
+      this.axios
+        .post(`${this.hexApi}api/${this.apiPath}/order`, obj)
+        .then((res) => {
+          const { orderId } = res.data;
+          this.useCoupon();
+          document.cookie = `orderId=${orderId}; max-age=86400;Secure`;
+          this.alertstyles.alert.fire({
+            ...this.baseContent(res.data.message, 1),
+            didClose: () => {
+              this.$router.replace({ name: 'order-established' });
+            },
+          });
+        })
+        .catch((err) => {
+          this.alertstyles.toast_danger.fire(`問題${err.response.status}，請洽客服`);
+        });
+    },
+    // 無效提交事件
+    onInvalidSubmit({ errors }) {
+      const firstErr = Object.keys(errors)[0];
+      const domRect = document.querySelector(`#${firstErr}`).getBoundingClientRect();
+      const scrollTop = document.documentElement.scrollTop; // 目前視窗滾動位置
+      const top = domRect.top + scrollTop - 226; // 元素相對視窗高度 + 視窗已滾動高度 - 審美上微調
+      window.scrollTo({ top });
+    },
+  },
+  watch: {
+    cartData(newValue) {
+      this.cart = [...newValue];
+    },
+  },
+  mounted() {
+    this.getFontData('cart');
+    // 取得相關優惠（F5後仍可取得）
+    this.getCookieCoupon();
+    this.getActivities();
+  },
+};
+</script>
 
 <style>
 .floating-select::after {

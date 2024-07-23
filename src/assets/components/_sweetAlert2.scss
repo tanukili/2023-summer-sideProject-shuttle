@@ -1,41 +1,13 @@
-.swal2-title {
-  font-size: 2rem;
+// focus 樣式
+.swal2-default-outline:focus {
+  box-shadow: 0 0 3px 3px rgba(71, 88, 92, .2) !important;
 }
 
-div:where(.swal2-container) h2:where(.swal2-title) {
-  margin-bottom: 1.5rem !important;
-  padding-top: 1.5rem !important;
+div:where(.swal2-container) button:where(.swal2-close):focus {
+  box-shadow: none !important;
+  color: #f27474;
 }
 
-div:where(.swal2-container) .swal2-html-container {
-  margin: 0 1.6em !important;
-  height: 100%;
-  padding-bottom: 1rem !important;
-}
-
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
-  background-color: var(--bs-success) !important;
-
-  &:focus {
-    box-shadow: 0 0 0 3px rgba(87, 167, 84, .3) !important;
-  }
-}
-
-div:where(.swal2-container) div:where(.swal2-actions) {
-  margin: 0 auto 0 !important;
-}
-
-div:where(.swal2-container) button:where(.swal2-styled) {
-  font-weight: 400;
-  margin: 0.5rem;
-
-  &.swal2-default-outline:focus {
-    box-shadow: 0 0 0 3px rgba(87, 167, 84, .3) !important;
-  }
-}
-
-div:where(.swal2-container) button:where(.swal2-close) {
-  margin-top: 0.5rem !important;
-  margin-right: 0.5rem !important;
-  font-size: 2.5rem !important;
+div:where(.swal2-container) button:where(.swal2-styled).btn-outline-secondary {
+  color: inherit !important;
 }

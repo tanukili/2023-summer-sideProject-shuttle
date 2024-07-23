@@ -39,9 +39,6 @@ export default {
       }
       return arr;
     },
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
-    },
   },
 };
 </script>
@@ -53,24 +50,18 @@ export default {
     </h2>
     <!-- forEach -->
     <div class="row g-3">
-      <div
-        class="col-md-6 col-xl-4"
-        v-for="favorite in favoritesList"
-        :key="favorite.id"
-      >
+      <div class="col-md-6 col-xl-4" v-for="favorite in favoritesList" :key="favorite.id">
         <div
           class="card d-flex flex-column h-100 bg-white border-dashed border-secondary rounded-2"
         >
           <div class="mb-3 mb-md-0">
             <img
-              :src="`${imgBase}${favorite.imageUrl}`"
+              :src="favorite.imageUrl"
               class="card-mask img-fluid rounded-top-2 h-100"
               :alt="favorite.title"
             />
           </div>
-          <div
-            class="card-body d-flex flex-column justify-content-between h-100"
-          >
+          <div class="card-body d-flex flex-column justify-content-between h-100">
             <h2 class="card-title fs-6 mb-2 text-center">
               {{ favorite.title }}
             </h2>
@@ -90,18 +81,18 @@ export default {
                     }}
                   </li> -->
               <li class="list-group-item py-1 px-0 bg-white border-light">
-                <span class="fs-8"
-                  >剩餘名額：
+                <span class="fs-8">
+                  剩餘名額：
                   {{ favorite.info.capacity - favorite.info.studentNum }}
-                  位</span
-                >
+                  位
+                </span>
               </li>
               <li
                 class="list-group-item py-1 px-0 bg-white border-light"
                 v-if="favorite.promotionName"
               >
-                <span class="fs-8"
-                  >優惠：
+                <span class="fs-8">
+                  優惠：
                   {{ favorite.promotionName ? favorite.promotionName : '無' }}
                 </span>
               </li>
@@ -112,16 +103,18 @@ export default {
                     :class="{
                       'text-danger': favorite.price !== favorite.origin_price,
                     }"
-                    >NT$ {{ favorite.price }}</span
                   >
+                    NT$ {{ favorite.price }}
+                  </span>
                   <span
                     v-if="favorite.price !== favorite.origin_price"
                     :class="{
                       'text-decoration-line-through  text-gray-200 ms-2':
                         favorite.price !== favorite.origin_price,
                     }"
-                    >NT$ {{ favorite.origin_price }}</span
                   >
+                    NT$ {{ favorite.origin_price }}
+                  </span>
                 </div>
               </li>
             </ul>
@@ -130,9 +123,7 @@ export default {
               href="#"
               @click.prevent="deleteFavorite(favoritesObj[favorite.id])"
             >
-              <span class="material-symbols-outlined icon-fill fs-5">
-                delete_forever
-              </span>
+              <span class="material-symbols-outlined icon-fill fs-5">delete_forever</span>
             </a>
           </div>
         </div>

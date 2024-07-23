@@ -78,13 +78,11 @@ const router = createRouter({
           children: [
             {
               path: '',
-              component: () =>
-                import('../views/front/member/MemberDiscount.vue'),
+              component: () => import('../views/front/member/MemberDiscount.vue'),
             },
             {
               path: 'coupons',
-              component: () =>
-                import('../views/front/member/MemberCoupons.vue'),
+              component: () => import('../views/front/member/MemberCoupons.vue'),
             },
           ],
         },
@@ -111,7 +109,7 @@ const router = createRouter({
       component: () => import('../views/front/NewsView.vue'),
     },
     {
-      path: '/new',
+      path: '/new/:id',
       name: 'new',
       component: () => import('../views/front/NewView.vue'),
     },

@@ -37,6 +37,10 @@
   margin-left: 16px;
 }
 
+.icon-sm::after {
+  font-size: 16px;
+}
+
 .icon-east::after {
   content: '\f1df';
 }

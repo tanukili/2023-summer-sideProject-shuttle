@@ -6,20 +6,16 @@ import BackgroundBanner from '../../components/BackgroundBanner.vue';
 
 import useMemberLoginStore from '../../stores/useMemberLoginStore';
 
-const api = import.meta.env.VITE_API_PATH;
-const imgBase = import.meta.env.VITE_IMG_BASE;
-
 export default {
   components: {
     BackgroundBanner,
   },
   data() {
     return {
-      // isLoading: false,
       bannerAd: {
         title: '新註冊會員 贈100元折價券',
         subtitle: '新會員招募中，註冊即贈優惠券',
-        imgUrl: `background-image: url(${imgBase}/activity/newMember.jpg)`,
+        bannerImg: 'activity/newMember.jpg',
       },
       userBirthday: '',
       flatpickrConfig: {
@@ -52,11 +48,6 @@ export default {
     });
     // 為使用日期時間選擇器的input加入樣式
     document.querySelector('.form-date .input').classList.add('form-control');
-    // 進入時觸發
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
   },
   beforeUnmount() {
     // 銷毀Flatpickr實體，防止資料洩漏
@@ -69,15 +60,6 @@ export default {
 </script>
 
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
   <div class="about">
     <div class="bg-white position-relative z-0">
       <!-- content -->
@@ -197,6 +179,16 @@ export default {
                   <VField
                     type="radio"
                     name="性別"
+                    value="other"
+                    class="form-check-input"
+                    id="signUpOther"
+                  />
+                  <label for="signUpOther">其他</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <VField
+                    type="radio"
+                    name="性別"
                     value="private"
                     class="form-check-input"
                     id="signUpPrivate"
@@ -212,13 +204,9 @@ export default {
                   value="true"
                   class="form-check-input"
                 />
-                <label class="form-check-label required">
-                  我同意網站服務條款及隱私政策
-                </label>
-                <ErrorMessage name="agreeTerms" v-slot="{ message }"
-                  ><span class="text-danger fs-9 ms-2">{{
-                    (message = '請閱讀完後勾選')
-                  }}</span>
+                <label class="form-check-label required">我同意網站服務條款及隱私政策</label>
+                <ErrorMessage name="agreeTerms" v-slot="{ message }">
+                  <span class="text-danger fs-9 ms-2">{{ (message = '請閱讀完後勾選') }}</span>
                 </ErrorMessage>
               </div>
               <button class="btn btn-primary w-100 mb-3 fs-5">註冊</button>
@@ -227,17 +215,17 @@ export default {
         </div>
       </div>
       <!-- background -->
-      <BackgroundBanner
-        v-bind:bannerImg="bannerAd.imgUrl"
-        class="singUp-banner"
-      ></BackgroundBanner>
+      <BackgroundBanner :bannerImg="bannerAd.bannerImg" class="singUp-banner"></BackgroundBanner>
     </div>
   </div>
 </template>
 
 <style>
-.singUp-banner > * {
+.singUp-banner {
   height: 640px;
+  width: 100vw;
+  position: absolute;
+  z-index: -1;
   top: calc(120px + 24px * 1.2 + 16px + 64px);
 }
 </style>

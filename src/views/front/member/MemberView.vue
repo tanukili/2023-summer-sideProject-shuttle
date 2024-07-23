@@ -1,12 +1,3 @@
-<script>
-import MemberCalendar from '../../../components/MemberCalendar.vue';
-
-export default {
-  components: {
-    MemberCalendar,
-  },
-};
-</script>
 <template>
   <div class="about bg-gray-100">
     <div class="block-spacing-sm container">
@@ -25,32 +16,24 @@ export default {
         <div class="col-md-3">
           <ul class="memberNav nav nav-fill flex-md-column">
             <li class="nav-item">
-              <RouterLink
-                class="nav-link py-3 border border-white"
-                to="/member/edit"
-                >會員資料</RouterLink
-              >
+              <RouterLink class="nav-link py-3 border border-white" to="/member/edit">
+                會員資料
+              </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink
-                class="nav-link py-3 border border-white"
-                to="/member/orders"
-                >訂單列表</RouterLink
-              >
+              <RouterLink class="nav-link py-3 border border-white" to="/member/orders">
+                訂單列表
+              </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink
-                class="nav-link py-3 border border-white"
-                to="/member/discounts"
-                >優惠一覽</RouterLink
-              >
+              <RouterLink class="nav-link py-3 border border-white" to="/member/discounts">
+                優惠一覽
+              </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink
-                class="nav-link py-3 border border-white"
-                to="/member/favorites"
-                >我的收藏</RouterLink
-              >
+              <RouterLink class="nav-link py-3 border border-white" to="/member/favorites">
+                我的收藏
+              </RouterLink>
             </li>
           </ul>
         </div>
@@ -61,6 +44,25 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import { mapActions } from 'pinia';
+import memberStore from '@/stores/front/memberStore';
+
+import MemberCalendar from '@/components/MemberCalendar.vue';
+
+export default {
+  components: {
+    MemberCalendar,
+  },
+  methods: {
+    ...mapActions(memberStore, ['checkUserId']),
+  },
+  beforeMount() {
+    this.checkUserId();
+  },
+};
+</script>
 
 <style>
 .memberNav {

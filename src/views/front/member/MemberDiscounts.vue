@@ -1,5 +1,12 @@
+<template>
+  <div class="pt-3">
+    <MemberNavs :options="navsOption" :now-option="nowOption" @get-option="getOption" />
+  </div>
+  <router-view></router-view>
+</template>
+
 <script>
-import MemberNavs from '../../../components/MemberNavs.vue';
+import MemberNavs from '@/components/front/member/MemberNavs.vue';
 
 export default {
   components: {
@@ -7,30 +14,25 @@ export default {
   },
   data() {
     return {
-      orderOption: [
+      navsOption: [
         {
           name: '優惠活動',
-          sort: 'activities',
           isRouterLink: true,
           path: '/discounts',
-          isClicked: true,
         },
         {
           name: '折扣券',
-          sort: 'coupon',
           isRouterLink: true,
           path: '/discounts/coupons',
-          isClicked: false,
         },
       ],
+      nowOption: '優惠活動',
     };
+  },
+  methods: {
+    getOption(value) {
+      this.nowOption = value;
+    },
   },
 };
 </script>
-
-<template>
-  <div class="pt-3">
-    <MemberNavs :options="orderOption" />
-  </div>
-  <router-view></router-view>
-</template>

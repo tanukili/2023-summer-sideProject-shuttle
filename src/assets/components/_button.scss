@@ -17,6 +17,12 @@
   &.btn-primary-light {
     --bs-btn-color: var(--bs-primary);
   }
+  &.btn-outline-secondary {
+    --bs-btn-color: var(--bs-gray-500);
+  }
+  &.btn-outline-danger:hover {
+    --bs-btn-hover-color: var(--bs-white);
+  }
 }
 
 // .table-white 與 btn-outline-primary:hover 樣式衝突

@@ -1,53 +1,8 @@
-<script>
-import { mapActions } from 'pinia';
-import useMemberLoginStore from '../../stores/useMemberLoginStore';
-import BackgroundBanner from '../../components/BackgroundBanner.vue';
-
-const imgBase = import.meta.env.VITE_IMG_BASE;
-
-export default {
-  components: {
-    BackgroundBanner,
-  },
-  data() {
-    return {
-      bannerAd: {
-        title: '2023 歲末全館回饋季',
-        subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
-        imgUrl: `background-image: url(${imgBase}/activity/2023-year-end02.jpg)`,
-      },
-      loginInfo: {
-        password: '',
-        email: '',
-      },
-    };
-  },
-  methods: {
-    ...mapActions(useMemberLoginStore, ['login']),
-  },
-  mounted() {
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
-  },
-};
-</script>
-
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
   <div class="about">
     <div class="bg-white position-relative z-0">
       <!-- content -->
-      <div class="container block-spacing">
+      <div class="container block-spacing position-relative">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -65,9 +20,7 @@ export default {
             <h1 class="title fs-3 text-primary pt-3 pb-4">
               <span class="border-primary">會員登入</span>
             </h1>
-            <form
-              class="mx-5 form-clear pb-4 border-dashed-b border-secondary-light"
-            >
+            <form class="mx-5 form-clear pb-4 border-dashed-b border-secondary-light">
               <div class="form-floating mb-4">
                 <input
                   name="信箱"
@@ -91,49 +44,73 @@ export default {
                 <label for="signUpPassword">密碼</label>
               </div>
               <div class="d-flex justify-content-between lh-lg">
-                <a
-                  href="#"
-                  class="link-gray-500 text-decoration-underline"
-                  @click.prevent
-                  >忘記密碼？</a
-                >
-                <RouterLink to="/admin-login" class="link-gray-500"
-                  >後台登入</RouterLink
-                >
+                <a href="#" class="link-gray-500 text-decoration-underline" @click.prevent>
+                  忘記密碼？
+                </a>
+                <RouterLink to="/admin-login" class="link-gray-500">後台登入</RouterLink>
               </div>
 
               <button
                 @click.prevent="login(loginInfo)"
                 class="btn btn-primary w-100 mt-2 fs-5"
-                :class="
-                  !loginInfo.email || !loginInfo.password ? 'disabled' : true
-                "
+                :class="!loginInfo.email || !loginInfo.password ? 'disabled' : true"
               >
                 登入
               </button>
             </form>
             <p class="text-center mt-7">
-              是新織友嗎？<RouterLink
+              是新織友嗎？
+              <RouterLink
                 to="/signup"
                 class="link-gray-500 text-decoration-underline fw-bold lh-lg"
-                >立即註冊</RouterLink
               >
+                立即註冊
+              </RouterLink>
             </p>
           </div>
         </div>
       </div>
-      <!-- background -->
-      <BackgroundBanner
-        v-bind:bannerImg="bannerAd.imgUrl"
-        class="login-banner"
-      ></BackgroundBanner>
+      <!-- background-banner -->
+      <BackgroundBanner :banner-img="bannerAd.bannerImg" class="login-banner"></BackgroundBanner>
     </div>
   </div>
 </template>
 
+<script>
+import { mapActions } from 'pinia';
+import useMemberLoginStore from '../../stores/useMemberLoginStore';
+import BackgroundBanner from '../../components/BackgroundBanner.vue';
+
+export default {
+  components: {
+    BackgroundBanner,
+  },
+  data() {
+    return {
+      bannerAd: {
+        title: '2023 歲末全館回饋季',
+        subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
+        bannerImg: 'activity/2023-year-end02.jpg',
+      },
+      loginInfo: {
+        password: '',
+        email: '',
+      },
+    };
+  },
+  methods: {
+    ...mapActions(useMemberLoginStore, ['login']),
+  },
+  mounted() {},
+};
+</script>
+
 <style>
-.login-banner > * {
-  height: 420px;
-  top: calc(120px + 24px * 1.2 + 16px + 64px);
+.login-banner {
+  height: 430px;
+  width: 100vw;
+  position: absolute;
+  z-index: -1;
+  top: calc(120px + 24px * 1.2 + 16px + 64px) !important;
 }
 </style>

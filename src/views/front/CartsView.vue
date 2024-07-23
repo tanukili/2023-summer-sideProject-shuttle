@@ -1,147 +1,5 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import useActivitiesStore from '../../stores/useActivitiesStore';
-import useCartsStore from '../../stores/useCartsStore';
-import useCouponStore from '../../stores/useCouponStore';
-import BackgroundBanner from '../../components/BackgroundBanner.vue';
-
-const imgBase = import.meta.env.VITE_IMG_BASE;
-
-const api = import.meta.env.VITE_API_PATH;
-
-export default {
-  components: {
-    BackgroundBanner,
-  },
-  data() {
-    return {
-      bannerImg: `background-image: url(${imgBase}/banner/banner-carts.jpg)`,
-      couponCode: '',
-      couponDiscount: 0,
-    };
-  },
-  methods: {
-    ...mapActions(useActivitiesStore, ['getActivities']),
-    ...mapActions(useCartsStore, [
-      'getCart',
-      'putCart',
-      'deleteAllCart',
-      'deleteCart',
-      'goToOrder',
-    ]),
-    useCoupon(code) {
-      this.axios
-        .get(`${api}/coupons/${code}`)
-        .then((res) => {
-          const obj = res.data;
-          // if (obj.is_used) {
-          //   swal.fire('優惠券已使用');
-          //   return;
-          // }
-          console.log(res.data);
-          this.$swal({
-            icon: 'success',
-            confirmButtonText: '確認',
-            title: `成功套用「${res.data.title}」`,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
-          this.couponDiscount = res.data.discount;
-          document.cookie = `couponDiscount=${this.couponDiscount}; max-age=86400;Secure`;
-          obj.is_used = true;
-          // this.putCouponState(code, obj);
-        })
-        .catch(() => {
-          this.$swal({
-            icon: 'error',
-            title: '優惠券使用失敗',
-          });
-        });
-    },
-    goToOrder() {
-      // 全館活動提醒 暫時的寫法
-      this.$swal({
-        // position: 'bottom-end',
-        // backdrop: false,
-        title: `${this.allActive.title}`,
-        html: `<p class='text-gray-400'>${this.allActive.description}</p>
-            <p>目前金額再 <span class='text-danger'>NT$ ${this.countDifference} </span>可折抵 NT$ ${this.allActive.percentOff} </p>`,
-        showDenyButton: true,
-        showCloseButton: true,
-        confirmButtonText: '修改訂單',
-        denyButtonText: '下一步',
-        denyButtonColor: 'var(--bs-primary)',
-      })
-        // 按鈕事件
-        .then((res) => {
-          if (res.isDenied) {
-            this.$router.push('/order');
-          }
-        });
-    },
-  },
-  mounted() {
-    // 進入時觸發
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
-  },
-  created() {
-    this.getActivities();
-    this.getCart();
-  },
-  computed: {
-    ...mapState(useActivitiesStore, [
-      'allActive',
-      'unlimitedActivities',
-      'numActivities',
-      'nowAllDiscount',
-    ]),
-    ...mapState(useCartsStore, ['carts', 'totalBill', 'nowAllDiscount']),
-    ...mapState(useCouponStore, ['cookieCouponDiscount']),
-    countDifference() {
-      const required = this.allActive.requiredPrice;
-      return required - (this.totalBill % required);
-    },
-    countFinal() {
-      if (!this.couponDiscount) {
-        return this.totalBill - this.nowAllDiscount;
-      }
-      return this.totalBill - this.couponDiscount - this.nowAllDiscount;
-    },
-    imgBase() {
-      return import.meta.env.VITE_IMG_BASE;
-    },
-  },
-  // // 生命週期：離開當前路由前調用
-  // beforeRouteLeave(to, from, next) {
-  //   // 關閉所有 SweetAlert2 視窗
-  //   this.$swal.close();
-  //   // 繼續路由遷移
-  //   next();
-  // },
-};
-</script>
-
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
-  <BackgroundBanner
-    :bannerImg="bannerImg"
-    class="cart-banner"
-  ></BackgroundBanner>
+  <BackgroundBanner :bannerImg="bannerImg" class="cart-banner"></BackgroundBanner>
   <div class="bg-white">
     <div class="block-spacing-sm container">
       <nav aria-label="breadcrumb" class="mb-3">
@@ -155,14 +13,14 @@ export default {
           <li class="breadcrumb-item active" aria-current="page">購物車</li>
         </ol>
       </nav>
-      <div v-if="!carts.length" class="d-flex flex-column align-items-center">
+      <div v-if="!cart.length" class="d-flex flex-column align-items-center">
         <span
           class="material-symbols-outlined text-gray-200 p-4 rounded-circle my-4"
           style="font-size: 96px; border: 6px solid var(--bs-gray-100)"
         >
           production_quantity_limits
         </span>
-        <h2>目前購物車沒有東西</h2>
+        <h2>目前購物車沒有課程</h2>
         <RouterLink
           to="/products"
           class="icon-e icon-east btn btn-primary-light mt-5"
@@ -173,8 +31,8 @@ export default {
       </div>
       <div v-else>
         <!-- 訂單進度 -->
-        <div class="w-100 w-md-75 d-flex flex-column mx-auto my-5">
-          <ol class="d-flex justify-content-around ps-0 fs-6 fw-bold">
+        <div class="w-100 w-md-75 d-flex flex-column mx-auto mt-5 mb-7 mb-lg-5">
+          <ol class="d-flex justify-content-around ps-0 fs-7 fs-md-6 fw-bold">
             <li>訂單確認</li>
             <li>填寫資料</li>
             <li>訂單完成</li>
@@ -191,83 +49,82 @@ export default {
           </div>
         </div>
         <!-- 訂單內容 -->
-        <div class="d-flex align-items-center mb-2">
+        <h2 class="title fs-4 text-primary mb-7 mb-md-5">
+          <span class="border-primary pb-6">購物車一覽</span>
+        </h2>
+        <div class="d-flex align-items-end mb-2">
           <RouterLink
-            class="text-decoration-underline d-inline-block me-auto"
+            class="text-decoration-underline d-inline-block me-auto fs-8 fs-lg-7"
             to="/products"
           >
-            <span class="material-symbols-outlined icon-semibold"> undo </span>
+            <span class="material-symbols-outlined icon-semibold">undo</span>
             返回課程列表
           </RouterLink>
-          <a
-            class="btn btn-sm btn-outline-primary px-3 fw-normal d-inline-block shadow-none"
-            href="#"
-            @click.prevent="deleteAllCart()"
+          <button
+            class="btn btn-sm fs-7 btn-outline-danger shadow-sm px-3 fs-8 fs-lg-7"
+            type="button"
+            @click="deleteAllCart()"
           >
             清空購物車
-          </a>
+          </button>
         </div>
-        <div class="table-responsive-sm">
+        <div class="table-responsive mb-4">
           <table
-            class="table align-middle table-white text-center fs-8 fs-lg-7"
+            class="table align-middle table-white text-center fs-8 fs-md-7 mb-0"
+            style="min-width: 696px"
           >
             <thead>
               <tr class="table-light bg-light">
-                <th scope="col"></th>
-                <th scope="col">
-                  <div class="d-none d-md-flex flex-column">預覽</div>
-                </th>
+                <th scope="col" width="48px"></th>
+                <th scope="col" class="d-none d-lg-table-cell">預覽</th>
                 <th scope="col">課程名稱</th>
                 <th scope="col">價格</th>
                 <th scope="col">人數</th>
                 <th scope="col">小計</th>
                 <th scope="col">
-                  <div class="d-none d-md-flex flex-column px-md-3">
-                    適用優惠
-                  </div>
+                  <div class="d-none d-md-flex flex-column px-md-3">適用優惠</div>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="course in carts" :key="course.id">
+              <tr v-for="course in cart" :key="course.id">
                 <th scope="row">
                   <a href="#" @click.prevent="deleteCart(course.id)">
-                    <span class="material-symbols-outlined icon-fill fs-5">
-                      delete_forever
-                    </span>
+                    <span class="material-symbols-outlined icon-fill fs-5">delete_forever</span>
                   </a>
                 </th>
-                <td>
-                  <div class="d-none d-md-flex flex-column align-items-center">
-                    <img
-                      :src="`${imgBase}${course.product.imageUrl}`"
-                      :alt="`product${course.id}`"
-                      class="img-fluid"
-                      style="max-width: 150px"
-                    />
-                  </div>
+                <td class="d-none d-lg-table-cell">
+                  <img
+                    :src="course.product.imageUrl"
+                    :alt="`product${course.id}`"
+                    class="img-fluid"
+                    style="max-width: 150px; max-height: 100px"
+                  />
                 </td>
-                <td>{{ course.product.title }}</td>
+                <td>
+                  <RouterLink :to="`/product/${course.product.id}`" class="fw-bold">
+                    {{ course.product.title }}
+                  </RouterLink>
+                </td>
                 <td>
                   <div class="d-flex flex-column">
                     <span
-                      v-if="
-                        course.product.origin_price !== course.product.price
-                      "
+                      v-if="course.product.origin_price !== course.product.price"
                       class="text-gray-400 text-decoration-line-through"
-                      >{{ course.product.origin_price }}</span
-                    ><span
-                      :class="`${
-                        course.product.origin_price !== course.product.price
-                          ? 'text-danger'
-                          : false
-                      }`"
-                      >{{ course.product.price }}</span
                     >
+                      {{ course.product.origin_price }}
+                    </span>
+                    <span
+                      :class="`${
+                        course.product.origin_price !== course.product.price ? 'text-danger' : false
+                      }`"
+                    >
+                      {{ course.product.price }}
+                    </span>
                   </div>
                 </td>
                 <td>
-                  <div class="select-icon">
+                  <div class="select-icon d-inline-block" style="width: 64px">
                     <select
                       class="form-select form-select-sm fs-lg-7 pe-4 border-secondary"
                       v-model="course.qty"
@@ -275,8 +132,7 @@ export default {
                     >
                       <option
                         :value="num"
-                        v-for="num in course.product.info.capacity -
-                        course.product.info.studentNum"
+                        v-for="num in course.product.info.capacity - course.product.info.studentNum"
                         :key="num"
                       >
                         {{ num }}
@@ -285,121 +141,164 @@ export default {
                   </div>
                 </td>
                 <td>
-                  <div class="d-flex flex-column">
-                    <span
-                      v-if="course.final_total !== course.total"
-                      class="text-gray-400 text-decoration-line-through"
-                      >{{ course.total }}</span
-                    ><span
-                      :class="`${
-                        course.final_total !== course.total
-                          ? 'text-danger'
-                          : false
-                      }`"
-                      >{{ course.final_total }}</span
-                    >
-                  </div>
+                  <span
+                    :class="{
+                      'text-gray-400 text-decoration-line-through':
+                        course.total !== course.subtotal,
+                    }"
+                  >
+                    {{ course.total }}
+                  </span>
+                  <span v-if="course.total !== course.subtotal" class="text-danger d-block">
+                    {{ course.subtotal }}
+                  </span>
                 </td>
                 <td class="fs-8 px-md-3">
-                  <div
-                    v-if="course.product.state.promotion"
-                    class="d-none d-md-flex flex-column"
-                  >
-                    <div
-                      v-if="unlimitedActivities[course.product.state.promotion]"
+                  <p>
+                    {{
+                      course.product.state.promotion
+                        ? activities[course.product.state.promotion]?.title
+                        : '－'
+                    }}
+                    <span
+                      class="d-block fs-9 mt-1"
+                      :class="[
+                        course.qty < numActivities[course.product.state.promotion]?.requiredNum
+                          ? 'text-danger'
+                          : 'text-gray-200',
+                      ]"
                     >
-                      {{
-                        unlimitedActivities[course.product.state.promotion]
-                          .title
-                      }}
-                    </div>
-                    <div v-else>
-                      {{ numActivities[course.product.state.promotion].title }}
-                      <div
-                        v-if="
-                          course.qty <
-                          numActivities[course.product.state.promotion]
-                            .requiredNum
-                        "
-                        class="text-gray-200 fs-9 lh-lg fw-light"
-                      >
-                        {{
-                          numActivities[course.product.state.promotion]
-                            .description
-                        }}
-                      </div>
-                    </div>
-                  </div>
+                      {{ activities[course.product.state.promotion]?.description }}
+                    </span>
+                  </p>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <!-- 訂單底部 -->
-        <div class="row mb-4 pb-md-3 pt-2">
-          <div class="col-10 col-md-5">
-            <div class="input-group mb-3 mb-lg-4">
-              <input
-                v-model="couponCode"
-                type="text"
-                class="form-control fs-7"
-                placeholder="請輸入折扣碼"
-                aria-label="coupon number"
-                aria-describedby="coupon-btn"
-              />
-              <button
-                class="btn btn-secondary shadow-none py-2 fs-7"
-                type="button"
-                id="coupon-btn"
-                @click.prevent="useCoupon(couponCode)"
-              >
-                確認使用
-              </button>
-            </div>
+        <div class="row gy-4">
+          <div class="col-12 col-md-6 text-center text-md-start">
+            <CouponModal :sum-subtotals="cartOverview.sumSubtotals" />
           </div>
-          <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 ms-auto">
-            <ul class="list-group rounded-2">
-              <li
-                class="list-group-item border-0 text-mellow d-flex justify-content-between py-3"
-              >
-                <span class="fw-bold">目前總金額</span>NT$ {{ totalBill }}
+          <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mx-auto me-md-0">
+            <ul class="list-group rounded-2 text-mellow py-4 bg-body">
+              <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
+                小計總和：
+                <span class="text-end">NT$ {{ cartOverview.sumSubtotals }}</span>
               </li>
               <li
                 v-if="couponDiscount"
-                class="list-group-item border-0 d-flex justify-content-between"
+                class="list-group-item border-0 d-flex justify-content-between px-4 py-2 fw-bold"
               >
-                <span class="fw-bold">優惠券折抵</span
-                ><span class="text-danger">NT$ - {{ couponDiscount }}</span>
+                優惠券折抵：
+                <span class="text-danger">- {{ couponDiscount }}</span>
               </li>
               <li
-                v-if="allActive.requiredPrice <= totalBill"
-                class="list-group-item border-0 d-flex justify-content-between"
+                v-if="cartOverview.fullDiscount"
+                class="list-group-item border-0 d-flex justify-content-between px-4 py-2 fw-bold"
               >
-                <span class="fw-bold">滿額折抵</span
-                ><span class="text-danger">NT$ - {{ nowAllDiscount }}</span>
+                滿額折抵：
+                <span class="text-danger">- {{ cartOverview.fullDiscount }}</span>
               </li>
               <li
-                v-if="couponDiscount || allActive.requiredPrice <= totalBill"
-                class="list-group-item pb-3 border-0 d-flex justify-content-between"
+                v-if="couponDiscount || cartOverview.fullDiscount"
+                class="list-group-item pt-2 px-4 border-0 d-flex justify-content-between fw-bold"
               >
-                <span class="fw-bold">折扣後金額</span>NT$
-                {{ countFinal }}
+                折扣後金額：
+                <span class="text-end">NT$ {{ cartOverview.finalBill }}</span>
               </li>
             </ul>
           </div>
-        </div>
-        <div class="d-flex">
-          <button
-            class="btn btn-primary fs-7 fs-lg-6 fw-normal w-75 w-md-50 w-lg-25 mx-auto"
-            @click.prevent="goToOrder()"
-          >
-            訂單確認
-          </button>
+          <div class="col-12 text-center mt-7">
+            <button
+              class="icon-e icon-east btn btn-primary fw-semibold"
+              @click.prevent="activeAlert"
+              style="width: 240px"
+            >
+              前往結帳
+            </button>
+            <p
+              v-if="allActive.requiredPrice > cartOverview.finalBill"
+              class="mt-6 text-danger fs-8"
+            >
+              限時優惠：{{ allActive.description }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'pinia';
+import alertStore from '@/stores/alertStore';
+import getDataStore from '@/stores/getDataStore';
+import useActivitiesStore from '@/stores/useActivitiesStore';
+import useCartsStore from '@/stores/useCartsStore';
+import useCouponStore from '@/stores/useCouponStore';
+
+import BackgroundBanner from '@/components/BackgroundBanner.vue';
+import CouponModal from '@/components/front/CouponModal.vue';
+
+export default {
+  components: {
+    BackgroundBanner,
+    CouponModal,
+  },
+  data() {
+    return {
+      bannerImg: 'banner/banner-carts.jpg',
+      couponCode: '',
+      cart: [],
+    };
+  },
+  computed: {
+    ...mapState(alertStore, ['alertstyles']),
+    ...mapState(getDataStore, ['cartData']),
+    ...mapState(useActivitiesStore, ['allActive', 'unlimitedActivities', 'numActivities']),
+    ...mapState(useCouponStore, ['couponDiscount']),
+    activities() {
+      return { ...this.numActivities, ...this.unlimitedActivities };
+    },
+    cartOverview() {
+      const { requiredPrice, percentOff } = this.allActive;
+      return this.countCart(this.couponDiscount, requiredPrice, percentOff);
+    },
+  },
+  methods: {
+    ...mapActions(alertStore, ['baseContent', 'btns']),
+    ...mapActions(getDataStore, ['getFontData']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
+    ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart', 'countCart']),
+    activeAlert() {
+      const { title, description, requiredPrice, percentOff } = this.allActive;
+      const difference = requiredPrice - (this.sumSubtotals % requiredPrice);
+      this.alertstyles.alert_btns
+        .fire({
+          ...this.baseContent(title, 3, '修改訂單'),
+          ...this.btns('繼續結帳', false),
+          html: `<p>${description}</p><i class="fs-7">還差 <span class="text-danger">${difference}</span> 元，就能再折抵 ${percentOff} 元。</i>`,
+        })
+        .then((res) => {
+          if (res.isDenied) {
+            this.$router.push('/order');
+          }
+        });
+    },
+  },
+  watch: {
+    cartData(newValue) {
+      this.cart = [...newValue];
+    },
+  },
+  mounted() {
+    this.getActivities();
+    this.getFontData('cart');
+  },
+};
+</script>
 
 <style>
 .cart-banner > * {

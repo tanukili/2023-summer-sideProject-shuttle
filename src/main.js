@@ -1,3 +1,4 @@
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './assets/all.scss';
 
 import { createApp, markRaw } from 'vue'; // 利用 markRaw() 將router 傳遞給 pinia
@@ -21,19 +22,6 @@ import 'bootstrap'; // 從nodeModule中載入Bootstrap
 import App from './App.vue'; // 有另外設定變數，所以要放在最後
 import router from './router';
 
-const options = {
-  confirmButtonColor: 'var(--bs-success)',
-  confirmButtonText: '確認',
-  cancelButtonColor: 'var(--bs-danger)',
-  padding: '0 0 16px',
-  showClass: {
-    popup: 'animate__animated animate__fadeInDown',
-  },
-  hideClass: {
-    popup: 'animate__animated animate__fadeOutDown',
-  },
-};
-
 // 使用 Object.keys 將 AllRules 轉為陣列並使用 forEach 迴圈將驗證規則加入 VeeValidate
 Object.keys(AllRules).forEach((rule) => {
   defineRule(rule, AllRules[rule]);
@@ -49,13 +37,13 @@ const pinia = createPinia();
 
 pinia.use(({ store }) => {
   store.router = markRaw(router);
-}); // 在 store 中使用 pinia
+}); // 在 store 中使用 router
 const app = createApp(App);
 
 app.use(pinia);
 app.use(router);
 app.use(VueAxios, axios);
-app.use(VueSweetalert2, options);
+app.use(VueSweetalert2);
 
 // 掛載元件
 app.component('LoadingOverlay', Loading); // loading

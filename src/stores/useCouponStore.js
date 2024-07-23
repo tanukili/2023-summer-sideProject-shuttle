@@ -1,19 +1,19 @@
 import { defineStore } from 'pinia';
-import swal from 'sweetalert2';
 import axios from 'axios';
-
-const api = import.meta.env.VITE_API_PATH;
+import alertStore from './alertStore';
 
 export default defineStore('coupon', {
   state: () => ({
+    url: import.meta.env.VITE_API_PATH,
     couponDiscount: 0,
-    coupons: {},
+    couponId: '',
+    coupon: null,
   }),
   getters: {
     cookieCouponDiscount() {
       const cookieValue = document.cookie.replace(
         /(?:(?:^|.*;\s*)couponDiscount\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
+        '$1',
       );
       if (cookieValue) {
         return cookieValue;
@@ -22,59 +22,34 @@ export default defineStore('coupon', {
     },
   },
   actions: {
-    useCoupon(code) {
+    // 寫入、清除 cookie 中 coupon 資訊
+    toggleCoupon(coupon = '') {
+      const couponObj = coupon ? JSON.stringify(coupon) : '';
+      document.cookie = `coupon=${couponObj}; max-age=86400;Secure`;
+      this.getCookieCoupon();
+    },
+    getCookieCoupon() {
+      const couponObj = document.cookie.replace(
+        /(?:(?:^|.*;\s*)coupon\s*=\s*([^;]*).*$)|^.*$/,
+        '$1',
+      );
+      this.coupon = couponObj ? JSON.parse(couponObj) : {};
+      const { id, discount } = this.coupon;
+      this.couponId = id ? id : '';
+      this.couponDiscount = discount ? discount : 0;
+    },
+    useCoupon(id = this.couponId) {
+      const { alertstyles } = alertStore();
+      const obj = { ...this.coupon };
+      obj.is_used = true;
       axios
-        .get(`${api}/coupons/${code}`)
-        .then((res) => {
-          const obj = res.data;
-          // if (obj.is_used) {
-          //   swal.fire('優惠券已使用');
-          //   return;
-          // }
-          swal.fire({
-            icon: 'success',
-            confirmButtonText: '確認',
-            title: `成功套用「${res.data.title}」`,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
-          this.couponDiscount += res.data.discount;
-          document.cookie = `couponDiscount=${this.couponDiscount}; max-age=86400;Secure`;
-          obj.is_used = true;
-          // this.putCouponState(code, obj);
+        .put(`${this.url}/coupons/${id}`, obj)
+        .then(() => {
+          this.toggleCoupon();
         })
-        .catch(() => {
-          swal.fire({
-            icon: 'error',
-            title: '優惠券使用失敗',
-          });
+        .catch((err) => {
+          alertstyles.toast_danger.fire(`問題${err.response.status}，請洽客服`);
         });
-    },
-    putCouponState(code, obj) {
-      axios.put(`${api}/coupons/${code}`, obj).then((res) => {
-        swal.fire({
-          icon: 'success',
-          confirmButtonText: '確認',
-          title: `成功套用「${res.data.title}」`,
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutDown',
-          },
-        });
-        this.couponCode = '';
-      });
-    },
-    getCoupons() {
-      axios.get(`${api}/coupons`).then((res) => {
-        console.log(res.data);
-        this.coupons = res.data;
-      });
     },
   },
 });
