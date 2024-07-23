@@ -16,9 +16,8 @@ export default defineStore('getDataStore', {
   }),
   actions: {
     getFontData(targetName, id = '') {
-      const apiUrl = `${this.hexUrl}api/${this.path}/${targetName}${id ? '/' + id : ''}`;
+      const apiUrl = `${this.hexUrl}api/${this.path}/${targetName}${id ? `/${id}` : ''}`;
       const { alertstyles, baseContent } = alertStore();
-      console.log(apiUrl);
       axios
         .get(apiUrl)
         .then((res) => {
@@ -45,20 +44,20 @@ export default defineStore('getDataStore', {
       const { numActivities } = useActivitiesStore();
       this.cartData = [...data].map((item) => {
         // 小計計算（數量優惠）
+        const newItem = { ...item };
         const { total, qty } = item;
         const { promotion } = item.product.state;
         const activity = numActivities[promotion];
-        item.subtotal = total;
+        newItem.subtotal = total;
         if (!!activity && activity.requiredNum <= qty) {
-          item.subtotal = Math.round(total * activity.percentOff);
+          newItem.subtotal = Math.round(total * activity.percentOff);
         }
-        return item;
+        return newItem;
       });
     },
     getJsonData(targetName, filter = '') {
-      const apiUrl = `${this.url}/${targetName}${filter ? '/' + filter : ''}`;
+      const apiUrl = `${this.url}/${targetName}${filter ? `/${filter}` : ''}`;
       const { alertstyles, baseContent } = alertStore();
-      console.log(apiUrl);
       axios
         .get(apiUrl)
         .then((res) => {

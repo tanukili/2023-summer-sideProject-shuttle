@@ -14,14 +14,12 @@ export default defineStore('favorite', {
   getters: {},
   actions: {
     addFavorite(prodcutId) {
-      console.log(prodcutId);
       this.favorites.push(prodcutId);
       const obj = {
         productId: prodcutId,
         userId,
       };
-      axios.post(`${api}/favorites`, obj).then((res) => {
-        console.log(res.data);
+      axios.post(`${api}/favorites`, obj).then(() => {
         swal.fire({
           confirmButtonText: '確認',
           title: '已加入收藏',

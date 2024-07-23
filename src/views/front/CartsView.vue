@@ -182,7 +182,7 @@
             <CouponModal :sum-subtotals="cartOverview.sumSubtotals" />
           </div>
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mx-auto me-md-0">
-            <ul class="list-group rounded-2 text-mellow py-4 bg-body">
+            <ul class="list-group rounded-2 py-4 bg-body">
               <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
                 小計總和：
                 <span class="text-end">NT$ {{ cartOverview.sumSubtotals }}</span>

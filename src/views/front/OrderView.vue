@@ -74,9 +74,7 @@
                   返回購物車
                 </RouterLink>
               </div>
-              <ul
-                class="col-8 col-sm-6 col-md-5 col-lg-6 list-group rounded-2 text-mellow py-4 bg-body"
-              >
+              <ul class="col-8 col-sm-6 col-md-5 col-lg-6 list-group rounded-2 py-4 bg-body">
                 <li
                   class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold"
                 >
@@ -301,7 +299,7 @@ export default {
     onInvalidSubmit({ errors }) {
       const firstErr = Object.keys(errors)[0];
       const domRect = document.querySelector(`#${firstErr}`).getBoundingClientRect();
-      const scrollTop = document.documentElement.scrollTop; // 目前視窗滾動位置
+      const { scrollTop } = document.documentElement; // 目前視窗滾動位置
       const top = domRect.top + scrollTop - 226; // 元素相對視窗高度 + 視窗已滾動高度 - 審美上微調
       window.scrollTo({ top });
     },

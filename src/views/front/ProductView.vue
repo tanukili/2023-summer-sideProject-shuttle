@@ -311,11 +311,11 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import getDataStore from '@/stores/getDataStore';
+import utilitiesStore from '@/stores/utilitiesStore';
 import useActivitiesStore from '../../stores/useActivitiesStore';
 import useProductsStore from '../../stores/useProductsStore';
 import useCartsStore from '../../stores/useCartsStore';
 import useFavoriteStore from '../../stores/useFavoriteStore';
-import utilitiesStore from '@/stores/utilitiesStore';
 
 export default {
   data() {

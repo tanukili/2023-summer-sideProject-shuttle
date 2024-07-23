@@ -3,8 +3,6 @@ import axios from 'axios';
 import swal from 'sweetalert2';
 import alertStore from '@/stores/alertStore';
 import getDataStore from '@/stores/getDataStore';
-import useActivitiesStore from '@/stores/useActivitiesStore';
-import useCouponStore from '@/stores/useCouponStore';
 
 export default defineStore('carts', {
   state: () => ({
@@ -105,7 +103,7 @@ export default defineStore('carts', {
     // 計算訂單金額細項
     countCart(couponDiscount, requiredPrice, percentOff) {
       const { cartData } = getDataStore();
-      const sumSubtotals = cartData.reduce((acc, item) => acc + item.subtotal, 0); //小計總和
+      const sumSubtotals = cartData.reduce((acc, item) => acc + item.subtotal, 0); // 小計總和
       const fullDiscount = Math.floor(sumSubtotals / requiredPrice) * percentOff; // 滿額折抵
       const finalBill = sumSubtotals - fullDiscount - couponDiscount; // 最終金額
       return { sumSubtotals, couponDiscount, fullDiscount, finalBill };

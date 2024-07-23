@@ -555,7 +555,7 @@ export default {
 <style lang="scss">
 .home-banner {
   /* 加上半透明遮罩 */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/banner/banner.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(banner/banner.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

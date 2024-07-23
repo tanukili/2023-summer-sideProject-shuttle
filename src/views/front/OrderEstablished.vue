@@ -4,13 +4,10 @@ import useCartsStore from '../../stores/useCartsStore';
 import useCouponStore from '../../stores/useCouponStore';
 import useOrderStore from '../../stores/useOrderStore';
 
-const orderId = document.cookie.replace(
-  /(?:(?:^|.*;\s*)newOrderId\s*=\s*([^;]*).*$)|^.*$/,
-  '$1'
-);
+const orderId = document.cookie.replace(/(?:(?:^|.*;\s*)newOrderId\s*=\s*([^;]*).*$)|^.*$/, '$1');
 const cookieValue = document.cookie.replace(
   /(?:(?:^|.*;\s*)couponDiscount\s*=\s*([^;]*).*$)|^.*$/,
-  '$1'
+  '$1',
 );
 
 export default {
@@ -109,9 +106,7 @@ export default {
             <ul class="list-group list-group-flush pt-2 pb-4">
               <li class="list-group-item border-light">
                 <div class="row">
-                  <h5 class="col fs-6 mb-0 text-center text-center">
-                    成立日期
-                  </h5>
+                  <h5 class="col fs-6 mb-0 text-center text-center">成立日期</h5>
                   <div class="col-7 lh-lg">
                     <p>{{ createDate }}</p>
                   </div>

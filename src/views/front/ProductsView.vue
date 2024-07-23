@@ -127,12 +127,12 @@
     </div>
     <!-- background-style -->
     <div
-      class="bg-position bg-white border-dashed rounded-circle d-none d-md-block animation-rotate z-n1"
-      style="width: 90vw; height: 90vw; top: -60vw; left: -20vw"
+      class="bg-position bg-white border-dashed rounded-circle animation-rotate z-n1"
+      style="width: 100vw; height: 100vw; top: -50vw; left: -20vw"
     ></div>
     <div
       class="bg-position bg-primary-light rounded-circle z-n2"
-      style="width: 100vw; height: 100vw; bottom: -65vw; right: -20vw"
+      style="width: 100vw; height: 100vw; bottom: -50vw; right: -20vw"
     ></div>
   </div>
 </template>
