@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import swal from 'sweetalert2';
 import axios from 'axios';
+import useCouponStore from './useCouponStore';
 
 const api = import.meta.env.VITE_API_PATH;
 const hexApi = import.meta.env.VITE_HEX_API_URL;
@@ -16,58 +17,6 @@ export default defineStore('orders', {
     calenderEvents: [],
   }),
   actions: {
-    postOrder(values) {
-      const obj = {
-        data: {
-          user: {
-            name: values.名稱,
-            email: values.連絡信箱,
-            tel: values.連絡電話,
-            address: 'none',
-            userId,
-          },
-          message: values.備註,
-          payment: values.付款方式,
-          finalBill: values.finalBill,
-        },
-      };
-      axios
-        .post(`${hexApi}api/${apiPath}/order`, obj)
-        .then((res) => {
-          const newOrderId = res.data.orderId;
-          document.cookie = 'couponDiscount=;';
-          document.cookie = `newOrderId=${newOrderId}; max-age=86400;Secure`;
-          this.fixBill(values.finalBill, newOrderId);
-          swal.fire({
-            icon: 'success',
-            confirmButtonText: '確認',
-            title: res.data.message,
-            didClose: () => {
-              this.router.push({ name: 'order-established' });
-            },
-          });
-        })
-        .catch((err) => {
-          swal.fire(`問題${err.response.status}，請洽客服`);
-        });
-    },
-    // 另外儲存訂單金額
-    fixBill(total, id) {
-      const obj = {
-        id,
-        total,
-      };
-      axios.post(`${api}/ordersFinalBill`, obj);
-    },
-    getfixBill() {
-      axios.get(`${api}/ordersFinalBill`).then((res) => {
-        const billArr = [...res.data].reverse().map((e) => e.total);
-        console.log(billArr);
-        this.orders.forEach((e, i) => {
-          e.finalBill = billArr[i];
-        });
-      });
-    },
     getOrder(id) {
       axios.get(`${hexApi}api/${apiPath}/order/${id}`).then((res) => {
         this.orderInfo = res.data.order;
@@ -79,7 +28,6 @@ export default defineStore('orders', {
         this.orders.forEach((e) => {
           e.products = Object.values(e.products);
         });
-        this.getfixBill();
         this.calenderEvent();
       });
     },

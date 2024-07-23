@@ -61,7 +61,7 @@ export default defineStore('alertStore', {
             htmlContainer: 'mt-2',
           },
           showConfirmButton: false,
-          timer: 2000,
+          timer: 2500,
           showClass: {
             popup: 'animate__animated animate__fadeInDown',
           },
