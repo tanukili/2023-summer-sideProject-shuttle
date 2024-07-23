@@ -40,7 +40,6 @@ export default {
   },
   watch: {
     jsonData(newValue) {
-      console.log(newValue);
       this.coupons = newValue;
     },
   },

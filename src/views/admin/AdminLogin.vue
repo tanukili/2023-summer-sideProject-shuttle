@@ -16,7 +16,6 @@ export default {
       this.axios
         .post(`${hexApi}admin/signin`, obj)
         .then((res) => {
-          console.log(res.data.message);
           const { expired, token } = res.data;
           document.cookie = `token=${token}; expires=${expired};Secure`;
           this.$router.push('/admin');

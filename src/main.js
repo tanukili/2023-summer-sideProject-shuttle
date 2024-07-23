@@ -37,7 +37,7 @@ const pinia = createPinia();
 
 pinia.use(({ store }) => {
   store.router = markRaw(router);
-}); // 在 store 中使用 pinia
+}); // 在 store 中使用 router
 const app = createApp(App);
 
 app.use(pinia);

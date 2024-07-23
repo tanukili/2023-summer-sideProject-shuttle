@@ -12,10 +12,7 @@ export default defineStore('member', {
   // computed / 同步的
   getters: {
     checkUserId: () => {
-      const userId = document.cookie.replace(
-        /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
-      );
+      const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
       return Boolean(userId);
     },
   },
@@ -85,7 +82,6 @@ export default defineStore('member', {
       axios
         .post(`${api}/signup`, userInfo)
         .then((res) => {
-          console.log(res.data);
           this.isLogin = true;
           const { data } = res;
           document.cookie = `token=${data.accessToken}; max-age=86400;Secure`;

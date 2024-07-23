@@ -6,7 +6,7 @@ import alertStore from './alertStore';
 const api = import.meta.env.VITE_API_PATH;
 const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
-export default defineStore('coupon', {
+export default defineStore('favorite', {
   state: () => ({
     favorites: [],
     favoritesObj: {},

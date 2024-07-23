@@ -50,7 +50,6 @@ export default {
 
     handleEventMouseEnter(info) {
       const event = info.event._def;
-      // console.log(info);
       this.$swal({
         title: `${event.title}`,
         html: `<p>上課人數：${event.extendedProps.description}</p><p>上課時間：${event.extendedProps.startStr}</p>`,

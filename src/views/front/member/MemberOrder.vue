@@ -167,7 +167,6 @@ export default {
     ...mapActions(useActivitiesStore, ['getActivities']),
     ...mapActions(utilitiesStore, ['unixToStr']),
     noticePaied(id) {
-      console.log(id);
       this.axios
         .post(`${this.hexApi}api/${this.apiPath}/pay/${id}`)
         .then((res) => {
@@ -181,7 +180,6 @@ export default {
   },
   watch: {
     singleInfo(newValue) {
-      console.log(newValue);
       this.order = { ...newValue };
     },
   },

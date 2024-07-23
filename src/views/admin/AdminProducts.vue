@@ -54,7 +54,6 @@ export default {
         .get(`${hexApi}api/${apiPath}/admin/products`, config)
         .then((res) => {
           this.products = res.data.products;
-          console.log(this.products);
         })
         .catch((err) => {
           console.log(err.response);
@@ -66,7 +65,6 @@ export default {
       this.axios
         .post(`${hexApi}api/${apiPath}/admin/product`, obj, config)
         .then((res) => {
-          console.log(res.data);
           this.getProuducts();
         })
         .catch((err) => {
@@ -77,7 +75,6 @@ export default {
       this.axios
         .delete(`${hexApi}api/${apiPath}/admin/product/${id}`, config)
         .then((res) => {
-          console.log(res.data);
           this.getProuducts();
         })
         .catch((err) => {

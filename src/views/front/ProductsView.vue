@@ -1,44 +1,3 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import useProductsStore from '../../stores/useProductsStore';
-import useActivitiesStore from '../../stores/useActivitiesStore';
-import useFavoriteStore from '../../stores/useFavoriteStore';
-
-import BackgroundBanner from '../../components/BackgroundBanner.vue';
-import ProductsNavs from '../../components/ProductsNavs.vue';
-import FrontPagination from '../../components/FrontPagination.vue';
-
-export default {
-  data() {
-    return {
-      bannerImg: 'banner/banner-products.png',
-    };
-  },
-  components: {
-    BackgroundBanner,
-    ProductsNavs,
-    FrontPagination,
-  },
-  methods: {
-    ...mapActions(useProductsStore, ['getProducts']),
-    ...mapActions(useActivitiesStore, ['getActivities']),
-    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
-  },
-  mounted() {
-    this.getProducts();
-    this.getActivities();
-  },
-  created() {
-    this.getFavorites();
-  },
-  computed: {
-    ...mapState(useProductsStore, ['products', 'pagination']),
-    ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
-    ...mapState(useFavoriteStore, ['favorites']),
-  },
-};
-</script>
-
 <template>
   <BackgroundBanner :bannerImg="bannerImg"></BackgroundBanner>
   <ProductsNavs></ProductsNavs>
@@ -177,5 +136,44 @@ export default {
     ></div>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'pinia';
+import useProductsStore from '@/stores/useProductsStore';
+import useActivitiesStore from '@/stores/useActivitiesStore';
+import useFavoriteStore from '@/stores/useFavoriteStore';
+
+import BackgroundBanner from '@/components/BackgroundBanner.vue';
+import ProductsNavs from '@/components/ProductsNavs.vue';
+import FrontPagination from '@/components/FrontPagination.vue';
+
+export default {
+  data() {
+    return {
+      bannerImg: 'banner/banner-products.png',
+    };
+  },
+  components: {
+    BackgroundBanner,
+    ProductsNavs,
+    FrontPagination,
+  },
+  methods: {
+    ...mapActions(useProductsStore, ['getProducts']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
+    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
+  },
+  mounted() {
+    this.getProducts();
+    this.getActivities();
+    this.getFavorites();
+  },
+  computed: {
+    ...mapState(useProductsStore, ['products', 'pagination']),
+    ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
+    ...mapState(useFavoriteStore, ['favorites']),
+  },
+};
+</script>
 
 <style></style>
