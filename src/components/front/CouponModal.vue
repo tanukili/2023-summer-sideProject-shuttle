@@ -14,7 +14,7 @@
     data-bs-toggle="modal"
     data-bs-target="#couponModal"
   >
-    {{ clickedCoupon.id ? `已套用「${clickedCoupon.title}」` : '選擇優惠券' }}
+    {{ couponId && clickedCoupon.title ? `已套用「${clickedCoupon.title}」` : '選擇優惠券' }}
   </button>
   <div
     class="modal fade"
@@ -53,17 +53,15 @@
                   type="radio"
                   name="coupon"
                   :id="coupon.id"
-                  @click="
-                    (clickedCoupon = { ...coupon }), $emit('couponDiscount', clickedCoupon.discount)
-                  "
-                  :checked="clickedCoupon.id === coupon.id"
+                  @click="toggleCoupon(coupon), (this.clickedCoupon = { ...coupon })"
+                  :checked="couponId === coupon.id"
                   :disabled="!coupon.isAvailable"
                 />
                 <label class="form-check-label fs-6 fw-bold" :for="coupon.id">
                   {{ coupon.title }}
                 </label>
                 <i
-                  v-if="clickedCoupon.id === coupon.id"
+                  v-if="couponId === coupon.id"
                   class="bi bi-check-circle-fill ms-1 text-success"
                 ></i>
                 <span class="ms-auto">期限：{{ unixToStr(coupon.exp) }}</span>
@@ -87,10 +85,10 @@ import { mapActions, mapState } from 'pinia';
 import alertStore from '@/stores/alertStore';
 import getDateStore from '@/stores/getDataStore';
 import utilitiesStore from '@/stores/utilitiesStore';
+import useCouponStore from '@/stores/useCouponStore';
 
 export default {
   props: ['sumSubtotals'],
-  emits: ['couponDiscount'],
   data() {
     return {
       coupons: [],
@@ -101,6 +99,7 @@ export default {
   computed: {
     ...mapState(alertStore, ['alertstyles']),
     ...mapState(getDateStore, ['jsonData']),
+    ...mapState(useCouponStore, ['couponId']),
     availableCoupons() {
       return this.coupons.filter((coupon) => coupon.isAvailable);
     },
@@ -109,6 +108,7 @@ export default {
     ...mapActions(alertStore, ['baseContent']),
     ...mapActions(getDateStore, ['getJsonData']),
     ...mapActions(utilitiesStore, ['unixToStr']),
+    ...mapActions(useCouponStore, ['toggleCoupon', 'getCookieCoupon']),
     updateAvailable() {
       this.coupons.map((coupon) => {
         const isAvailable = coupon.quota <= this.total;
@@ -120,6 +120,7 @@ export default {
     jsonData(newValue) {
       this.coupons = [...newValue];
       this.updateAvailable();
+      this.clickedCoupon = { ...this.coupons.find((coupon) => coupon.id === this.couponId) };
     },
     sumSubtotals(newValue) {
       this.total = newValue;
@@ -131,7 +132,7 @@ export default {
           text: '目前金額未達該券使用限制',
         });
         this.clickedCoupon = {};
-        this.$emit('couponDiscount', 0);
+        this.toggleCoupon();
       }
       this.updateAvailable();
     },
@@ -139,6 +140,7 @@ export default {
   mounted() {
     const nowDate = Math.floor(new Date().getTime() / 1000);
     this.getJsonData('coupons', `?is_used=false&exp_gte=${nowDate}`);
+    this.getCookieCoupon();
     this.total = this.sumSubtotals;
   },
 };
