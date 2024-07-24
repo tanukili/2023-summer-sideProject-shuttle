@@ -21,12 +21,9 @@
           production_quantity_limits
         </span>
         <h2>目前購物車沒有課程</h2>
-        <RouterLink
-          to="/products"
-          class="icon-e icon-east btn btn-primary-light mt-5"
-          style="width: 280px"
-        >
+        <RouterLink to="/products" class="btn btn-primary-light mt-5" style="width: 280px">
           選購課程
+          <span class="icon-e icon-east"></span>
         </RouterLink>
       </div>
       <div v-else>
@@ -212,11 +209,12 @@
           </div>
           <div class="col-12 text-center mt-7">
             <button
-              class="icon-e icon-east btn btn-primary fw-semibold"
+              class="btn btn-primary fw-semibold"
               @click.prevent="activeAlert"
               style="width: 240px"
             >
               前往結帳
+              <span class="icon-e icon-east"></span>
             </button>
             <p
               v-if="allActive.requiredPrice > cartOverview.finalBill"

@@ -99,10 +99,11 @@
           </ol>
           <RouterLink
             to="/products"
-            class="icon-e icon-east btn btn-primary my-4 d-inline-block text-center"
+            class="btn btn-primary my-4 d-inline-block text-center"
             style="width: 280px"
           >
             立即上課
+            <span class="icon-e icon-east"></span>
           </RouterLink>
         </div>
       </div>

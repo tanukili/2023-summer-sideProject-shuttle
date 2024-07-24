@@ -151,11 +151,9 @@ export default {
           </select>
           的你
         </h1>
-        <button
-          class="icon-lg-e icon-east btn btn-primary-light w-100 fs-5 py-3 mt-3"
-          type="button"
-        >
+        <button class="btn btn-primary-light w-100 fs-5 py-3 mt-3" type="button">
           現在開啟
+          <span class="icon-e icon-east"></span>
         </button>
       </div>
     </div>
@@ -295,8 +293,9 @@ export default {
           </div>
         </div>
       </div>
-      <RouterLink to="/products" class="icon-e icon-east btn btn-white mt-5" style="width: 280px">
+      <RouterLink to="/products" class="btn btn-white mt-5" style="width: 280px">
         開始上課
+        <span class="icon-e icon-east"></span>
       </RouterLink>
     </div>
     <!-- feature-background -->
@@ -531,12 +530,9 @@ export default {
           </swiper-slide>
         </swiper>
       </div>
-      <RouterLink
-        to="/products"
-        class="icon-e icon-east btn btn-white z-1 mx-auto"
-        style="width: 280px"
-      >
+      <RouterLink to="/products" class="btn btn-white z-1 mx-auto" style="width: 280px">
         了解更多課程
+        <span class="icon-e icon-east"></span>
       </RouterLink>
     </div>
     <!-- popular-packground -->

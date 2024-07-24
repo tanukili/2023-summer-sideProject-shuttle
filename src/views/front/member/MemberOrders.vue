@@ -19,12 +19,9 @@
         style="font-size: 92px; border: 6px solid var(--bs-gray-100)"
       ></i>
       <h3>目前沒有任何訂單</h3>
-      <RouterLink
-        to="/products"
-        class="icon-e icon-east btn btn-primary-light mt-3"
-        style="width: 280px"
-      >
+      <RouterLink to="/products" class="btn btn-primary-light mt-3" style="width: 280px">
         選購課程
+        <span class="icon-e icon-east"></span>
       </RouterLink>
     </div>
     <ul v-if="isOrdersMode" class="list-unstyled">
@@ -94,10 +91,11 @@
             <tr>
               <td colspan="3" class="text-start">
                 <router-link
-                  class="icon-e icon-sm icon-east btn btn-primary-light py-2 fs-8 shadow-none"
+                  class="btn btn-primary-light py-2 fs-8 shadow-none"
                   :to="`/member/order/${order.id}`"
                 >
                   前往訂單明細
+                  <span class="icon-e icon-east"></span>
                 </router-link>
               </td>
               <td colspan="2" class="text-end">訂單總金額：NT$ {{ order.finalBill }}</td>

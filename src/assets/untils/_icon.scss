@@ -1,6 +1,6 @@
 .material-symbols-outlined {
   vertical-align: text-top;
-  line-height: 1;
+  line-height: inherit;
   font-variation-settings: "FILL" 0, "GRAD" 0, "opsz" 48;
 
   &.icon-lg {
@@ -22,23 +22,13 @@
   }
 }
 
-.icon-e::after,
-.icon-lg-e::after {
+.icon-e::after {
   font-family: "Material Symbols Outlined";
-  vertical-align: top;
-  line-height: 1;
+  vertical-align: text-bottom;
+  line-height: inherit;
   font-weight: 400;
-  font-size: 24px;
+  font-size: inherit;
   margin-left: 4px;
-}
-
-.icon-lg-e::after {
-  font-size: 28px;
-  margin-left: 16px;
-}
-
-.icon-sm::after {
-  font-size: 16px;
 }
 
 .icon-east::after {
