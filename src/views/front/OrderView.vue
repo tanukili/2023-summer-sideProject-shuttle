@@ -17,7 +17,7 @@
       </nav>
       <!-- 訂單進度 -->
       <div class="w-100 w-md-75 d-flex flex-column mx-auto my-5">
-        <ol class="d-flex justify-content-around ps-0 fs-6 fw-bold">
+        <ol class="d-flex justify-content-around ps-0 fs-7 fs-md-6 fw-bold">
           <li>訂單確認</li>
           <li>填寫資料</li>
           <li>訂單完成</li>
@@ -269,13 +269,15 @@ export default {
             email,
             address: 'none',
             userId: 2,
+            cartOverview: {
+              sumSubtotals,
+              couponDiscount,
+              fullDiscount,
+              finalBill,
+            },
           },
           payment,
           message,
-          sumSubtotals,
-          couponDiscount,
-          fullDiscount,
-          finalBill,
         },
       };
       this.axios
@@ -288,6 +290,7 @@ export default {
             ...this.baseContent(res.data.message, 1),
             didClose: () => {
               this.$router.replace({ name: 'order-established' });
+              this.getFontData('cart');
             },
           });
         })

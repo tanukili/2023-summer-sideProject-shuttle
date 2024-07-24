@@ -274,7 +274,7 @@ export default {
     ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart', 'countCart']),
     activeAlert() {
       const { title, description, requiredPrice, percentOff } = this.allActive;
-      const difference = requiredPrice - (this.sumSubtotals % requiredPrice);
+      const difference = requiredPrice - (this.cartOverview.sumSubtotals % requiredPrice);
       this.alertstyles.alert_btns
         .fire({
           ...this.baseContent(title, 3, '修改訂單'),
