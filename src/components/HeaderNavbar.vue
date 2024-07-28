@@ -33,15 +33,7 @@ export default {
           <img src="/logo/logo.png" alt="logo" style="width: 96px" />
         </RouterLink>
         <div class="d-flex mx-lg-auto">
-          <RouterLink
-            to="/signup"
-            class="fs-6 fw-bold p-1 me-3 d-lg-none d-flex align-items-center"
-            v-if="!isLogin"
-          >
-            <span class="icon-lg material-symbols-outlined me-2">edit_document</span>
-            註冊
-          </RouterLink>
-          <RouterLink to="/carts" class="p-1 me-2 d-lg-none" v-else>
+          <RouterLink to="/carts" class="p-1 me-2 d-lg-none" v-if="isLogin">
             <span
               class="material-symbols-outlined fs-3 position-relative"
               :class="{ 'icon-fill': cartsNum }"
@@ -131,8 +123,7 @@ export default {
                 </li>
                 <li class="nav-item d-none d-lg-block">
                   <RouterLink to="/signup" class="fs-lg-6 fs-5 nav-link" v-if="!isLogin">
-                    <span class="icon-lg material-symbols-outlined me-1">edit_document</span>
-                    註冊
+                    註冊會員
                   </RouterLink>
                   <RouterLink to="/carts" class="nav-link" v-else>
                     <span

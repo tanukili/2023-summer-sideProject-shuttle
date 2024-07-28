@@ -40,8 +40,11 @@
             <h4 class="text-center py-4">
               <span class="border-dashed-b pb-2">訂單內容</span>
             </h4>
-            <div class="table-responsive-sm">
-              <table class="table align-middle table-white text-center fs-8 fs-lg-7">
+            <div class="table-responsive">
+              <table
+                class="table align-middle table-white text-center fs-8 fs-lg-7"
+                style="min-width: 400px"
+              >
                 <thead>
                   <tr class="table-light bg-light">
                     <th scope="col" width="160px">預覽</th>

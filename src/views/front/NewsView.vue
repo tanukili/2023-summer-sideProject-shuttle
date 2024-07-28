@@ -14,7 +14,7 @@
         <span class="border-primary pb-2 pb-lg-3">最新消息</span>
       </h2>
       <div class="row gx-lg-5">
-        <div class="nav-sticky col-md-3 mb-4 mb-md-0 fs-8 fs-lg-7">
+        <div class="sidebar-sticky col-md-3 mb-4 mb-md-0 fs-8 fs-lg-7">
           <nav class="nav nav-underline flex-md-column bg-primary-light rounded-1 p-3 p-lg-4">
             <a
               v-for="(name, index) in categories"
@@ -117,19 +117,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.nav-sticky {
-  position: sticky;
-  z-index: 4;
-  top: 110px;
-  @media (min-width: 786px) {
-    nav {
-      position: sticky;
-      top: 126px;
-      @media (min-width: 992px) {
-        top: 136px;
-      }
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
