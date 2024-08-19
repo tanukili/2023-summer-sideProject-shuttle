@@ -18,15 +18,16 @@
         <label for="filter-select" class="lh-lg fw-semibold flex-shrink-0 me-2 ms-auto">排序</label>
         <div class="select-icon">
           <select
+            v-model="nowSort"
             class="form-select fs-7 border-secondary"
             aria-label="form-select"
             id="filter-select"
           >
-            <option value="CtoE" selected>價格由低到高</option>
-            <option value="EtoC">價格由低到高</option>
-            <option value="popularity">人氣順</option>
-            <option value="LtoS">課程時間長到短</option>
-            <option value="StoL">課程時間短到長</option>
+            <option value="" selected>推薦課程</option>
+            <option value="CtoE">價格由低到高</option>
+            <option value="EtoC">價格由高到低</option>
+            <option value="LtoS">上課天數長到短</option>
+            <option value="StoL">上課天數短到長</option>
           </select>
         </div>
       </div>
@@ -39,7 +40,7 @@
               class="flex-fill text-center nav-link"
               :class="{ active: nowCategory === index }"
               href="#"
-              @click.prevent="nowCategory = index"
+              @click.prevent="changeCategory(index)"
             >
               {{ name }}
             </a>
@@ -48,7 +49,7 @@
         <!-- list -->
         <div class="col">
           <div class="row g-3 gx-xxl-4 px-4 px-md-0">
-            <div v-for="product in products" :key="product.id" class="col-md-6 col-xl-4">
+            <div v-for="product in showProducts" :key="product.id" class="col-md-6 col-xl-4">
               <router-link :to="`product/${product.id}`" class="card h-100">
                 <div class="card-mask position-relative">
                   <img
@@ -123,8 +124,6 @@
           </div>
         </div>
       </div>
-      <!-- pagination -->
-      <FrontPagination :pages="pagination" @updatePage="getProducts"></FrontPagination>
     </div>
   </div>
 </template>
@@ -136,18 +135,18 @@ import useActivitiesStore from '@/stores/useActivitiesStore';
 import useFavoriteStore from '@/stores/useFavoriteStore';
 
 import BackgroundBanner from '@/components/BackgroundBanner.vue';
-import FrontPagination from '@/components/FrontPagination.vue';
 
 export default {
   components: {
     BackgroundBanner,
-    FrontPagination,
   },
   data() {
     return {
       bannerImg: 'banner/banner-products.png',
       categories: ['全部課程', '一日體驗', '初階課程', '輔助課程'],
       nowCategory: 0,
+      nowSort: 'CtoE',
+      showProducts: [],
     };
   },
   computed: {
@@ -158,14 +157,61 @@ export default {
       return { ...this.numActivities, ...this.unlimitedActivities };
     },
   },
-
+  watch: {
+    products(products) {
+      this.showProducts = [...products];
+    },
+    nowCategory(newValue) {
+      const categories = ['', '體驗', '初階', '輔助'];
+      if (newValue) {
+        this.showProducts = [
+          ...this.products.filter((product) => product.category === categories[newValue]),
+        ];
+      } else {
+        this.showProducts = [...this.products];
+      }
+      this.sortProducts(this.nowSort);
+    },
+    nowSort(newValue) {
+      this.sortProducts(newValue);
+    },
+  },
   methods: {
-    ...mapActions(useProductsStore, ['getProducts']),
+    ...mapActions(useProductsStore, ['getProducts', 'getAllProducts']),
     ...mapActions(useActivitiesStore, ['getActivities']),
     ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
+    changeCategory(index) {
+      this.nowCategory = index;
+      window.scrollTo(0, 360);
+    },
+    sortProducts(condition) {
+      switch (condition) {
+        case 'CtoE':
+          this.showProducts = this.showProducts.sort((now, next) => now.price - next.price);
+          break;
+        case 'EtoC':
+          this.showProducts = this.showProducts.sort((now, next) => next.price - now.price);
+          break;
+        case 'LtoS':
+          this.showProducts = this.showProducts.sort(
+            (now, next) => next.info.classTime.length - now.info.classTime.length,
+          );
+          break;
+        case 'StoL':
+          this.showProducts = this.showProducts.sort(
+            (now, next) => -next.info.classTime.length + now.info.classTime.length,
+          );
+          break;
+        default:
+          this.showProducts = this.showProducts.sort(
+            (now, next) => next.info.capacity - now.info.capacity,
+          );
+          break;
+      }
+    },
   },
   mounted() {
-    this.getProducts();
+    this.getAllProducts();
     this.getActivities();
     this.getFavorites();
   },
