@@ -2,21 +2,21 @@
   <div class="about">
     <div class="bg-white position-relative z-0">
       <!-- content -->
-      <div class="container block-spacing position-relative">
+      <div class="container block-spacing-sm position-relative">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
+          <ol class="breadcrumb fs-8 fs-lg-7">
             <li class="breadcrumb-item">
               <RouterLink to="/">首頁</RouterLink>
             </li>
             <li class="breadcrumb-item active" aria-current="page">登入</li>
           </ol>
         </nav>
-        <div class="row">
-          <div class="col-6 ps-8 text-white">
-            <h2 class="fs-4 pt-8 mt-7 mb-2">{{ bannerAd.title }}</h2>
-            <h3 class="fs-7">{{ bannerAd.subtitle }}</h3>
+        <div class="row justify-content-center px-3 px-md-0">
+          <div class="col-6 col-xl-5 ps-8 text-white d-none d-lg-block text-end">
+            <h2 class="fs-4 fs-xl-3 pt-8 mt-7 mb-2 me-4">{{ bannerAd.title }}</h2>
+            <h3 class="fs-7 fs-xl-6 me-4">{{ bannerAd.subtitle }}</h3>
           </div>
-          <div class="col-6 bg-primary-light rounded-5 py-5 shadow">
+          <div class="col-md-8 col-lg-6 col-xl-5 bg-primary-light rounded-5 py-5 shadow">
             <h1 class="title fs-3 text-primary pt-3 pb-4">
               <span class="border-primary">會員登入</span>
             </h1>
@@ -78,8 +78,8 @@
 
 <script>
 import { mapActions } from 'pinia';
-import useMemberLoginStore from '../../stores/useMemberLoginStore';
-import BackgroundBanner from '../../components/BackgroundBanner.vue';
+import memberLoginStore from '@/stores/front/memberLoginStore';
+import BackgroundBanner from '@/components/BackgroundBanner.vue';
 
 export default {
   components: {
@@ -99,18 +99,21 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useMemberLoginStore, ['login']),
+    ...mapActions(memberLoginStore, ['login']),
   },
   mounted() {},
 };
 </script>
 
-<style>
+<style lang="scss">
 .login-banner {
-  height: 430px;
-  width: 100vw;
+  height: 50% !important;
+  width: 100%;
   position: absolute;
   z-index: -1;
   top: calc(120px + 24px * 1.2 + 16px + 64px) !important;
+  img {
+    object-position: 50% 70% !important;
+  }
 }
 </style>

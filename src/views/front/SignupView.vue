@@ -2,9 +2,8 @@
 import Flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.css';
 import { mapState, mapActions } from 'pinia';
+import memberLoginStore from '@/stores/front/memberLoginStore';
 import BackgroundBanner from '../../components/BackgroundBanner.vue';
-
-import useMemberLoginStore from '../../stores/useMemberLoginStore';
 
 export default {
   components: {
@@ -25,7 +24,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useMemberLoginStore, ['singUp']),
+    ...mapActions(memberLoginStore, ['singUp']),
     onSubmit(values) {
       const obj = {
         email: values.信箱,
@@ -54,7 +53,7 @@ export default {
     this.flatpickr.destroy();
   },
   computed: {
-    ...mapState(useMemberLoginStore, ['isLogin', 'checkUserId']),
+    ...mapState(memberLoginStore, ['isLogin', 'checkUserId']),
   },
 };
 </script>

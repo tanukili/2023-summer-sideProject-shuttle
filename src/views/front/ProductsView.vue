@@ -187,7 +187,7 @@ export default {
       } else {
         this.showProducts = [...this.products];
       }
-      window.scrollTo(0, 400);
+      window.scrollTo(0, 360);
     },
     sortProducts(condition) {
       switch (condition) {
