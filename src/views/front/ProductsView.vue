@@ -160,16 +160,13 @@ export default {
   watch: {
     products(products) {
       this.showProducts = [...products];
-    },
-    nowCategory(newValue) {
-      const categories = ['', '體驗', '初階', '輔助'];
-      if (newValue) {
-        this.showProducts = [
-          ...this.products.filter((product) => product.category === categories[newValue]),
-        ];
+      if (this.nowCategory) {
+        this.changeCategory(this.nowCategory);
       } else {
-        this.showProducts = [...this.products];
+        window.scrollTo(0, 0);
       }
+    },
+    nowCategory() {
       this.sortProducts(this.nowSort);
     },
     nowSort(newValue) {
@@ -182,7 +179,15 @@ export default {
     ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
     changeCategory(index) {
       this.nowCategory = index;
-      window.scrollTo(0, 360);
+      const categories = ['', '體驗', '初階', '輔助'];
+      if (index) {
+        this.showProducts = [
+          ...this.products.filter((product) => product.category === categories[index]),
+        ];
+      } else {
+        this.showProducts = [...this.products];
+      }
+      window.scrollTo(0, 400);
     },
     sortProducts(condition) {
       switch (condition) {
@@ -214,6 +219,13 @@ export default {
     this.getAllProducts();
     this.getActivities();
     this.getFavorites();
+    this.nowCategory = parseInt(
+      document.cookie.replace(/(?:(?:^|.*;\s*)productCategory\s*=\s*([^;]*).*$)|^.*$/, '$1'),
+      10,
+    );
+  },
+  beforeUnmount() {
+    document.cookie = 'productCategory=0; max-age=86400;Secure';
   },
 };
 </script>

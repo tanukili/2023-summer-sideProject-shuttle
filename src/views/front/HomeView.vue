@@ -1,138 +1,4 @@
-<script>
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-import { mapActions, mapState } from 'pinia';
-import useProductsStore from '../../stores/useProductsStore';
-import useActivitiesStore from '../../stores/useActivitiesStore';
-import BackToTop from '../../components/BackToTop.vue';
-
-export default {
-  data() {
-    return {
-      discounts: {
-        first: {
-          title: '2023 歲末全館回饋季',
-          subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
-          imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-year-end01-sm.jpg',
-          id: 3,
-        },
-        other: [
-          {
-            title: '2023 春季織心好友揪團趣',
-            subtitle: '兩人同行，現打 85 折',
-            imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-spring-sm.jpg',
-            id: 1,
-          },
-          {
-            title: '2023 秋冬新色早鳥優惠',
-            subtitle: '新色上架！指定課程打九折',
-            imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-winter-sm.jpg',
-            id: 2,
-          },
-        ],
-      },
-      reviews: [
-        {
-          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar01.png',
-          name: 'Ada Wang',
-          course: '桌上型織布機',
-          comment:
-            '原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！',
-          starts: 5, // value: 1~5
-          id: 1,
-        },
-        {
-          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
-          name: 'Miyako Kajiro',
-          course: '一日綴織體驗',
-          comment: '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
-          starts: 5, // value: 1~5
-          id: 2,
-        },
-        {
-          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar03.png',
-          name: 'Li-Fang Gong',
-          course: '織帶機',
-          comment: '跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。',
-          starts: 5, // value: 1~5
-          id: 3,
-        },
-        {
-          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar04.png',
-          name: 'Guertena',
-          course: '織紋設計',
-          comment: '以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。',
-          starts: 5, // value: 1~5
-          id: 1,
-        },
-        {
-          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar01.png',
-          name: 'Ada Wang',
-          course: '桌上型織布機',
-          comment:
-            '原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！',
-          starts: 5, // value: 1~5
-          id: 5,
-        },
-        {
-          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
-          name: 'Miyako Kajiro',
-          course: '一日綴織體驗',
-          comment: '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
-          starts: 5, // value: 1~5
-          id: 6,
-        },
-      ],
-    };
-  },
-  components: {
-    Swiper,
-    SwiperSlide,
-    BackToTop,
-  },
-  methods: {
-    ...mapActions(useProductsStore, ['getAllProducts']),
-    ...mapActions(useActivitiesStore, ['getActivities']),
-    onSwiper(swiper) {
-      this.swiper = swiper;
-    },
-  },
-  setup() {
-    return {
-      modules: [Autoplay, Navigation, Pagination],
-    };
-  },
-  mounted() {
-    // // 進入時觸發
-    // this.isLoading = true;
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1200);
-    this.getAllProducts();
-    this.getActivities();
-  },
-  computed: {
-    ...mapState(useProductsStore, ['popProducts']),
-    ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
-  },
-};
-</script>
-
 <template>
-  <!-- <LoadingOverlay v-model:active="isLoading">
-    <div class="loadingio-spinner-pulse-1iwbsd99pb">
-      <div class="ldio-dcvhkke5k">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </LoadingOverlay> -->
-  <!-- banner -->
   <div class="home-banner d-flex flex-column justify-content-center" style="height: 680px">
     <div class="container">
       <div class="w-md-50 w-xl-33 ms-xl-8">
@@ -141,20 +7,29 @@ export default {
           <br />
           給予手織
           <select
+            v-model="nowCategory"
             class="form-select fs-5 fw-bold d-inline-block text-primary align-text-bottom"
             style="max-width: 160px"
           >
-            <option selected>無經驗</option>
-            <option value="beginner">初學者</option>
-            <option value="amateur">愛好者</option>
-            <option value="artist">創作者</option>
+            <option
+              v-for="(name, index) in categories"
+              :value="index"
+              :key="index"
+              :hidden="!index"
+            >
+              {{ name }}
+            </option>
           </select>
           的你
         </h1>
-        <button class="btn btn-primary-light w-100 fs-5 py-3 mt-3" type="button">
+        <RouterLink
+          to="/products"
+          class="btn btn-primary-light w-100 fs-5 py-3 mt-3"
+          @click="setProductCategory"
+        >
           現在開啟
           <span class="icon-e icon-east"></span>
-        </button>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -547,6 +422,122 @@ export default {
   </div>
   <BackToTop></BackToTop>
 </template>
+
+<script>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+import { mapActions, mapState } from 'pinia';
+import useProductsStore from '@/stores/useProductsStore';
+import useActivitiesStore from '@/stores/useActivitiesStore';
+import BackToTop from '@/components/BackToTop.vue';
+
+export default {
+  components: { Swiper, SwiperSlide, BackToTop },
+  data() {
+    return {
+      categories: ['', '無經驗', '初學者', '創作家'],
+      nowCategory: 1,
+      discounts: {
+        first: {
+          title: '2023 歲末全館回饋季',
+          subtitle: '滿 3000 折 300，可累折（排除優惠券折扣）',
+          imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-year-end01-sm.jpg',
+          id: 3,
+        },
+        other: [
+          {
+            title: '2023 春季織心好友揪團趣',
+            subtitle: '兩人同行，現打 85 折',
+            imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-spring-sm.jpg',
+            id: 1,
+          },
+          {
+            title: '2023 秋冬新色早鳥優惠',
+            subtitle: '新色上架！指定課程打九折',
+            imgUrl: '/2023-summer-sideProject-shuttle/activity/2023-winter-sm.jpg',
+            id: 2,
+          },
+        ],
+      },
+      reviews: [
+        {
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar01.png',
+          name: 'Ada Wang',
+          course: '桌上型織布機',
+          comment:
+            '原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！',
+          starts: 5, // value: 1~5
+          id: 1,
+        },
+        {
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
+          name: 'Miyako Kajiro',
+          course: '一日綴織體驗',
+          comment: '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
+          starts: 5, // value: 1~5
+          id: 2,
+        },
+        {
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar03.png',
+          name: 'Li-Fang Gong',
+          course: '織帶機',
+          comment: '跟女兒一起報名課程，互相幫對方選色跟圖案，好有成就感。',
+          starts: 5, // value: 1~5
+          id: 3,
+        },
+        {
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar04.png',
+          name: 'Guertena',
+          course: '織紋設計',
+          comment: '以往課程都是基礎的平織紋，沒想到織紋能有這麼多變化，再加上配色，有無限組合。',
+          starts: 5, // value: 1~5
+          id: 1,
+        },
+        {
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar01.png',
+          name: 'Ada Wang',
+          course: '桌上型織布機',
+          comment:
+            '原本以為織布機製做很複雜，但講師教學方式十分簡單明瞭，而且十分有耐心，五星推薦！',
+          starts: 5, // value: 1~5
+          id: 5,
+        },
+        {
+          avatarUrl: '/2023-summer-sideProject-shuttle/avatar/avatar02.png',
+          name: 'Miyako Kajiro',
+          course: '一日綴織體驗',
+          comment: '第一次接觸織布，比想像中還有趣。這次一日課程只能做小作品，下囃想挑戰進階課程。',
+          starts: 5, // value: 1~5
+          id: 6,
+        },
+      ],
+      modules: [Autoplay, Navigation, Pagination],
+    };
+  },
+  computed: {
+    ...mapState(useProductsStore, ['popProducts']),
+    ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
+  },
+  methods: {
+    ...mapActions(useProductsStore, ['getAllProducts']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
+    onSwiper(swiper) {
+      this.swiper = swiper;
+    },
+    setProductCategory() {
+      document.cookie = `productCategory=${this.nowCategory}; max-age=86400;Secure`;
+    },
+  },
+  mounted() {
+    this.getAllProducts();
+    this.getActivities();
+  },
+};
+</script>
 
 <style lang="scss">
 .home-banner {
