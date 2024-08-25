@@ -14,7 +14,7 @@
         <div class="row justify-content-center px-3 px-md-0">
           <div class="col-6 col-xl-5 ps-8 text-white d-none d-lg-block text-end">
             <h2 class="fs-4 fs-xl-3 pt-8 mt-7 mb-2 me-4">{{ bannerAd.title }}</h2>
-            <h3 class="fs-7 fs-xl-6 me-4">{{ bannerAd.subtitle }}</h3>
+            <h3 class="fs-7 fs-xxl-6 me-4">{{ bannerAd.subtitle }}</h3>
           </div>
           <div class="col-md-8 col-lg-6 col-xl-5 bg-primary-light rounded-5 py-5 shadow">
             <h1 class="title fs-3 text-primary pt-3 pb-4">

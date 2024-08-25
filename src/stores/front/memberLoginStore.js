@@ -1,24 +1,17 @@
 import { defineStore } from 'pinia';
-import swal from 'sweetalert2';
 import axios from 'axios';
+import alertStore from '@/stores/alertStore';
 
 const api = import.meta.env.VITE_API_PATH;
 
 export default defineStore('member', {
-  // data
   state: () => ({
     isLogin: false,
   }),
-  // computed / 同步的
-  getters: {
-    checkUserId: () => {
-      const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
-      return Boolean(userId);
-    },
-  },
-  // methods
+  getters: {},
   actions: {
     login(obj) {
+      const { alertstyles, baseContent } = alertStore();
       axios
         .post(`${api}/login`, obj)
         .then((res) => {
@@ -26,59 +19,41 @@ export default defineStore('member', {
           const { id } = res.data.user;
           document.cookie = `token=${accessToken}; max-age=86400;Secure`;
           document.cookie = `userId=${id}; max-age=86400;Secure`;
-          swal.fire({
-            icon: 'success',
-            title: '登入成功',
-            showConfirmButton: false,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
-          });
+          alertstyles.alert.fire({ ...baseContent('登入成功', 1) });
           this.isLogin = true;
           this.router.push({ name: 'home' });
         })
         .catch((err) => {
           switch (err.response.data) {
             case 'Cannot find user':
-              swal.fire({
-                icon: 'error',
-                title: '該用戶不存在',
-                showConfirmButton: false,
-              });
+              alertstyles.alert.fire({ ...baseContent('該用戶不存在', 2) });
               break;
             case 'Incorrect password':
-              swal.fire({
-                icon: 'error',
-                title: '密碼輸入錯誤',
-                showConfirmButton: false,
-              });
+              alertstyles.alert.fire({ ...baseContent('密碼輸入錯誤', 2) });
               break;
 
             default:
-              swal.fire({
-                icon: 'error',
-                title: `問題${err.response.status}，抱歉請洽客服`,
-                showConfirmButton: false,
+              alertstyles.alert.fire({
+                ...baseContent(`問題${err.response.status}，抱歉請洽客服`, 2),
               });
               break;
           }
         });
     },
     logout() {
+      const { alertstyles, baseContent } = alertStore();
       document.cookie = 'token=;';
       document.cookie = 'userId=;';
       this.isLogin = false;
-      swal.fire('成功登出');
+      alertstyles.alert.fire({ ...baseContent('成功登出', 1) });
       this.router.push({ name: 'home' });
     },
-    // f5 後保持登入
-    updateLoginStatus() {
-      this.isLogin = this.checkUserId;
+    checkLoginState() {
+      const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      this.isLogin = Boolean(userId);
     },
     singUp(userInfo) {
+      const { alertstyles, baseContent } = alertStore();
       axios
         .post(`${api}/signup`, userInfo)
         .then((res) => {
@@ -86,27 +61,21 @@ export default defineStore('member', {
           const { data } = res;
           document.cookie = `token=${data.accessToken}; max-age=86400;Secure`;
           document.cookie = `userId=${data.user.id}; max-age=86400;Secure`;
-          swal.fire({
-            icon: 'success',
-            title: '註冊成功',
-            showConfirmButton: false,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown',
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutDown',
-            },
+          alertstyles.alert.fire({
+            ...baseContent('註冊成功', 1),
             didClose: () => {
               this.router.push({ name: 'home' });
+              this.isLogin = true;
             },
           });
         })
         .catch((err) => {
           if (err.response.data === 'Email already exists') {
-            // 待修改 原生樣式
-            swal.fire('該信箱已註冊');
+            alertstyles.alert.fire({ ...baseContent('該信箱已註冊', 2) });
           } else {
-            swal.fire(`問題${err.response.status}，抱歉請洽客服`);
+            alertstyles.alert.fire({
+              ...baseContent(`問題${err.response.status}，抱歉請洽客服`, 2),
+            });
           }
         });
     },

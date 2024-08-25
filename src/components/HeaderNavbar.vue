@@ -173,21 +173,21 @@ export default {
   },
   computed: {
     ...mapState(getDataStore, ['cartData']),
-    ...mapState(memberLoginStore, ['isLogin', 'checkUserId']),
+    ...mapState(memberLoginStore, ['isLogin']),
     cartsNum() {
       return this.cartData.length;
     },
   },
   methods: {
     ...mapActions(getDataStore, ['getFontData']),
-    ...mapActions(memberLoginStore, ['logout', 'updateLoginStatus']),
+    ...mapActions(memberLoginStore, ['logout', 'checkLoginState']),
     closeOffcanvas() {
       const colseBtn = document.querySelector('#headerNavbar .btn-close');
       colseBtn.click();
     },
   },
   mounted() {
-    this.updateLoginStatus();
+    this.checkLoginState(); // 網頁關閉後，仍可從 cookie 保持登入狀態
     this.getFontData('cart');
   },
 };

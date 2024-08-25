@@ -1,82 +1,22 @@
-<script>
-import Flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.css';
-import { mapState, mapActions } from 'pinia';
-import memberLoginStore from '@/stores/front/memberLoginStore';
-import BackgroundBanner from '../../components/BackgroundBanner.vue';
-
-export default {
-  components: {
-    BackgroundBanner,
-  },
-  data() {
-    return {
-      bannerAd: {
-        title: '新註冊會員 贈100元折價券',
-        subtitle: '新會員招募中，註冊即贈優惠券',
-        bannerImg: 'activity/newMember.jpg',
-      },
-      userBirthday: '',
-      flatpickrConfig: {
-        enableTime: true,
-        dateFormat: 'Y-m-d H:i',
-      },
-    };
-  },
-  methods: {
-    ...mapActions(memberLoginStore, ['singUp']),
-    onSubmit(values) {
-      const obj = {
-        email: values.信箱,
-        password: values.密碼,
-        phone: values.連絡電話,
-        name: values.會員名稱,
-        birthday: this.userBirthday,
-        sex: values.性別 ? values.性別 : '',
-        favorites: [],
-      };
-      this.singUp(obj);
-    },
-  },
-  mounted() {
-    // 初始化Flatpickr
-    this.flatpickr = new Flatpickr(this.$refs.flatpickrInput, {
-      altInput: true,
-      dateFormat: 'Y-m-d',
-      altFormat: 'F j, Y',
-    });
-    // 為使用日期時間選擇器的input加入樣式
-    document.querySelector('.form-date .input').classList.add('form-control');
-  },
-  beforeUnmount() {
-    // 銷毀Flatpickr實體，防止資料洩漏
-    this.flatpickr.destroy();
-  },
-  computed: {
-    ...mapState(memberLoginStore, ['isLogin', 'checkUserId']),
-  },
-};
-</script>
-
 <template>
   <div class="about">
     <div class="bg-white position-relative z-0">
       <!-- content -->
-      <div class="container block-spacing">
+      <div class="container block-spacing-sm">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
+          <ol class="breadcrumb fs-8 fs-lg-7">
             <li class="breadcrumb-item">
               <RouterLink to="/">首頁</RouterLink>
             </li>
             <li class="breadcrumb-item active" aria-current="page">註冊</li>
           </ol>
         </nav>
-        <div class="row">
-          <div class="col-6 ps-8 text-white">
-            <h2 class="fs-4 pt-8 mt-7 mb-2">{{ bannerAd.title }}</h2>
-            <h3 class="fs-7">{{ bannerAd.subtitle }}</h3>
+        <div class="row justify-content-center px-3 px-md-0">
+          <div class="col-6 col-xxl-5 ps-8 text-white d-none d-lg-block text-end">
+            <h2 class="fs-4 fs-xl-3 pt-8 mt-7 mb-2 me-4">{{ bannerAd.title }}</h2>
+            <h3 class="fs-7 fs-xxl-6 me-4">{{ bannerAd.subtitle }}</h3>
           </div>
-          <div class="col-6 bg-primary-light rounded-5 py-5 shadow">
+          <div class="col-md-8 col-lg-6 col-xl-5 bg-primary-light rounded-5 py-5 shadow">
             <h1 class="title fs-3 text-primary pt-3 pb-4">
               <span class="border-primary">註冊會員</span>
             </h1>
@@ -219,12 +159,75 @@ export default {
   </div>
 </template>
 
-<style>
+<script>
+import Flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.css';
+import { mapState, mapActions } from 'pinia';
+import memberLoginStore from '@/stores/front/memberLoginStore';
+import BackgroundBanner from '@/components/BackgroundBanner.vue';
+
+export default {
+  components: {
+    BackgroundBanner,
+  },
+  data() {
+    return {
+      bannerAd: {
+        title: '新註冊會員 贈100元折價券',
+        subtitle: '新會員招募中，註冊即贈優惠券',
+        bannerImg: 'activity/newMember.jpg',
+      },
+      userBirthday: '',
+      flatpickrConfig: {
+        enableTime: true,
+        dateFormat: 'Y-m-d H:i',
+      },
+    };
+  },
+  methods: {
+    ...mapActions(memberLoginStore, ['singUp']),
+    onSubmit(values) {
+      const obj = {
+        email: values.信箱,
+        password: values.密碼,
+        phone: values.連絡電話,
+        name: values.會員名稱,
+        birthday: this.userBirthday,
+        sex: values.性別 ? values.性別 : '',
+        favorites: [],
+      };
+      this.singUp(obj);
+    },
+  },
+  mounted() {
+    // 初始化Flatpickr
+    this.flatpickr = new Flatpickr(this.$refs.flatpickrInput, {
+      altInput: true,
+      dateFormat: 'Y-m-d',
+      altFormat: 'F j, Y',
+    });
+    // 為使用日期時間選擇器的input加入樣式
+    document.querySelector('.form-date .input').classList.add('form-control');
+  },
+  beforeUnmount() {
+    // 銷毀Flatpickr實體，防止資料洩漏
+    this.flatpickr.destroy();
+  },
+  computed: {
+    ...mapState(memberLoginStore, ['isLogin']),
+  },
+};
+</script>
+
+<style lang="scss">
 .singUp-banner {
-  height: 640px;
-  width: 100vw;
+  height: 60% !important;
+  width: 100%;
   position: absolute;
   z-index: -1;
   top: calc(120px + 24px * 1.2 + 16px + 64px);
+  img {
+    object-position: 50% 70% !important;
+  }
 }
 </style>
