@@ -47,7 +47,7 @@
               >
                 <thead>
                   <tr class="table-light bg-light">
-                    <th scope="col" width="160px">預覽</th>
+                    <th scope="col" width="120px">預覽</th>
                     <th scope="col">課程名稱</th>
                     <th scope="col">人數</th>
                     <th scope="col" width="96px">小計</th>

@@ -51,7 +51,12 @@
                 <h5 class="fs-3 mb-2">{{ discounts.first.title }}</h5>
                 <h6 class="fs-4">{{ discounts.first.subtitle }}</h6>
               </div>
-              <button class="btn btn-lg btn-white align-self-md-end" type="button">瞭解更多</button>
+              <RouterLink
+                to="/new/-NyAAeekgJAq6eEG8QkT"
+                class="btn btn-lg btn-white align-self-md-end"
+              >
+                瞭解更多
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -70,7 +75,12 @@
                 <h5 class="fs-3 mb-2">{{ activity.title }}</h5>
                 <h6 class="fs-4">{{ activity.subtitle }}</h6>
               </div>
-              <button class="btn btn-lg btn-white align-self-md-end" type="button">瞭解更多</button>
+              <RouterLink
+                to="/new/-NyAAeekgJAq6eEG8QkT"
+                class="btn btn-lg btn-white align-self-md-end"
+              >
+                瞭解更多
+              </RouterLink>
             </div>
           </div>
         </div>

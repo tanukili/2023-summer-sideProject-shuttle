@@ -152,7 +152,6 @@ export default {
     },
     finalBill() {
       const { cartOverview } = this.order.user;
-      console.log(cartOverview.finalBill);
       return cartOverview ? cartOverview.finalBill : 0;
     },
   },
@@ -163,12 +162,10 @@ export default {
   },
   watch: {
     orderId(newId) {
-      console.log(newId);
       this.getFontData('order', newId);
     },
     singleInfo(newOrder) {
       this.order = { ...newOrder };
-      console.log(this.order);
     },
   },
   mounted() {
