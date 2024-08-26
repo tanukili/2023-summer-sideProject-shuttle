@@ -17,7 +17,7 @@
       </nav>
       <!-- 訂單進度 -->
       <div class="w-100 w-md-75 d-flex flex-column mx-auto my-5">
-        <ol class="d-flex justify-content-around ps-0 fs-6 fw-bold">
+        <ol class="d-flex justify-content-around ps-0 fs-7 fs-md-6 fw-bold">
           <li>訂單確認</li>
           <li>填寫資料</li>
           <li>訂單完成</li>
@@ -40,11 +40,14 @@
             <h4 class="text-center py-4">
               <span class="border-dashed-b pb-2">訂單內容</span>
             </h4>
-            <div class="table-responsive-sm">
-              <table class="table align-middle table-white text-center fs-8 fs-lg-7">
+            <div class="table-responsive">
+              <table
+                class="table align-middle table-white text-center fs-8 fs-lg-7"
+                style="min-width: 400px"
+              >
                 <thead>
                   <tr class="table-light bg-light">
-                    <th scope="col" width="160px">預覽</th>
+                    <th scope="col" width="120px">預覽</th>
                     <th scope="col">課程名稱</th>
                     <th scope="col">人數</th>
                     <th scope="col" width="96px">小計</th>
@@ -74,9 +77,7 @@
                   返回購物車
                 </RouterLink>
               </div>
-              <ul
-                class="col-8 col-sm-6 col-md-5 col-lg-6 list-group rounded-2 text-mellow py-4 bg-body"
-              >
+              <ul class="col-8 col-sm-6 col-md-5 col-lg-6 list-group rounded-2 py-4 bg-body">
                 <li
                   class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold"
                 >
@@ -271,13 +272,15 @@ export default {
             email,
             address: 'none',
             userId: 2,
+            cartOverview: {
+              sumSubtotals,
+              couponDiscount,
+              fullDiscount,
+              finalBill,
+            },
           },
           payment,
           message,
-          sumSubtotals,
-          couponDiscount,
-          fullDiscount,
-          finalBill,
         },
       };
       this.axios
@@ -290,6 +293,7 @@ export default {
             ...this.baseContent(res.data.message, 1),
             didClose: () => {
               this.$router.replace({ name: 'order-established' });
+              this.getFontData('cart');
             },
           });
         })
@@ -301,7 +305,7 @@ export default {
     onInvalidSubmit({ errors }) {
       const firstErr = Object.keys(errors)[0];
       const domRect = document.querySelector(`#${firstErr}`).getBoundingClientRect();
-      const scrollTop = document.documentElement.scrollTop; // 目前視窗滾動位置
+      const { scrollTop } = document.documentElement; // 目前視窗滾動位置
       const top = domRect.top + scrollTop - 226; // 元素相對視窗高度 + 視窗已滾動高度 - 審美上微調
       window.scrollTo({ top });
     },

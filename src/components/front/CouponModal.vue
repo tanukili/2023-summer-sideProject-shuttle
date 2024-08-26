@@ -110,9 +110,9 @@ export default {
     ...mapActions(utilitiesStore, ['unixToStr']),
     ...mapActions(useCouponStore, ['toggleCoupon', 'getCookieCoupon']),
     updateAvailable() {
-      this.coupons.map((coupon) => {
+      this.coupons.forEach((coupon, index) => {
         const isAvailable = coupon.quota <= this.total;
-        coupon.isAvailable = isAvailable;
+        this.coupons[index].isAvailable = isAvailable;
       });
     },
   },

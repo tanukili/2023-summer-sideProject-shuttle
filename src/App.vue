@@ -1,3 +1,16 @@
+s
+<template>
+  <header class="sticky-top bg-body">
+    <HeaderNavbar />
+  </header>
+  <div>
+    <RouterView />
+  </div>
+  <div>
+    <FooterNavbar />
+  </div>
+</template>
+
 <script>
 import { RouterView } from 'vue-router';
 import AOS from 'aos';
@@ -22,12 +35,4 @@ export default {
 };
 </script>
 
-<template>
-  <header class="sticky-top bg-body">
-    <HeaderNavbar />
-  </header>
-  <div>
-    <RouterView />
-  </div>
-  <FooterNavbar />
-</template>
+<style lang="scss"></style>

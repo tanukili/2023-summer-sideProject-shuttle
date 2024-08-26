@@ -150,9 +150,7 @@ export default {
     ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
     originBill() {
       const products = Object.values(this.order.products);
-      return products.reduce((all, product) => {
-        return all + product.product.origin_price * product.qty;
-      }, 0);
+      return products.reduce((all, product) => all + product.product.origin_price * product.qty, 0);
     },
     finalBill() {
       return this.order.total;
@@ -169,8 +167,8 @@ export default {
     noticePaied(id) {
       this.axios
         .post(`${this.hexApi}api/${this.apiPath}/pay/${id}`)
-        .then((res) => {
-          this.alertstyles.toast.fire(this.baseContent(`完成付款通知`));
+        .then(() => {
+          this.alertstyles.toast.fire(this.baseContent('完成付款通知'));
           this.getFontData('order', id);
         })
         .catch((err) => {

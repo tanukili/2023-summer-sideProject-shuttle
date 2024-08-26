@@ -21,12 +21,9 @@
           production_quantity_limits
         </span>
         <h2>目前購物車沒有課程</h2>
-        <RouterLink
-          to="/products"
-          class="icon-e icon-east btn btn-primary-light mt-5"
-          style="width: 280px"
-        >
+        <RouterLink to="/products" class="btn btn-primary-light mt-5" style="width: 280px">
           選購課程
+          <span class="icon-e icon-east"></span>
         </RouterLink>
       </div>
       <div v-else>
@@ -182,7 +179,7 @@
             <CouponModal :sum-subtotals="cartOverview.sumSubtotals" />
           </div>
           <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3 mx-auto me-md-0">
-            <ul class="list-group rounded-2 text-mellow py-4 bg-body">
+            <ul class="list-group rounded-2 py-4 bg-body">
               <li class="list-group-item border-0 d-flex justify-content-between px-4 pb-2 fw-bold">
                 小計總和：
                 <span class="text-end">NT$ {{ cartOverview.sumSubtotals }}</span>
@@ -212,11 +209,12 @@
           </div>
           <div class="col-12 text-center mt-7">
             <button
-              class="icon-e icon-east btn btn-primary fw-semibold"
+              class="btn btn-primary fw-semibold"
               @click.prevent="activeAlert"
               style="width: 240px"
             >
               前往結帳
+              <span class="icon-e icon-east"></span>
             </button>
             <p
               v-if="allActive.requiredPrice > cartOverview.finalBill"
@@ -274,7 +272,7 @@ export default {
     ...mapActions(useCartsStore, ['putCart', 'deleteAllCart', 'deleteCart', 'countCart']),
     activeAlert() {
       const { title, description, requiredPrice, percentOff } = this.allActive;
-      const difference = requiredPrice - (this.sumSubtotals % requiredPrice);
+      const difference = requiredPrice - (this.cartOverview.sumSubtotals % requiredPrice);
       this.alertstyles.alert_btns
         .fire({
           ...this.baseContent(title, 3, '修改訂單'),

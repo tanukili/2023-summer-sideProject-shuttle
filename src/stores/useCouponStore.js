@@ -35,8 +35,8 @@ export default defineStore('coupon', {
       );
       this.coupon = couponObj ? JSON.parse(couponObj) : {};
       const { id, discount } = this.coupon;
-      this.couponId = id ? id : '';
-      this.couponDiscount = discount ? discount : 0;
+      this.couponId = id || '';
+      this.couponDiscount = discount || 0;
     },
     useCoupon(id = this.couponId) {
       const { alertstyles } = alertStore();

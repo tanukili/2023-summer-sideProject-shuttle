@@ -1,0 +1,14 @@
+.sidebar-sticky {
+  position: sticky;
+  z-index: 4;
+  top: 110px;
+  @media (min-width: 768px) {
+    nav {
+      position: sticky;
+      top: 126px;
+      @media (min-width: 992px) {
+        top: 136px;
+      }
+    }
+  }
+}

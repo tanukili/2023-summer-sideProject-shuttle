@@ -16,5 +16,6 @@ module.exports = {
   rules: {
     // 關閉檢查換行
     'linebreak-style': ['off', 'windows'],
+    'object-curly-newline': ['error', { multiline: true, consistent: true }],
   },
 };

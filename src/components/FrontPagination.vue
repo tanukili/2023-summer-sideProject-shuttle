@@ -13,12 +13,8 @@ export default {
   <nav class="mt-5">
     <ul class="pagination justify-content-center align-items-center">
       <li class="page-item me-2">
-        <a
-          class="page-link rounded-circle p-1"
-          href="#/products"
-          aria-label="Previous"
-        >
-          <span class="material-symbols-outlined"> chevron_left </span>
+        <a class="page-link rounded-circle p-1" href="#/products" aria-label="Previous">
+          <span class="material-symbols-outlined lh-1">chevron_left</span>
         </a>
       </li>
       <li
@@ -31,16 +27,13 @@ export default {
           class="page-link fs-6 rounded-circle"
           href="#/products"
           @click.prevent="updatePage(page)"
-          >{{ page }}</a
         >
+          {{ page }}
+        </a>
       </li>
       <li class="page-item ms-2">
-        <a
-          class="page-link rounded-circle p-1"
-          href="#/products"
-          aria-label="Next"
-        >
-          <span class="material-symbols-outlined"> chevron_right </span>
+        <a class="page-link rounded-circle p-1" href="#/products" aria-label="Next">
+          <span class="material-symbols-outlined lh-1">chevron_right</span>
         </a>
       </li>
     </ul>

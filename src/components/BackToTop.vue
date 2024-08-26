@@ -1,9 +1,4 @@
 <script>
-// function scroll() {}
-// window.onscroll = function () {
-//   scroll();
-// };
-
 export default {
   data() {
     return {
@@ -32,7 +27,7 @@ export default {
     @click.prevent="goToTop"
     :class="{ 'd-none': height < 500 }"
   >
-    <span class="material-symbols-outlined fs-2 fw-semibold"> stat_2 </span>
+    <span class="material-symbols-outlined fs-2 fw-semibold">stat_2</span>
   </div>
 </template>
 

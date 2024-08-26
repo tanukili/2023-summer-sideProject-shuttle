@@ -3,8 +3,6 @@ import axios from 'axios';
 import swal from 'sweetalert2';
 import alertStore from '@/stores/alertStore';
 import getDataStore from '@/stores/getDataStore';
-import useActivitiesStore from '@/stores/useActivitiesStore';
-import useCouponStore from '@/stores/useCouponStore';
 
 export default defineStore('carts', {
   state: () => ({
@@ -15,11 +13,12 @@ export default defineStore('carts', {
   getters: {},
   actions: {
     addToCart(id, qty, quota, buyNow) {
+      const { alertstyles, baseContent } = alertStore();
       const obj = { data: { product_id: id, qty } };
       const isOverQuota = this.checkQuota(qty, quota);
       const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
       if (!token) {
-        swal.fire('請先登入註冊');
+        alertstyles.alert.fire({ ...baseContent('請先登入註冊', 3) });
         this.router.push({ name: 'login' });
       } else if (!isOverQuota) {
         axios
@@ -28,7 +27,9 @@ export default defineStore('carts', {
             this.checkoutNow(buyNow);
           })
           .catch((err) => {
-            swal.fire(`問題${err.response.status}，抱歉請洽客服`);
+            alertstyles.alert.fire({
+              ...baseContent(`問題${err.response.status}，抱歉請洽客服`, 2),
+            });
           });
       }
     },
@@ -105,7 +106,7 @@ export default defineStore('carts', {
     // 計算訂單金額細項
     countCart(couponDiscount, requiredPrice, percentOff) {
       const { cartData } = getDataStore();
-      const sumSubtotals = cartData.reduce((acc, item) => acc + item.subtotal, 0); //小計總和
+      const sumSubtotals = cartData.reduce((acc, item) => acc + item.subtotal, 0); // 小計總和
       const fullDiscount = Math.floor(sumSubtotals / requiredPrice) * percentOff; // 滿額折抵
       const finalBill = sumSubtotals - fullDiscount - couponDiscount; // 最終金額
       return { sumSubtotals, couponDiscount, fullDiscount, finalBill };

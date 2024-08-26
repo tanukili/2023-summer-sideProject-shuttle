@@ -18,10 +18,10 @@
       <!-- 課程內容 -->
       <div class="card bg-white rounded-5 mb-5">
         <div class="row g-0">
-          <div class="col-lg-6 position-relative mb-3 mb-md-0 product-card-img">
+          <div class="col-lg-6 position-relative mb-3 mb-md-0">
             <img
               :src="product.imageUrl"
-              class="card-mask img-fluid rounded-top-5 rounded-start-lg-5 h-100"
+              class="product-img card-mask img-fluid rounded-top-5 rounded-start-lg-5"
               :alt="product.title"
             />
             <a href="#" @click.prevent="toggleFavorite(product.id)">
@@ -36,7 +36,7 @@
               </span>
             </a>
           </div>
-          <div class="col-lg-6 px-md-3">
+          <div class="col-lg-6 px-md-3 d-f">
             <div class="card-body mt-md-4 mb-md-2">
               <h2 class="card-title fs-4 fs-xl-3 text-center">
                 {{ product.title }}
@@ -311,11 +311,11 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import getDataStore from '@/stores/getDataStore';
+import utilitiesStore from '@/stores/utilitiesStore';
 import useActivitiesStore from '../../stores/useActivitiesStore';
 import useProductsStore from '../../stores/useProductsStore';
 import useCartsStore from '../../stores/useCartsStore';
 import useFavoriteStore from '../../stores/useFavoriteStore';
-import utilitiesStore from '@/stores/utilitiesStore';
 
 export default {
   data() {
@@ -360,9 +360,10 @@ export default {
 </script>
 
 <style lang="scss">
-@media (max-width: 992px) {
-  .product-card-img {
-    max-height: 280px;
+.product-img {
+  max-height: 280px !important;
+  @media (min-width: 992px) {
+    min-height: 100% !important;
   }
 }
 </style>

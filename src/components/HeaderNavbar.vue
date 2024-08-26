@@ -1,30 +1,3 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import getDataStore from '@/stores/getDataStore';
-import useMemberLoginStore from '../stores/useMemberLoginStore';
-
-export default {
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapState(getDataStore, ['cartData']),
-    ...mapState(useMemberLoginStore, ['isLogin', 'checkUserId']),
-    cartsNum() {
-      return this.cartData.length;
-    },
-  },
-  methods: {
-    ...mapActions(getDataStore, ['getFontData']),
-    ...mapActions(useMemberLoginStore, ['logout', 'updateLoginStatus']),
-  },
-  mounted() {
-    this.updateLoginStatus();
-    this.getFontData('cart');
-  },
-};
-</script>
-
 <template>
   <div>
     <nav class="navbar navbar-expand-lg py-md-3">
@@ -33,15 +6,7 @@ export default {
           <img src="/logo/logo.png" alt="logo" style="width: 96px" />
         </RouterLink>
         <div class="d-flex mx-lg-auto">
-          <RouterLink
-            to="/signup"
-            class="fs-6 fw-bold p-1 me-3 d-lg-none d-flex align-items-center"
-            v-if="!isLogin"
-          >
-            <span class="icon-lg material-symbols-outlined me-2">edit_document</span>
-            註冊
-          </RouterLink>
-          <RouterLink to="/carts" class="p-1 me-2 d-lg-none" v-else>
+          <RouterLink to="/carts" class="p-1 me-2 d-lg-none" v-if="isLogin">
             <span
               class="material-symbols-outlined fs-3 position-relative"
               :class="{ 'icon-fill': cartsNum }"
@@ -85,25 +50,39 @@ export default {
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end align-items-lg-end flex-grow-1 lh-sm">
                 <li class="nav-item me-2">
-                  <RouterLink to="/howto" class="fs-lg-6 fs-5 nav-link">認識手織</RouterLink>
+                  <RouterLink to="/howto" class="fs-lg-6 fs-5 nav-link" @click="closeOffcanvas">
+                    認識手織
+                  </RouterLink>
                 </li>
                 <li class="nav-item me-2">
-                  <RouterLink to="/products" class="fs-lg-6 fs-5 nav-link">購買課程</RouterLink>
+                  <RouterLink to="/products" class="fs-lg-6 fs-5 nav-link" @click="closeOffcanvas">
+                    購買課程
+                  </RouterLink>
                 </li>
                 <li class="nav-item">
-                  <RouterLink to="/news" class="fs-lg-6 fs-5 nav-link">最新消息</RouterLink>
+                  <RouterLink to="/news" class="fs-lg-6 fs-5 nav-link" @click="closeOffcanvas">
+                    最新消息
+                  </RouterLink>
                 </li>
                 <li class="nav-item">
-                  <RouterLink to="/" class="nav-link px-4 py-0 d-none d-lg-block">
+                  <RouterLink
+                    to="/"
+                    class="nav-link px-4 py-0 d-none d-lg-block"
+                    @click="closeOffcanvas"
+                  >
                     <img src="/logo/logo-straight.png" alt="logo" style="width: 96px" />
                   </RouterLink>
                 </li>
                 <li class="nav-item me-2">
-                  <RouterLink to="/contact" class="fs-lg-6 fs-5 nav-link">聯絡我們</RouterLink>
+                  <RouterLink to="/contact" class="fs-lg-6 fs-5 nav-link" @click="closeOffcanvas">
+                    聯絡我們
+                  </RouterLink>
                 </li>
                 <!-- 登入前：登入 -->
                 <li class="nav-item me-2" v-if="!isLogin">
-                  <RouterLink to="/login" class="fs-lg-6 fs-5 nav-link">會員登入</RouterLink>
+                  <RouterLink to="/login" class="fs-lg-6 fs-5 nav-link" @click="closeOffcanvas">
+                    會員登入
+                  </RouterLink>
                 </li>
                 <!-- 登入後：會員下拉選單 -->
                 <li class="nav-item dropdown me-2" v-else>
@@ -119,10 +98,18 @@ export default {
                   </a>
                   <ul class="dropdown-menu rounded-1" aria-labelledby="navbarDropdown">
                     <li>
-                      <RouterLink class="dropdown-item" to="/member/orders">查看訂單</RouterLink>
+                      <RouterLink class="dropdown-item" to="/member/orders" @click="closeOffcanvas">
+                        查看訂單
+                      </RouterLink>
                     </li>
                     <li>
-                      <RouterLink class="dropdown-item" to="/member/favorites">我的收藏</RouterLink>
+                      <RouterLink
+                        class="dropdown-item"
+                        to="/member/favorites"
+                        @click="closeOffcanvas"
+                      >
+                        我的收藏
+                      </RouterLink>
                     </li>
                     <li>
                       <a class="dropdown-item" href="#" @click.prevent="logout()">登出</a>
@@ -130,11 +117,21 @@ export default {
                   </ul>
                 </li>
                 <li class="nav-item d-none d-lg-block">
-                  <RouterLink to="/signup" class="fs-lg-6 fs-5 nav-link" v-if="!isLogin">
-                    <span class="icon-lg material-symbols-outlined me-1">edit_document</span>
-                    註冊
+                  <RouterLink
+                    to="/signup"
+                    class="fs-lg-6 fs-5 nav-link"
+                    v-if="!isLogin"
+                    @click="closeOffcanvas"
+                  >
+                    註冊會員
                   </RouterLink>
-                  <RouterLink to="/carts" class="nav-link" v-else>
+                  <RouterLink
+                    to="/carts"
+                    class="nav-link"
+                    v-else
+                    style="padding-top: 6px; padding-bottom: 6px"
+                    @click="closeOffcanvas"
+                  >
                     <span
                       class="icon-lg material-symbols-outlined position-relative"
                       :class="{ 'icon-fill': cartsNum }"
@@ -163,24 +160,37 @@ export default {
   </div>
 </template>
 
-<style>
-#headerNavbar {
-  /* .nav-item {
-    @include mobile {
-      &:first-child {
-        margin-top: -4px;
-      }
-    }
-  } */
-  @media (min-width: 992px) {
-    .offcanvas-body {
-      .nav-item:last-child {
-        .nav-link {
-          padding-top: 6px;
-          padding-bottom: 6px;
-        }
-      }
-    }
-  }
-}
-</style>
+<script>
+import { mapState, mapActions } from 'pinia';
+import getDataStore from '@/stores/getDataStore';
+import memberLoginStore from '@/stores/front/memberLoginStore';
+
+export default {
+  data() {
+    return {
+      nowRoute: this.$route.name,
+    };
+  },
+  computed: {
+    ...mapState(getDataStore, ['cartData']),
+    ...mapState(memberLoginStore, ['isLogin']),
+    cartsNum() {
+      return this.cartData.length;
+    },
+  },
+  methods: {
+    ...mapActions(getDataStore, ['getFontData']),
+    ...mapActions(memberLoginStore, ['logout', 'checkLoginState']),
+    closeOffcanvas() {
+      const colseBtn = document.querySelector('#headerNavbar .btn-close');
+      colseBtn.click();
+    },
+  },
+  mounted() {
+    this.checkLoginState(); // 網頁關閉後，仍可從 cookie 保持登入狀態
+    this.getFontData('cart');
+  },
+};
+</script>
+
+<style lang="scss"></style>

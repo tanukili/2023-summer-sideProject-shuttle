@@ -153,10 +153,14 @@ const router = createRouter({
       ],
     },
   ],
-  scrollBehavior() {
-    return {
-      top: 0, // 切換後將固定在最上方
-    };
+  scrollBehavior(to) {
+    // 除前台產品頁外，切換後將固定在最上方
+    if (!to.fullPath.match('products')) {
+      return {
+        top: 0,
+      };
+    }
+    return {};
   },
 });
 

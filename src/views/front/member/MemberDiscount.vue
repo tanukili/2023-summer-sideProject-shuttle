@@ -22,10 +22,11 @@
         </div>
         <div class="col-3 text-end">
           <router-link
-            class="icon-e icon-sm icon-east px-4 py-2 btn btn-primary-light fs-8 shadow-none"
+            class="px-4 py-2 btn btn-primary-light fs-8 shadow-none"
             :to="`${activity.page_path ? activity.page_path : '/'}`"
           >
             了解更多
+            <span class="icon-e icon-east"></span>
           </router-link>
         </div>
       </div>

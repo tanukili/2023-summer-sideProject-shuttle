@@ -44,7 +44,7 @@ export default defineStore('products', {
           this.products = res.data.products;
           const arrLength = this.products.length;
           let i = arrLength - 5;
-          for (i; i < arrLength; i++) {
+          for (i; i < arrLength; i += 1) {
             this.popProducts.push(this.products[i]);
           }
         })
