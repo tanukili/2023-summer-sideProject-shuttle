@@ -48,6 +48,7 @@
 <script>
 import { mapActions } from 'pinia';
 import memberStore from '@/stores/front/memberStore';
+import useActivitiesStore from '@/stores/useActivitiesStore';
 
 import MemberCalendar from '@/components/MemberCalendar.vue';
 
@@ -57,9 +58,11 @@ export default {
   },
   methods: {
     ...mapActions(memberStore, ['checkUserId']),
+    ...mapActions(useActivitiesStore, ['getActivities']),
   },
   beforeMount() {
     this.checkUserId();
+    this.getActivities();
   },
 };
 </script>
