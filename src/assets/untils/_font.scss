@@ -33,6 +33,16 @@ small,
 }
 
 // RWD
+@include mobile-sm {
+
+  @each $number,
+  $size in $font-sizes {
+    .fs-sm-#{$number} {
+      font-size: $size  !important;
+    }
+  }
+}
+
 @include pad {
 
   @each $number,
