@@ -50,7 +50,7 @@ import { mapActions } from 'pinia';
 import memberStore from '@/stores/front/memberStore';
 import useActivitiesStore from '@/stores/useActivitiesStore';
 
-import MemberCalendar from '@/components/MemberCalendar.vue';
+import MemberCalendar from '@/components/front/member/MemberCalendar.vue';
 
 export default {
   components: {

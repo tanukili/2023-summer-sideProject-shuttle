@@ -183,6 +183,7 @@
               :class="[isEditing ? 'btn-primary-light' : 'btn-primary']"
               class="btn fs-8 w-100"
               type="button"
+              style="min-width: 140px"
             >
               {{ isEditing ? '取消編輯' : '變更資料' }}
             </button>

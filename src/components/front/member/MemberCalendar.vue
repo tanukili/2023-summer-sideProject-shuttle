@@ -1,12 +1,19 @@
+<template>
+  <div class="d-none">{{ calenderEvents }}</div>
+  <div class="calendar-h mb-3 shadow bg-white">
+    <FullCalendar :options="calendarOptions" />
+  </div>
+</template>
+
 <script>
 // FullCalendar Vue
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import multiMonthPlugin from '@fullcalendar/multimonth';
-// import zhCnLocale from '@fullcalendar/core/locales/zh-cn';
 import { mapState, mapActions } from 'pinia';
-import useOrderStore from '../stores/useOrderStore';
+import useOrderStore from '@/stores/useOrderStore';
+import alertStore from '@/stores/alertStore';
 
 export default {
   components: {
@@ -17,8 +24,6 @@ export default {
       calendarOptions: {
         plugins: [multiMonthPlugin, interactionPlugin, dayGridPlugin],
         initialView: 'dayGridMonth',
-        // locale: zhCnLocale,
-        // handleWindowResize: true,
         multiMonthTitleFormat: { month: 'long' },
         aspectRatio: 2,
         expandRows: true,
@@ -45,13 +50,18 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(useOrderStore, ['orders', 'calenderEvents']),
+    ...mapState(alertStore, ['alertstyles']),
+  },
   methods: {
     ...mapActions(useOrderStore, ['getOrders']),
-
+    ...mapActions(alertStore, ['baseContent', 'btns']),
     handleEventMouseEnter(info) {
       const event = info.event._def;
-      this.$swal({
-        title: `${event.title}`,
+      this.alertstyles.alert_btns.fire({
+        ...this.baseContent(`${event.title}`, 0, '關閉'),
+        // ...this.btns('課程詳細', false),
         html: `<p>上課人數：${event.extendedProps.description}</p><p>上課時間：${event.extendedProps.startStr}</p>`,
       });
     },
@@ -62,18 +72,8 @@ export default {
   beforeUpdate() {
     this.calendarOptions.events = this.calenderEvents;
   },
-  computed: {
-    ...mapState(useOrderStore, ['orders', 'calenderEvents']),
-  },
 };
 </script>
-
-<template>
-  <div class="d-none">{{ calenderEvents }}</div>
-  <div class="calendar-h mb-3 shadow bg-white">
-    <FullCalendar :options="calendarOptions" />
-  </div>
-</template>
 
 <style>
 .fc-header-toolbar {
