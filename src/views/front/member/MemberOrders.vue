@@ -62,7 +62,7 @@
                 <h3 class="fs-7 mb-0 text-start">{{ product.product.title }}</h3>
               </td>
               <td>{{ product.qty }} 位</td>
-              <td class="text-end">NT$ {{ product.total }}</td>
+              <td class="text-end">NT$ {{ fixSubtotal(product) }}</td>
               <td width="160">
                 <button
                   type="button"
@@ -89,7 +89,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3" class="text-start">
+              <td colspan="2" class="text-start">
                 <router-link
                   class="btn btn-primary-light py-2 fs-8 shadow-none"
                   :to="`/member/order/${order.id}`"
@@ -98,7 +98,20 @@
                   <span class="icon-e icon-east"></span>
                 </router-link>
               </td>
-              <td colspan="2" class="text-end">訂單總金額：NT$ {{ order.finalBill }}</td>
+              <td colspan="3" class="text-end">
+                <span
+                  v-if="
+                    order.user.cartOverview.couponDiscount || order.user.cartOverview.fullDiscount
+                  "
+                  class="badge bg-danger bg-opacity-25 text-danger rounded-1 fs-9 fw-bold me-1"
+                >
+                  已扣除額外折扣：-
+                  {{
+                    order.user.cartOverview.couponDiscount + order.user.cartOverview.fullDiscount
+                  }}
+                </span>
+                訂單總金額：NT$ {{ order?.user?.cartOverview?.finalBill }}
+              </td>
             </tr>
           </tfoot>
         </table>
@@ -107,7 +120,7 @@
     <table v-else class="last-tr-borderless table my-4 table-white text-center align-middle">
       <thead>
         <tr>
-          <th scope="col">最近開課時間</th>
+          <th scope="col">近期開課</th>
           <th scope="col">預覽圖片</th>
           <th scope="col">課程名稱</th>
           <th scope="col">人數</th>
@@ -147,7 +160,7 @@
             <h2 class="fs-7 mb-0">{{ product.product.title }}</h2>
           </td>
           <td>{{ product.qty }} 位</td>
-          <td class="text-end">NT$ {{ product.total }}</td>
+          <td class="text-end">NT$ {{ fixSubtotal(product) }}</td>
           <td width="160">
             <button
               type="button"
@@ -179,14 +192,15 @@
 </template>
 
 <script>
-import MemberNavs from '@/components/front/member/MemberNavs.vue';
-import CommentModal from '@/components/front/member/CommentModal.vue';
-import ProductModal from '@/components/front/member/ProductModal.vue';
 import { mapState, mapActions } from 'pinia';
 import getDataStore from '@/stores/getDataStore';
 import useProductsStore from '@/stores/useProductsStore';
 import utilitiesStore from '@/stores/utilitiesStore';
 import memberStore from '@/stores/front/memberStore';
+import useActivitiesStore from '@/stores/useActivitiesStore';
+import MemberNavs from '@/components/front/member/MemberNavs.vue';
+import CommentModal from '@/components/front/member/CommentModal.vue';
+import ProductModal from '@/components/front/member/ProductModal.vue';
 
 export default {
   components: {
@@ -222,8 +236,8 @@ export default {
       }
     },
     findRecentCourse(unixArr) {
+      const nowDate = 1720098000 + 2; // demo 使用
       // const nowDate = Math.floor(+new Date() / 1000);
-      const nowDate = 1720098000 + 2;
       const flatUnixArr = unixArr.flat();
       const [firstUnix] = flatUnixArr;
       let stateCode = 0;
@@ -247,11 +261,23 @@ export default {
       // 判斷結束
       return { stateCode, caption: captions[stateCode], date: this.unixToStr(targetUnix, false) };
     },
+    // 滿人數優惠的小計修正
+    fixSubtotal(product) {
+      const { promotion } = product.product.state;
+      const activityName = Object.keys(this.numActivities)[0];
+      const { percentOff } = this.numActivities[activityName];
+      if (promotion === activityName) return product.final_total * percentOff;
+      return product.final_total;
+    },
+    checkIsCommented(comments, product) {
+      return comments.some((comment) => comment.orderId === product.id);
+    },
   },
   computed: {
     ...mapState(useProductsStore, ['singleProduct']),
     ...mapState(getDataStore, ['remoteData']),
     ...mapState(memberStore, ['userComments']),
+    ...mapState(useActivitiesStore, ['numActivities']),
     navsOption() {
       return this.isOrdersMode ? this.orderOption : this.courseOption;
     },
@@ -285,13 +311,27 @@ export default {
           const { classTime } = product.product.info;
           updatedOrder.products[product.id].recentCourse = this.findRecentCourse(classTime);
           // 新增：是否已評論
-          updatedOrder.products[product.id].isCommented = this.userComments.some(
-            (comment) => comment.orderId === product.id,
+          updatedOrder.products[product.id].isCommented = this.checkIsCommented(
+            this.userComments,
+            product,
           );
         });
         return updatedOrder;
       });
       this.courses = newValue.map((order) => Object.values(order.products)).flat();
+    },
+    userComments(newComments) {
+      // 即時更新訂單中的課程是否評論
+      if (this.orders?.length) {
+        this.orders.forEach((order, index) => {
+          const products = Object.values(order.products);
+          products.forEach((product) => {
+            this.orders[index].products[product.id].isCommented = newComments.some(
+              (comment) => comment.productId === product.product_id,
+            );
+          });
+        });
+      }
     },
   },
   mounted() {

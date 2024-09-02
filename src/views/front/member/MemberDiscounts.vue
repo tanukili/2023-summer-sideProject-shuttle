@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-3">
+  <div class="mt-3 mt-md-0">
     <MemberNavs :options="navsOption" :now-option="nowOption" @get-option="getOption" />
   </div>
   <router-view></router-view>

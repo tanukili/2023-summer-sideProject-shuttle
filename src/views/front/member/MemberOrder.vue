@@ -17,7 +17,7 @@
             type="button"
           >
             <i class="bi" :class="[order.is_paid ? 'bi-bell-fill' : 'bi-bell']"></i>
-            {{ order.is_paid ? '已確認付款' : '通知付款' }}
+            {{ order.is_paid ? '已通知付款' : '通知付款' }}
           </button>
           <span
             class="badge text-white rounded-1 fs-7 ms-2"
@@ -108,15 +108,29 @@
         <ul class="list-group rounded-2 text-mellow">
           <li class="list-group-item border-0 d-flex justify-content-between py-2">
             原始金額：
-            <span class="fw-bold ms-2">NT$ {{ originBill }}</span>
+            <span class="fw-bold ms-2">NT$ {{ order.user.cartOverview.sumSubtotals }}</span>
           </li>
-          <li class="list-group-item border-0 d-flex justify-content-between py-2">
-            為您省下：
-            <span class="fw-bold ms-2 text-danger">NT$ -{{ originBill - finalBill }}</span>
+          <li
+            v-if="order.user.cartOverview.couponDiscount"
+            class="list-group-item border-0 d-flex justify-content-between py-2"
+          >
+            優惠券折抵：
+            <span class="fw-bold ms-2 text-danger">
+              -{{ order.user.cartOverview.couponDiscount }}
+            </span>
+          </li>
+          <li
+            v-if="order.user.cartOverview.fullDiscount"
+            class="list-group-item border-0 d-flex justify-content-between py-2"
+          >
+            滿額折抵：
+            <span class="fw-bold ms-2 text-danger">
+              -{{ order.user.cartOverview.fullDiscount }}
+            </span>
           </li>
           <li class="list-group-item border-0 d-flex justify-content-between py-2">
             訂單總金額：
-            <span class="fw-bold ms-2">NT$ {{ finalBill }}</span>
+            <span class="fw-bold ms-2">NT$ {{ order.user.cartOverview.finalBill }}</span>
           </li>
         </ul>
       </div>
@@ -168,11 +182,11 @@ export default {
       this.axios
         .post(`${this.hexApi}api/${this.apiPath}/pay/${id}`)
         .then(() => {
-          this.alertstyles.toast.fire(this.baseContent('完成付款通知'));
+          this.alertstyles.toast.fire('完成付款通知');
           this.getFontData('order', id);
         })
         .catch((err) => {
-          console.log(err.data);
+          this.alertstyles.toast_danger.fire(`問題${err.response.status}，抱歉請洽客服`);
         });
     },
   },

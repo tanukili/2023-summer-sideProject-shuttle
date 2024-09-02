@@ -22,3 +22,9 @@
     @content;
   }
 }
+
+@mixin mobile-sm {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
