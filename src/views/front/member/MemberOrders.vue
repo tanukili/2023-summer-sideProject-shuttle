@@ -269,6 +269,9 @@ export default {
       if (promotion === activityName) return product.final_total * percentOff;
       return product.final_total;
     },
+    checkIsCommented(comments, product) {
+      return comments.some((comment) => comment.orderId === product.id);
+    },
   },
   computed: {
     ...mapState(useProductsStore, ['singleProduct']),
@@ -308,14 +311,27 @@ export default {
           const { classTime } = product.product.info;
           updatedOrder.products[product.id].recentCourse = this.findRecentCourse(classTime);
           // 新增：是否已評論
-          updatedOrder.products[product.id].isCommented = this.userComments.some(
-            (comment) => comment.orderId === product.id,
+          updatedOrder.products[product.id].isCommented = this.checkIsCommented(
+            this.userComments,
+            product,
           );
         });
         return updatedOrder;
       });
-      console.log(this.orders);
       this.courses = newValue.map((order) => Object.values(order.products)).flat();
+    },
+    userComments(newComments) {
+      // 即時更新訂單中的課程是否評論
+      if (this.orders?.length) {
+        this.orders.forEach((order, index) => {
+          const products = Object.values(order.products);
+          products.forEach((product) => {
+            this.orders[index].products[product.id].isCommented = newComments.some(
+              (comment) => comment.productId === product.product_id,
+            );
+          });
+        });
+      }
     },
   },
   mounted() {

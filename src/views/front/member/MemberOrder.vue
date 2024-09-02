@@ -193,7 +193,6 @@ export default {
   watch: {
     singleInfo(newValue) {
       this.order = { ...newValue };
-      console.log(this.order);
     },
   },
   mounted() {

@@ -12,9 +12,9 @@
           <div class="mb-2 mb-md-0">
             <img
               :src="favorite.imageUrl"
-              class="card-mask img-fluid rounded-top-2 h-100"
+              class="card-mask img-fluid rounded-top-2"
               :alt="favorite.title"
-              style="max-height: 220px"
+              style="height: 180px"
             />
           </div>
           <div class="card-body d-flex flex-column justify-content-between h-100">
