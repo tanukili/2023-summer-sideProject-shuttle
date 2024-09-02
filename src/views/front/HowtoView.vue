@@ -21,7 +21,7 @@
           <div class="col-md">
             <div class="card">
               <img
-                src="how-to/knitting.png"
+                src="/how-to/knitting.png"
                 class="card-img rounded-2"
                 style="max-height: 300px"
                 alt="weaving"
@@ -38,7 +38,7 @@
           <div class="col-md">
             <div class="card">
               <img
-                src="how-to/weaving.jpg"
+                src="/how-to/weaving.jpg"
                 class="card-img rounded-2"
                 alt="weaving"
                 style="max-height: 300px"
@@ -121,28 +121,28 @@ export default {
       bannerImg: 'banner/banner-how-to.png',
       howToData: [
         {
-          imgUrl: 'how-to/how-to-01.png',
+          imgUrl: '/how-to/how-to-01.png',
           title: '事前規劃',
           content: '思考圖案花樣、成品尺寸等，並依設計圖回推，計算需要的經線長度與根數。',
         },
         {
-          imgUrl: 'how-to/how-to-02.png',
+          imgUrl: '/how-to/how-to-02.png',
           title: '整經與上機',
           content: '依需求整理出經線，再將經線固定在織布機的後方木軸上。',
         },
         {
-          imgUrl: 'how-to/how-to-03.png',
+          imgUrl: '/how-to/how-to-03.png',
           title: '穿綜',
           content: '將經線穿過綜片（提起經線用）後，固定在織布機另一端。',
         },
         {
-          imgUrl: 'how-to/how-to-04.png',
+          imgUrl: '/how-to/how-to-04.png',
           title: '織作',
           content:
             '把緯線纏好在梭子上，當分別提起綜片時，將梭子穿過交錯的經線。一來一往逐漸完成作品。',
         },
         {
-          imgUrl: 'how-to/how-to-05.png',
+          imgUrl: '/how-to/how-to-05.png',
           title: '收尾，完成！',
           content: '織布兩端作完收尾處理，就可以從織布機取下來，恭喜完成作品！',
         },

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "deploy": "vite build && gh-pages -d dist",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "mock": "cd mock & json-server-auth db.json --port 3000"
@@ -43,6 +44,7 @@
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-vue": "^9.16.1",
+    "gh-pages": "^6.1.1",
     "sass": "^1.66.1",
     "vite": "^4.4.9"
   },
