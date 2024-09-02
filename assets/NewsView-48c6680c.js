@@ -1,1 +1,0 @@
-import{_ as o,l as s,e as a,f as n,s as r,u as c,F as l,j as e,x as _}from"./index-17ffa8d7.js";const d={data(){return{isLoading:!1}},mounted(){}},u=e("div",{class:"about"},[e("h1",null,"消息列表")],-1);function i(p,f,m,x,h,k){const t=s("router-link");return a(),n(l,null,[u,r(t,{to:"/new"},{default:c(()=>[_("了解更多")]),_:1})],64)}const N=o(d,[["render",i]]);export{N as default};

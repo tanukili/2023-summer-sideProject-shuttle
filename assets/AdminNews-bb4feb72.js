@@ -1,1 +1,0 @@
-import{_ as e,e as s,f as t,j as o}from"./index-17ffa8d7.js";const c={},n={class:"about"},_=o("h1",null,"後台文章列表",-1),a=[_];function r(d,i){return s(),t("div",n,a)}const l=e(c,[["render",r]]);export{l as default};

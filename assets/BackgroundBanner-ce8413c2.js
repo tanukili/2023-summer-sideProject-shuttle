@@ -1,0 +1,1 @@
+import{_ as n,o as s,c as a,a as c}from"./index-686eedae.js";const r={props:["bannerImg"]},o={class:"full-banner"},t=["src"];function _(l,d,e,i,p,u){return s(),a("div",o,[c("img",{src:e.bannerImg,alt:"banner",class:"w-100 h-100"},null,8,t)])}const m=n(r,[["render",_]]);export{m as B};
