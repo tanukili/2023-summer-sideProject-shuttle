@@ -319,6 +319,7 @@
           :autoplay="{
             delay: 3000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }"
           :breakpoints="{
             '768': {
@@ -352,23 +353,23 @@
                   style="height: 240px"
                 />
                 <span
-                  v-if="unlimitedActivities[course.state.promotion]"
-                  class="badge badge-sale position-absolute start-0"
-                  style="top: 24px"
+                  class="badge badge-sale text-white position-absolute"
+                  :class="[numActivities[course.state.promotion] ? 'bg-warning' : 'bg-success']"
+                  style="top: 24px; left: -4px"
                 >
-                  {{ unlimitedActivities[course.state.promotion].badge }}
+                  {{ activies[course.state.promotion]?.badge }}
                 </span>
-                <span
-                  v-else-if="numActivities[course.state.promotion]"
-                  class="badge badge-sale bg-success position-absolute start-0"
-                  style="top: 24px"
+                <a
+                  href="#"
+                  @click.prevent="toggleFavorite(course.id)"
+                  :title="[favorites.indexOf(course.id) !== -1 ? '移除收藏' : '加入收藏']"
                 >
-                  {{ numActivities[course.state.promotion].badge }}
-                </span>
-                <a href="#">
                   <span
                     class="icon-favorite material-symbols-outlined position-absolute"
                     style="top: 24px; right: 24px"
+                    :class="{
+                      'icon-fill text-danger': favorites.indexOf(course.id) !== -1,
+                    }"
                   >
                     favorite
                   </span>
@@ -430,7 +431,7 @@
       style="width: 70%; height: 360px; top: 460px"
     ></div>
   </div>
-  <BackToTop></BackToTop>
+  <BackToTop />
 </template>
 
 <script>
@@ -443,6 +444,7 @@ import 'swiper/css/navigation';
 import { mapActions, mapState } from 'pinia';
 import useProductsStore from '@/stores/useProductsStore';
 import useActivitiesStore from '@/stores/useActivitiesStore';
+import useFavoriteStore from '@/stores/useFavoriteStore';
 import BackToTop from '@/components/BackToTop.vue';
 
 export default {
@@ -531,10 +533,15 @@ export default {
   computed: {
     ...mapState(useProductsStore, ['popProducts']),
     ...mapState(useActivitiesStore, ['numActivities', 'unlimitedActivities']),
+    ...mapState(useFavoriteStore, ['favorites']),
+    activies() {
+      return { ...this.numActivities, ...this.unlimitedActivities };
+    },
   },
   methods: {
     ...mapActions(useProductsStore, ['getAllProducts']),
     ...mapActions(useActivitiesStore, ['getActivities']),
+    ...mapActions(useFavoriteStore, ['toggleFavorite', 'getFavorites']),
     onSwiper(swiper) {
       this.swiper = swiper;
     },
@@ -545,6 +552,7 @@ export default {
   mounted() {
     this.getAllProducts();
     this.getActivities();
+    this.getFavorites();
   },
 };
 </script>
@@ -552,7 +560,8 @@ export default {
 <style lang="scss">
 .home-banner {
   /* 加上半透明遮罩 */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(banner/banner.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('/banner/banner.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

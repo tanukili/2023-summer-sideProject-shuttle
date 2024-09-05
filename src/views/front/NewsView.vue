@@ -73,17 +73,18 @@
       </div>
     </div>
   </div>
+  <BackToTop />
 </template>
 
 <script>
 import { mapState, mapActions } from 'pinia';
-import getDataStore from '../../stores/getDataStore';
+import getDataStore from '@/stores/getDataStore';
 
-import BackgroundBanner from '../../components/BackgroundBanner.vue';
+import BackToTop from '@/components/BackToTop.vue';
+import BackgroundBanner from '@/components/BackgroundBanner.vue';
 
 export default {
-  components: { BackgroundBanner },
-
+  components: { BackgroundBanner, BackToTop },
   data() {
     return {
       bannerImg: 'banner/banner-news.png',

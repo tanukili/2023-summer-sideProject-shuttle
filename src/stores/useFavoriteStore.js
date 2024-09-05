@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import swal from 'sweetalert2';
 import axios from 'axios';
 import alertStore from './alertStore';
 
@@ -13,29 +12,10 @@ export default defineStore('favorite', {
   }),
   getters: {},
   actions: {
-    addFavorite(prodcutId) {
-      this.favorites.push(prodcutId);
-      const obj = {
-        productId: prodcutId,
-        userId,
-      };
-      axios.post(`${api}/favorites`, obj).then(() => {
-        swal.fire({
-          confirmButtonText: '確認',
-          title: '已加入收藏',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutDown',
-          },
-        });
-      });
-    },
     toggleFavorite(prodcutId) {
       const { alertstyles, baseContent } = alertStore();
-      const isAdded = this.favorites.indexOf(prodcutId) !== -1;
-      if (isAdded) {
+      const haveAdded = this.favorites.indexOf(prodcutId) !== -1;
+      if (haveAdded) {
         const id = this.favoritesObj[prodcutId];
         this.deleteFavorite(id);
       } else {
