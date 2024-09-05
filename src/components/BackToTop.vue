@@ -1,3 +1,14 @@
+<template>
+  <div
+    class="toTop fixed-bottom bg-white p-2 rounded-circle shadow"
+    style="width: 56px"
+    @click.prevent="goToTop"
+    :class="{ 'd-none': height < 500 }"
+  >
+    <span class="material-symbols-outlined lh-1 fs-2 fw-semibold">stat_2</span>
+  </div>
+</template>
+
 <script>
 export default {
   data() {
@@ -8,7 +19,6 @@ export default {
   },
   methods: {
     goToTop() {
-      // document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     },
     updateScroll() {
@@ -20,18 +30,8 @@ export default {
   },
 };
 </script>
-<template>
-  <div
-    class="toTop fixed-bottom bg-white p-2 rounded-circle shadow"
-    style="width: 56px"
-    @click.prevent="goToTop"
-    :class="{ 'd-none': height < 500 }"
-  >
-    <span class="material-symbols-outlined fs-2 fw-semibold">stat_2</span>
-  </div>
-</template>
 
-<style>
+<style lang="scss">
 .toTop {
   bottom: 24px;
   right: 24px;

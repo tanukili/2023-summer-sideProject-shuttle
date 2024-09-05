@@ -11,15 +11,15 @@
         </router-link>
       </h2>
       <div class="row gx-2 gx-md-3 mx-2">
-        <div class="col-12 col-sm-5 col-lg-">
+        <div class="col-12 col-sm-5">
           <img
-            :src="`${activity['image-sm']}`"
+            :src="`${activity['image-sm'].replace('/', '')}`"
             alt="優惠封面照"
             class="rounded-2"
             style="max-height: 180px"
           />
         </div>
-        <div class="col-sm-7 col-lg">
+        <div class="col-sm-7">
           <div class="row gx-0 gy-2 gy-sm-0 flex-sm-column h-100">
             <div class="col-12 my-auto text-center">
               <h3 class="fs-7 fs-lg-6 d-none d-sm-block mb-1 mb-lg-2">
@@ -43,13 +43,16 @@
       </div>
     </div>
   </div>
+  <BackToTop />
 </template>
 
 <script>
 import { mapState, mapActions } from 'pinia';
 import getDataStore from '@/stores/getDataStore';
+import BackToTop from '@/components/BackToTop.vue';
 
 export default {
+  components: { BackToTop },
   data() {
     return {
       activies: null,

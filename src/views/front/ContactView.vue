@@ -102,16 +102,16 @@ export default {
     background-repeat: no-repeat;
   }
   &-facebook::before {
-    background-image: url('icon/Facebook.svg');
+    background-image: url('/icon/Facebook.svg');
   }
   &-messager::before {
-    background-image: url('icon/Messager.svg');
+    background-image: url('/icon/Messager.svg');
   }
   &-instagram::before {
-    background-image: url('icon/Instagram.svg');
+    background-image: url('/icon/Instagram.svg');
   }
   &-pinterest::before {
-    background-image: url('icon/Pinterest.svg');
+    background-image: url('/icon/Pinterest.svg');
   }
 }
 </style>

@@ -61,13 +61,16 @@
       <div v-else>資料取得中</div>
     </div>
   </div>
+  <BackToTop />
 </template>
 
 <script>
 import { mapState, mapActions } from 'pinia';
-import getDataStore from '../../stores/getDataStore';
+import BackToTop from '@/components/BackToTop.vue';
+import getDataStore from '@/stores/getDataStore';
 
 export default {
+  components: { BackToTop },
   data() {
     return {};
   },

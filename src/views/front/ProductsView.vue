@@ -126,6 +126,7 @@
       </div>
     </div>
   </div>
+  <BackToTop />
 </template>
 
 <script>
@@ -134,11 +135,13 @@ import useProductsStore from '@/stores/useProductsStore';
 import useActivitiesStore from '@/stores/useActivitiesStore';
 import useFavoriteStore from '@/stores/useFavoriteStore';
 
+import BackToTop from '@/components/BackToTop.vue';
 import BackgroundBanner from '@/components/BackgroundBanner.vue';
 
 export default {
   components: {
     BackgroundBanner,
+    BackToTop,
   },
   data() {
     return {

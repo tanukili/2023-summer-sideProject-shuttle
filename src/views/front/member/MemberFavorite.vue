@@ -85,6 +85,7 @@
       </div>
     </div>
   </div>
+  <BackToTop />
 </template>
 
 <script>
@@ -92,8 +93,10 @@ import { mapState, mapActions } from 'pinia';
 import useActivitiesStore from '@/stores/useActivitiesStore';
 import useFavoriteStore from '@/stores/useFavoriteStore';
 import useProductsStore from '@/stores/useProductsStore';
+import BackToTop from '@/components/BackToTop.vue';
 
 export default {
+  components: { BackToTop },
   methods: {
     ...mapActions(useActivitiesStore, ['getActivities']),
     ...mapActions(useFavoriteStore, ['deleteFavorite', 'getFavorites']),

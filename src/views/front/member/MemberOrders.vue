@@ -189,6 +189,7 @@
   </div>
   <ProductModal :clicked-course="clickedCourse" />
   <CommentModal :clicked-course="clickedCourse" />
+  <BackToTop />
 </template>
 
 <script>
@@ -201,12 +202,14 @@ import useActivitiesStore from '@/stores/useActivitiesStore';
 import MemberNavs from '@/components/front/member/MemberNavs.vue';
 import CommentModal from '@/components/front/member/CommentModal.vue';
 import ProductModal from '@/components/front/member/ProductModal.vue';
+import BackToTop from '@/components/BackToTop.vue';
 
 export default {
   components: {
     MemberNavs,
     CommentModal,
     ProductModal,
+    BackToTop,
   },
   data() {
     return {
